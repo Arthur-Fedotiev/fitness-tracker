@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +13,6 @@ import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
-    FlexLayoutModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
@@ -28,7 +26,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ],
   exports: [
-    FlexLayoutModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,

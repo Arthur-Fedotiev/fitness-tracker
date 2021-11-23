@@ -52,6 +52,7 @@
               "apps/fitness-tracker/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "apps/fitness-tracker/src/styles.scss"
             ],
             "scripts": []
