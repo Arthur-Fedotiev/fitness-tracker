@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fitness-tracker-de06b": {
+      "hosting": {
+        "fitness-tracker": [
+          "fitness-tracker-de06b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fitness-tracker-de06b"
+  }
+}

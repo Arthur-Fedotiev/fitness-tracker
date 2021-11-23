@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fitness-tracker/auth": ["libs/auth/src/index.ts"]
+      "@fitness-tracker/auth": ["libs/auth/src/index.ts"],
+      "@fitness-tracker/material": ["libs/material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

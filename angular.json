@@ -9,7 +9,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/auth"],
+          "outputs": [
+            "coverage/libs/auth"
+          ],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
             "passWithNoTests": true
@@ -35,7 +37,9 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/fitness-tracker",
             "index": "apps/fitness-tracker/src/index.html",
@@ -47,7 +51,9 @@
               "apps/fitness-tracker/src/favicon.ico",
               "apps/fitness-tracker/src/assets"
             ],
-            "styles": ["apps/fitness-tracker/src/styles.scss"],
+            "styles": [
+              "apps/fitness-tracker/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -112,10 +118,22 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/fitness-tracker"],
+          "outputs": [
+            "coverage/apps/fitness-tracker"
+          ],
           "options": {
             "jestConfig": "apps/fitness-tracker/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "fitness-tracker:build:production",
+            "firebaseProject": "fitness-tracker-de06b",
+            "firebaseHostingSite": "fitness-tracker-de06b"
           }
         }
       },
@@ -140,14 +158,48 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
+          "outputs": [
+            "{options.outputFile}"
+          ],
           "options": {
-            "lintFilePatterns": ["apps/fitness-tracker-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/fitness-tracker-e2e/**/*.{js,ts}"
+            ]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": ["fitness-tracker"]
+      "implicitDependencies": [
+        "fitness-tracker"
+      ]
+    },
+    "material": {
+      "projectType": "library",
+      "root": "libs/material",
+      "sourceRoot": "libs/material/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/material"
+          ],
+          "options": {
+            "jestConfig": "libs/material/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/material/src/**/*.ts",
+              "libs/material/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }
