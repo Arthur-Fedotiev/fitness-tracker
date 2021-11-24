@@ -1,19 +1,17 @@
 {
   "version": 1,
   "projects": {
-    "auth": {
+    "auth-data": {
       "projectType": "library",
-      "root": "libs/auth",
-      "sourceRoot": "libs/auth/src",
+      "root": "libs/auth/data",
+      "sourceRoot": "libs/auth/data/src",
       "prefix": "fitness-tracker",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/auth"
-          ],
+          "outputs": ["coverage/libs/auth/data"],
           "options": {
-            "jestConfig": "libs/auth/jest.config.js",
+            "jestConfig": "libs/auth/data/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -21,8 +19,86 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/auth/src/**/*.ts",
-              "libs/auth/src/**/*.html"
+              "libs/auth/data/src/**/*.ts",
+              "libs/auth/data/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "auth-feature": {
+      "projectType": "library",
+      "root": "libs/auth/feature",
+      "sourceRoot": "libs/auth/feature/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth/feature"],
+          "options": {
+            "jestConfig": "libs/auth/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/feature/src/**/*.ts",
+              "libs/auth/feature/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "auth-model": {
+      "projectType": "library",
+      "root": "libs/auth/model",
+      "sourceRoot": "libs/auth/model/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth/model"],
+          "options": {
+            "jestConfig": "libs/auth/model/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/model/src/**/*.ts",
+              "libs/auth/model/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "auth-ui": {
+      "projectType": "library",
+      "root": "libs/auth/ui",
+      "sourceRoot": "libs/auth/ui/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth/ui"],
+          "options": {
+            "jestConfig": "libs/auth/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/ui/src/**/*.ts",
+              "libs/auth/ui/src/**/*.html"
             ]
           }
         }
@@ -37,9 +113,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/fitness-tracker",
             "index": "apps/fitness-tracker/src/index.html",
@@ -119,9 +193,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/fitness-tracker"
-          ],
+          "outputs": ["coverage/apps/fitness-tracker"],
           "options": {
             "jestConfig": "apps/fitness-tracker/jest.config.js",
             "passWithNoTests": true
@@ -159,20 +231,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/fitness-tracker-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/fitness-tracker-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "fitness-tracker"
-      ]
+      "implicitDependencies": ["fitness-tracker"]
     },
     "material": {
       "projectType": "library",
@@ -182,9 +248,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/material"
-          ],
+          "outputs": ["coverage/libs/material"],
           "options": {
             "jestConfig": "libs/material/jest.config.js",
             "passWithNoTests": true

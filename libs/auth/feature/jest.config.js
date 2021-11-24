@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'auth',
-  preset: '../../jest.preset.js',
+  displayName: 'auth-feature',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/auth',
+  coverageDirectory: '../../../coverage/libs/auth/feature',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

@@ -9,22 +9,31 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import {
+  provideAnalytics,
+  getAnalytics,
+  ScreenTrackingService,
+  UserTrackingService,
+} from '@angular/fire/analytics';
 import { provideAuth, getAuth, AuthModule } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
-import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
+import {
+  provideRemoteConfig,
+  getRemoteConfig,
+} from '@angular/fire/remote-config';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+  BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
     StoreModule.forRoot(
@@ -42,6 +51,7 @@ import { RouterModule } from '@angular/router';
     FlexLayoutModule,
     AppRoutingModule,
     AuthModule,
+    AuthFeatureModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -53,9 +63,7 @@ import { RouterModule } from '@angular/router';
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
   ],
-  providers: [
-    ScreenTrackingService, UserTrackingService
-  ],
+  providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
