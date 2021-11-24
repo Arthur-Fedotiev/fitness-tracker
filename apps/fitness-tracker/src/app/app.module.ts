@@ -20,6 +20,7 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +40,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
     ),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    FlexLayoutModule,
     AppRoutingModule,
     AuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
