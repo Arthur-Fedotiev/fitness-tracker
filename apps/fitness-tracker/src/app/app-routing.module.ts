@@ -6,7 +6,8 @@ const appRoutes: Route[] = [{
   path: '',
   component: LayoutComponent,
   children: [
-    { path: 'auth', loadChildren: () => import('@fitness-tracker/auth/feature').then(m => m.AuthFeatureModule) }
+    { path: 'auth', loadChildren: () => import('@fitness-tracker/auth/feature').then(m => m.AuthFeatureModule) },
+    { path: 'exercises', loadChildren: () => import('@fitness-tracker/exercises/feature').then(m => m.ExercisesFeatureModule)}
   ],
 },
 { path: '**', redirectTo: '' }];

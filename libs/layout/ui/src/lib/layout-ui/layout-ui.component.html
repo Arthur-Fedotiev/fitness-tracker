@@ -1,14 +1,14 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #start (click)="start.close()">
     <mat-nav-list>
-      <a mat-list-item routerLink="/">
+      <a mat-list-item [routerLink]="['exercises', 'all']">
         <mat-icon>library_books</mat-icon>
-        <span>Courses</span>
+        <span>Exercises</span>
       </a>
 
-      <a mat-list-item routerLink="/create-user">
+      <a mat-list-item [routerLink]="['exercises', 'create']">
         <mat-icon>add_circle_outline</mat-icon>
-        <span>Create user</span>
+        <span>Create exercise</span>
       </a>
 
       <a mat-list-item routerLink="about">
