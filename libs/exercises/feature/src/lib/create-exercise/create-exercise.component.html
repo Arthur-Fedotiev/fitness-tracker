@@ -1,9 +1,9 @@
 <div class="create-course">
   <h3>Create New Exercise</h3>
 
-  <form>
+  <form [formGroup]="createExerciseForm">
     <mat-form-field appearance="outline">
-      <input placeholder="Exercise name" matInput />
+      <input placeholder="Exercise name" matInput formControlName="name" />
     </mat-form-field>
 
     <div class="course-image-upload">
@@ -13,7 +13,10 @@
     </div>
 
     <mat-form-field appearance="outline">
-      <mat-select placeholder="Select muscles category">
+      <mat-select
+        placeholder="Select muscles category"
+        formControlName="musclesCategory"
+      >
         <mat-option value="PUSH">PUSH</mat-option>
         <mat-option value="PULL">PULL</mat-option>
         <mat-option value="LEGS">LEGS</mat-option>
@@ -21,7 +24,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-select placeholder="Select load category">
+      <mat-select
+        placeholder="Select load category"
+        formControlName="loadCategory"
+      >
         <mat-option value="STRENGTH">STRENGTH</mat-option>
         <mat-option value="POWER">POWER</mat-option>
         <mat-option value="HYPERTROFYPHY">HYPERTROFYPHY</mat-option>
@@ -32,12 +38,23 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <input placeholder="Exercise url" matInput />
+      <input placeholder="Exercise url" matInput formControlName="url" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <textarea matInput placeholder="Exercise description"></textarea>
+      <textarea
+        matInput
+        placeholder="Exercise description"
+        formControlName="description"
+      ></textarea>
     </mat-form-field>
-    <button mat-raised-button color="warn">Create Course</button>
+    <button
+      mat-raised-button
+      color="warn"
+      [disabled]="!createExerciseForm.valid"
+      (click)="onCreateExercise()"
+    >
+      Create Course
+    </button>
   </form>
 </div>

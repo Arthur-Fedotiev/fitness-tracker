@@ -5,9 +5,10 @@ import { ExercisesPageComponent } from './exercises-page/exercises-page.componen
 import { ExercisesFeatureRoutingModule } from './exercises-feature-routing.module';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { MaterialModule } from '@fitness-tracker/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, ExercisesFeatureRoutingModule, MaterialModule],
+  imports: [CommonModule, ExercisesFeatureRoutingModule, MaterialModule, ReactiveFormsModule],
   declarations: [
     ExerciseEditModalComponent,
     ExercisesPageComponent,
@@ -17,4 +18,4 @@ import { MaterialModule } from '@fitness-tracker/material';
     ExercisesPageComponent
   ],
 })
-export class ExercisesFeatureModule {}
+export class ExercisesFeatureModule { }
