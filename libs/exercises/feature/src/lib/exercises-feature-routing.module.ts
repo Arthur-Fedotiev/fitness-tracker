@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateExerciseComponent, ExerciseListComponent } from '@fitness-tracker/exercises/ui';
+import { ExerciseListComponent } from '@fitness-tracker/exercises/ui';
+import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { ExercisesPageComponent } from './exercises-page/exercises-page.component';
 
 const exercisesFeatureRoutes: Routes = [
