@@ -29,6 +29,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,16 +54,18 @@ import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
     AppRoutingModule,
     AuthModule,
     AuthFeatureModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    provideMessaging(() => getMessaging()),
-    providePerformance(() => getPerformance()),
-    provideRemoteConfig(() => getRemoteConfig()),
-    provideStorage(() => getStorage()),
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideAnalytics(() => getAnalytics()),
+    // provideAuth(() => getAuth()),
+    // provideDatabase(() => getDatabase()),
+    // provideFirestore(() => getFirestore()),
+    // provideFunctions(() => getFunctions()),
+    // provideMessaging(() => getMessaging()),
+    // providePerformance(() => getPerformance()),
+    // provideRemoteConfig(() => getRemoteConfig()),
+    // provideStorage(() => getStorage()),
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
