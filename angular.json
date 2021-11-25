@@ -240,6 +240,58 @@
       "tags": [],
       "implicitDependencies": ["fitness-tracker"]
     },
+    "layout-feature": {
+      "projectType": "library",
+      "root": "libs/layout/feature",
+      "sourceRoot": "libs/layout/feature/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/layout/feature"],
+          "options": {
+            "jestConfig": "libs/layout/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/layout/feature/src/**/*.ts",
+              "libs/layout/feature/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "layout-ui": {
+      "projectType": "library",
+      "root": "libs/layout/ui",
+      "sourceRoot": "libs/layout/ui/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/layout/ui"],
+          "options": {
+            "jestConfig": "libs/layout/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/layout/ui/src/**/*.ts",
+              "libs/layout/ui/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "material": {
       "projectType": "library",
       "root": "libs/material",

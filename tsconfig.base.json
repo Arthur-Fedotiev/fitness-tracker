@@ -19,6 +19,8 @@
       "@fitness-tracker/auth/feature": ["libs/auth/feature/src/index.ts"],
       "@fitness-tracker/auth/model": ["libs/auth/model/src/index.ts"],
       "@fitness-tracker/auth/ui": ["libs/auth/ui/src/index.ts"],
+      "@fitness-tracker/layout/feature": ["libs/layout/feature/src/index.ts"],
+      "@fitness-tracker/layout/ui": ["libs/layout/ui/src/index.ts"],
       "@fitness-tracker/material": ["libs/material/src/index.ts"]
     }
   },
