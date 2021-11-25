@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+import { MaterialModule } from '@fitness-tracker/material';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, MaterialModule],
   declarations: [
     CreateExerciseComponent,
     ExerciseComponent,
@@ -17,4 +18,4 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
     ExerciseListComponent
   ],
 })
-export class ExercisesUiModule {}
+export class ExercisesUiModule { }

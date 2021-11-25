@@ -1,1 +1,43 @@
-<p>create-exercise works!</p>
+<div class="create-course">
+  <h3>Create New Exercise</h3>
+
+  <form>
+    <mat-form-field appearance="outline">
+      <input placeholder="Exercise name" matInput />
+    </mat-form-field>
+
+    <div class="course-image-upload">
+      <span>Course thumbnail:</span>
+
+      <img class="course-thumbnail mat-elevation-z3" />
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-select placeholder="Select muscles category">
+        <mat-option value="PUSH">PUSH</mat-option>
+        <mat-option value="PULL">PULL</mat-option>
+        <mat-option value="LEGS">LEGS</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-select placeholder="Select load category">
+        <mat-option value="STRENGTH">STRENGTH</mat-option>
+        <mat-option value="POWER">POWER</mat-option>
+        <mat-option value="HYPERTROFYPHY">HYPERTROFYPHY</mat-option>
+        <mat-option value="TOTAL_BODY">TOTAL BODY</mat-option>
+        <mat-option value="METABOLIC">METABOLIC</mat-option>
+        <mat-option value="CORRECTIVE">CORRECTIVE</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input placeholder="Exercise url" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <textarea matInput placeholder="Exercise description"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="warn">Create Course</button>
+  </form>
+</div>

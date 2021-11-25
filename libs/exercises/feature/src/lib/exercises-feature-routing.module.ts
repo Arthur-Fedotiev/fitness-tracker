@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateExerciseComponent, ExerciseListComponent } from '@fitness-tracker/exercises/ui';
+import { ExercisesPageComponent } from './exercises-page/exercises-page.component';
 
 const exercisesFeatureRoutes: Routes = [
   {
-    path: '', children: [
+    path: '', component: ExercisesPageComponent, children: [
       {
         path: 'all',
         component: ExerciseListComponent
