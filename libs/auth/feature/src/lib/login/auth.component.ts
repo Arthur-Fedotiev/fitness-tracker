@@ -8,4 +8,5 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AuthComponent {
 
+  
 }

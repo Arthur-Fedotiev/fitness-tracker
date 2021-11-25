@@ -31,7 +31,9 @@ import { RouterModule } from '@angular/router';
 import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
-
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
+import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -67,7 +69,13 @@ import { AngularFireModule } from '@angular/fire/compat';
     // provideRemoteConfig(() => getRemoteConfig()),
     // provideStorage(() => getStorage()),
   ],
-  providers: [ScreenTrackingService, UserTrackingService],
+  providers: [
+    ScreenTrackingService, 
+    UserTrackingService,
+    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
+    { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
