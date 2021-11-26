@@ -9,6 +9,7 @@
     "build": "nx build",
     "local-dev": "firebase emulators:start --only firestore --import sample-exercises",
     "empty-emulator": "firebase-emulators:start",
+    "export-emulator": "firebase emulators:export sample-exercises",
     "emulator": "firebase emulators:start --import sample-exercises",
     "test": "nx test"
   },
