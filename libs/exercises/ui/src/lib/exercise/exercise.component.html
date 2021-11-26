@@ -1,19 +1,16 @@
 <mat-card>
 
-  <mat-card-header>
+  <mat-card-header class="exercise-title">
 
     <mat-card-title>{{exercise.name}}</mat-card-title>
 
   </mat-card-header>
 
   <img mat-card-image
-       width="200px"
-       height="250px"
+       width="100%"
        [src]="exercise?.imgUrl ?? ''">
 
   <mat-card-content>
-    <p>{{exercise.musclesCategory}}</p>
-    <p>{{exercise.loadCategory}}</p>
     <p>{{exercise.targetMuscle}}</p>
     <p>{{exercise.rating}}</p>
     <div>{{ exercise.shortDescription }}</div>

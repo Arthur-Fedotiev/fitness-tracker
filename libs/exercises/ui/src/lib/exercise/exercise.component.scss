@@ -1,3 +1,9 @@
+@use 'styles/utils/mixins.scss' as mixins;
+
 .exercise-actions {
   text-align: center;
+}
+
+.exercise-title {
+  @include mixins.text-overflow(ellipsis);
 }

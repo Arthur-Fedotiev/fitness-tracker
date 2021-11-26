@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExercisesDataModule } from '@fitness-tracker/exercises/data';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExercisesUiModule } from '@fitness-tracker/exercises/ui';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ExercisesUiModule } from '@fitness-tracker/exercises/ui';
     ExercisesUiModule,
     MaterialModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
   ],
   declarations: [
     ExerciseEditModalComponent,

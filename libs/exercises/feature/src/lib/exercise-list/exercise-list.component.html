@@ -1,4 +1,8 @@
-<section class="exercises-panel">
-  <fitness-tracker-exercise *ngFor="let exercise of allExercises$ | async"
+<main class="exercises-panel"
+      fxLayout="row wrap"
+      fxLayoutGap="16px grid"
+      fxLayoutAlign="center">
+  <fitness-tracker-exercise fxFlex="0 0 400px"
+                            *ngFor="let exercise of allExercises$ | async"
                             [exercise]="exercise"></fitness-tracker-exercise>
-</section>
+</main>
