@@ -4,6 +4,12 @@
   text-align: center;
 }
 
-.exercise-title {
-  @include mixins.text-overflow(ellipsis);
+.card {
+  &_header {
+    @include mixins.text-overflow(ellipsis);
+  }
+
+  &_description {
+    @include mixins.multiline-text-overflow(4);
+  }
 }
