@@ -29,7 +29,7 @@
       <mat-form-field appearance="outline">
         <mat-select placeholder="Select target muscle"
                     formControlName="targetMuscle">
-          <ng-container *ngFor="let muscle of muscles; trackBy: trackByMuscle">
+          <ng-container *ngFor="let muscle of muscles; trackBy: trackByItem">
             <mat-option [value]="muscle">{{ muscle }}</mat-option>
           </ng-container>
         </mat-select>
@@ -53,6 +53,20 @@
                formControlName="url" />
       </mat-form-field>
 
+      <mat-form-field>
+        <mat-label>Rating</mat-label>
+        <input #rating
+               type="number"
+               formControlName="rating"
+               matInput
+               required>
+      </mat-form-field>
+      <mat-slider thumbLabel=""
+                  [min]="0"
+                  [max]="10"
+                  [step]="0.1"
+                  [value]="rating.value"
+                  (change)="rating.value = $event.value?.toString() ?? ''"></mat-slider>
       <mat-form-field appearance="outline">
         <textarea matInput
                   placeholder="Exercise description"

@@ -31,8 +31,8 @@ export class CreateExerciseComponent implements OnInit {
     this.exercisesService.createExercise(this.createExerciseForm.value);
   }
 
-  public trackByMuscle(_: number, muscle: IMuscle): IMuscle {
-    return muscle;
+  public trackByItem(index: number, item: string | number): string | number {
+    return item ?? index;
   }
 
   private getForm(): FormGroup {
@@ -43,6 +43,7 @@ export class CreateExerciseComponent implements OnInit {
       loadCategory: [null, Validators.required],
       url: [null],
       description: [null],
+      rating: [0, Validators.required],
     });
   }
 }
