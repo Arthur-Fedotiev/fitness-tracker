@@ -4,7 +4,7 @@ export interface Exercise {
   description: string;
   loadCategory: EXERCISE_LOAD_CATEGORY;
   musclesCategory: EXERCISE_MUSCLES_CATEGORY;
-  mainLoadMuscle: string;
+  targetMuscle: string;
   name: string;
   url: string;
 }
