@@ -2,7 +2,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';
-import { ExercisesEntity } from './exercises.models';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 export const EXERCISES_FEATURE_KEY = 'exercises';
 

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firestore';
-import { Exercise } from "@fitness-tracker/exercises/model";
+import { Exercise, ExercisesEntity } from "@fitness-tracker/exercises/model";
 import { COLLECTIONS, convertSnaps } from "@fitness-tracker/shared/utils";
 import firebase from 'firebase/compat';
-import { from, map, Observable } from 'rxjs';
-import { ExercisesEntity } from './+state/exercises.models';
+import { first, from, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +24,6 @@ export class ExercisesService {
     return this.afs.collection<ExercisesEntity>(
       COLLECTIONS.EXERCISES,
       (ref: firebase.firestore.CollectionReference) => ref.orderBy('rating', 'desc')
-    ).get().pipe(map(convertSnaps))
+    ).get().pipe(map(convertSnaps), first())
   }
 }

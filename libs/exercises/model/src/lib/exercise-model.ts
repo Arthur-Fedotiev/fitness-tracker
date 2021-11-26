@@ -1,12 +1,13 @@
 import { EXERCISE_LOAD_CATEGORY, EXERCISE_MUSCLES_CATEGORY, MUSCLE_LIST } from "..";
 
 export interface Exercise {
-  description: string;
+  shortDescription: string;
+  longDescription: string;
   loadCategory: EXERCISE_LOAD_CATEGORY;
   musclesCategory: EXERCISE_MUSCLES_CATEGORY;
   targetMuscle: string;
   name: string;
-  url: string;
+  imgUrl: string;
   rating: number;
 }
 

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromExercises from './+state/exercises.reducer';
@@ -8,7 +7,6 @@ import { ExercisesFacade } from './+state/exercises.facade';
 
 @NgModule({
   imports: [
-    CommonModule,
     StoreModule.forFeature(
       fromExercises.EXERCISES_FEATURE_KEY,
       fromExercises.reducer

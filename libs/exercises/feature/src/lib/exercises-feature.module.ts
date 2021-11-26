@@ -8,12 +8,14 @@ import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExercisesDataModule } from '@fitness-tracker/exercises/data';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+import { ExercisesUiModule } from '@fitness-tracker/exercises/ui';
 
 @NgModule({
   imports: [
     CommonModule,
     ExercisesFeatureRoutingModule,
     ExercisesDataModule,
+    ExercisesUiModule,
     MaterialModule,
     ReactiveFormsModule,
   ],
@@ -25,4 +27,4 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
   ],
   exports: [ExercisesPageComponent],
 })
-export class ExercisesFeatureModule {}
+export class ExercisesFeatureModule { }

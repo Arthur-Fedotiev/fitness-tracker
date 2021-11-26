@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ExercisesEntity } from './exercises.models';
+import { ExercisesEntity } from '../../../../model/src/lib/exercises-data.models';
 import { EXERCISES_EXETCION_NAMES } from './models/exercises.actions.enum';
 
 export const init = createAction('[Exercises Page] Init');

@@ -1,3 +1,4 @@
-<ul>
-  <li *ngFor="let exercise of allExercises$ | async"> {{ exercise.name }}</li>
-</ul>
+<section class="exercises-panel">
+  <fitness-tracker-exercise *ngFor="let exercise of allExercises$ | async"
+                            [exercise]="exercise"></fitness-tracker-exercise>
+</section>
