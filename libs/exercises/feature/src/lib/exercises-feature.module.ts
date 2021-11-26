@@ -6,11 +6,13 @@ import { ExercisesFeatureRoutingModule } from './exercises-feature-routing.modul
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ExercisesDataModule } from '@fitness-tracker/exercises/data';
 
 @NgModule({
   imports: [
     CommonModule,
     ExercisesFeatureRoutingModule,
+    ExercisesDataModule,
     MaterialModule,
     ReactiveFormsModule,
   ],
