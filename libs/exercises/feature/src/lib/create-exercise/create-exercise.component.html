@@ -1,65 +1,69 @@
-<div class="create-course">
-  <h3>Create New Exercise</h3>
+<main fxLayout="row nowrap"
+      fxLayoutAlign="center">
+  <div class="create-exercise"
+       fxFlex="0 0 50%">
+    <h3>Create New Exercise</h3>
 
-  <form [formGroup]="createExerciseForm">
-    <mat-form-field appearance="outline">
-      <input placeholder="Exercise name"
-             matInput
-             formControlName="name" />
-    </mat-form-field>
+    <form [formGroup]="createExerciseForm">
+      <mat-form-field appearance="outline">
+        <input placeholder="Exercise name"
+               matInput
+               formControlName="name" />
+      </mat-form-field>
 
-    <div class="course-image-upload">
-      <span>Course thumbnail:</span>
+      <div class="exercise-image-upload">
+        <span>exercise thumbnail:</span>
 
-      <img class="course-thumbnail mat-elevation-z3" />
-    </div>
+        <img class="exercise-thumbnail mat-elevation-z3" />
+      </div>
 
-    <mat-form-field appearance="outline">
-      <mat-select placeholder="Select muscles category"
-                  formControlName="musclesCategory">
-        <mat-option value="PUSH">PUSH</mat-option>
-        <mat-option value="PULL">PULL</mat-option>
-        <mat-option value="LEGS">LEGS</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select muscles category"
+                    formControlName="musclesCategory">
+          <mat-option value="PUSH">PUSH</mat-option>
+          <mat-option value="PULL">PULL</mat-option>
+          <mat-option value="LEGS">LEGS</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-select placeholder="Select target muscle"
-                  formControlName="targetMuscle">
-        <ng-container *ngFor="let muscle of muscles; trackBy: trackByMuscle">
-          <mat-option [value]="muscle">{{ muscle }}</mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select target muscle"
+                    formControlName="targetMuscle">
+          <ng-container *ngFor="let muscle of muscles; trackBy: trackByMuscle">
+            <mat-option [value]="muscle">{{ muscle }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-select placeholder="Select load category"
-                  formControlName="loadCategory">
-        <mat-option value="STRENGTH">STRENGTH</mat-option>
-        <mat-option value="POWER">POWER</mat-option>
-        <mat-option value="HYPERTROFYPHY">HYPERTROFYPHY</mat-option>
-        <mat-option value="TOTAL_BODY">TOTAL BODY</mat-option>
-        <mat-option value="METABOLIC">METABOLIC</mat-option>
-        <mat-option value="CORRECTIVE">CORRECTIVE</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select load category"
+                    formControlName="loadCategory">
+          <mat-option value="STRENGTH">STRENGTH</mat-option>
+          <mat-option value="POWER">POWER</mat-option>
+          <mat-option value="HYPERTROFYPHY">HYPERTROFYPHY</mat-option>
+          <mat-option value="TOTAL_BODY">TOTAL BODY</mat-option>
+          <mat-option value="METABOLIC">METABOLIC</mat-option>
+          <mat-option value="CORRECTIVE">CORRECTIVE</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <input placeholder="Exercise url"
-             matInput
-             formControlName="url" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input placeholder="Exercise url"
+               matInput
+               formControlName="url" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <textarea matInput
-                placeholder="Exercise description"
-                formControlName="description"></textarea>
-    </mat-form-field>
-    <button mat-raised-button
-            color="warn"
-            [disabled]="!createExerciseForm.valid"
-            (click)="onCreateExercise()">
-      Create Exercise
-    </button>
-  </form>
-</div>
+      <mat-form-field appearance="outline">
+        <textarea matInput
+                  placeholder="Exercise description"
+                  formControlName="description"></textarea>
+      </mat-form-field>
+      <button mat-raised-button
+              color="warn"
+              [disabled]="!createExerciseForm.valid"
+              (click)="onCreateExercise()">
+        Create Exercise
+      </button>
+    </form>
+  </div>
+</main>

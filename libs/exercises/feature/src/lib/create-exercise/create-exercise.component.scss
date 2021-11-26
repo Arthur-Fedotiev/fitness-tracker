@@ -1,24 +1,24 @@
-:host {
-  display: flex;
-  justify-content: center;
-}
+// :host {
+//   display: flex;
+//   justify-content: center;
+// }
 
-.create-course {
+.create-exercise {
   margin-top: 20px;
 }
 
-.course-thumbnail {
+.exercise-thumbnail {
   max-width: 200px;
   margin-bottom: 10px;
   border-radius: 4px;
 }
 
-.create-course form {
+.create-exercise form {
   display: flex;
   flex-direction: column;
 }
 
-.course-image-upload {
+.exercise-image-upload {
   margin: 0 0 20px 0;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
   margin-bottom: 20px;
 }
 
-.course-image-upload span {
+.exercise-image-upload span {
   margin-bottom: 10px;
 }
 
