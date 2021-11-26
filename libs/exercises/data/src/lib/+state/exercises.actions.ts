@@ -1,14 +1,19 @@
 import { createAction, props } from '@ngrx/store';
 import { ExercisesEntity } from './exercises.models';
+import { EXERCISES_EXETCION_NAMES } from './models/exercises.actions.enum';
 
 export const init = createAction('[Exercises Page] Init');
 
+export const loadExercises = createAction(
+  EXERCISES_EXETCION_NAMES.LOAD_EXERCISES
+)
+
 export const loadExercisesSuccess = createAction(
-  '[Exercises/API] Load Exercises Success',
+  EXERCISES_EXETCION_NAMES.LOAD_EXERCISES_SUCCESS,
   props<{ exercises: ExercisesEntity[] }>()
 );
 
 export const loadExercisesFailure = createAction(
-  '[Exercises/API] Load Exercises Failure',
+  EXERCISES_EXETCION_NAMES.LOAD_EXERCISES_FAILURE,
   props<{ error: any }>()
 );

@@ -26,7 +26,7 @@ export const initialState: State = exercisesAdapter.getInitialState({
 
 const exercisesReducer = createReducer(
   initialState,
-  on(ExercisesActions.init, (state) => ({
+  on(ExercisesActions.loadExercises, (state) => ({
     ...state,
     loaded: false,
     error: null,

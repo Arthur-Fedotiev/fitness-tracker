@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ExercisesFacade } from '@fitness-tracker/exercises/data';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fitness-tracker-exercise-list',
@@ -7,10 +9,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExerciseListComponent implements OnInit {
+  public readonly allExercises$ = this.exerciseFacade.allExercises$;
 
-  constructor() { }
+  constructor(private exerciseFacade: ExercisesFacade) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.exerciseFacade.getAllExercises();
   }
 
 }

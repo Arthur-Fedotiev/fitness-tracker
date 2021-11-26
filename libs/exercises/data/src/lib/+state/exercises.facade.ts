@@ -7,12 +7,8 @@ import * as ExercisesSelectors from './exercises.selectors';
 
 @Injectable()
 export class ExercisesFacade {
-  /**
-   * Combine pieces of state using createSelector,
-   * and expose them as observables through the facade.
-   */
   loaded$ = this.store.pipe(select(ExercisesSelectors.getExercisesLoaded));
-  allExercises$ = this.store.pipe(select(ExercisesSelectors.getAllExercises));
+  public readonly allExercises$ = this.store.pipe(select(ExercisesSelectors.getAllExercises));
   selectedExercises$ = this.store.pipe(select(ExercisesSelectors.getSelected));
 
   constructor(private readonly store: Store) {}
@@ -22,6 +18,12 @@ export class ExercisesFacade {
    * or more tasks in your Effects.
    */
   init() {
-    this.store.dispatch(ExercisesActions.init());
+    console.log('[INIT] ExercisesFacade')
   }
+
+  public getAllExercises(): void {
+    this.store.dispatch(ExercisesActions.loadExercises())
+  }
+
+
 }

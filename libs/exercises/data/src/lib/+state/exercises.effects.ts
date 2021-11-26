@@ -4,24 +4,21 @@ import { fetch } from '@nrwl/angular';
 
 import * as ExercisesActions from './exercises.actions';
 import * as ExercisesFeature from './exercises.reducer';
+import { EXERCISES_EXETCION_NAMES } from './models/exercises.actions.enum';
+import { ExercisesService, loadExercisesSuccess } from '@fitness-tracker/exercises/data';
+import { concatMap, map } from 'rxjs';
 
 @Injectable()
 export class ExercisesEffects {
-  init$ = createEffect(() =>
+  public loadExercises$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ExercisesActions.init),
-      fetch({
-        run: (action) => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return ExercisesActions.loadExercisesSuccess({ exercises: [] });
-        },
-        onError: (action, error) => {
-          console.error('Error', error);
-          return ExercisesActions.loadExercisesFailure({ error });
-        },
-      })
+      ofType(EXERCISES_EXETCION_NAMES.LOAD_EXERCISES),
+      concatMap(() => this.exercisesService.getExercises()),
+      map(exercises => loadExercisesSuccess({ exercises })),
     )
   );
 
-  constructor(private readonly actions$: Actions) {}
+  constructor(
+    private readonly actions$: Actions,
+    private readonly exercisesService: ExercisesService) {}
 }

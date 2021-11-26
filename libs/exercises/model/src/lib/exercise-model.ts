@@ -7,6 +7,7 @@ export interface Exercise {
   targetMuscle: string;
   name: string;
   url: string;
+  rating: number;
 }
 
 export type IMuscle = typeof MUSCLE_LIST[number];
