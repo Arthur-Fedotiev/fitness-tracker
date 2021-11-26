@@ -396,17 +396,17 @@
       },
       "tags": []
     },
-    "material": {
+    "shared-ui-material": {
       "projectType": "library",
-      "root": "libs/material",
-      "sourceRoot": "libs/material/src",
+      "root": "libs/shared/ui/material",
+      "sourceRoot": "libs/shared/ui/material/src",
       "prefix": "fitness-tracker",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/material"],
+          "outputs": ["coverage/libs/shared/ui/material"],
           "options": {
-            "jestConfig": "libs/material/jest.config.js",
+            "jestConfig": "libs/shared/ui/material/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -414,8 +414,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/material/src/**/*.ts",
-              "libs/material/src/**/*.html"
+              "libs/shared/ui/material/src/**/*.ts",
+              "libs/shared/ui/material/src/**/*.html"
             ]
           }
         }

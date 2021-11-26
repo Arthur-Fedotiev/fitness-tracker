@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'material',
-  preset: '../../jest.preset.js',
+  displayName: 'shared-ui-material',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/material',
+  coverageDirectory: '../../../../coverage/libs/shared/ui/material',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

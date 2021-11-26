@@ -4,18 +4,21 @@ import { ExerciseEditModalComponent } from './exercise-edit-modal/exercise-edit-
 import { ExercisesPageComponent } from './exercises-page/exercises-page.component';
 import { ExercisesFeatureRoutingModule } from './exercises-feature-routing.module';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
-import { MaterialModule } from '@fitness-tracker/material';
+import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, ExercisesFeatureRoutingModule, MaterialModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ExercisesFeatureRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule,
+  ],
   declarations: [
     ExerciseEditModalComponent,
     ExercisesPageComponent,
-    CreateExerciseComponent
+    CreateExerciseComponent,
   ],
-  exports: [
-    ExercisesPageComponent
-  ],
+  exports: [ExercisesPageComponent],
 })
-export class ExercisesFeatureModule { }
+export class ExercisesFeatureModule {}

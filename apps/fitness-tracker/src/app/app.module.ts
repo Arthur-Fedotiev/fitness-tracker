@@ -37,7 +37,7 @@ import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/fun
 @NgModule({
   declarations: [AppComponent],
   imports: [
-  BrowserModule,
+    BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
     StoreModule.forRoot(
@@ -70,12 +70,12 @@ import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/fun
     // provideStorage(() => getStorage()),
   ],
   providers: [
-    ScreenTrackingService, 
+    ScreenTrackingService,
     UserTrackingService,
-    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
+    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['http://localhost', 9099] : undefined },
     { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
     { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

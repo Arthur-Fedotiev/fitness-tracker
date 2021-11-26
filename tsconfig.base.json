@@ -27,7 +27,9 @@
       "@fitness-tracker/exercises/ui": ["libs/exercises/ui/src/index.ts"],
       "@fitness-tracker/layout/feature": ["libs/layout/feature/src/index.ts"],
       "@fitness-tracker/layout/ui": ["libs/layout/ui/src/index.ts"],
-      "@fitness-tracker/material": ["libs/material/src/index.ts"]
+      "@fitness-tracker/shared-ui-material": [
+        "libs/shared/ui/material/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -40,9 +40,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressSpinnerModule,
     MatMenuModule,
     MatTableModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
-  ]
+    MatNativeDateModule,
+  ],
 })
-export class MaterialModule { }
+export class MaterialModule {}

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'fitness-tracker-auth',
