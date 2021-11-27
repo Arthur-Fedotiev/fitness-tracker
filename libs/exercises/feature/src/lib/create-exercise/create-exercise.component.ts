@@ -2,11 +2,10 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Optional,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExercisesService } from '@fitness-tracker/exercises/data';
-import { MUSCLE_LIST, IMuscleList, IMuscle } from '@fitness-tracker/exercises/model';
+import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES } from '@fitness-tracker/exercises/model';
 
 @Component({
   selector: 'fitness-tracker-create-exercise',
@@ -16,7 +15,9 @@ import { MUSCLE_LIST, IMuscleList, IMuscle } from '@fitness-tracker/exercises/mo
 })
 export class CreateExerciseComponent implements OnInit {
   public readonly createExerciseForm: FormGroup = this.getForm();
-  public readonly muscles: IMuscleList = MUSCLE_LIST;
+  public readonly muscles: MuscleList = MUSCLE_LIST;
+  public readonly equipment: Equipment = EQUIPMENT;
+  public readonly exerciseTypes: ExerciseTypes = EXERCISE_TYPES;
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +29,8 @@ export class CreateExerciseComponent implements OnInit {
   }
 
   public onCreateExercise(): void {
+    console.log(this.createExerciseForm.value);
+    
     this.exercisesService.createExercise(this.createExerciseForm.value);
   }
 
@@ -38,11 +41,13 @@ export class CreateExerciseComponent implements OnInit {
   private getForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
-      musclesCategory: [null, Validators.required],
+      exerciseType: [null, Validators.required],
       targetMuscle: [null, Validators.required],
-      loadCategory: [null, Validators.required],
-      url: [null],
-      description: [null],
+      equipment: [null, Validators.required],
+      coverUrl: [null],
+      avatarUrl: [null, Validators.required],
+      shortDescription: [null],
+      longDescription: [null],
       rating: [0, Validators.required],
     });
   }

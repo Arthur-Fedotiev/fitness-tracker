@@ -18,3 +18,29 @@ export const MUSCLE_LIST = [
   'Hamstrings (biceps femoris)',
   'Calves (gastrocnemius)',
 ] as const;
+
+export const EQUIPMENT = [
+  'Bands',
+  'Foam Roll',
+  'Barbell',
+  'Kettlebells',
+  'Body Only',
+  'Machine',
+  'Cable',
+  'Medicine Ball',
+  'Dumbbell',
+  'None',
+  'E - Z Curl Bar',
+  'Other',
+  'Exercise Ball',
+] as const;
+
+export const EXERCISE_TYPES = [
+  'Cardio',
+  'Olympic Weightlifting',
+  'Plyometrics',
+  'Powerlifting',
+  'Strength',
+  'Stretching',
+  'Strongman',
+] as const;

@@ -1,7 +1,10 @@
 <main fxLayout="row nowrap"
       fxLayoutAlign="center">
   <div class="create-exercise"
-       fxFlex="0 0 50%">
+       fxFlex="33%"
+       fxFlex.sm="60%"
+       fxFlex.md="75"
+       fxFlex.xs="90%">
     <h3>Create New Exercise</h3>
 
     <form [formGroup]="createExerciseForm">
@@ -18,11 +21,10 @@
       </div>
 
       <mat-form-field appearance="outline">
-        <mat-select placeholder="Select muscles category"
-                    formControlName="musclesCategory">
-          <mat-option value="PUSH">PUSH</mat-option>
-          <mat-option value="PULL">PULL</mat-option>
-          <mat-option value="LEGS">LEGS</mat-option>
+        <mat-select placeholder="Select Exercise Type"
+                    formControlName="exerciseType">
+          <mat-option *ngFor="let item of exerciseTypes; trackBy: trackByItem"
+                      [value]="item">{{ item }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -36,26 +38,29 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-select placeholder="Select load category"
-                    formControlName="loadCategory">
-          <mat-option value="STRENGTH">STRENGTH</mat-option>
-          <mat-option value="POWER">POWER</mat-option>
-          <mat-option value="HYPERTROFYPHY">HYPERTROFYPHY</mat-option>
-          <mat-option value="TOTAL_BODY">TOTAL BODY</mat-option>
-          <mat-option value="METABOLIC">METABOLIC</mat-option>
-          <mat-option value="CORRECTIVE">CORRECTIVE</mat-option>
+        <mat-select placeholder="Select Equipment"
+                    formControlName="equipment">
+          <mat-option *ngFor="let item of equipment; trackBy: trackByItem"
+                      [value]="item">{{ item }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <input placeholder="Exercise url"
+        <input placeholder="Cover image url"
                matInput
-               formControlName="url" />
+               formControlName="coverUrl" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input placeholder="Avatar url"
+               matInput
+               formControlName="avatarUrl" />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Rating</mat-label>
         <input #rating
+               step="0.1"
                type="number"
                formControlName="rating"
                matInput
@@ -69,8 +74,14 @@
                   (change)="rating.value = $event.value?.toString() ?? ''"></mat-slider>
       <mat-form-field appearance="outline">
         <textarea matInput
-                  placeholder="Exercise description"
-                  formControlName="description"></textarea>
+                  placeholder="Exercise short description"
+                  formControlName="shortDescription"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput
+                  placeholder="Exercise long description"
+                  formControlName="longDescription"></textarea>
       </mat-form-field>
       <button mat-raised-button
               color="warn"
