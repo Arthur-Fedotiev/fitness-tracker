@@ -6,9 +6,10 @@
 
   </mat-card-header>
 
-  <img mat-card-image
+  <img *ngIf="exercise?.coverUrl"
+       mat-card-image
        width="100%"
-       [src]="exercise?.imgUrl ?? ''">
+       [src]="exercise?.coverUrl">
 
   <mat-card-content>
     <p>{{exercise.targetMuscle}}</p>

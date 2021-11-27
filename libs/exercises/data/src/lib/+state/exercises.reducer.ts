@@ -37,7 +37,8 @@ const exercisesReducer = createReducer(
   on(ExercisesActions.loadExercisesFailure, (state, { error }) => ({
     ...state,
     error,
-  }))
+  })),
+  on(ExercisesActions.createExercise, (state, { payload }) => exercisesAdapter.addOne(payload, state)),
 );
 
 export function reducer(state: State | undefined, action: Action) {

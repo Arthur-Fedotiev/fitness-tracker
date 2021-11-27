@@ -1,10 +1,9 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExercisesService } from '@fitness-tracker/exercises/data';
+import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES } from '@fitness-tracker/exercises/model';
 
 @Component({
@@ -13,7 +12,7 @@ import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_
   styleUrls: ['./create-exercise.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateExerciseComponent implements OnInit {
+export class CreateExerciseComponent {
   public readonly createExerciseForm: FormGroup = this.getForm();
   public readonly muscles: MuscleList = MUSCLE_LIST;
   public readonly equipment: Equipment = EQUIPMENT;
@@ -21,17 +20,14 @@ export class CreateExerciseComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private exercisesService: ExercisesService
+    private exercisesFacade: ExercisesFacade
   ) { }
 
-  ngOnInit(): void {
-    console.log('init');
-  }
+  // ngOnInit(): void {
+  // }
 
   public onCreateExercise(): void {
-    console.log(this.createExerciseForm.value);
-    
-    this.exercisesService.createExercise(this.createExerciseForm.value);
+    this.exercisesFacade.createExercise(this.createExerciseForm.value)
   }
 
   public trackByItem(index: number, item: string | number): string | number {

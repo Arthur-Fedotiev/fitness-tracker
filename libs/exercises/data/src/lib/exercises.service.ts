@@ -14,10 +14,10 @@ export class ExercisesService {
 
   public createExercise(
     exercise: Exercise,
-    exerciseId?: number): Observable<void> | Observable<DocumentReference<Exercise>> {
+    exerciseId?: string): Observable<void | DocumentReference<Exercise>> {
     return exerciseId
-      ? from(this.afs.doc(`${COLLECTIONS.EXERCISES}/${exerciseId}`).set(exercise))
-      : from(this.afs.collection<Exercise>(`${COLLECTIONS.EXERCISES}`).add(exercise))
+      ? from(this.afs.doc<Exercise>(`${COLLECTIONS.EXERCISES}/${exerciseId}`).set(exercise)).pipe(first())
+      : from(this.afs.collection<Exercise>(`${COLLECTIONS.EXERCISES}`).add(exercise)).pipe(first())
   }
 
   public getExercises(): Observable<ExercisesEntity[]> {
