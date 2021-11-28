@@ -1,13 +1,13 @@
 <main fxLayout="row nowrap"
       fxLayoutAlign="center">
-  <div class="create-exercise"
+  <section class="create-exercise"
        fxFlex="33%"
        fxFlex.sm="60%"
        fxFlex.md="75"
        fxFlex.xs="90%">
     <h3>Create New Exercise</h3>
 
-    <form [formGroup]="createExerciseForm">
+    <form [formGroup]="exerciseForm">
       <mat-form-field appearance="outline">
         <input placeholder="Exercise name"
                matInput
@@ -61,7 +61,6 @@
         <mat-label>Rating</mat-label>
         <input #rating
                step="0.1"
-               type="number"
                formControlName="rating"
                matInput
                required>
@@ -85,10 +84,10 @@
       </mat-form-field>
       <button mat-raised-button
               color="warn"
-              [disabled]="!createExerciseForm.valid"
-              (click)="onCreateExercise()">
+              [disabled]="!exerciseForm.valid"
+              (click)="onSave()">
         Create Exercise
       </button>
     </form>
-  </div>
+  </section>
 </main>

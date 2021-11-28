@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Exercise, ExercisesEntity } from '@fitness-tracker/exercises/model';
-import { select, Store, Action } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';
-import * as ExercisesFeature from './exercises.reducer';
 import * as ExercisesSelectors from './exercises.selectors';
 
 @Injectable()
@@ -38,6 +37,10 @@ export class ExercisesFacade {
     };
 
     this.store.dispatch(ExercisesActions.createExercise({ payload }))
+  }
+
+  public updateExercise(payload: Partial<ExercisesEntity>): void {
+    this.store.dispatch(ExercisesActions.updateExercise({ payload }))
   }
 
 

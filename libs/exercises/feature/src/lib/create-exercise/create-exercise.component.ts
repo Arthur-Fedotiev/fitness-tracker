@@ -1,10 +1,12 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES } from '@fitness-tracker/exercises/model';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 @Component({
   selector: 'fitness-tracker-create-exercise',
@@ -13,7 +15,7 @@ import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateExerciseComponent {
-  public readonly createExerciseForm: FormGroup = this.getForm();
+  public readonly exerciseForm: FormGroup = this.getForm();
   public readonly muscles: MuscleList = MUSCLE_LIST;
   public readonly equipment: Equipment = EQUIPMENT;
   public readonly exerciseTypes: ExerciseTypes = EXERCISE_TYPES;
@@ -23,11 +25,10 @@ export class CreateExerciseComponent {
     private exercisesFacade: ExercisesFacade
   ) { }
 
-  // ngOnInit(): void {
-  // }
-
-  public onCreateExercise(): void {
-    this.exercisesFacade.createExercise(this.createExerciseForm.value)
+  public onSave(): void {
+    // this.exercise
+    //   ? this.exercisesFacade.updateExercise({ ...this.exercise, ...this.exerciseForm.value })
+    //   : this.exercisesFacade.createExercise(this.exerciseForm.value);
   }
 
   public trackByItem(index: number, item: string | number): string | number {
@@ -44,6 +45,8 @@ export class CreateExerciseComponent {
       avatarUrl: [null, Validators.required],
       shortDescription: [null],
       longDescription: [null],
+      benefits: [null],
+      instructions: [null],
       rating: [0, Validators.required],
     });
   }

@@ -10,10 +10,12 @@ import { ExercisesDataModule } from '@fitness-tracker/exercises/data';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExercisesUiModule } from '@fitness-tracker/exercises/ui';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     ExercisesFeatureRoutingModule,
     ExercisesDataModule,
     ExercisesUiModule,

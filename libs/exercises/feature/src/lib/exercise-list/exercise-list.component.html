@@ -4,6 +4,8 @@
       fxLayoutAlign="center">
   <fitness-tracker-exercise fxFlex="0 0 400px"
                             *ngFor="let exercise of allExercises$ | async"
-                            [exercise]="exercise"></fitness-tracker-exercise>
+                            [exercise]="exercise"
+                            (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
+                            (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"></fitness-tracker-exercise>
 </main>
 

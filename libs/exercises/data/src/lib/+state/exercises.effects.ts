@@ -27,8 +27,20 @@ export class ExercisesEffects {
       ofType(EXERCISES_ACTION_NAMES.CREATE_EXERCISE),
       mergeMap(({ payload: { id, ...data } }: WithPayload<ExercisesEntity>): Observable<Action> =>
         this.exercisesService.createExercise(data, id).pipe(
-          map(() => ExercisesActions.createExercisesSuccess()),
-          catchError(() => of(ExercisesActions.createExercisesFailure({ payload: id }))),
+          map(() => ExercisesActions.createExerciseSuccess()),
+          catchError(() => of(ExercisesActions.createExerciseFailure({ payload: id }))),
+        )
+      ),
+    )
+  );
+
+  public updateExerciseOptimistically$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
+      mergeMap(({ payload }: WithPayload<Partial<ExercisesEntity>>): Observable<Action> =>
+        this.exercisesService.updateExercise(payload).pipe(
+          map(() => ExercisesActions.updateExerciseSuccess()),
+          catchError(() => of(ExercisesActions.updateExerciseFailure())),
         )
       ),
     )

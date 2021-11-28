@@ -22,7 +22,7 @@
 
     <button mat-button
             class="mat-raised-button mat-primary"
-            [routerLink]="['/exercises', exercise.id]">
+            (click)="viewExercise(exercise)">
       VIEW EXERCISE
     </button>
 

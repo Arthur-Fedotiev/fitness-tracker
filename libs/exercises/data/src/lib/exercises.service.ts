@@ -17,13 +17,17 @@ export class ExercisesService {
     exerciseId?: string): Observable<void | DocumentReference<Exercise>> {
     return exerciseId
       ? from(this.afs.doc<Exercise>(`${COLLECTIONS.EXERCISES}/${exerciseId}`).set(exercise)).pipe(first())
-      : from(this.afs.collection<Exercise>(`${COLLECTIONS.EXERCISES}`).add(exercise)).pipe(first())
+      : from(this.afs.collection<Exercise>(`${COLLECTIONS.EXERCISES}`).add(exercise)).pipe(first());
+  }
+
+  public updateExercise({ id, ...exercise }: Partial<ExercisesEntity>) {
+    return from(this.afs.doc(`${COLLECTIONS.EXERCISES}/${id}`).update(exercise));
   }
 
   public getExercises(): Observable<ExercisesEntity[]> {
     return this.afs.collection<ExercisesEntity>(
       COLLECTIONS.EXERCISES,
       (ref: firebase.firestore.CollectionReference) => ref.orderBy('rating', 'desc')
-    ).get().pipe(map(convertSnaps), first())
+    ).get().pipe(map(convertSnaps), first());
   }
 }

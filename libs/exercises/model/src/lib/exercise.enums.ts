@@ -7,7 +7,7 @@ export enum EXERCISE_MUSCLES_CATEGORY {
 export enum EXERCISE_LOAD_CATEGORY {
   'STRENGTH',
   'POWER',
-  'HYPERTROFYPHY',
+  'HYPERTROPHY',
   'TOTAL_BODY',
   'METABOLIC',
   'CORRECTIVE',
@@ -16,7 +16,7 @@ export enum EXERCISE_LOAD_CATEGORY {
 export enum MUSCLES {
   'STRENGTH',
   'POWER',
-  'HYPERTROFYPHY',
+  'HYPERTROPHY',
   'TOTAL_BODY',
   'METABOLIC',
   'CORRECTIVE',
@@ -66,4 +66,9 @@ export enum MUSCLES_LATINA {
   'FLUTES' = 'Gluteus maximus and medius',
   'QUADS' = 'Quadriceps',
   'HAMSTRINGS' = 'Biceps femoris',
+}
+
+export enum EXERCISE_MODE {
+  'VIEW' = 'view',
+  'EDIT' = 'edit',
 }

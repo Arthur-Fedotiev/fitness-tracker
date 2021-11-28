@@ -25,11 +25,24 @@ export const createExercise = createAction(
   props<WithPayload<ExercisesEntity>>()
 );
 
-export const createExercisesSuccess = createAction(
+export const createExerciseSuccess = createAction(
   EXERCISES_ACTION_NAMES.CREATE_EXERCISE_SUCCESS,
 );
 
-export const createExercisesFailure = createAction(
+export const createExerciseFailure = createAction(
   EXERCISES_ACTION_NAMES.CREATE_EXERCISE_FAILURE,
   props<WithPayload<string>>()
+);
+
+export const updateExercise = createAction(
+  EXERCISES_ACTION_NAMES.UPDATE_EXERCISE,
+  props<WithPayload<Partial<ExercisesEntity>>>()
+);
+
+export const updateExerciseSuccess = createAction(
+  EXERCISES_ACTION_NAMES.UPDATE_EXERCISE_SUCCESS,
+);
+
+export const updateExerciseFailure = createAction(
+  EXERCISES_ACTION_NAMES.UPDATE_EXERCISE_FAILURE,
 );

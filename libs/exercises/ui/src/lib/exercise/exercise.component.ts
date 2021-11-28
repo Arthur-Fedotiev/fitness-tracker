@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output, Optional } from '@angular/core';
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 @Component({
@@ -14,28 +13,31 @@ export class ExerciseComponent {
   public exercise!: ExercisesEntity;
 
   @Output()
-  public readonly exerciseEdited = new EventEmitter<ExercisesEntity>();
+  public readonly exerciseEdited = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseViewed = new EventEmitter<string>();
 
-  constructor(@Optional() private readonly dialog: MatDialog) {
+  public viewExercise({ id }: ExercisesEntity): void {
+    this.exerciseViewed.emit(id);
   }
 
-  editExercise(exercise: ExercisesEntity): void {
-    this.exerciseEdited.emit(exercise);
-    // const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
-
-    // dialogConfig.data = course;
-
-    // this.dialog.open(CourseDialogComponent, dialogConfig)
-    //     .afterClosed()
-    //     .subscribe(val => {
-    //         if (val) {
-    //             this.courseEdited.emit();
-    //         }
-    //     });
-
+  public editExercise({ id }: ExercisesEntity): void {
+    this.exerciseEdited.emit(id);
   }
+  // const dialogConfig = new MatDialogConfig();
+
+  // dialogConfig.disableClose = true;
+  // dialogConfig.autoFocus = true;
+
+  // dialogConfig.data = course;
+
+  // this.dialog.open(CourseDialogComponent, dialogConfig)
+  //     .afterClosed()
+  //     .subscribe(val => {
+  //         if (val) {
+  //             this.courseEdited.emit();
+  //         }
+  //     });
+  // }
 
 }

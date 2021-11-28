@@ -12,8 +12,11 @@ const exercisesFeatureRoutes: Routes = [
         component: ExerciseListComponent
       },
       {
-        path: 'create',
-        component: CreateExerciseComponent
+        path: ':id',
+        children: [
+          { path: 'view', redirectTo: '/exercises/all'},
+          { path: 'edit', component: CreateExerciseComponent}
+        ]
       }
     ]
   }
