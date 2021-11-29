@@ -4,6 +4,7 @@ import { CreateExerciseComponent } from './create-exercise.component';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateExerciseRoutingModule } from './create-exercise-routing.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -13,6 +14,7 @@ import { CreateExerciseRoutingModule } from './create-exercise-routing.module';
     CommonModule,
     CreateExerciseRoutingModule,
     MaterialModule,
+    FlexLayoutModule,
     ReactiveFormsModule
   ]
 })
