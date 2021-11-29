@@ -9,10 +9,13 @@ import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 })
 export class ExerciseListComponent {
   @Input() public exerciseList: ExercisesEntity[] | null = null;
+
   @Output()
   public readonly exerciseEdited = new EventEmitter<string>();
   @Output()
   public readonly exerciseViewed = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseDeleted = new EventEmitter<string>();
 
   public viewExercise({ id }: ExercisesEntity): void {
     this.exerciseViewed.emit(id);
@@ -20,5 +23,11 @@ export class ExerciseListComponent {
 
   public editExercise({ id }: ExercisesEntity): void {
     this.exerciseEdited.emit(id);
+  }
+
+  public deleteExercise(id: string): void {
+    console.log(id);
+    
+    this.exerciseDeleted.emit(id);
   }
 }

@@ -1,4 +1,3 @@
-import { Exercise } from '@fitness-tracker/exercises/model';
 import { WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
 import { ExercisesEntity } from '../../../../model/src/lib/exercises-data.models';
@@ -45,6 +44,20 @@ export const updateExerciseSuccess = createAction(
 
 export const updateExerciseFailure = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISES,
+);
+
+export const deleteExercise = createAction(
+  EXERCISES_ACTION_NAMES.DELETE_EXERCISE,
+  props<WithPayload<string>>()
+);
+
+export const deleteExerciseSuccess = createAction(
+  EXERCISES_ACTION_NAMES.DELETE_EXERCISE_SUCCESS,
+  props<WithPayload<string>>()
+);
+
+export const deleteExerciseFailure = createAction(
+  EXERCISES_ACTION_NAMES.DELETE_EXERCISE_FAILURE,
 );
 
 export const loadExerciseDetails = createAction(

@@ -26,4 +26,8 @@ export class ExercisesDisplayComponent implements OnInit {
     console.log(mode, id)
     this.router.navigate(['..', id, mode], { relativeTo: this.route });
   }
+
+  public deleteExercise(id: string): void {
+    this.exerciseFacade.deleteExercise(id);
+  }
 }

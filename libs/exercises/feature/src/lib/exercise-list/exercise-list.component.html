@@ -5,6 +5,7 @@
   <fitness-tracker-exercise *ngFor="let exercise of exerciseList"
                             [exercise]="exercise"
                             (exerciseEdited)="editExercise(exercise)"
-                            (exerciseViewed)="viewExercise(exercise)"></fitness-tracker-exercise>
-                            
+                            (exerciseViewed)="viewExercise(exercise)"
+                            (exerciseDeleted)="deleteExercise($event)"></fitness-tracker-exercise>
+
 </section>

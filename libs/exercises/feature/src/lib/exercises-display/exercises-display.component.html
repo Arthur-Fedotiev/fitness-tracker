@@ -13,7 +13,8 @@
   <section class="exercises__list">
     <fitness-tracker-exercise-list [exerciseList]="allExercises$ | async"
                                    (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
-                                   (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"></fitness-tracker-exercise-list>
+                                   (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"
+                                   (exerciseDeleted)="deleteExercise($event)"></fitness-tracker-exercise-list>
     <footer>
       <button mat-raised-button
               color="accent">Load More</button>

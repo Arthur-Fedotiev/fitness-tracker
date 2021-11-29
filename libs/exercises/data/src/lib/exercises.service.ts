@@ -24,6 +24,10 @@ export class ExercisesService {
     return from(this.afs.doc(`${COLLECTIONS.EXERCISES}/${id}`).update(exercise));
   }
 
+  public deleteExercise(exerciseId: string): Observable<void> {
+    return from(this.afs.doc<ExercisesEntity>(`${COLLECTIONS.EXERCISES}/${exerciseId}`).delete());
+  }
+
   public getExercises(): Observable<ExercisesEntity[]> {
     return this.afs.collection<ExercisesEntity>(
       COLLECTIONS.EXERCISES,

@@ -43,6 +43,18 @@ export class ExercisesEffects {
     )
   );
 
+  public deleteExercise$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.DELETE_EXERCISE),
+      mergeMap(({ payload }: WithPayload<string>): Observable<Action> =>
+        this.exercisesService.deleteExercise(payload).pipe(
+          map(() => ExercisesActions.deleteExerciseSuccess({ payload })),
+          catchError(() => of(ExercisesActions.deleteExerciseFailure())),
+        )
+      ),
+    )
+  );
+
   public loadExerciseDetails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS),

@@ -51,4 +51,8 @@ export class ExercisesFacade {
     this.store.dispatch(ExercisesActions.releaseExerciseDetails());
   }
 
+  public deleteExercise(payload: string): void {
+    this.store.dispatch(ExercisesActions.deleteExercise({ payload }))
+  }
+
 }

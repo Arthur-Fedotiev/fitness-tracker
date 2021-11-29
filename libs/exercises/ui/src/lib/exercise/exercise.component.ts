@@ -16,6 +16,8 @@ export class ExerciseComponent {
   public readonly exerciseEdited = new EventEmitter<string>();
   @Output()
   public readonly exerciseViewed = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseDeleted = new EventEmitter<string>();
 
   public viewExercise({ id }: ExercisesEntity): void {
     this.exerciseViewed.emit(id);
@@ -23,6 +25,10 @@ export class ExerciseComponent {
 
   public editExercise({ id }: ExercisesEntity): void {
     this.exerciseEdited.emit(id);
+  }
+
+  public deleteExercise({ id }: ExercisesEntity): void {
+    this.exerciseDeleted.emit(id);
   }
   // const dialogConfig = new MatDialogConfig();
 
