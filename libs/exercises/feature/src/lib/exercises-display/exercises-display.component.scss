@@ -1,0 +1,21 @@
+:host {
+  .exercises {
+    height: 100%;
+    &__list {
+      width: 90%;
+      height: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 1rem;
+      margin: auto;
+
+      footer {
+        align-self: center;
+      }
+    }
+    &__filters {
+      width: 200px;
+      background-color: lightsalmon;
+    }
+  }
+}

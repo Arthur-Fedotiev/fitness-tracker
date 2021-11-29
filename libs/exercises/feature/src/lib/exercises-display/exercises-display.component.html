@@ -1,0 +1,22 @@
+<main fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutGap="1rem"
+      class="exercises">
+  <button fxHide.gt-xs
+          mat-button
+          class="mat-raised-button mat-accent">
+    SHOW FILTERS
+  </button>
+  <aside fxHide.xs
+         class="exercises__filters"></aside>
+
+  <section class="exercises__list">
+    <fitness-tracker-exercise-list [exerciseList]="allExercises$ | async"
+                                   (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
+                                   (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"></fitness-tracker-exercise-list>
+    <footer>
+      <button mat-raised-button
+              color="accent">Load More</button>
+    </footer>
+  </section>
+</main>

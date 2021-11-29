@@ -4,12 +4,23 @@
   text-align: center;
 }
 
-.card {
-  &_header {
-    @include mixins.text-overflow(ellipsis);
+:host ::ng-deep {
+  mat-card-subtitle {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .subtitle-item {
+      margin-top: 0.5rem;
+      :first-child {
+        font-size: 1rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+    }
   }
 
-  &_description {
-    @include mixins.multiline-text-overflow(4);
+  mat-card-title-group > div {
+    flex: 0.9;
   }
 }

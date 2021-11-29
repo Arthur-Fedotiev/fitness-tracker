@@ -1,6 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { tap } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'fitness-tracker-exercises-page',
@@ -9,8 +7,4 @@ import { tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExercisesPageComponent {
-  public readonly isLoading$ = this.exercisesFacade.loading$.pipe(tap(console.log));
-
-  constructor(private readonly exercisesFacade: ExercisesFacade) { }
-
 }

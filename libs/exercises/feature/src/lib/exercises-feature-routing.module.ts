@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
-import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExercisesPageComponent } from './exercises-page/exercises-page.component';
 import { ExerciseResolver } from '@fitness-tracker/exercises/data';
 
@@ -10,11 +8,11 @@ const exercisesFeatureRoutes: Routes = [
     path: '', component: ExercisesPageComponent, children: [
       {
         path: 'all',
-        component: ExerciseListComponent
+        loadChildren: () => import('./exercises-display/exercises-display.module').then(m => m.ExercisesDisplayModule)
       },
       {
         path: 'create',
-        component: CreateExerciseComponent
+        loadChildren: () => import('./create-exercise/create-exercise.module').then(m => m.CreateExerciseModule)
       },
       {
         path: ':id',
@@ -23,7 +21,9 @@ const exercisesFeatureRoutes: Routes = [
         },
         children: [
           { path: 'view', redirectTo: '/exercises/all' },
-          { path: 'edit', component: CreateExerciseComponent }
+          {
+            path: 'edit', loadChildren: () => import('./create-exercise/create-exercise.module').then(m => m.CreateExerciseModule)
+          }
         ]
       }
     ]

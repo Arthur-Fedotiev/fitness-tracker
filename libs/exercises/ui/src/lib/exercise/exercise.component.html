@@ -1,23 +1,29 @@
 <mat-card class="card">
+  <mat-card-title-group>
+    <img fxHide.xs
+         mat-card-md-image
+         [src]="exercise?.avatarUrl || 'https://st2.depositphotos.com/1560768/6162/i/950/depositphotos_61621057-stock-photo-no-image-available.jpg'"
+         onerror="this.onerror=null;
+    this.src='https://st2.depositphotos.com/1560768/6162/i/950/depositphotos_61621057-stock-photo-no-image-available.jpg'">
 
-  <mat-card-header class="card_header">
+    <mat-card-title>{{ exercise.name }}</mat-card-title>
+    <mat-card-subtitle>
 
-    <mat-card-title>{{exercise.name}}</mat-card-title>
+      <div class="subtitle-item">
+        <p>Targeted muscle:</p>
+        <a href="javascript:void(0)">{{ exercise?.targetMuscle }}</a>
+      </div>
+      <div class="subtitle-item">
+        <p>Equipment:</p>
+        <a href="javascript:void(0)">{{ exercise?.equipment }}</a>
+      </div>
+      <div class="subtitle-item">
+        <p>Load Type: </p>
+        <a href="javascript:void(0)">{{ exercise?.exerciseType }}</a>
+      </div>
+    </mat-card-subtitle>
 
-  </mat-card-header>
-
-  <img *ngIf="exercise?.coverUrl"
-       mat-card-image
-       width="100%"
-       [src]="exercise?.coverUrl">
-
-  <mat-card-content>
-    <p>{{exercise.targetMuscle}}</p>
-    <p>{{exercise.rating}}</p>
-    <div class="card_description">{{ exercise.shortDescription }}</div>
-
-  </mat-card-content>
-
+  </mat-card-title-group>
   <mat-card-actions class="exercise-actions">
 
     <button mat-button
@@ -31,7 +37,9 @@
             (click)="editExercise(exercise)">
       EDIT
     </button>
-
+    <button mat-mini-fab
+            color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-card-actions>
-
 </mat-card>

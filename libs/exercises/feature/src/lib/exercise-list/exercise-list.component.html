@@ -1,10 +1,10 @@
-<main class="exercises-panel"
-      fxLayout="row wrap"
-      fxLayoutGap="16px grid"
-      fxLayoutAlign="center">
-  <fitness-tracker-exercise fxFlex="0 0 400px"
-                            *ngFor="let exercise of allExercises$ | async"
+<section class="exercises-panel"
+         fxLayout="column"
+         fxLayoutGap="0.5rem"
+         fxLayoutAlign="center">
+  <fitness-tracker-exercise *ngFor="let exercise of exerciseList"
                             [exercise]="exercise"
-                            (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
-                            (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"></fitness-tracker-exercise>
-</main>
+                            (exerciseEdited)="editExercise(exercise)"
+                            (exerciseViewed)="viewExercise(exercise)"></fitness-tracker-exercise>
+                            
+</section>

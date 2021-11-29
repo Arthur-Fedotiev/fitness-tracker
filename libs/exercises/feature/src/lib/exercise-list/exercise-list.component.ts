@@ -1,7 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { EXERCISE_MODE } from '@fitness-tracker/exercises/model';
+import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 @Component({
   selector: 'fitness-tracker-exercise-list',
@@ -9,20 +7,18 @@ import { EXERCISE_MODE } from '@fitness-tracker/exercises/model';
   styleUrls: ['./exercise-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExerciseListComponent implements OnInit {
-  public readonly exerciseMode = EXERCISE_MODE;
-  public readonly allExercises$ = this.exerciseFacade.allExercises$;
+export class ExerciseListComponent {
+  @Input() public exerciseList: ExercisesEntity[] | null = null;
+  @Output()
+  public readonly exerciseEdited = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseViewed = new EventEmitter<string>();
 
-  constructor(
-    private exerciseFacade: ExercisesFacade,
-    private router: Router,
-    private route: ActivatedRoute) { }
-
-  public ngOnInit(): void {
-    this.exerciseFacade.getAllExercises();
+  public viewExercise({ id }: ExercisesEntity): void {
+    this.exerciseViewed.emit(id);
   }
 
-  public navigate(mode: EXERCISE_MODE, id: string): void {
-    this.router.navigate(['..', id, mode], { relativeTo: this.route });
+  public editExercise({ id }: ExercisesEntity): void {
+    this.exerciseEdited.emit(id);
   }
 }
