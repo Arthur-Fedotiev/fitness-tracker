@@ -13,6 +13,10 @@ const exercisesFeatureRoutes: Routes = [
         component: ExerciseListComponent
       },
       {
+        path: 'create',
+        component: CreateExerciseComponent
+      },
+      {
         path: ':id',
         resolve: {
           exercise: ExerciseResolver
