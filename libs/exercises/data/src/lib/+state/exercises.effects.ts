@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
 
 import * as ExercisesActions from './exercises.actions';
-import * as ExercisesFeature from './exercises.reducer';
 import { EXERCISES_ACTION_NAMES } from './models/exercises.actions.enum';
 import { ExercisesService, loadExercisesSuccess } from '@fitness-tracker/exercises/data';
-import { catchError, concatMap, EMPTY, from, map, mapTo, mergeMap, Observable, of } from 'rxjs';
-import { Exercise, ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { catchError, concatMap, map, mergeMap, Observable, of, switchMap } from 'rxjs';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 import { WithPayload } from '@fitness-tracker/shared/utils';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Action } from '@ngrx/store';
 
 @Injectable()
@@ -43,6 +40,19 @@ export class ExercisesEffects {
           catchError(() => of(ExercisesActions.updateExerciseFailure())),
         )
       ),
+    )
+  );
+
+  public loadExerciseDetails$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS),
+      switchMap(({ payload }: WithPayload<string>): Observable<Action> =>
+        this.exercisesService.getExerciseDetails(payload).pipe(
+          // delay(2000),
+          map((payload: ExercisesEntity) => ExercisesActions.loadExerciseDetailsSuccess({ payload })),
+          catchError(() => of(ExercisesActions.loadExerciseDetailsFailure())),
+        )
+      )
     )
   );
 

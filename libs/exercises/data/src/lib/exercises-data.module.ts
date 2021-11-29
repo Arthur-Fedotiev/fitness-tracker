@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromExercises from './+state/exercises.reducer';
 import { ExercisesEffects } from './+state/exercises.effects';
 import { ExercisesFacade } from './+state/exercises.facade';
+import { ExerciseResolver } from './resolvers/exercise.resolver';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { ExercisesFacade } from './+state/exercises.facade';
     ),
     EffectsModule.forFeature([ExercisesEffects]),
   ],
-  providers: [ExercisesFacade],
+  providers: [ExercisesFacade, ExerciseResolver],
 })
 export class ExercisesDataModule {}

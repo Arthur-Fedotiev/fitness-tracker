@@ -1,8 +1,10 @@
-.exercise-card {
-  margin: 20px 10px;
-}
+:host {
+  .exercise-card {
+    margin: 20px 10px;
+  }
 
-.exercises-panel {
-  width: 80%;
-  margin: 0 auto;
+  .exercises-panel {
+    width: 80%;
+    margin: 0 auto;
+  }
 }

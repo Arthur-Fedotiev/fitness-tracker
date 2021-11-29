@@ -8,9 +8,9 @@ import * as ExercisesSelectors from './exercises.selectors';
 
 @Injectable()
 export class ExercisesFacade {
-  loaded$ = this.store.pipe(select(ExercisesSelectors.getExercisesLoaded));
+  public readonly loading$ = this.store.pipe(select(ExercisesSelectors.getLoading));
   public readonly allExercises$ = this.store.pipe(select(ExercisesSelectors.getAllExercises));
-  selectedExercises$ = this.store.pipe(select(ExercisesSelectors.getSelected));
+  public readonly selectedExerciseDetails$ = this.store.pipe(select(ExercisesSelectors.getSelectedExerciseDetails));
 
   constructor(
     private readonly store: Store,
@@ -43,6 +43,12 @@ export class ExercisesFacade {
     this.store.dispatch(ExercisesActions.updateExercise({ payload }))
   }
 
+  public loadExerciseDetails(payload: string): void {
+    this.store.dispatch(ExercisesActions.loadExerciseDetails({ payload }))
+  }
 
+  public releaseExerciseDetails(): void {
+    this.store.dispatch(ExercisesActions.releaseExerciseDetails());
+  }
 
 }

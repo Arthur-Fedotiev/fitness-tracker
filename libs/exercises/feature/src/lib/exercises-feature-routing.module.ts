@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExercisesPageComponent } from './exercises-page/exercises-page.component';
+import { ExerciseResolver } from '@fitness-tracker/exercises/data';
 
 const exercisesFeatureRoutes: Routes = [
   {
@@ -13,9 +14,12 @@ const exercisesFeatureRoutes: Routes = [
       },
       {
         path: ':id',
+        resolve: {
+          exercise: ExerciseResolver
+        },
         children: [
-          { path: 'view', redirectTo: '/exercises/all'},
-          { path: 'edit', component: CreateExerciseComponent}
+          { path: 'view', redirectTo: '/exercises/all' },
+          { path: 'edit', component: CreateExerciseComponent }
         ]
       }
     ]

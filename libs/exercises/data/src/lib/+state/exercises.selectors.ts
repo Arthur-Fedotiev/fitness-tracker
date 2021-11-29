@@ -12,9 +12,9 @@ export const getExercisesState = createFeatureSelector<State>(
 
 const { selectAll, selectEntities } = exercisesAdapter.getSelectors();
 
-export const getExercisesLoaded = createSelector(
+export const getLoading = createSelector(
   getExercisesState,
-  (state: State) => state.loaded
+  (state: State) => state.loading
 );
 
 export const getExercisesError = createSelector(
@@ -41,4 +41,9 @@ export const getSelected = createSelector(
   getExercisesEntities,
   getSelectedId,
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+);
+
+export const getSelectedExerciseDetails = createSelector(
+  getExercisesState,
+  (state: State) => state.selectedExercise,
 );

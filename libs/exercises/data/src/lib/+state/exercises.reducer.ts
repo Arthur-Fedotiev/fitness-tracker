@@ -8,7 +8,8 @@ export const EXERCISES_FEATURE_KEY = 'exercises';
 
 export interface State extends EntityState<ExercisesEntity> {
   selectedId?: string | number; // which Exercises record has been selected
-  loaded: boolean; // has the Exercises list been loaded
+  selectedExercise: ExercisesEntity | null;
+  loading: boolean; // has the Exercises list been loading
   error?: string | null; // last known error (if any)
 }
 
@@ -21,24 +22,42 @@ export const exercisesAdapter: EntityAdapter<ExercisesEntity> =
 
 export const initialState: State = exercisesAdapter.getInitialState({
   // set initial required properties
-  loaded: false,
+  loading: false,
+  selectedExercise: null,
 });
 
 const exercisesReducer = createReducer(
   initialState,
   on(ExercisesActions.loadExercises, (state) => ({
     ...state,
-    loaded: false,
+    loading: true,
     error: null,
   })),
   on(ExercisesActions.loadExercisesSuccess, (state, { exercises }) =>
-    exercisesAdapter.setAll(exercises, { ...state, loaded: true })
+    exercisesAdapter.setAll(exercises, { ...state, loading: false })
   ),
   on(ExercisesActions.loadExercisesFailure, (state, { error }) => ({
     ...state,
+    loading: false,
     error,
   })),
-  on(ExercisesActions.createExercise, (state, { payload }) => exercisesAdapter.addOne(payload, state)),
+  on(ExercisesActions.createExercise, (state, { payload }) =>
+    exercisesAdapter.addOne(payload, { ...state, loading: false })
+  ),
+  on(ExercisesActions.loadExerciseDetails, (state) => ({ ...state, loading: true })),
+  on(ExercisesActions.loadExerciseDetailsSuccess, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    selectedExercise: payload
+  })),
+  on(ExercisesActions.loadExerciseDetailsFailure, (state) => ({
+    ...state,
+    loading: false,
+  })),
+  on(ExercisesActions.releaseExerciseDetails, (state) => ({
+    ...state,
+    selectedExercise: null,
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

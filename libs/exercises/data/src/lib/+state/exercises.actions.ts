@@ -44,5 +44,23 @@ export const updateExerciseSuccess = createAction(
 );
 
 export const updateExerciseFailure = createAction(
-  EXERCISES_ACTION_NAMES.UPDATE_EXERCISE_FAILURE,
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISES,
+);
+
+export const loadExerciseDetails = createAction(
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS,
+  props<WithPayload<string>>()
+);
+
+export const loadExerciseDetailsSuccess = createAction(
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
+  props<WithPayload<ExercisesEntity>>()
+);
+
+export const releaseExerciseDetails = createAction(
+  EXERCISES_ACTION_NAMES.RELEASE_EXERCISE_DETAILS,
+);
+
+export const loadExerciseDetailsFailure = createAction(
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
 );
