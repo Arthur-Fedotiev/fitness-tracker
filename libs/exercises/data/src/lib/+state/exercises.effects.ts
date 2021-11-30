@@ -5,7 +5,7 @@ import * as ExercisesActions from './exercises.actions';
 import { EXERCISES_ACTION_NAMES } from './models/exercises.actions.enum';
 import { catchError, concatMap, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
-import { WithPayload } from '@fitness-tracker/shared/utils';
+import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
 import { Action } from '@ngrx/store';
 import { loadExercisesSuccess } from './exercises.actions';
 import { ExercisesService } from '../exercises.service';
@@ -13,11 +13,22 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class ExercisesEffects {
-  public loadExercises$ = createEffect(() =>
+  public loadAllExercises$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISES),
-      concatMap(() => this.exercisesService.getExercises()),
+      concatMap(() => this.exercisesService.loadAllExercises()),
       map(exercises => loadExercisesSuccess({ exercises })),
+    )
+  );
+
+  public findExercises$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.FIND_EXERCISES),
+      concatMap(({ payload }: WithPayload<Partial<SearchOptions>>) =>
+        this.exercisesService.findExercises({ ...payload }).pipe(
+          map((payload: ExercisesEntity[]) => ExercisesActions.findExercisesSuccess({ payload })),
+          catchError(() => of(ExercisesActions.findExercisesFailure()))
+        )),
     )
   );
 

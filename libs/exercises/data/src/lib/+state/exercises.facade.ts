@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Exercise, ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { SearchOptions } from '@fitness-tracker/shared/utils';
 import { select, Store } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';
@@ -53,6 +54,10 @@ export class ExercisesFacade {
 
   public deleteExercise(payload: string): void {
     this.store.dispatch(ExercisesActions.deleteExercise({ payload }))
+  }
+
+  public findExercises(payload: Partial<SearchOptions>): void {
+    this.store.dispatch(ExercisesActions.findExercises({ payload }))
   }
 
 }

@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firestore';
-import { Exercise, ExercisesEntity } from "@fitness-tracker/exercises/model";
-import { COLLECTIONS, convertOneSnap, convertSnaps } from "@fitness-tracker/shared/utils";
+import { Exercise, ExercisesEntity, EXERCISE_FIELD_NAMES } from "@fitness-tracker/exercises/model";
+import { COLLECTIONS, convertOneSnap, convertSnaps, DEFAULT_PAGINATION_STATE, ORDER_BY, SearchOptions } from "@fitness-tracker/shared/utils";
 import firebase from 'firebase/compat';
 import { first, from, map, Observable, tap } from 'rxjs';
+import { CollectionReference, QueryDocumentSnapshot } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExercisesService {
+  private exerciseDocCash: QueryDocumentSnapshot<ExercisesEntity> | null = null;
 
   constructor(private readonly afs: AngularFirestore) { }
 
@@ -28,11 +30,22 @@ export class ExercisesService {
     return from(this.afs.doc<ExercisesEntity>(`${COLLECTIONS.EXERCISES}/${exerciseId}`).delete());
   }
 
-  public getExercises(): Observable<ExercisesEntity[]> {
+  public loadAllExercises(): Observable<ExercisesEntity[]> {
     return this.afs.collection<ExercisesEntity>(
       COLLECTIONS.EXERCISES,
-      (ref: firebase.firestore.CollectionReference) => ref.orderBy('rating', 'desc')
+      (ref: CollectionReference) => ref.orderBy(EXERCISE_FIELD_NAMES.RATING, ORDER_BY.DESC)
     ).get().pipe(map(convertSnaps), first());
+  }
+
+
+  public findExercises(searchOptions: Partial<SearchOptions>): Observable<ExercisesEntity[]> {
+    return this.afs.collection<ExercisesEntity>(
+      COLLECTIONS.EXERCISES,
+      (ref: CollectionReference) => this.toPaginatedRef({ ref, ...searchOptions })
+    ).get().pipe(
+      tap((snaps) => this.exerciseDocCash = [...snaps.docs][snaps.docs.length - 1] ?? null),
+      map(convertSnaps),
+      first());
   }
 
   public getExerciseDetails(exerciseId: string): Observable<ExercisesEntity> {
@@ -40,4 +53,17 @@ export class ExercisesService {
       map<firebase.firestore.DocumentSnapshot<ExercisesEntity>, ExercisesEntity>(convertOneSnap)
     );
   }
+
+  private toPaginatedRef({
+    ref,
+    sortOrder = ORDER_BY.DESC,
+    firstPage = DEFAULT_PAGINATION_STATE.firstPage,
+    pageSize = DEFAULT_PAGINATION_STATE.pageSize,
+  }: Partial<SearchOptions> & { ref: CollectionReference }) {
+    const newRef = ref?.orderBy(EXERCISE_FIELD_NAMES.RATING, sortOrder)
+      .limit(pageSize);
+
+    return firstPage ? newRef : newRef.startAfter(this.exerciseDocCash);
+  }
+
 }

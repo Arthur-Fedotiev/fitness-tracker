@@ -26,8 +26,6 @@ export class ExerciseListComponent {
   }
 
   public deleteExercise(id: string): void {
-    console.log(id);
-    
     this.exerciseDeleted.emit(id);
   }
 }

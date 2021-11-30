@@ -1,6 +1,6 @@
-import { WithPayload } from '@fitness-tracker/shared/utils';
+import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
-import { ExercisesEntity } from '../../../../model/src/lib/exercises-data.models';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 import { EXERCISES_ACTION_NAMES } from './models/exercises.actions.enum';
 
 export const init = createAction('[Exercises Page] Init');
@@ -18,6 +18,21 @@ export const loadExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISES_FAILURE,
   props<{ error: any }>()
 );
+
+export const findExercises = createAction(
+  EXERCISES_ACTION_NAMES.FIND_EXERCISES,
+  props<WithPayload<Partial<SearchOptions>>>()
+);
+
+export const findExercisesSuccess = createAction(
+  EXERCISES_ACTION_NAMES.FIND_EXERCISES_SUCCESS,
+  props<WithPayload<ExercisesEntity[]>>()
+);
+
+export const findExercisesFailure = createAction(
+  EXERCISES_ACTION_NAMES.FIND_EXERCISES_FAILURE
+);
+
 
 export const createExercise = createAction(
   EXERCISES_ACTION_NAMES.CREATE_EXERCISE,
