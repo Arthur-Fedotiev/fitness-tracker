@@ -5,6 +5,8 @@ import * as ExercisesActions from './exercises.actions';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 export const EXERCISES_FEATURE_KEY = 'exercises';
+export const sortComparer = (a: ExercisesEntity, b: ExercisesEntity) =>
+  b.rating - a.rating > 0 ? 1 : -1;
 
 export interface State extends EntityState<ExercisesEntity> {
   selectedId?: string | number; // which Exercises record has been selected
@@ -18,7 +20,9 @@ export interface ExercisesPartialState {
 }
 
 export const exercisesAdapter: EntityAdapter<ExercisesEntity> =
-  createEntityAdapter<ExercisesEntity>();
+  createEntityAdapter<ExercisesEntity>({
+    sortComparer
+  });
 
 export const initialState: State = exercisesAdapter.getInitialState({
   // set initial required properties
