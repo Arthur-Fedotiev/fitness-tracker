@@ -4,7 +4,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES, ExercisesEntity } from '@fitness-tracker/exercises/model';
@@ -33,6 +33,11 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
       : this.exercisesFacade.createExercise(this.exerciseForm.value)),
     untilDestroyed(this),
   )
+
+  public get ratingControl(): AbstractControl | null {
+    return this.exerciseForm.get('rating');
+  }
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -43,6 +48,8 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initData();
     this.initListeners();
+
+    this.exerciseForm.valueChanges.subscribe(console.log)
   }
 
   ngOnDestroy(): void {
@@ -51,6 +58,10 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
 
   public onSave(): void {
     this.save.next();
+  }
+
+  public ratingChange(rating: number | null): void {
+    this.ratingControl?.setValue(rating, { emitEvent: false });
   }
 
   public trackByItem(index: number, item: string | number): string | number {
@@ -69,7 +80,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
       longDescription: [null],
       benefits: [null],
       instructions: [null],
-      rating: [0, Validators.required],
+      rating: [null, Validators.required],
     });
   }
 
