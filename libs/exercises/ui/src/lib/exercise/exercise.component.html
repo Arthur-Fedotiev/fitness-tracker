@@ -8,7 +8,13 @@
          onerror="this.onerror=null;
     this.src='https://st2.depositphotos.com/1560768/6162/i/950/depositphotos_61621057-stock-photo-no-image-available.jpg'">
 
-    <mat-card-title>{{ exercise.name }}</mat-card-title>
+
+    <mat-card-title>
+      <span [matBadge]="exercise?.rating"
+            matBadgeSize="medium"
+            matBadgeColor="accent"
+            [matBadgeOverlap]="true">{{ exercise.name }}</span>
+    </mat-card-title>
     <mat-card-subtitle>
 
       <div class="subtitle-item">
