@@ -1,7 +1,8 @@
-// :host {
-//   display: flex;
-//   justify-content: center;
-// }
+:host {
+  main {
+    padding: 1rem 0 2rem;
+  }
+}
 
 .create-exercise {
   margin-top: 20px;

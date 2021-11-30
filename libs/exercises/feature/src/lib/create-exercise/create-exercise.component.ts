@@ -5,10 +5,13 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES } from '@fitness-tracker/exercises/model';
+import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES, ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { Subject, tap } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'fitness-tracker-create-exercise',
   templateUrl: './create-exercise.component.html',
@@ -21,14 +24,25 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   public readonly equipment: Equipment = EQUIPMENT;
   public readonly exerciseTypes: ExerciseTypes = EXERCISE_TYPES;
 
+  public resolvedExercise: ExercisesEntity | null = null;
+
+  private readonly save: Subject<void> = new Subject<void>();
+  public readonly onSave$ = this.save.asObservable().pipe(
+    tap(() => this.resolvedExercise
+      ? this.exercisesFacade.updateExercise({ id: this.resolvedExercise.id, ...this.exerciseForm.value })
+      : this.exercisesFacade.createExercise(this.exerciseForm.value)),
+    untilDestroyed(this),
+  )
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private exercisesFacade: ExercisesFacade
   ) { }
 
   ngOnInit(): void {
-    this.exerciseForm.patchValue(this.route.snapshot.data['exercise']);
+    this.initData();
+    this.initListeners();
   }
 
   ngOnDestroy(): void {
@@ -36,11 +50,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   }
 
   public onSave(): void {
-    const id = this.route.snapshot.data['exercise']?.id;
-
-    id
-      ? this.exercisesFacade.updateExercise({ id, ...this.exerciseForm.value })
-      : this.exercisesFacade.createExercise(this.exerciseForm.value);
+    this.save.next();
   }
 
   public trackByItem(index: number, item: string | number): string | number {
@@ -61,5 +71,14 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
       instructions: [null],
       rating: [0, Validators.required],
     });
+  }
+
+  private initData(): void {
+    this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
+    this.resolvedExercise && this.exerciseForm.patchValue(this.resolvedExercise);
+  }
+
+  private initListeners(): void {
+    this.onSave$.subscribe();
   }
 }
