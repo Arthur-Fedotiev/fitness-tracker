@@ -255,7 +255,15 @@
                   "with": "apps/fitness-tracker/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "fonts": {
+                  "inline": true
+                },
+                "styles": {
+                  "inlineCritical": true
+                }
+              }
             },
             "development": {
               "buildOptimizer": false,
