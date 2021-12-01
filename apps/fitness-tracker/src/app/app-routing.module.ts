@@ -7,13 +7,13 @@ const appRoutes: Route[] = [{
   component: LayoutComponent,
   children: [
     { path: 'auth', loadChildren: () => import('@fitness-tracker/auth/feature').then(m => m.AuthFeatureModule) },
-    { path: 'exercises', loadChildren: () => import('@fitness-tracker/exercises/feature').then(m => m.ExercisesFeatureModule)}
+    { path: 'exercises', loadChildren: () => import('@fitness-tracker/exercises/feature').then(m => m.ExercisesFeatureModule) }
   ],
 },
 { path: '**', redirectTo: '' }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { enableTracing: false})],
+  imports: [RouterModule.forRoot(appRoutes, { enableTracing: false })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
