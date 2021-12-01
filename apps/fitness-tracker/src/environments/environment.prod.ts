@@ -1,4 +1,5 @@
 export const environment = {
+  useEmulators: false,
   firebase: {
     projectId: 'fitness-tracker-de06b',
     appId: '1:450961916900:web:a85ab7b9651ed92cd5bdf1',
