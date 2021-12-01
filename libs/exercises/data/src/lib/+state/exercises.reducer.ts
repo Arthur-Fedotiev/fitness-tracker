@@ -57,6 +57,7 @@ const exercisesReducer = createReducer(
     ...state,
     loading: false,
   })),
+  on(ExercisesActions.emptyExercisesList, (state) => exercisesAdapter.removeAll(state)),
   on(ExercisesActions.createExercise, (state, { payload }) =>
     exercisesAdapter.addOne(payload, { ...state, loading: false })
   ),

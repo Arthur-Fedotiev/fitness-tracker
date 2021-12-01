@@ -60,4 +60,8 @@ export class ExercisesFacade {
     this.store.dispatch(ExercisesActions.findExercises({ payload }))
   }
 
+  public emptyExercisesList(): void {
+    this.store.dispatch(ExercisesActions.emptyExercisesList());
+  }
+
 }

@@ -33,6 +33,9 @@ export const findExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES_FAILURE
 );
 
+export const emptyExercisesList = createAction(
+  EXERCISES_ACTION_NAMES.EMPTY_EXERCISES
+);
 
 export const createExercise = createAction(
   EXERCISES_ACTION_NAMES.CREATE_EXERCISE,

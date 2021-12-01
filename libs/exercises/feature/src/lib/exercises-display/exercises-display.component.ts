@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { EXERCISE_MODE } from '@fitness-tracker/exercises/model';
@@ -13,7 +13,7 @@ import { map, Observable, Subject, tap } from 'rxjs';
   styleUrls: ['./exercises-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExercisesDisplayComponent implements OnInit {
+export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly allExercises$ = this.exerciseFacade.allExercises$;
 
@@ -35,6 +35,10 @@ export class ExercisesDisplayComponent implements OnInit {
     this.loadExercises.next(false)
   }
 
+  public ngOnDestroy(): void {
+    this.releaseResources()
+  }
+
   public navigate(mode: EXERCISE_MODE, id: string): void {
     this.router.navigate(['..', id, mode], { relativeTo: this.route });
   }
@@ -49,5 +53,9 @@ export class ExercisesDisplayComponent implements OnInit {
 
   private findExercises(paginationData: Pagination): void {
     this.exerciseFacade.findExercises(paginationData)
+  }
+
+  private releaseResources(): void {
+    this.exerciseFacade.emptyExercisesList();
   }
 }
