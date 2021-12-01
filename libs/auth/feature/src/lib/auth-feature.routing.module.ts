@@ -7,7 +7,7 @@ import { AuthComponent } from './login/auth.component';
 export const authFeatureRoutes: Routes = [
   {
     path: '', component: AuthComponent, children: [
-      { path: 'login', component: LoginFormComponent }
+      { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }
     ]
   }
 ]
@@ -16,6 +16,7 @@ export const authFeatureRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(authFeatureRoutes),
+
   ],
   exports: [RouterModule]
 })
