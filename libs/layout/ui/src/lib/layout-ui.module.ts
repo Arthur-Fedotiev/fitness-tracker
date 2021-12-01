@@ -3,10 +3,13 @@ import { CommonModule } from '@angular/common';
 import { LayoutUiComponent } from './layout-ui/layout-ui.component';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule, FlexLayoutModule],
   declarations: [LayoutUiComponent],
   exports: [LayoutUiComponent],
 })
-export class LayoutUiModule {}
+export class LayoutUiModule { 
+  
+}
