@@ -1,8 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
 import firebase from 'firebase/compat';
 import { WithPayload } from '@fitness-tracker/shared/utils';
-import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 
 export const authFeatureKey = 'auth';
 
@@ -23,7 +22,6 @@ export const reducer = createReducer(
       ...state,
       user,
     })),
-  on(AuthActions.loginFailure, (state, action) => state),
-  on(AuthActions.logout, (state, action) => state),
+  on(AuthActions.logoutSuccess, (state) => ({ ...state, user: null })),
 
 );

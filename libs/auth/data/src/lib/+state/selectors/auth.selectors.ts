@@ -14,3 +14,8 @@ export const selectIsLoggedOut = createSelector(
   selectIsLoggedIn,
   (isLoggedIn: boolean): boolean => !isLoggedIn,
 )
+
+export const selectPhotoUrl = createSelector(
+  selectAuthState,
+  (state: fromAuth.AuthState): string | null => state.user?.photoURL ?? null,
+)

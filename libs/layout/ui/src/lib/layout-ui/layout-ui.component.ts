@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'fitness-tracker-layout-ui',
@@ -6,18 +6,14 @@ import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, Input, O
   styleUrls: ['./layout-ui.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayoutUiComponent implements OnInit {
+export class LayoutUiComponent {
   @Input() public isLoggedIn: boolean | null = false;
-  @Input() public isLoggedOut: boolean | null = true;
+  @Input() public isLoggedOut: boolean | null = false;
+  @Input() public photoUrl: string | null = null;
+
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
-
-  // constructor() { }
-
-  ngOnInit(): void {
-  }
 
   public logOut(): void {
     this.loggedOutChange.emit()
   }
-
 }

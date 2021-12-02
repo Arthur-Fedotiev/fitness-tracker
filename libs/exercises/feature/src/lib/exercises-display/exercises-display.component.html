@@ -2,12 +2,14 @@
       fxLayout.xs="column"
       fxLayoutGap="1rem"
       class="exercises">
-  <button fxHide.gt-xs
+  <button *ngIf="false"
+          fxHide.gt-xs
           mat-button
           class="mat-raised-button mat-accent">
     SHOW FILTERS
   </button>
-  <aside fxHide.xs
+  <aside *ngIf="false"
+         fxHide.xs
          class="exercises__filters"></aside>
 
   <section class="exercises__list">

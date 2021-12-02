@@ -7,18 +7,14 @@
   </mat-sidenav>
 
   <mat-toolbar color="primary">
-    <div class="toolbar-tools">
+    <div fxHide.gt-sm
+         class="toolbar-tools">
       <button mat-icon-button
-              fxHide.md
               (click)="start.open('mouse')">
         <mat-icon>menu</mat-icon>
       </button>
 
       <div class="filler"></div>
-
-      <ng-container>
-        <img class="user-avatar" />
-      </ng-container>
     </div>
 
     <ng-container *ngTemplateOutlet="navList; context: {$implicit: 'row'}"></ng-container>
@@ -46,12 +42,6 @@
       <span>Create exercise</span>
     </a>
 
-    <a mat-list-item
-       routerLink="about">
-      <mat-icon>question_answer</mat-icon>
-      <span>About</span>
-    </a>
-
     <a *ngIf="isLoggedOut"
        mat-list-item
        [routerLink]="['auth', 'login']">
@@ -65,5 +55,10 @@
       <mat-icon>exit_to_app</mat-icon>
       <span>Logout</span>
     </a>
+
+    <ng-container *ngIf="photoUrl">
+      <img [src]="photoUrl"
+           class="user-avatar" />
+    </ng-container>
   </mat-nav-list>
 </ng-template>

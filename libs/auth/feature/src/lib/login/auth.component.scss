@@ -2,6 +2,14 @@
   height: 100vh;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+
+  .banner {
+    width: 100%;
+  }
+
+  .auth-container {
+    margin-top: 1rem;
+  }
 }

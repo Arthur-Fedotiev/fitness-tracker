@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AuthFacadeService } from '@fitness-tracker/auth/data';
-import { isNotNill } from '@fitness-tracker/shared/utils';
-import { Observable, filter } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fitness-tracker-layout',
@@ -10,14 +9,12 @@ import { Observable, filter } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
   public readonly isLoggedIn$: Observable<boolean> = this.authFacade.isLoggedIn$;
   public readonly isLoggedOut$: Observable<boolean> = this.authFacade.isLoggedOut$;
+  public readonly photoUrl$ = this.authFacade.photoUrl$;
 
   constructor(private authFacade: AuthFacadeService) { }
-
-  ngOnInit(): void {
-  }
 
   public logOut(): void {
     this.authFacade.logOut();

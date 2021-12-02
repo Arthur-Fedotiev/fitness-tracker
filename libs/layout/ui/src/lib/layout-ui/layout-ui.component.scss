@@ -19,6 +19,13 @@ mat-toolbar {
   z-index: 9999;
 }
 
-mat-nav-list.horizontal > a {
-  color: white;
+mat-nav-list.horizontal {
+  width: 100%;
+  & > a {
+    color: white;
+    flex: 0 1;
+    &:last-of-type {
+      margin-left: auto;
+    }
+  }
 }
