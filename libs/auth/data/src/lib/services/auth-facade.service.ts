@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loginFailure, loginSuccess, logout } from '../+state/actions/auth.actions';
+import { loginFailure, loginSuccess, logout, setDestinationURL } from '../+state/actions/auth.actions';
 import { selectIsLoggedIn, selectIsLoggedOut, selectPhotoUrl } from '../+state/selectors/auth.selectors';
-import firebase from 'firebase/compat';
 import { toUserInfo } from '../../utils/functions';
+import { UserInfo } from '@fitness-tracker/auth/model'
 
 @Injectable()
 export class AuthFacadeService {
@@ -13,7 +13,7 @@ export class AuthFacadeService {
 
   constructor(private readonly store: Store) { }
 
-  public loggedIn(user: firebase.UserInfo | null): void {
+  public loggedIn(user: UserInfo | null): void {
     this.store.dispatch(loginSuccess({ payload: toUserInfo(user) }));
   }
 
@@ -23,5 +23,9 @@ export class AuthFacadeService {
 
   public logOut(): void {
     this.store.dispatch(logout())
+  }
+
+  public setDestinationURL(payload: string): void {
+    this.store.dispatch(setDestinationURL({ payload }))
   }
 }

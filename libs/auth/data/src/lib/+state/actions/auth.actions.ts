@@ -1,8 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { AUTH_ACTION_NAMES } from '../models/action-name.enum';
 import { WithPayload } from '@fitness-tracker/shared/utils';
-import { FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure } from 'firebaseui-angular';
-import firebase from 'firebase/compat';
+import { UserInfo } from '@fitness-tracker/auth/model'
 
 export const login = createAction(
   AUTH_ACTION_NAMES.LOGIN
@@ -10,7 +9,7 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
   AUTH_ACTION_NAMES.LOGIN_SUCCESS,
-  props<WithPayload<firebase.UserInfo | null>>()
+  props<WithPayload<UserInfo | null>>()
 );
 
 export const loginFailure = createAction(
@@ -23,4 +22,9 @@ export const logout = createAction(
 
 export const logoutSuccess = createAction(
   AUTH_ACTION_NAMES.LOGOUT_SUCCESS
+);
+
+export const setDestinationURL = createAction(
+  AUTH_ACTION_NAMES.SET_DESTINATION_URL,
+  props<WithPayload<string>>(),
 );

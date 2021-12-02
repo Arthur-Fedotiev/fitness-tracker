@@ -1,6 +1,6 @@
-import firebase from 'firebase/compat';
+import { UserInfo } from '@fitness-tracker/auth/model'
 
-export const toUserInfo = (user: firebase.UserInfo | null) => (!user ? null : {
+export const toUserInfo = (user: UserInfo | null) => (!user ? null : {
   displayName: user.displayName,
   email: user.email,
   phoneNumber: user.phoneNumber,
