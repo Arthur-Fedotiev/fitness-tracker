@@ -6,11 +6,12 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
-    "build": "nx build",
+    "build": "nx build --stats-json",
     "local-dev": "firebase emulators:start --only firestore,functions --import sample-exercises",
     "empty-emulator": "firebase-emulators:start",
     "export-emulator": "firebase emulators:export sample-exercises",
     "emulator": "firebase emulators:start --import sample-exercises",
+    "analyze:fitness-tracker": "webpack-bundle-analyzer dist/apps/fitness-tracker/stats.json",
     "test": "nx test"
   },
   "private": true,
@@ -73,6 +74,7 @@
     "jest-preset-angular": "11.0.0",
     "prettier": "^2.3.1",
     "ts-jest": "27.0.5",
-    "typescript": "~4.4.3"
+    "typescript": "~4.4.3",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
