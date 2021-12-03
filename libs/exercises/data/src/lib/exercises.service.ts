@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firestore';
 import { Exercise, ExercisesEntity, EXERCISE_FIELD_NAMES } from "@fitness-tracker/exercises/model";
 import { COLLECTIONS, convertOneSnap, convertSnaps, DEFAULT_PAGINATION_STATE, ORDER_BY, SearchOptions } from "@fitness-tracker/shared/utils";
-import firebase from 'firebase/compat';
+import firebase from 'firebase/compat/app';
 import { first, from, map, Observable, tap } from 'rxjs';
 import { CollectionReference, QueryDocumentSnapshot } from '@angular/fire/compat/firestore';
 

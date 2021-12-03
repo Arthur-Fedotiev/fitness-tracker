@@ -1,6 +1,6 @@
 import { Exercise } from "./exercise-model";
 import { CollectionReference } from '@angular/fire/compat/firestore';
-import firebase from 'firebase/compat';
+import firebase from 'firebase/compat/app';
 
 export interface ExercisesEntity extends Exercise {
   id: string;
