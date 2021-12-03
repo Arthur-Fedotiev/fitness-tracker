@@ -105,6 +105,110 @@
       },
       "tags": []
     },
+    "create-user-data": {
+      "projectType": "library",
+      "root": "libs/create-user/data",
+      "sourceRoot": "libs/create-user/data/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/create-user/data"],
+          "options": {
+            "jestConfig": "libs/create-user/data/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/create-user/data/src/**/*.ts",
+              "libs/create-user/data/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "create-user-feature": {
+      "projectType": "library",
+      "root": "libs/create-user/feature",
+      "sourceRoot": "libs/create-user/feature/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/create-user/feature"],
+          "options": {
+            "jestConfig": "libs/create-user/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/create-user/feature/src/**/*.ts",
+              "libs/create-user/feature/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "create-user-models": {
+      "projectType": "library",
+      "root": "libs/create-user/models",
+      "sourceRoot": "libs/create-user/models/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/create-user/models"],
+          "options": {
+            "jestConfig": "libs/create-user/models/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/create-user/models/src/**/*.ts",
+              "libs/create-user/models/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "create-user-ui": {
+      "projectType": "library",
+      "root": "libs/create-user/ui",
+      "sourceRoot": "libs/create-user/ui/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/create-user/ui"],
+          "options": {
+            "jestConfig": "libs/create-user/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/create-user/ui/src/**/*.ts",
+              "libs/create-user/ui/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "exercises-data": {
       "projectType": "library",
       "root": "libs/exercises/data",

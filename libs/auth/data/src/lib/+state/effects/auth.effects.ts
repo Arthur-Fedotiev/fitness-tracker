@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { first, map, switchMapTo, tap } from 'rxjs/operators';
+import { filter, first, map, switchMapTo, tap } from 'rxjs/operators';
 import { UserInfo } from '@fitness-tracker/auth/model'
 
 import * as AuthActions from '../actions/auth.actions';
@@ -14,9 +14,15 @@ import { selectDestinationUrl } from '../selectors/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
+  public authJwtToken$ = createEffect(() =>
+    this.afAuth.idTokenResult.pipe(
+      filter(Boolean),
+      tap(console.log)
+    ), { dispatch: false })
 
   public authState$ = createEffect(() =>
     this.afAuth.authState.pipe(
+      tap(console.log),
       map((user: UserInfo | null) => user
         ? AuthActions.loginSuccess({ payload: toUserInfo(user) })
         : AuthActions.logoutSuccess()),
@@ -44,5 +50,4 @@ export class AuthEffects {
     private readonly router: Router,
     private readonly store: Store,
     private readonly afAuth: AngularFireAuth) { }
-
 }
