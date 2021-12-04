@@ -1,14 +1,4 @@
 import * as functions from "firebase-functions";
+import { createUserApp } from "./create-user-app";
 
-export const onAddAdminUser =
-  functions
-    .runWith({
-      timeoutSeconds: 300,
-      memory: "128MB"
-    })
-    .firestore.document("users/{userId}")
-    .onCreate(async (snap, context) => {
-      await (
-        await import("./create-admin"))
-        .default(snap, context);
-    });
+export const createUser = functions.https.onRequest(createUserApp);

@@ -13,8 +13,11 @@ export const environment = {
     authDomain: 'fitness-tracker-de06b.firebaseapp.com',
     messagingSenderId: '450961916900',
   },
+  api: { createUser: 'http://localhost:5001/fitness-tracker-de06b/us-central1/createUser' },
   production: false,
-};
+} as const;
+
+export type Environment = typeof environment;
 
 /*
  * For easier debugging in development mode, you can import the following file
