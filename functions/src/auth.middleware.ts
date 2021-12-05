@@ -1,27 +1,26 @@
-import * as functions from 'firebase-functions';
+import { logger } from 'firebase-functions';
 import { auth } from "./init";
+import { auth as Auth } from 'firebase-admin/lib/auth';
 
+export function getUserCredentialsMiddleware(req: Express.Request, res: Express.Response, next: any) {
 
+  logger.debug(`Attempting to extract user credentials from request.`);
 
-export function getUserCredentialsMiddleware(req: any, res: any, next: any) {
-
-  functions.logger.debug(`Attempting to extract user credentials from request.`);
-
-  const jwt = req.headers.authorization;
+  const jwt: string = (req as any).headers.authorization;
 
   if (jwt) {
     auth.verifyIdToken(jwt)
-      .then((jwtPayload: any) => {
+      .then((jwtPayload: Auth.DecodedIdToken) => {
 
-        req["uid"] = jwtPayload.uid;
-        req["admin"] = jwtPayload.admin;
+        req.uid = jwtPayload.uid;
+        req.admin = jwtPayload.admin;
 
-        functions.logger.debug(
+        logger.debug(
           `Credentials: uid=${jwtPayload.uid}, admin=${jwtPayload.admin}`);
 
         next();
       })
-      .catch((err: any) => {
+      .catch((err: unknown) => {
         console.log("Error ocurred while validating JWT", err);
         next();
       });

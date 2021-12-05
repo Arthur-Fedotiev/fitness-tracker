@@ -1,53 +1,48 @@
-import { auth, db } from "./init";
+import { auth, db } from './init';
 
-const express = require('express');
-import * as functions from 'firebase-functions';
-import { getUserCredentialsMiddleware } from "./auth.middleware";
+import express from 'express'
+import cors from 'cors';
+import { logger } from 'firebase-functions';
+import { getUserCredentialsMiddleware } from './auth.middleware';
+import { CreateUserRequestBody } from './models/create-user.models';
 
-const bodyParser = require('body-parser');
-const cors = require('cors');
+export const createUserApp: express.Application = express();
 
-export const createUserApp = express();
-
-createUserApp.use(bodyParser.json());
+createUserApp.use(express.json());
 createUserApp.use(cors({ origin: true }));
 createUserApp.use(getUserCredentialsMiddleware);
 
+createUserApp.post('/', async (req: express.Request, res: express.Response) => {
 
-createUserApp.post("/", async (req: any, res: any) => {
-
-  functions.logger.debug(`Calling create user function.`);
+  logger.debug(`Calling create user function.`);
 
   try {
 
-    if (!(req["uid"] && req["admin"])) {
+    if (!(req.uid && req.admin)) {
       const message = `Denied access to user creation service.`;
 
-      functions.logger.debug(message);
+      logger.debug(message);
       res.status(403).json({ message });
 
       return;
     }
 
-    const { email, password, admin } = req.body;
-
+    const { email, password, isAdmin }: CreateUserRequestBody = req.body;
     const user = await auth.createUser({
       email,
       password
     });
 
-    await auth.setCustomUserClaims(user.uid, { admin });
+    await auth.setCustomUserClaims(user.uid, { admin: isAdmin });
 
     db.doc(`users/${user.uid}`).set({});
 
-
-    res.status(200).json({ uid: user.uid, message: "User created successfully." });
+    res.status(200).json({ uid: user.uid, user: user, message: 'User created successfully.' });
 
   }
   catch (err) {
-    functions.logger.error(`Could not create user.`, err);
-    res.status(500).json({ message: "Could not create user." });
+    logger.error(`Could not create user.`, err);
+    res.status(500).json({ message: 'Could not create user.' });
   }
-
 });
 
