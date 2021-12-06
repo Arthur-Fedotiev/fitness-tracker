@@ -8,7 +8,8 @@ const appRoutes: Route[] = [{
   component: LayoutComponent,
   canActivate: [AuthGuard],
   children: [
-    { path: 'exercises', loadChildren: () => import('@fitness-tracker/exercises/feature').then(m => m.ExercisesFeatureModule) }
+    { path: 'exercises', loadChildren: () => import('@fitness-tracker/exercises/feature').then(m => m.ExercisesFeatureModule) },
+    { path: 'create-user', loadChildren: () => import('@fitness-tracker/create-user/feature').then(m => m.CreateUserFeatureModule) }
   ],
 },
 { path: 'auth', loadChildren: () => import('@fitness-tracker/auth/feature').then(m => m.AuthFeatureModule) },
