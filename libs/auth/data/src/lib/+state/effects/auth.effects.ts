@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, first, map, switchMapTo, tap } from 'rxjs/operators';
+import { first, map, switchMapTo, tap } from 'rxjs/operators';
 import { UserInfo } from '@fitness-tracker/auth/model'
 
 import * as AuthActions from '../actions/auth.actions';

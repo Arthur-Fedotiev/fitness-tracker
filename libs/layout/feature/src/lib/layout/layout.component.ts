@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class LayoutComponent {
   public readonly isLoggedIn$: Observable<boolean> = this.authFacade.isLoggedIn$;
   public readonly isLoggedOut$: Observable<boolean> = this.authFacade.isLoggedOut$;
-  public readonly photoUrl$ = this.authFacade.photoUrl$;
+  public readonly photoUrl$: Observable<string | null> = this.authFacade.photoUrl$;
 
   constructor(private authFacade: AuthFacadeService) { }
 
