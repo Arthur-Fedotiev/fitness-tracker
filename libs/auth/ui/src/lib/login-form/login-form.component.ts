@@ -10,7 +10,7 @@ export class LoginFormComponent {
 
   login($event: any): void {
     console.log('LOGIN', $event);
-    
+
   }
 
 }

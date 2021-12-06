@@ -28,3 +28,8 @@ export const setDestinationURL = createAction(
   AUTH_ACTION_NAMES.SET_DESTINATION_URL,
   props<WithPayload<string>>(),
 );
+
+export const setAuthJwtToken = createAction(
+  AUTH_ACTION_NAMES.SET_JWT_TOKEN,
+  props<WithPayload<string | null>>(),
+);

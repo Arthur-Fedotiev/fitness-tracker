@@ -15,10 +15,9 @@ import { selectDestinationUrl } from '../selectors/auth.selectors';
 @Injectable()
 export class AuthEffects {
   public authJwtToken$ = createEffect(() =>
-    this.afAuth.idTokenResult.pipe(
-      filter(Boolean),
-      tap(console.log)
-    ), { dispatch: false })
+    this.afAuth.idToken.pipe(
+      map((authJwtToken: string | null) => AuthActions.setAuthJwtToken({ payload: authJwtToken }))
+    ))
 
   public authState$ = createEffect(() =>
     this.afAuth.authState.pipe(

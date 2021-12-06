@@ -8,16 +8,17 @@ export const authFeatureKey = 'auth';
 export interface AuthState {
   user: UserInfo | null;
   destinationURL: string;
+  authJwtToken: string | null;
 }
 
 export const initialState: AuthState = {
   user: null,
   destinationURL: GLOBAL_PATHS.EXERCISES_LIST,
+  authJwtToken: null,
 };
 
 export const reducer = createReducer(
   initialState,
-
   on(AuthActions.login, state => state),
   on(AuthActions.loginSuccess,
     (state, { payload: user }: WithPayload<UserInfo | null>) => ({
@@ -26,4 +27,5 @@ export const reducer = createReducer(
     })),
   on(AuthActions.logoutSuccess, (state) => ({ ...state, user: null })),
   on(AuthActions.setDestinationURL, (state, { payload: destinationURL }) => ({ ...state, destinationURL })),
+  on(AuthActions.setAuthJwtToken, (state, { payload: authJwtToken }) => ({ ...state, authJwtToken })),
 );

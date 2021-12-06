@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loginFailure, loginSuccess, logout, setDestinationURL } from '../+state/actions/auth.actions';
-import { selectDestinationUrl, selectIsLoggedIn, selectIsLoggedOut, selectPhotoUrl } from '../+state/selectors/auth.selectors';
+import { selectAuthJwtToken, selectDestinationUrl, selectIsLoggedIn, selectIsLoggedOut, selectPhotoUrl } from '../+state/selectors/auth.selectors';
 import { toUserInfo } from '../../utils/functions';
 import { UserInfo } from '@fitness-tracker/auth/model'
 
@@ -11,6 +11,7 @@ export class AuthFacadeService {
   public readonly isLoggedOut$ = this.store.select(selectIsLoggedOut);
   public readonly photoUrl$ = this.store.select(selectPhotoUrl);
   public readonly destinationUrl$ = this.store.select(selectDestinationUrl);
+  public readonly authJwtToken$ = this.store.select(selectAuthJwtToken);
 
   constructor(private readonly store: Store) { }
 

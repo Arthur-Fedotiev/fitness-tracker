@@ -30,3 +30,8 @@ export const selectDestinationUrl = createSelector(
   selectAuthState,
   (state: fromAuth.AuthState): string => state.destinationURL,
 )
+
+export const selectAuthJwtToken = createSelector(
+  selectAuthState,
+  (state: fromAuth.AuthState): string | null => state.authJwtToken,
+)

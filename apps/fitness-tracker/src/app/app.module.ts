@@ -22,6 +22,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import 'firebase/auth';
+import { HttpClientModule } from '@angular/common/http';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -43,6 +44,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
+    HttpClientModule,
     StoreModule.forRoot(
       {},
       {
