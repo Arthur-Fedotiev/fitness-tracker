@@ -1,1 +1,1 @@
-export * from './lib/create-user-models.module';
+export * from './lib/user.model';

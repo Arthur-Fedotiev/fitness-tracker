@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.create-user {
+  margin-top: 20px;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.promo {
+  margin-bottom: 20px;
+}

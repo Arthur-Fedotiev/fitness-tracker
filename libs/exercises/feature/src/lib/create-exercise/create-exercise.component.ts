@@ -5,7 +5,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES, ExercisesEntity } from '@fitness-tracker/exercises/model';
 import { Subject, tap } from 'rxjs';
@@ -41,15 +41,12 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private exercisesFacade: ExercisesFacade
   ) { }
 
   ngOnInit(): void {
     this.initData();
     this.initListeners();
-
-    this.exerciseForm.valueChanges.subscribe(console.log)
   }
 
   ngOnDestroy(): void {
