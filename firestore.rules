@@ -5,36 +5,39 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-
     match /exercises/{exerciseId} {
       allow read: if isAuthenticated();
 
-      allow create,update: if isValidExercise();
-      allow delete: if isAuthenticated() && !isAdmin();
+      allow create,update: if isValidExercise() && isAdmin();
+      allow delete: if isAuthenticated() && isAdmin();
     }
 
+    function isAdmin() {
+      return isAuthenticated() && 'admin' in request.auth.token &&
+      request.auth.token.admin == true;
+    }
 
     function isAuthenticated() {
       return request.auth.uid !=null;
     }
 
-    function isAdmin(){
-      // TODO: implement admin check
-      return false;
+    function isKnownUser() {
+      return isAuthenticated() &&
+      exists(/databases/$(database)/documents/users/$(request.auth.uid));
     }
 
     function isValidExercise() {
       return isNonEmptyString('name') &&
-        isNonEmptyString('exerciseType') &&
-        isNonEmptyString('targetMuscle') &&
-        isNonEmptyString('equipment') &&
-        isNonEmptyString('avatarUrl') &&
-        request.resource.data['rating'] is number;
+      isNonEmptyString('exerciseType') &&
+      isNonEmptyString('targetMuscle') &&
+      isNonEmptyString('equipment') &&
+      isNonEmptyString('avatarUrl') &&
+      request.resource.data['rating'] is number;
     }
 
-     function isNonEmptyString(fieldName) {
-        return request.resource.data[fieldName] is string &&
-        request.resource.data[fieldName].size() > 0;
-     }
+    function isNonEmptyString(fieldName) {
+      return request.resource.data[fieldName] is string &&
+      request.resource.data[fieldName].size() > 0;
+    }
   }
 }
