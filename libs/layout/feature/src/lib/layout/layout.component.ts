@@ -19,5 +19,4 @@ export class LayoutComponent {
   public logOut(): void {
     this.authFacade.logOut();
   }
-
 }

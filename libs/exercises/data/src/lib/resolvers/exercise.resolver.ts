@@ -4,8 +4,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { filter, first, Observable, of, tap } from 'rxjs';
-import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { ExercisesFacade } from '../+state/exercises.facade';
 
 @Injectable()
 export class ExerciseResolver implements Resolve<ExercisesEntity> {
