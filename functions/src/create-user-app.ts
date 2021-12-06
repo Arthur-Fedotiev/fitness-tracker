@@ -1,10 +1,12 @@
 import { auth, db } from './init';
+import { auth as Auth } from 'firebase-admin/lib/auth';
 
-import express from 'express'
+import express from 'express';
 import cors from 'cors';
 import { logger } from 'firebase-functions';
 import { getUserCredentialsMiddleware } from './auth.middleware';
-import { CreateUserRequestBody } from './models/create-user.models';
+import { CreateUserRequestBody } from './utils/models/create-user.models';
+import { CREATE_USER_APP_MESSAGES } from './utils/models/constants/messages.consts';
 
 export const createUserApp: express.Application = express();
 
@@ -13,13 +15,11 @@ createUserApp.use(cors({ origin: true }));
 createUserApp.use(getUserCredentialsMiddleware);
 
 createUserApp.post('/', async (req: express.Request, res: express.Response) => {
-
-  logger.debug(`Calling create user function.`);
+  logger.debug(CREATE_USER_APP_MESSAGES.POST_RECEIVED);
 
   try {
-
     if (!(req.uid && req.admin)) {
-      const message = `Denied access to user creation service.`;
+      const message = CREATE_USER_APP_MESSAGES.ACCESS_DENIED;
 
       logger.debug(message);
       res.status(403).json({ message });
@@ -28,21 +28,21 @@ createUserApp.post('/', async (req: express.Request, res: express.Response) => {
     }
 
     const { email, password, isAdmin }: CreateUserRequestBody = req.body;
-    const user = await auth.createUser({
+    const user: Auth.UserRecord = await auth.createUser({
       email,
-      password
+      password,
     });
 
     await auth.setCustomUserClaims(user.uid, { admin: isAdmin });
 
     db.doc(`users/${user.uid}`).set({});
 
-    res.status(200).json({ uid: user.uid, user: user, message: 'User created successfully.' });
+    res.status(200).json({ uid: user.uid, user: user, message: CREATE_USER_APP_MESSAGES.CREATE_SUCCESS });
+  } catch (err) {
+    const message = CREATE_USER_APP_MESSAGES.CREATE_FAILURE;
 
-  }
-  catch (err) {
-    logger.error(`Could not create user.`, err);
-    res.status(500).json({ message: 'Could not create user.' });
+    logger.error(message, err);
+    res.status(500).json({ message });
   }
 });
 

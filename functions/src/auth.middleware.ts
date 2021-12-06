@@ -1,31 +1,29 @@
 import { logger } from 'firebase-functions';
-import { auth } from "./init";
+import { auth } from './init';
 import { auth as Auth } from 'firebase-admin/lib/auth';
+import { CREATE_USER_MIDDLEWARE_MESSAGES } from './utils/models/constants/messages.consts';
 
-export function getUserCredentialsMiddleware(req: Express.Request, res: Express.Response, next: any) {
-
-  logger.debug(`Attempting to extract user credentials from request.`);
+export function getUserCredentialsMiddleware(req: Express.Request, _res: Express.Response, next: any) {
+  logger.debug(CREATE_USER_MIDDLEWARE_MESSAGES.ATTEMPT_EXTRACT_CREDS);
 
   const jwt: string = (req as any).headers.authorization;
 
   if (jwt) {
     auth.verifyIdToken(jwt)
-      .then((jwtPayload: Auth.DecodedIdToken) => {
+        .then(({ uid, admin }: Auth.DecodedIdToken) => {
+          req.uid = uid;
+          req.admin = admin;
 
-        req.uid = jwtPayload.uid;
-        req.admin = jwtPayload.admin;
+          logger.debug(
+              `Credentials: uid=${uid}, admin=${admin}`);
 
-        logger.debug(
-          `Credentials: uid=${jwtPayload.uid}, admin=${jwtPayload.admin}`);
-
-        next();
-      })
-      .catch((err: unknown) => {
-        console.log("Error ocurred while validating JWT", err);
-        next();
-      });
-  }
-  else {
+          next();
+        })
+        .catch((err: unknown) => {
+          console.log(CREATE_USER_MIDDLEWARE_MESSAGES.JWT_VALIDATION_ERR, err);
+          next();
+        });
+  } else {
     next();
   }
 }
