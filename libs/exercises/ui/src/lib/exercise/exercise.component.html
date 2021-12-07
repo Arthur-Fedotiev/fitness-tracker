@@ -4,9 +4,8 @@
          width="112px"
          height="112px"
          mat-card-md-image
-         [src]="exercise?.avatarUrl || 'https://st2.depositphotos.com/1560768/6162/i/950/depositphotos_61621057-stock-photo-no-image-available.jpg'"
-         onerror="this.onerror=null;
-    this.src='https://st2.depositphotos.com/1560768/6162/i/950/depositphotos_61621057-stock-photo-no-image-available.jpg'">
+         [src]="exercise?.avatarUrl"
+         withFallback>
 
 
     <mat-card-title>
