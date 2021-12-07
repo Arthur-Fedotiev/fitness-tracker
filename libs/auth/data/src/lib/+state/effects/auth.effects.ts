@@ -16,8 +16,14 @@ import { selectDestinationUrl } from '../selectors/auth.selectors';
 export class AuthEffects {
   public authJwtToken$ = createEffect(() =>
     this.afAuth.idToken.pipe(
+      tap(console.log),
       map((authJwtToken: string | null) => AuthActions.setAuthJwtToken({ payload: authJwtToken }))
     ))
+
+  public authRole$ = createEffect(() =>
+    this.afAuth.idTokenResult.pipe(
+      tap(console.log),
+    ), { dispatch: false })
 
   public authState$ = createEffect(() =>
     this.afAuth.authState.pipe(
