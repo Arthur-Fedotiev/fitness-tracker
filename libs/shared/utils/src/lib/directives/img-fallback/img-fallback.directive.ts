@@ -1,4 +1,4 @@
-import { Directive, Input, HostBinding, Renderer2, ElementRef, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, Renderer2, ElementRef, HostListener } from '@angular/core';
 import { DEFAULT_FALLBACK_IMG } from './default-image';
 
 @Directive({
@@ -13,9 +13,5 @@ export class ImgFallbackDirective {
     this.renderer.setAttribute(this.el.nativeElement, 'src', this.withFallback || this.default);
   }
 
-
-
-  constructor(private readonly renderer: Renderer2, private readonly el: ElementRef) {
-  }
-
+  constructor(private readonly renderer: Renderer2, private readonly el: ElementRef) { }
 }
