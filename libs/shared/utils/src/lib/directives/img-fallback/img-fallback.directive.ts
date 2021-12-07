@@ -2,8 +2,7 @@ import { Directive, Input, HostBinding, Renderer2, ElementRef, HostListener, Cha
 import { DEFAULT_FALLBACK_IMG } from './default-image';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'img[withFallback]'
+  selector: 'img[ftWithFallback]'
 })
 export class ImgFallbackDirective {
   @Input() public withFallback: string | null = null;

@@ -8,7 +8,7 @@ import { map, Observable, Subject, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-  selector: 'fitness-tracker-exercises-display',
+  selector: 'ft-exercises-display',
   templateUrl: './exercises-display.component.html',
   styleUrls: ['./exercises-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

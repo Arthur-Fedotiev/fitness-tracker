@@ -5,7 +5,7 @@
       "projectType": "library",
       "root": "libs/auth/data",
       "sourceRoot": "libs/auth/data/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -31,7 +31,7 @@
       "projectType": "library",
       "root": "libs/auth/feature",
       "sourceRoot": "libs/auth/feature/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -57,7 +57,7 @@
       "projectType": "library",
       "root": "libs/auth/model",
       "sourceRoot": "libs/auth/model/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -83,7 +83,7 @@
       "projectType": "library",
       "root": "libs/auth/ui",
       "sourceRoot": "libs/auth/ui/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -109,7 +109,7 @@
       "projectType": "library",
       "root": "libs/create-user/data",
       "sourceRoot": "libs/create-user/data/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -135,7 +135,7 @@
       "projectType": "library",
       "root": "libs/create-user/feature",
       "sourceRoot": "libs/create-user/feature/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -161,7 +161,7 @@
       "projectType": "library",
       "root": "libs/create-user/models",
       "sourceRoot": "libs/create-user/models/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -187,7 +187,7 @@
       "projectType": "library",
       "root": "libs/create-user/ui",
       "sourceRoot": "libs/create-user/ui/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -213,7 +213,7 @@
       "projectType": "library",
       "root": "libs/exercises/data",
       "sourceRoot": "libs/exercises/data/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -239,7 +239,7 @@
       "projectType": "library",
       "root": "libs/exercises/feature",
       "sourceRoot": "libs/exercises/feature/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -265,7 +265,7 @@
       "projectType": "library",
       "root": "libs/exercises/model",
       "sourceRoot": "libs/exercises/model/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -291,7 +291,7 @@
       "projectType": "library",
       "root": "libs/exercises/ui",
       "sourceRoot": "libs/exercises/ui/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -317,7 +317,7 @@
       "projectType": "application",
       "root": "apps/fitness-tracker",
       "sourceRoot": "apps/fitness-tracker/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -460,7 +460,7 @@
       "projectType": "library",
       "root": "libs/layout/feature",
       "sourceRoot": "libs/layout/feature/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -486,7 +486,7 @@
       "projectType": "library",
       "root": "libs/layout/ui",
       "sourceRoot": "libs/layout/ui/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -512,7 +512,7 @@
       "projectType": "library",
       "root": "libs/shared/ui/material",
       "sourceRoot": "libs/shared/ui/material/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -538,7 +538,7 @@
       "projectType": "library",
       "root": "libs/shared/utils",
       "sourceRoot": "libs/shared/utils/src",
-      "prefix": "fitness-tracker",
+      "selector": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",

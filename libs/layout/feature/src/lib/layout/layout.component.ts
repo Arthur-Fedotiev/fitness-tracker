@@ -3,7 +3,7 @@ import { AuthFacadeService } from '@fitness-tracker/auth/data';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'fitness-tracker-layout',
+  selector: 'ft-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,

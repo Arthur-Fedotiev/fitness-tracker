@@ -13,7 +13,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
-  selector: 'fitness-tracker-create-exercise',
+  selector: 'ft-create-exercise',
   templateUrl: './create-exercise.component.html',
   styleUrls: ['./create-exercise.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

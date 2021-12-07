@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'fitness-tracker-layout-ui',
+  selector: 'ft-layout-ui',
   templateUrl: './layout-ui.component.html',
   styleUrls: ['./layout-ui.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

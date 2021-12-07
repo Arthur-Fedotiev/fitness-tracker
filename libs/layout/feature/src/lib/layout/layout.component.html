@@ -1,6 +1,6 @@
-<fitness-tracker-layout-ui [isLoggedIn]="isLoggedIn$ | async"
-                           [isLoggedOut]="isLoggedOut$ | async"
-                           [photoUrl]="photoUrl$ | async"
-                           (loggedOutChange)="logOut()">
+<ft-layout-ui [isLoggedIn]="isLoggedIn$ | async"
+              [isLoggedOut]="isLoggedOut$ | async"
+              [photoUrl]="photoUrl$ | async"
+              (loggedOutChange)="logOut()">
   <router-outlet></router-outlet>
-</fitness-tracker-layout-ui>
+</ft-layout-ui>

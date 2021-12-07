@@ -3,7 +3,7 @@ import { User } from '@fitness-tracker/create-user/models';
 import { UsersFacadeService } from '@fitness-tracker/create-user/data';
 
 @Component({
-  selector: 'fitness-tracker-create-user-display',
+  selector: 'ft-create-user-display',
   templateUrl: './create-user-display.component.html',
   styleUrls: ['./create-user-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

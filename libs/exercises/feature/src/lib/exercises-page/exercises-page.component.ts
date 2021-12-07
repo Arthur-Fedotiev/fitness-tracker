@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'fitness-tracker-exercises-page',
+  selector: 'ft-exercises-page',
   templateUrl: './exercises-page.component.html',
   styleUrls: ['./exercises-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '@fitness-tracker/create-user/models';
 
 @Component({
-  selector: 'fitness-tracker-create-user-form',
+  selector: 'ft-create-user-form',
   templateUrl: './create-user-form.component.html',
   styleUrls: ['./create-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

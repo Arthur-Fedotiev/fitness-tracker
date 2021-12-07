@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from 
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 @Component({
-  selector: 'fitness-tracker-exercise',
+  selector: 'ft-exercise',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

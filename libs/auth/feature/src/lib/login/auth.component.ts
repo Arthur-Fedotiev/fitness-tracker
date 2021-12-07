@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FirebaseUISignInFailure } from 'firebaseui-angular';
 import { AuthFacadeService } from '@fitness-tracker/auth/data';
 @Component({
-  selector: 'fitness-tracker-auth',
+  selector: 'ft-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

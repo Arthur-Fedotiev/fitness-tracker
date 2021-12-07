@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "fitnessTracker",
+            "prefix": "ft",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "fitness-tracker",
+            "prefix": "ft",
             "style": "kebab-case"
           }
         ]
