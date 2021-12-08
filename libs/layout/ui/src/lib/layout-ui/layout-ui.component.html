@@ -36,7 +36,8 @@
       <span>Exercises</span>
     </a>
 
-    <a mat-list-item
+    <a *ftRoles="['admin']"
+       mat-list-item
        [routerLink]="['exercises', 'create']">
       <mat-icon>add_circle_outline</mat-icon>
       <span>Create exercise</span>

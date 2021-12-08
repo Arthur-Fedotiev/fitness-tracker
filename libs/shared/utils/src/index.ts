@@ -6,3 +6,4 @@ export * from './lib/constants/routing.consts';
 export * from './lib/interfaces/routing.interfaces';
 export * from './lib/functions';
 export { ImgFallbackModule } from './lib/directives/img-fallback/img-fallback.module';
+export { RolesModule } from './lib/directives/roles/roles.module';
