@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExercisesPageComponent } from './exercises-page/exercises-page.component';
 import { ExerciseResolver } from '@fitness-tracker/exercises/data';
+import { canActivateAdmin } from '@fitness-tracker/shared/utils';
 
 const exercisesFeatureRoutes: Routes = [
   {
@@ -12,7 +13,8 @@ const exercisesFeatureRoutes: Routes = [
       },
       {
         path: 'create',
-        loadChildren: () => import('./create-exercise/create-exercise.module').then(m => m.CreateExerciseModule)
+        loadChildren: () => import('./create-exercise/create-exercise.module').then(m => m.CreateExerciseModule),
+        ...canActivateAdmin,
       },
       {
         path: ':id',
@@ -22,7 +24,8 @@ const exercisesFeatureRoutes: Routes = [
         children: [
           { path: 'view', redirectTo: '/exercises/all' },
           {
-            path: 'edit', loadChildren: () => import('./create-exercise/create-exercise.module').then(m => m.CreateExerciseModule)
+            path: 'edit', loadChildren: () => import('./create-exercise/create-exercise.module').then(m => m.CreateExerciseModule),
+            ...canActivateAdmin,
           }
         ]
       }
