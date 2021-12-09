@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ROLES } from '@fitness-tracker/shared/utils';
 
 @Component({
   selector: 'ft-layout-ui',
@@ -12,6 +13,8 @@ export class LayoutUiComponent {
   @Input() public photoUrl: string | null = null;
 
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
+
+  public readonly roles = ROLES;
 
   public logOut(): void {
     this.loggedOutChange.emit()

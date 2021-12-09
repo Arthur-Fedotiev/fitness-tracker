@@ -33,3 +33,8 @@ export const setAuthJwtToken = createAction(
   AUTH_ACTION_NAMES.SET_JWT_TOKEN,
   props<WithPayload<string | null>>(),
 );
+
+export const setAdmin = createAction(
+  AUTH_ACTION_NAMES.SET_ADMIN,
+  props<WithPayload<boolean>>(),
+);

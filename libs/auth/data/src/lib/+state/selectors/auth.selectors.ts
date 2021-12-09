@@ -35,3 +35,8 @@ export const selectAuthJwtToken = createSelector(
   selectAuthState,
   (state: fromAuth.AuthState): string | null => state.authJwtToken,
 )
+
+export const selectIsAdmin = createSelector(
+  selectAuthState,
+  (state: fromAuth.AuthState): boolean => state.admin,
+)

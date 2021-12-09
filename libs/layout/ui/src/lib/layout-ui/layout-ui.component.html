@@ -36,14 +36,15 @@
       <span>Exercises</span>
     </a>
 
-    <a *ftRoles="['admin']"
+    <a *ftRoles="roles.ADMIN"
        mat-list-item
        [routerLink]="['exercises', 'create']">
       <mat-icon>add_circle_outline</mat-icon>
       <span>Create exercise</span>
     </a>
 
-    <a mat-list-item
+    <a *ftRoles="roles.ADMIN"
+       mat-list-item
        [routerLink]="['create-user']">
       <mat-icon>add_circle_outline</mat-icon>
       <span>Create User</span>

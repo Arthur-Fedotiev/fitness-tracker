@@ -3,7 +3,6 @@ import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './+state/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './+state/effects/auth.effects';
-import { AuthFacadeService } from './services/auth-facade.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth-interceptor.interceptor';
 
@@ -13,7 +12,6 @@ import { AuthInterceptor } from './services/auth-interceptor.interceptor';
     EffectsModule.forFeature([AuthEffects])
   ],
   providers: [
-    AuthFacadeService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
 })
 export class AuthDataModule { }
