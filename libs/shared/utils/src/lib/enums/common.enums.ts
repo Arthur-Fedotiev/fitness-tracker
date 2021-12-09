@@ -4,6 +4,6 @@ export enum DATA_QUERIES {
 }
 
 export enum ROLES {
-  'USER' = 'user',
-  'ADMIN' = 'admin'
+  'TRAINEE' = 'TRAINEE',
+  'ADMIN' = 'ADMIN'
 }

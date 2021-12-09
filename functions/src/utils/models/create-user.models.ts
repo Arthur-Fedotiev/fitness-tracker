@@ -6,5 +6,8 @@ export interface CreateUserResponseBody {
 export interface CreateUserRequestBody {
   email: string;
   password: string;
-  isAdmin: boolean;
+  admin: boolean;
+  role: Role;
 }
+
+export type Role = 'ADMIN' | 'TRAINEE';

@@ -4,7 +4,7 @@ import { User } from '@fitness-tracker/create-user/models'
 import { environment } from '../../../../../../apps/fitness-tracker/src/environments/environment';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsersService {
 
   constructor(private readonly http: HttpClient) { }

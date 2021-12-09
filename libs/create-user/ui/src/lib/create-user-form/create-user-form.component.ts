@@ -14,7 +14,7 @@ export class CreateUserFormComponent {
   public readonly createUserForm: FormGroup = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(5)]],
-    isAdmin: [false]
+    admin: [false]
   });
 
   constructor(private fb: FormBuilder) { }

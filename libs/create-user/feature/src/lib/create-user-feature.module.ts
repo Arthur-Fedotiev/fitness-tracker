@@ -11,7 +11,8 @@ import { CreateUserDataModule } from '@fitness-tracker/create-user/data';
     CreateUserUiModule,
     AuthFeatureRoutingModule,
     CreateUserUiModule,
-    CreateUserDataModule],
+    CreateUserDataModule,
+  ],
   declarations: [
     CreateUserDisplayComponent
   ],

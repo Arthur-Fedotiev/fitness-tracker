@@ -11,7 +11,7 @@ import { UsersFacadeService } from '@fitness-tracker/create-user/data';
 export class CreateUserDisplayComponent {
   constructor(private readonly usersFacade: UsersFacadeService) { }
 
-  public createUser($event: User): void {
-    this.usersFacade.createUser($event);
+  public createUser({ password, email, admin }: Omit<User, 'role'>): void {
+    this.usersFacade.createUser(new User(password, email, admin));
   }
 }

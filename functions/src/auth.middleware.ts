@@ -10,12 +10,13 @@ export function getUserCredentialsMiddleware(req: Express.Request, _res: Express
 
   if (jwt) {
     auth.verifyIdToken(jwt)
-        .then(({ uid, admin }: Auth.DecodedIdToken) => {
+        .then(({ uid, admin, role }: Auth.DecodedIdToken) => {
           req.uid = uid;
           req.admin = admin;
+          req.role = role;
 
           logger.debug(
-              `Credentials: uid=${uid}, admin=${admin}`);
+              `Credentials: uid=${uid}, role=${admin}`);
 
           next();
         })

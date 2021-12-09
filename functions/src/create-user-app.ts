@@ -27,13 +27,13 @@ createUserApp.post('/', async (req: express.Request, res: express.Response) => {
       return;
     }
 
-    const { email, password, isAdmin }: CreateUserRequestBody = req.body;
+    const { email, password, admin, role }: CreateUserRequestBody = req.body;
     const user: Auth.UserRecord = await auth.createUser({
       email,
       password,
     });
 
-    await auth.setCustomUserClaims(user.uid, { admin: isAdmin });
+    await auth.setCustomUserClaims(user.uid, { admin, role });
 
     db.doc(`users/${user.uid}`).set({});
 

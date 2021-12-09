@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, OnInit } from '@angular/core';
 import { combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
-import { ROLES } from '../../../../../shared/utils/src/lib/enums/common.enums';
+import { ROLES } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthFacadeService } from '@fitness-tracker/auth/data';
 
@@ -20,7 +20,7 @@ export class RolesDirective implements OnInit {
     this.isAdmin$,
     this.allowedRole$$.asObservable()
   ]).pipe(
-    map(([isAdmin, allowedRole]: [boolean, ROLES]) => allowedRole === ROLES.USER ? true : isAdmin),
+    map(([isAdmin, allowedRole]: [boolean, ROLES]) => allowedRole === ROLES.TRAINEE ? true : isAdmin),
     tap((isRender: boolean) => {
       this.vcRef.clear();
       isRender && this.vcRef.createEmbeddedView(this.template);
