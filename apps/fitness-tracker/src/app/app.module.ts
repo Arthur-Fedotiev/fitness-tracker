@@ -30,7 +30,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     {
       requireDisplayName: false,
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
+      provider: firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
     },
   ],
   tosUrl: '<your-tos-link>',
@@ -70,7 +70,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ScreenTrackingService,
     UserTrackingService,
     { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
-    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: !environment.useEmulators ? ['localhost', 5001] : undefined },
   ],
   bootstrap: [AppComponent],
 })

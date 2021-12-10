@@ -14,7 +14,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "auth-package": "file:../libs/packages/auth-package/auth-package-1.0.0.tgz",
+    "auth-package": "file:auth-package-1.0.0.tgz",
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1"
   },

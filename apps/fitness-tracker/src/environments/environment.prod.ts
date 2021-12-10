@@ -9,6 +9,9 @@ export const environment = {
     authDomain: 'fitness-tracker-de06b.firebaseapp.com',
     messagingSenderId: '450961916900',
   },
-  api: { createUser: '' },
+  api: {
+    createUser:
+      'https://us-central1-fitness-tracker-de06b.cloudfunctions.net/createUser',
+  },
   production: true,
 };

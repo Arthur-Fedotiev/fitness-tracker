@@ -11,3 +11,7 @@ export interface CreateUserRequestBody {
   admin: boolean;
   role: ROLES;
 }
+
+export interface WithHEaders {
+  headers: { [key: string]: string };
+}
