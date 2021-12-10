@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, OnInit } from '@angular/core';
 import { combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
-import { ROLES } from '@fitness-tracker/shared/utils';
+import { ROLES } from 'auth-package';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthFacadeService } from '@fitness-tracker/auth/data';
 

@@ -1,11 +1,13 @@
 "use strict";
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
+    if (pack || arguments.length === 2)
+        for (var i = 0, l = from.length, ar; i < l; i++) {
+            if (ar || !(i in from)) {
+                if (!ar)
+                    ar = Array.prototype.slice.call(from, 0, i);
+                ar[i] = from[i];
+            }
         }
-    }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
@@ -15,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.answers$ = exports.collectAnswers = void 0;
 var rxjs_1 = require("rxjs");
 var readline_1 = __importDefault(require("readline"));
+var constants_1 = require("./utils/constants");
 var rl = readline_1.default.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -34,4 +37,5 @@ var collectAnswers = function (questions) {
     rl.question(questions[0], questionAnswered);
 };
 exports.collectAnswers = collectAnswers;
-exports.answers$ = answersSbj.asObservable().pipe((0, rxjs_1.scan)(function (answers, answer) { return __spreadArray(__spreadArray([], answers, true), [answer], false); }, []), (0, rxjs_1.last)());
+(0, exports.collectAnswers)(constants_1.questions);
+exports.answers$ = answersSbj.asObservable().pipe((0, rxjs_1.scan)(function (answers, answer) { return __spreadArray(__spreadArray([], answers, true), [answer], false); }, []), (0, rxjs_1.last)(), (0, rxjs_1.tap)(function (a) { return console.log('answers$', a); }));

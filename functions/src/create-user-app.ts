@@ -1,5 +1,6 @@
 import { auth, db } from './init';
 import { auth as Auth } from 'firebase-admin/lib/auth';
+import { ROLES } from 'auth-package';
 
 import express from 'express';
 import cors from 'cors';
@@ -18,7 +19,7 @@ createUserApp.post('/', async (req: express.Request, res: express.Response) => {
   logger.debug(CREATE_USER_APP_MESSAGES.POST_RECEIVED);
 
   try {
-    if (!(req.uid && req.admin)) {
+    if (!(req.uid && req.admin && req.role === ROLES.ADMIN)) {
       const message = CREATE_USER_APP_MESSAGES.ACCESS_DENIED;
 
       logger.debug(message);

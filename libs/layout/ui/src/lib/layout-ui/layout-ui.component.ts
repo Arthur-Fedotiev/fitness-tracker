@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { ROLES } from '@fitness-tracker/shared/utils';
+import { ROLES } from 'auth-package';
 
 @Component({
   selector: 'ft-layout-ui',

@@ -55,31 +55,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateUserRole$ = void 0;
 var admin = __importStar(require("firebase-admin"));
+var auth_package_1 = require("auth-package");
 var rxjs_1 = require("rxjs");
-var questions_js_1 = require("./questions.js");
-var constants_js_1 = require("./utils/constants.js");
-function initAdmin(adminUid, role) {
+var constants_1 = require("./utils/constants");
+function updateUserRole(userUid, role) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, admin
                         .auth()
-                        .setCustomUserClaims(adminUid, { admin: role === constants_js_1.ROLES.ADMIN, role: role })];
+                        .setCustomUserClaims(userUid, { admin: role === auth_package_1.ROLES.ADMIN, role: role })];
                 case 1:
                     _a.sent();
-                    console.log("User role is now ".concat(role, "."));
+                    console.log("\n".concat(constants_1.successIcon, "  User role is now ").concat(role, ".\n"));
                     return [2 /*return*/];
             }
         });
     });
 }
-questions_js_1.answers$.pipe((0, rxjs_1.tap)(function (_a) {
-    var serviceAccountPath = _a[0];
-    return admin.initializeApp({
-        credential: admin.credential.cert(serviceAccountPath),
-    });
-}), (0, rxjs_1.switchMap)(function (_a) {
-    var _ = _a[0], userUid = _a[1], role = _a[2];
-    return (0, rxjs_1.from)(initAdmin(userUid, role));
-}), (0, rxjs_1.tap)(function (_) { return process.exit(); })).subscribe();
+var updateUserRole$ = function (userUid, role) { return (0, rxjs_1.from)(updateUserRole(userUid, role)); };
+exports.updateUserRole$ = updateUserRole$;

@@ -21,6 +21,7 @@ export class AuthEffects {
 
   public authRole$ = createEffect(() =>
     this.afAuth.idTokenResult.pipe(
+      tap(console.log),
       map((idTokenResults: TokenResult | null = {} as TokenResult) =>
         ({ payload: Boolean(idTokenResults?.claims?.admin) })),
       map(AuthActions.setAdmin),

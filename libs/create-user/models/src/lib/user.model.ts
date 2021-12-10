@@ -1,4 +1,4 @@
-import { ROLES } from '@fitness-tracker/shared/utils';
+import { ROLES } from 'auth-package';
 
 export class User {
   public role!: ROLES;
