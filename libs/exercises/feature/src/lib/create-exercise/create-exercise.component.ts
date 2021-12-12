@@ -4,10 +4,24 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { MUSCLE_LIST, EQUIPMENT, MuscleList, Equipment, ExerciseTypes, EXERCISE_TYPES, ExercisesEntity } from '@fitness-tracker/exercises/model';
+import {
+  MUSCLE_LIST,
+  EQUIPMENT,
+  MuscleList,
+  Equipment,
+  ExerciseTypes,
+  EXERCISE_TYPES,
+  ExercisesEntity,
+  ExerciseRequestDTO,
+} from '@fitness-tracker/exercises/model';
 import { Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
@@ -27,13 +41,26 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   public resolvedExercise: ExercisesEntity | null = null;
 
   private readonly save: Subject<void> = new Subject<void>();
-  public readonly onSave$ = this.save.asObservable().pipe(
-    tap(() => this.resolvedExercise
-      ? this.exercisesFacade.updateExercise({ id: this.resolvedExercise.id, ...this.exerciseForm.value })
-      : this.exercisesFacade.createExercise(this.exerciseForm.value)),
-    untilDestroyed(this),
-  )
+  // public readonly onSave$ = this.save.asObservable().pipe(
+  //   tap(() => this.resolvedExercise
+  //     ? this.exercisesFacade.updateExercise({ id: this.resolvedExercise.id, ...this.exerciseForm.value })
+  //     : this.exercisesFacade.createExercise(this.exerciseForm.value)),
+  //   untilDestroyed(this),
+  // )
 
+  public readonly onSave$ = this.save.asObservable().pipe(
+    tap(() =>
+      this.resolvedExercise
+        ? this.exercisesFacade.updateExercise({
+            id: this.resolvedExercise.id,
+            ...this.exerciseForm.value,
+          })
+        : this.exercisesFacade.createExercise(
+            new ExerciseRequestDTO(this.exerciseForm.value),
+          ),
+    ),
+    untilDestroyed(this),
+  );
   public get ratingControl(): AbstractControl | null {
     return this.exerciseForm.get('rating');
   }
@@ -41,8 +68,8 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private exercisesFacade: ExercisesFacade
-  ) { }
+    private exercisesFacade: ExercisesFacade,
+  ) {}
 
   ngOnInit(): void {
     this.initData();
@@ -83,7 +110,8 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
 
   private initData(): void {
     this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
-    this.resolvedExercise && this.exerciseForm.patchValue(this.resolvedExercise);
+    this.resolvedExercise &&
+      this.exerciseForm.patchValue(this.resolvedExercise);
   }
 
   private initListeners(): void {
