@@ -34,7 +34,7 @@ export class ExercisesEffects {
     ),
   );
 
-  public findExercises$ = createEffect((): any =>
+  public findExercises$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.FIND_EXERCISES),
       concatMap(({ payload }: WithPayload<Partial<SearchOptions>>) =>

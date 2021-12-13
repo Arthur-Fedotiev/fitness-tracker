@@ -32,7 +32,11 @@ import {
   CollectionReference,
   QueryDocumentSnapshot,
 } from '@angular/fire/compat/firestore';
-import { COLLECTIONS, Translations, LanguageCodes } from 'shared-package';
+import { COLLECTIONS, LanguageCodes } from 'shared-package';
+import {
+  toBaseDataWithId,
+  toExerciseTranslation$,
+} from './utils/functions/mappers';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +44,7 @@ import { COLLECTIONS, Translations, LanguageCodes } from 'shared-package';
 export class ExercisesService {
   private exerciseDocCash: QueryDocumentSnapshot<ExerciseMetaDTO> | null = null;
 
-  constructor(private readonly afs: AngularFirestore) {}
+  constructor(public readonly afs: AngularFirestore) {}
 
   public createExercise(
     exercise: ExerciseMetaDTO,
@@ -68,7 +72,7 @@ export class ExercisesService {
   public findExercises(
     searchOptions: Partial<SearchOptions>,
     lang: LanguageCodes = 'ru',
-  ): any {
+  ): Observable<ExercisesEntity[]> {
     return this.afs
       .collection<ExerciseMetaDTO>(
         COLLECTIONS.EXERCISES,
@@ -85,35 +89,14 @@ export class ExercisesService {
         map(convertSnaps),
         tap(console.log),
         map((exercises: WithId<ExerciseMetaDTO>[]) =>
-          exercises.map(
-            ({
-              baseData,
-              id,
-            }: WithId<ExerciseMetaDTO>): Required<ExerciseBaseData> => ({
-              ...baseData,
-              id,
-            }),
-          ),
+          exercises.map(toBaseDataWithId),
         ),
         switchMap((exercisesBaseData: Required<ExerciseBaseData>[]) => {
-          const exercisesTranslations = exercisesBaseData.map((exercise) =>
-            this.afs
-              .doc<Translations<Exercise>[typeof lang]>(
-                `${COLLECTIONS.EXERCISES}/${exercise.id}/${COLLECTIONS.TRANSLATIONS}/${lang}`,
-              )
-              .get()
-              .pipe(
-                tap(console.log),
-                map(convertOneSnap),
-                map((translation: Translations<any>[typeof lang]) => ({
-                  ...translation,
-                  ...exercise,
-                })),
-                first(),
-              ),
+          const exercisesTranslationsObs = exercisesBaseData.map(
+            toExerciseTranslation$.call(this, lang),
           );
 
-          return combineLatest(exercisesTranslations);
+          return combineLatest(exercisesTranslationsObs);
         }),
         first(),
       );
@@ -161,36 +144,20 @@ export class ExercisesService {
       .pipe(map(convertSnaps), first());
   }
 
-  // public findExercises2(
-  //   searchOptions: Partial<SearchOptions>,
-  // ): Observable<ExercisesEntity[]> {
-  //   return this.afs
-  //     .collection<ExercisesEntity>(
-  //       COLLECTIONS.EXERCISES,
-  //       (ref: CollectionReference) =>
-  //         this.toPaginatedRef({ ref, ...searchOptions }),
-  //     )
-  //     .get()
-  //     .pipe(
-  //       tap(
-  //         (snaps) =>
-  //           (this.exerciseDocCash =
-  //             [...snaps.docs][snaps.docs.length - 1] ?? null),
-  //       ),
-  //       map(convertSnaps),
-  //       first(),
-  //     );
-  // }
-
-  public getExerciseDetails(exerciseId: string): Observable<ExercisesEntity> {
+  public getExerciseDetails(
+    exerciseId: string,
+    lang: LanguageCodes = 'ru',
+  ): Observable<ExercisesEntity> {
     return this.afs
-      .doc<ExercisesEntity>(`${COLLECTIONS.EXERCISES}/${exerciseId}`)
+      .doc<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES}/${exerciseId}`)
       .get()
       .pipe(
         map<
-          firebase.firestore.DocumentSnapshot<ExercisesEntity>,
-          ExercisesEntity
+          firebase.firestore.DocumentSnapshot<ExerciseMetaDTO>,
+          WithId<ExerciseMetaDTO>
         >(convertOneSnap),
+        map(toBaseDataWithId),
+        switchMap(toExerciseTranslation$.call(this, lang)),
       );
   }
 
