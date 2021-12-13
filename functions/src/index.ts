@@ -15,3 +15,16 @@ export const onDeleteRemoveUserDoc = functions.auth
     .onDelete(async (user: any) => {
       await (await import('./auth/on-delete')).default(user);
     });
+
+export const onExerciseTranslatableDataUpdate = functions.firestore
+    .document('exercises/{exerciseId}')
+    .onUpdate(
+        async (
+            change: functions.Change<functions.firestore.QueryDocumentSnapshot>,
+            context: functions.EventContext,
+        ) => {
+          await (
+            await import('./exercises-translation/on-update-translated-data')
+          ).default(change, context);
+        },
+    );

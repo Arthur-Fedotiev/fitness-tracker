@@ -6,12 +6,10 @@ import {
 import {
   Exercise,
   ExerciseMetaDTO,
-  ExerciseRequestDTO,
   ExercisesEntity,
   EXERCISE_FIELD_NAMES,
 } from '@fitness-tracker/exercises/model';
 import {
-  COLLECTIONS,
   convertOneSnap,
   convertSnaps,
   DEFAULT_PAGINATION_STATE,
@@ -24,6 +22,7 @@ import {
   CollectionReference,
   QueryDocumentSnapshot,
 } from '@angular/fire/compat/firestore';
+import { COLLECTIONS } from 'shared-package';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +30,9 @@ import {
 export class ExercisesService {
   private exerciseDocCash: QueryDocumentSnapshot<ExercisesEntity> | null = null;
 
-  constructor(private readonly afs: AngularFirestore) {}
+  constructor(private readonly afs: AngularFirestore) {
+    this.getExercisesMeta();
+  }
 
   public createExerciseMeta(
     exercise: ExerciseMetaDTO,
@@ -40,14 +41,30 @@ export class ExercisesService {
     return id
       ? from(
           this.afs
-            .doc<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES_META}/${id}`)
+            .doc<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES}/${id}`)
             .set(exercise),
         ).pipe(first())
       : from(
           this.afs
-            .collection<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES_META}`)
+            .collection<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES}`)
             .add(exercise),
         ).pipe(first());
+  }
+
+  public getExercisesMeta(): void {
+    // this.afs
+    //   .doc(`${COLLECTIONS.EXERCISES_META}/fEK125uzQPeIJNWFrCBa`)
+    //   .get()
+    //   .pipe(
+    //     map((a) => {
+    //       const { longDescription, shortDescription, ...data } = (
+    //         a.data() as any
+    //       )?.translatedData;
+    //       return JSON.stringify(data);
+    //     }),
+    //     tap(console.log),
+    //   )
+    //   .subscribe();
   }
 
   public createExercise(

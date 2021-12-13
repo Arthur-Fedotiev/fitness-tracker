@@ -35,12 +35,12 @@
     "@ngrx/router-store": "~13.0.0",
     "@ngrx/store": "~13.0.0",
     "@nrwl/angular": "13.2.2",
-    "auth-package": "file:libs/packages/auth-package/auth-package-1.0.0.tgz",
     "firebase": "^9.4.0",
     "firebaseui": "^6.0.0",
     "firebaseui-angular": "^6.1.0",
     "rxfire": "^6.0.0",
     "rxjs": "~7.4.0",
+    "shared-package": "file:libs/packages/shared-utils/shared-package-2.0.0.tgz",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },

@@ -1,0 +1,22 @@
+{
+  "name": "shared-package",
+  "version": "2.0.0",
+  "description": "Utils shared between client app and cloud functions",
+  "main": "dist/index.js",
+  "files": [
+    "/dist",
+    "!/dist/**/*.js.map",
+    "!/dist/**/*.tsbuildinfo"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "pack": "npm pack"
+  },
+  "keywords": [
+    "shared",
+    "packaged",
+    "utils"
+  ],
+  "author": "Artur Fedotiev",
+  "license": "ISC"
+}

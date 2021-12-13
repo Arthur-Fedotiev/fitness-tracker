@@ -1,6 +1,6 @@
 import { auth, db } from './init';
 import { auth as Auth } from 'firebase-admin/lib/auth';
-import { ROLES } from 'auth-package';
+import { ROLES } from 'shared-package';
 
 import express from 'express';
 import cors from 'cors';

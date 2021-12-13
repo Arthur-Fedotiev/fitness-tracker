@@ -1,24 +1,7 @@
-import {
-  EXERCISE_LOAD_CATEGORY,
-  EQUIPMENT,
-  EXERCISE_MUSCLES_CATEGORY,
-  EXERCISE_TYPES,
-  MUSCLE_LIST,
-} from '..';
+import { EQUIPMENT, EXERCISE_TYPES, MUSCLE_LIST } from '..';
+import { Exercise as IExercise } from 'shared-package';
 
-export interface Exercise {
-  name: string;
-  exerciseType: string;
-  targetMuscle: string;
-  equipment: string;
-  rating: number;
-  avatarUrl: string;
-  coverUrl: string;
-  shortDescription: string;
-  longDescription: string;
-  instructions: string[];
-  benefits: string[];
-}
+export type Exercise = IExercise;
 
 export type Muscle = typeof MUSCLE_LIST[number];
 export type MuscleList = typeof MUSCLE_LIST;

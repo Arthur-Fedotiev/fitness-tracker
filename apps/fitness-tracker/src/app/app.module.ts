@@ -70,7 +70,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ScreenTrackingService,
     UserTrackingService,
     { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
-    { provide: USE_FUNCTIONS_EMULATOR, useValue: !environment.useEmulators ? ['localhost', 5001] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,4 +1,4 @@
-import { ROLES } from 'auth-package';
+import { ROLES } from 'shared-package';
 
 export class User {
   public role!: ROLES;

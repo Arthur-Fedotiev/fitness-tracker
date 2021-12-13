@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  useEmulators: true,
+  useEmulators: false,
   firebase: {
     projectId: 'fitness-tracker-de06b',
     appId: '1:450961916900:web:a85ab7b9651ed92cd5bdf1',
@@ -13,12 +13,17 @@ export const environment = {
     authDomain: 'fitness-tracker-de06b.firebaseapp.com',
     messagingSenderId: '450961916900',
   },
-  api: { createUser: 'http://localhost:5001/fitness-tracker-de06b/us-central1/createUser' },
+  api: {
+    createUser:
+      'http://localhost:5001/fitness-tracker-de06b/us-central1/createUser',
+  },
   production: false,
 } as const;
 
 export type Environment = typeof environment;
 
+// *Function-emulator
+// *https://us-central1-fitness-tracker-de06b.cloudfunctions.net/createUser
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin';
-import { ROLES } from "auth-package";
+import { ROLES } from 'shared-package';
 import { from } from 'rxjs';
 import { successIcon } from './utils/constants';
 

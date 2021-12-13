@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { auth as Auth } from 'firebase-admin/lib/auth';
 import { auth, db } from '../init';
-import { ROLES } from 'auth-package';
+import { ROLES } from 'shared-package';
 
 export default async (user: Auth.UserRecord): Promise<void> => {
   try {
