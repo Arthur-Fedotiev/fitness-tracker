@@ -1,4 +1,4 @@
-export const MUSCLE_LIST = [
+export const MUSCLE_LIST_FULL = [
   'Neck',
   'Traps (trapezius)',
   'Shoulders (deltoids)',
@@ -19,6 +19,42 @@ export const MUSCLE_LIST = [
   'Calves (gastrocnemius)',
 ] as const;
 
+export const MUSCLE_LIST = [
+  'neck',
+  'traps',
+  'shoulders',
+  'chest',
+  'biceps',
+  'forearm',
+  'abdominal',
+  'quadriceps',
+  'calves',
+  'triceps',
+  'lats',
+  'middle back',
+  'lower back',
+  'glutes',
+  'hamstrings',
+] as const;
+
+export const MUSCLE_KEYS = [
+  'NECK',
+  'TRAPS',
+  'SHOULDERS',
+  'CHEST',
+  'BICEPS',
+  'FOREARM',
+  'ABDOMINAL',
+  'QUADRICEPS',
+  'CALVES',
+  'TRICEPS',
+  'LATS',
+  'MIDDLE_BACK',
+  'LOWE_BACK',
+  'GLUTES',
+  'HAMSTRINGS',
+] as const;
+
 export const EQUIPMENT = [
   'Bands',
   'Foam Roll',
@@ -30,9 +66,25 @@ export const EQUIPMENT = [
   'Medicine Ball',
   'Dumbbell',
   'None',
-  'E - Z Curl Bar',
+  'E-Z Curl Bar',
   'Other',
   'Exercise Ball',
+] as const;
+
+export const EQUIPMENT_KEYS = [
+  'BANDS',
+  'ROLL',
+  'BARBELL',
+  'KETTLEBELLS',
+  'BODY_ONLY',
+  'MACHINE',
+  'CABLE',
+  'MEDICINE_BALL',
+  'DUMBBELL',
+  'NONE',
+  'E-Z_BAR',
+  'OTHER',
+  'EXERCISE_BALL',
 ] as const;
 
 export const EXERCISE_TYPES = [
@@ -43,4 +95,14 @@ export const EXERCISE_TYPES = [
   'Strength',
   'Stretching',
   'Strongman',
+] as const;
+
+export const EXERCISE_TYPE_KEYS = [
+  'CARDIO',
+  'WEIGHTLIFTING',
+  'PLYOMETRICS',
+  'POWERLIFTING',
+  'STRENGTH',
+  'STRETCHING',
+  'STRONGMAN',
 ] as const;
