@@ -62,7 +62,7 @@ export const createExerciseFailure = createAction(
 
 export const updateExercise = createAction(
   EXERCISES_ACTION_NAMES.UPDATE_EXERCISE,
-  props<WithPayload<Partial<ExercisesEntity>>>(),
+  props<WithPayload<ExerciseMetaDTO>>(),
 );
 
 export const updateExerciseSuccess = createAction(

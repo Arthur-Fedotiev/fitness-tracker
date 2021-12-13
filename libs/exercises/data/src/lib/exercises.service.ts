@@ -4,9 +4,9 @@ import {
   DocumentReference,
 } from '@angular/fire/compat/firestore';
 import {
-  Exercise,
   ExerciseBaseData,
   ExerciseMetaDTO,
+  ExerciseRequestDTO,
   ExercisesEntity,
   EXERCISE_FIELD_NAMES,
 } from '@fitness-tracker/exercises/model';
@@ -63,15 +63,17 @@ export class ExercisesService {
         ).pipe(first());
   }
 
-  public updateExercise({ id, ...exercise }: Partial<ExercisesEntity>) {
+  public updateExercise(exercise: ExerciseRequestDTO) {
     return from(
-      this.afs.doc(`${COLLECTIONS.EXERCISES}/${id}`).update(exercise),
+      this.afs
+        .doc(`${COLLECTIONS.EXERCISES}/${exercise?.baseData?.id}`)
+        .update(exercise),
     );
   }
 
   public findExercises(
     searchOptions: Partial<SearchOptions>,
-    lang: LanguageCodes = 'ru',
+    lang: LanguageCodes = 'en',
   ): Observable<ExercisesEntity[]> {
     return this.afs
       .collection<ExerciseMetaDTO>(
@@ -102,29 +104,6 @@ export class ExercisesService {
       );
   }
 
-  // public createExercise2(
-  //   exercise: Exercise,
-  //   exerciseId?: string,
-  // ): Observable<void | DocumentReference<Exercise>> {
-  //   return exerciseId
-  //     ? from(
-  //         this.afs
-  //           .doc<Exercise>(`${COLLECTIONS.EXERCISES}/${exerciseId}`)
-  //           .set(exercise),
-  //       ).pipe(first())
-  //     : from(
-  //         this.afs
-  //           .collection<Exercise>(`${COLLECTIONS.EXERCISES}`)
-  //           .add(exercise),
-  //       ).pipe(first());
-  // }
-
-  // public updateExercise2({ id, ...exercise }: Partial<ExercisesEntity>) {
-  //   return from(
-  //     this.afs.doc(`${COLLECTIONS.EXERCISES}/${id}`).update(exercise),
-  //   );
-  // }
-
   public deleteExercise(exerciseId: string): Observable<void> {
     return from(
       this.afs
@@ -146,7 +125,7 @@ export class ExercisesService {
 
   public getExerciseDetails(
     exerciseId: string,
-    lang: LanguageCodes = 'ru',
+    lang: LanguageCodes = 'en',
   ): Observable<ExercisesEntity> {
     return this.afs
       .doc<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES}/${exerciseId}`)

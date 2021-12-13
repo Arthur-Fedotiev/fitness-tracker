@@ -84,21 +84,37 @@ export class ExercisesEffects {
     { dispatch: false },
   );
 
-  public updateExerciseOptimistically$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
-      mergeMap(
-        ({
-          payload,
-        }: WithPayload<Partial<ExercisesEntity>>): Observable<Action> =>
-          this.exercisesService.updateExercise(payload).pipe(
-            tap(() => this.redirectToExerciseList()),
-            map(() => ExercisesActions.updateExerciseSuccess()),
-            catchError(() => of(ExercisesActions.updateExerciseFailure())),
-          ),
-      ),
+  public updateExercise$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
+    mergeMap(
+      ({
+        payload,
+      }: WithPayload<ExerciseRequestDTO>) =>
+        this.exercisesService.updateExercise(payload).pipe(
+          // tap(() => this.redirectToExerciseList()),
+          // map(() => ExercisesActions.updateExerciseSuccess()),
+          // catchError(() => of(ExercisesActions.updateExerciseFailure())),
+        ),
     ),
-  );
+  ), { dispatch: false },
+);
+
+  // public updateExerciseOptimistically$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
+  //     mergeMap(
+  //       ({
+  //         payload,
+  //       }: WithPayload<Partial<ExercisesEntity>>): Observable<Action> =>
+  //         this.exercisesService.updateExercise(payload).pipe(
+  //           tap(() => this.redirectToExerciseList()),
+  //           map(() => ExercisesActions.updateExerciseSuccess()),
+  //           catchError(() => of(ExercisesActions.updateExerciseFailure())),
+  //         ),
+  //     ),
+  //   ),
+  // );
 
   public deleteExercise$ = createEffect(() =>
     this.actions$.pipe(

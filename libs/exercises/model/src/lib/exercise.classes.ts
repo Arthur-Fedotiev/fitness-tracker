@@ -22,6 +22,10 @@ export class ExerciseRequestDTO {
 
     return this;
   }
+
+  public serialize(): ExerciseMetaDTO {
+    return { ...this };
+  }
 }
 
 export type ExerciseMetaDTO = Pick<

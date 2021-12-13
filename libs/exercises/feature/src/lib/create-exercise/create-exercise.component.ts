@@ -41,20 +41,16 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   public resolvedExercise: ExercisesEntity | null = null;
 
   private readonly save: Subject<void> = new Subject<void>();
-  // public readonly onSave$ = this.save.asObservable().pipe(
-  //   tap(() => this.resolvedExercise
-  //     ? this.exercisesFacade.updateExercise({ id: this.resolvedExercise.id, ...this.exerciseForm.value })
-  //     : this.exercisesFacade.createExercise(this.exerciseForm.value)),
-  //   untilDestroyed(this),
-  // )
 
   public readonly onSave$ = this.save.asObservable().pipe(
     tap(() =>
       this.resolvedExercise
-        ? this.exercisesFacade.updateExercise({
-            id: this.resolvedExercise.id,
-            ...this.exerciseForm.value,
-          })
+        ? this.exercisesFacade.updateExercise(
+            new ExerciseRequestDTO(
+              this.exerciseForm.value,
+              this.resolvedExercise.id,
+            ),
+          )
         : this.exercisesFacade.createExercise(
             new ExerciseRequestDTO(this.exerciseForm.value),
           ),

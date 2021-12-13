@@ -41,22 +41,20 @@ export class ExercisesFacade {
     this.store.dispatch(ExercisesActions.loadExercises());
   }
 
-  // public createExercise(exercise: Exercise): void {
-  //   const id: string = this.afs.createId();
-  //   const payload: ExercisesEntity = {
-  //     ...exercise,
-  //     id
-  //   };
-
   public createExercise(exercise: ExerciseRequestDTO): void {
     const id: string = this.afs.createId();
-    const payload: ExerciseMetaDTO = { ...exercise.setId(id) };
 
-    this.store.dispatch(ExercisesActions.createExerciseMeta({ payload }));
+    this.store.dispatch(
+      ExercisesActions.createExerciseMeta({
+        payload: exercise.setId(id).serialize(),
+      }),
+    );
   }
 
-  public updateExercise(payload: Partial<ExercisesEntity>): void {
-    this.store.dispatch(ExercisesActions.updateExercise({ payload }));
+  public updateExercise(exercise: ExerciseRequestDTO): void {
+    this.store.dispatch(
+      ExercisesActions.updateExercise({ payload: exercise.serialize() }),
+    );
   }
 
   public loadExerciseDetails(payload: string): void {
