@@ -34,7 +34,7 @@ export class ExercisesEffects {
     ),
   );
 
-  public findExercises$ = createEffect(() =>
+  public findExercises$ = createEffect((): any =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.FIND_EXERCISES),
       concatMap(({ payload }: WithPayload<Partial<SearchOptions>>) =>
@@ -67,7 +67,7 @@ export class ExercisesEffects {
         ofType(EXERCISES_ACTION_NAMES.CREATE_EXERCISE),
         mergeMap(({ payload }: WithPayload<ExerciseMetaDTO>) =>
           this.exercisesService
-            .createExerciseMeta(payload)
+            .createExercise(payload)
             .pipe
             // tap(() => this.redirectToExerciseList()),
             // map(() => ExercisesActions.createExerciseSuccess()),

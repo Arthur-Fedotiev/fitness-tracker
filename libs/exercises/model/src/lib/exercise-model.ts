@@ -29,6 +29,7 @@ export type ExerciseBaseData = Pick<
   ExerciseFormData,
   'rating' | 'avatarUrl' | 'coverUrl'
 > & { id?: string };
+
 export type ExerciseTranslatableData = Omit<
   ExerciseFormData,
   keyof ExerciseBaseData

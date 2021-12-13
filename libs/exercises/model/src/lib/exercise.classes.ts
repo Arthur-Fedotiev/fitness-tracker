@@ -1,8 +1,8 @@
+import { Exercise } from '..';
 import {
   ExerciseBaseData,
   ExerciseFormData,
   ExerciseTranslatableData,
-  WithOptionalId,
 } from './exercise-model';
 
 export class ExerciseRequestDTO {
