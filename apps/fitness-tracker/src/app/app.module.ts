@@ -24,6 +24,7 @@ import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/fun
 import 'firebase/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
+import { CoreModule } from './core.module';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -46,18 +47,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
-    StoreModule.forRoot(
-      {},
-      {
-        metaReducers: !environment.production ? [] : [],
-        runtimeChecks: {
-          strictActionImmutability: true,
-          strictStateImmutability: true,
-        },
-      },
-    ),
-    EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
     FlexLayoutModule,
     AppRoutingModule,
     AuthModule,
@@ -66,6 +55,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LayoutFeatureModule,
     AngularFireModule.initializeApp(environment.firebase),
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    CoreModule,
   ],
   providers: [
     ScreenTrackingService,

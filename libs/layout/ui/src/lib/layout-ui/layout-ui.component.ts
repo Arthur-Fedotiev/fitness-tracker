@@ -36,6 +36,7 @@ export class LayoutUiComponent {
 
   selectLanguage(value: string) {
     this.language =
-      this.languages.find((lang) => lang.value === value) ?? this.languages[0];
+      this.languages.find((lang: any) => lang.value === value) ??
+      this.languages[0];
   }
 }
