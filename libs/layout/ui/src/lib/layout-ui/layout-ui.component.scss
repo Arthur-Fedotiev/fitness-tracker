@@ -1,6 +1,7 @@
 .user-avatar {
   max-height: 35px;
   border-radius: 4px;
+  margin: 0.25rem 0;
 }
 
 .toolbar-tools {
@@ -11,6 +12,34 @@
 .filler {
   flex: 1 1 auto;
   width: 100%;
+}
+.settings {
+  &.toolbar {
+    margin-left: auto;
+  }
+  &:not(.toolbar) {
+    padding: 0 1rem;
+  }
+  ::ng-deep {
+    .mat-form-field-infix {
+      width: 3rem;
+      padding: 0;
+      border: 0;
+    }
+
+    .mat-select-hide-underline .mat-form-field-underline {
+      display: none;
+    }
+    .mat-form-field-wrapper {
+      height: 100%;
+      padding-bottom: 0;
+    }
+
+    .mat-form-field-flex {
+      align-items: center;
+      height: 100%;
+    }
+  }
 }
 
 mat-toolbar {
@@ -24,8 +53,10 @@ mat-nav-list.horizontal {
   & > a {
     color: white;
     flex: 0 1;
-    &:last-of-type {
-      margin-left: auto;
-    }
   }
+}
+
+.flag {
+  width: 1.5rem;
+  box-sizing: border-box;
 }

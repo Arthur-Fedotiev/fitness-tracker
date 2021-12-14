@@ -1,6 +1,6 @@
 <mat-sidenav-container fullscreen>
-  <mat-sidenav #start
-               (click)="start.close()">
+  <mat-sidenav #sideNav
+               (click)="sideNav.close()">
     <ng-container *ngTemplateOutlet="navList; context: {$implicit: 'column'}"></ng-container>
 
 
@@ -10,7 +10,7 @@
     <div fxHide.gt-sm
          class="toolbar-tools">
       <button mat-icon-button
-              (click)="start.open('mouse')">
+              (click)="sideNav.open('mouse')">
         <mat-icon>menu</mat-icon>
       </button>
 
@@ -57,16 +57,51 @@
       <span>Login</span>
     </a>
 
-    <a *ngIf="isLoggedIn"
-       mat-list-item
-       (click)="logOut()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Logout</span>
-    </a>
+    <section [fxLayout]="layout"
+             class="settings"
+             [attr.mat-list-item]="layout !== 'row'"
+             [class.toolbar]="layout === 'row'">
+      <mat-form-field class="mat-select-hide-underline">
+        <mat-select [value]="language.value"
+                    (valueChange)="selectLanguage($event)">
+          <mat-select-trigger>
+            <div fxLayout="row"
+                 fxLayoutAlign="start center"
+                 fxLayoutGap="10px"><img [src]="
+               language.img"
+                   class="flag" />
+              <span fxHide.gt-sm="">{{ language.label }}</span>
+            </div>
 
-    <ng-container *ngIf="photoUrl">
-      <img [src]="photoUrl"
-           class="user-avatar" />
-    </ng-container>
+          </mat-select-trigger>
+          <mat-option *ngFor="let opt of languages"
+                      [value]="opt.value">
+            <div fxLayout="row"
+                 fxLayoutAlign="sideNav center"
+                 fxLayoutGap="10px">
+              <img [src]="opt.img"
+                   class="flag" />
+              <span>{{ opt.label }}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button *ngIf="isLoggedIn"
+              (click)="logOut()"
+              mat-icon-button
+              aria-label="Logout">
+        <mat-icon>exit_to_app</mat-icon>
+        <span fxHide.gt-sm>Logout</span>
+      </button>
+
+      <ng-container *ngIf="photoUrl">
+        <img [src]="photoUrl"
+             fxHide.lt-md
+             class="user-avatar" />
+      </ng-container>
+    </section>
+
+
   </mat-nav-list>
 </ng-template>

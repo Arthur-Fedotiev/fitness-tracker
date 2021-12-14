@@ -23,6 +23,7 @@ import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/fir
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import 'firebase/auth';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -30,12 +31,12 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     {
       requireDisplayName: false,
-      provider: firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
+      provider: firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD,
     },
   ],
   tosUrl: '<your-tos-link>',
   privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
-  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
 };
 
 @NgModule({
@@ -53,7 +54,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
           strictActionImmutability: true,
           strictStateImmutability: true,
         },
-      }
+      },
     ),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -62,26 +63,32 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AuthModule,
     AuthFeatureModule,
     AngularFirestoreModule,
+    LayoutFeatureModule,
     AngularFireModule.initializeApp(environment.firebase),
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
-
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
   ],
   providers: [
     ScreenTrackingService,
     UserTrackingService,
-    { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
-    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
+    {
+      provide: USE_FIRESTORE_EMULATOR,
+      useValue: environment.useEmulators ? ['localhost', 8080] : undefined,
+    },
+    {
+      provide: USE_FUNCTIONS_EMULATOR,
+      useValue: environment.useEmulators ? ['localhost', 5001] : undefined,
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideAnalytics(() => getAnalytics()),
-    // provideAuth(() => getAuth()),
-    // provideDatabase(() => getDatabase()),
-    // provideFirestore(() => getFirestore()),
-    // provideFunctions(() => getFunctions()),
-    // provideMessaging(() => getMessaging()),
-    // providePerformance(() => getPerformance()),
-    // provideRemoteConfig(() => getRemoteConfig()),
-    // provideStorage(() => getStorage()),
+export class AppModule {}
+// provideFirebaseApp(() => initializeApp(environment.firebase)),
+// provideAnalytics(() => getAnalytics()),
+// provideAuth(() => getAuth()),
+// provideDatabase(() => getDatabase()),
+// provideFirestore(() => getFirestore()),
+// provideFunctions(() => getFunctions()),
+// provideMessaging(() => getMessaging()),
+// providePerformance(() => getPerformance()),
+// provideRemoteConfig(() => getRemoteConfig()),
+// provideStorage(() => getStorage()),

@@ -33,7 +33,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatNativeDateModule,
     MatSliderModule,
     MatBadgeModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
   exports: [
     MatInputModule,

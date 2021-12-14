@@ -331,7 +331,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "apps/fitness-tracker/src/favicon.ico",
-              "apps/fitness-tracker/src/assets"
+              "apps/fitness-tracker/src/assets",
+              {
+                "input": "libs/layout/ui/src/assets",
+                "glob": "**/*",
+                "output": "assets/layout-ui"
+              }
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
