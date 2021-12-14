@@ -1,4 +1,4 @@
-import { settingsReducer } from './reducers/settings.reducer';
+import { settingsReducer } from './settings.reducer';
 
 export const appReduceMap = {
   settings: settingsReducer,

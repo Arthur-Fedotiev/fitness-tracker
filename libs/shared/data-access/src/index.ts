@@ -1,1 +1,1 @@
-export * from './lib/shared-data-access.module';
+export { SharedDataAccessModule } from './lib/shared-data-access.module';
