@@ -1,11 +1,11 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { environment } from 'apps/fitness-tracker/src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { languageMetaReducer } from './meta-reducers/language-meta-reducer.reducer';
 import { appReduceMap } from './app.reduce-map';
 import { FtState } from '@fitness-tracker/shared/utils';
+import { environment } from '@fitness-tracker/shared/environments';
 
 @NgModule({
   imports: [

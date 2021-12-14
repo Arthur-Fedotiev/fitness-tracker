@@ -360,8 +360,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/fitness-tracker/src/environments/environment.ts",
-                  "with": "apps/fitness-tracker/src/environments/environment.prod.ts"
+                  "replace": "libs/shared/environments/src/environments/environment.ts",
+                  "with": "libs/shared/environments/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all",
@@ -538,6 +538,32 @@
         }
       },
       "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-environments": {
+      "projectType": "library",
+      "root": "libs/shared/environments",
+      "sourceRoot": "libs/shared/environments/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/environments"],
+          "options": {
+            "jestConfig": "libs/shared/environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/environments/src/**/*.ts",
+              "libs/shared/environments/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:shared", "type:environments"]
     },
     "shared-ui-material": {
       "projectType": "library",

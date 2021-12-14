@@ -3,10 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { firebase, firebaseui, FirebaseUIModule } from 'firebaseui-angular';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import {
   ScreenTrackingService,
@@ -18,13 +14,13 @@ import { RouterModule } from '@angular/router';
 import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
-// import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import 'firebase/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { CoreModule } from './core.module';
+import { environment } from '@fitness-tracker/shared/environments';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
