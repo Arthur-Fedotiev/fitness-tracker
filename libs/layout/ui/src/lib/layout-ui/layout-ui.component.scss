@@ -21,11 +21,3 @@ mat-toolbar {
   top: 0;
   z-index: 9999;
 }
-
-mat-nav-list.horizontal {
-  width: 100%;
-  & > a {
-    color: white;
-    flex: 0 1;
-  }
-}

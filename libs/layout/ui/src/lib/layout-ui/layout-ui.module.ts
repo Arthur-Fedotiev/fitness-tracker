@@ -6,15 +6,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RolesModule } from '@fitness-tracker/auth/feature';
 import { LayoutUiComponent } from './layout-ui.component';
 import { SettingsBar } from '../settings/settings-bar.module';
+import { NavigationBarModule } from '../navigation-bar/navigation-bar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule,
     FlexLayoutModule,
-    RolesModule,
     SettingsBar,
+    NavigationBarModule,
   ],
   declarations: [LayoutUiComponent],
   exports: [LayoutUiComponent],

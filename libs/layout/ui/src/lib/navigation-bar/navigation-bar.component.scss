@@ -1,0 +1,7 @@
+mat-nav-list.horizontal {
+  width: 100%;
+  & > a {
+    color: white;
+    flex: 0 1;
+  }
+}

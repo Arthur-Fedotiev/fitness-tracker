@@ -2,8 +2,6 @@
   <mat-sidenav #sideNav
                (click)="sideNav.close()">
     <ng-container *ngTemplateOutlet="navList; context: {$implicit: 'column'}"></ng-container>
-
-
   </mat-sidenav>
 
   <mat-toolbar color="primary">
@@ -13,12 +11,8 @@
               (click)="sideNav.open('mouse')">
         <mat-icon>menu</mat-icon>
       </button>
-
-      <div class="filler"></div>
     </div>
-
     <ng-container *ngTemplateOutlet="navList; context: {$implicit: 'row'}"></ng-container>
-
   </mat-toolbar>
 
   <ng-content></ng-content>
@@ -27,46 +21,16 @@
 <ng-template #navList
              let-layout
              let-isDesktop>
-  <mat-nav-list [fxLayout]="layout"
-                [fxHide.lt-md]="layout === 'row'"
-                [class]="{'horizontal': layout === 'row'}">
-    <a mat-list-item
-       [routerLink]="['exercises', 'all']">
-      <mat-icon>library_books</mat-icon>
-      <span>Exercises</span>
-    </a>
-
-    <a *ftRoles="roles.ADMIN"
-       mat-list-item
-       [routerLink]="['exercises', 'create']">
-      <mat-icon>add_circle_outline</mat-icon>
-      <span>Create exercise</span>
-    </a>
-
-    <a *ftRoles="roles.ADMIN"
-       mat-list-item
-       [routerLink]="['create-user']">
-      <mat-icon>add_circle_outline</mat-icon>
-      <span>Create User</span>
-    </a>
-
-    <a *ngIf="isLoggedOut"
-       mat-list-item
-       [routerLink]="['auth', 'login']">
-      <mat-icon>account_circle</mat-icon>
-      <span>Login</span>
-    </a>
-
-    <section class="settings"
-             [class.toolbar]="layout === 'row'">
-      <ft-settings-bar [fxLayout]="layout"
-                       [attr.mat-list-item]="layout !== 'row'"
-                       [isLoggedIn]="isLoggedIn"
-                       [isLoggedOut]="isLoggedOut"
-                       [photoUrl]="photoUrl"
-                       (loggedOutChange)="logOut()"></ft-settings-bar>
-    </section>
-
-
-  </mat-nav-list>
+  <ft-navigation-bar [isLoggedOut]="isLoggedOut"
+                     [layout]="layout"></ft-navigation-bar>
+  <section class="settings"
+           [fxHide.lt-md]="layout === 'row'"
+           [class.toolbar]="layout === 'row'">
+    <ft-settings-bar [fxLayout]="layout"
+                     [attr.mat-list-item]="layout !== 'row'"
+                     [isLoggedIn]="isLoggedIn"
+                     [isLoggedOut]="isLoggedOut"
+                     [photoUrl]="photoUrl"
+                     (loggedOutChange)="logOut()"></ft-settings-bar>
+  </section>
 </ng-template>
