@@ -1,0 +1,39 @@
+<mat-form-field class="mat-select-hide-underline">
+  <mat-select [value]="language.value"
+              (valueChange)="selectLanguage($event)">
+    <mat-select-trigger>
+      <div fxLayout="row"
+           fxLayoutAlign="start center"
+           fxLayoutGap="10px"><img [src]="
+         language.img"
+             class="flag" />
+        <span fxHide.gt-sm="">{{ language.label }}</span>
+      </div>
+
+    </mat-select-trigger>
+    <mat-option *ngFor="let opt of languages"
+                [value]="opt.value">
+      <div fxLayout="row"
+           fxLayoutAlign="sideNav center"
+           fxLayoutGap="10px">
+        <img [src]="opt.img"
+             class="flag" />
+        <span>{{ opt.label }}</span>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button *ngIf="isLoggedIn"
+        (click)="logOut()"
+        mat-icon-button
+        aria-label="Logout">
+  <mat-icon>exit_to_app</mat-icon>
+  <span fxHide.gt-sm>Logout</span>
+</button>
+
+<ng-container *ngIf="photoUrl">
+  <img [src]="photoUrl"
+       fxHide.lt-md
+       class="user-avatar" />
+</ng-container>
