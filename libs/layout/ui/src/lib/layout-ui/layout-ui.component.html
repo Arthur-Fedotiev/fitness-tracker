@@ -22,7 +22,8 @@
              let-layout
              let-isDesktop>
   <ft-navigation-bar [isLoggedOut]="isLoggedOut"
-                     [layout]="layout"></ft-navigation-bar>
+                     [layout]="layout"
+                     [localeData]="navigationBarLocaleData"></ft-navigation-bar>
   <section class="settings"
            [fxHide.lt-md]="layout === 'row'"
            [class.toolbar]="layout === 'row'">
@@ -31,6 +32,8 @@
                      [isLoggedIn]="isLoggedIn"
                      [isLoggedOut]="isLoggedOut"
                      [photoUrl]="photoUrl"
-                     (loggedOutChange)="logOut()"></ft-settings-bar>
+                     [language]="language"
+                     (loggedOutChange)="logOut()"
+                     (languageSelected)="selectLanguage($event)"></ft-settings-bar>
   </section>
 </ng-template>

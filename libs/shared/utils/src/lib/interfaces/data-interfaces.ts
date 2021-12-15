@@ -1,5 +1,4 @@
 import firebase from 'firebase/compat/app';
-import { LanguageCodes } from 'shared-package';
 import OrderByDirection = firebase.firestore.OrderByDirection;
 
 export interface WithPayload<T> {
@@ -17,12 +16,4 @@ export interface Pagination {
 
 export interface SearchOptions extends Pagination {
   sortOrder: OrderByDirection;
-}
-
-export interface FtState {
-  settings: SettingsState;
-}
-
-export interface SettingsState {
-  language: LanguageCodes;
 }

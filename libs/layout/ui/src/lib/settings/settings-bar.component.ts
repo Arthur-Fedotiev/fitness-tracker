@@ -5,6 +5,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  Language,
+  Languages,
+  LANGUAGES_LABELS_LIST,
+} from '@fitness-tracker/shared/utils';
+import { Store } from '@ngrx/store';
+import { languageSelected } from 'libs/shared/data-access/src/lib/+state/actions/settings.actions';
+import { LanguageCodes } from 'shared-package';
 
 @Component({
   selector: 'ft-settings-bar',
@@ -16,24 +24,21 @@ export class SettingsBarComponent {
   @Input() public isLoggedIn: boolean | null = false;
   @Input() public isLoggedOut: boolean | null = false;
   @Input() public photoUrl: string | null = null;
+  @Input() public language: Language | null = null;
 
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
+  @Output() public readonly languageSelected =
+    new EventEmitter<LanguageCodes>();
 
-  readonly languages = [
-    { value: 'en', label: 'English', img: '/assets/layout-ui/gb.svg' },
-    { value: 'it', label: 'Italiano', img: '/assets/layout-ui/it.svg' },
-    { value: 'ru', label: 'Русский', img: '/assets/layout-ui/ru.svg' },
-  ];
+  constructor(private readonly store: Store) {}
 
-  public language = this.languages[0];
+  public readonly languages: Languages = LANGUAGES_LABELS_LIST;
 
   public logOut(): void {
     this.loggedOutChange.emit();
   }
 
-  selectLanguage(value: string) {
-    this.language =
-      this.languages.find((lang: any) => lang.value === value) ??
-      this.languages[0];
+  selectLanguage(language: LanguageCodes) {
+    this.languageSelected.emit(language);
   }
 }

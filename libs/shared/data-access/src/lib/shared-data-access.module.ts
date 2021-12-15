@@ -3,9 +3,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { languageMetaReducer } from './+state/meta-reducers/language-meta-reducer.reducer';
-import { FtState } from '@fitness-tracker/shared/utils';
 import { environment } from '@fitness-tracker/shared/environments';
-import { appReduceMap } from './+state/reducers/app.reduce-map';
+import { appReduceMap, FtState } from './+state/reducers/app.reduce-map';
 import { AngularFireModule } from '@angular/fire/compat';
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { firebaseUiAuthConfig } from './firebase/firebase-auth-ui-config';
@@ -18,7 +17,7 @@ import {
   ScreenTrackingService,
   UserTrackingService,
 } from '@angular/fire/analytics';
-import { SettingsEffects } from './effects/settings.effects';
+import { SettingsEffects } from './+state/effects/settings.effects';
 
 @NgModule({
   imports: [

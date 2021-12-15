@@ -1,13 +1,12 @@
 <mat-form-field class="mat-select-hide-underline">
-  <mat-select [value]="language.value"
+  <mat-select [value]="language?.value"
               (valueChange)="selectLanguage($event)">
     <mat-select-trigger>
       <div fxLayout="row"
            fxLayoutAlign="start center"
-           fxLayoutGap="10px"><img [src]="
-         language.img"
+           fxLayoutGap="10px"><img [src]=""
              class="flag" />
-        <span fxHide.gt-sm="">{{ language.label }}</span>
+        <span>{{ language?.label }}</span>
       </div>
 
     </mat-select-trigger>
@@ -16,7 +15,7 @@
       <div fxLayout="row"
            fxLayoutAlign="sideNav center"
            fxLayoutGap="10px">
-        <img [src]="opt.img"
+        <img [src]=""
              class="flag" />
         <span>{{ opt.label }}</span>
       </div>
