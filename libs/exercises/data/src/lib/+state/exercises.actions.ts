@@ -37,8 +37,22 @@ export const findExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES_FAILURE,
 );
 
+export const refreshExercises = createAction(
+  EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
+  props<WithPayload<Partial<SearchOptions>>>(),
+);
+
+export const refreshExercisesSuccess = createAction(
+  EXERCISES_ACTION_NAMES.REFRESH_EXERCISES_SUCCESS,
+  props<WithPayload<ExercisesEntity[]>>(),
+);
+
+export const refreshExercisesFailure = createAction(
+  EXERCISES_ACTION_NAMES.FIND_EXERCISES_FAILURE,
+);
+
 export const emptyExercisesList = createAction(
-  EXERCISES_ACTION_NAMES.EMPTY_EXERCISES,
+  EXERCISES_ACTION_NAMES.REFRESH_EXERCISES_FAILURE,
 );
 
 export const createExercise = createAction(

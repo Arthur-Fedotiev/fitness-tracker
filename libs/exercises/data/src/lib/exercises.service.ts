@@ -74,12 +74,15 @@ export class ExercisesService {
   public findExercises(
     searchOptions: Partial<SearchOptions>,
     lang: LanguageCodes = 'en',
+    refresh: boolean = false,
   ): Observable<ExercisesEntity[]> {
     return this.afs
       .collection<ExerciseMetaDTO>(
         COLLECTIONS.EXERCISES,
         (ref: CollectionReference) =>
-          this.toPaginatedRef({ ref, ...searchOptions }),
+          !refresh
+            ? this.toPaginatedRef({ ref, ...searchOptions })
+            : this.toRefreshRef({ ref, ...searchOptions }),
       )
       .get()
       .pipe(
@@ -146,16 +149,33 @@ export class ExercisesService {
     firstPage = DEFAULT_PAGINATION_STATE.firstPage,
     pageSize = DEFAULT_PAGINATION_STATE.pageSize,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
-    const newRef = ref
-      ?.orderBy(
-        new firebase.firestore.FieldPath(
-          'baseData',
-          EXERCISE_FIELD_NAMES.RATING,
-        ),
-        sortOrder,
-      )
-      .limit(2);
+    const newRef = this.getExerciseCollectionRef({
+      ref,
+      sortOrder,
+      pageSize,
+    }).limit(1);
 
     return firstPage ? newRef : newRef.startAfter(this.exerciseDocCash);
+  }
+
+  private toRefreshRef({
+    ref,
+    sortOrder = ORDER_BY.DESC,
+  }: Partial<SearchOptions> & { ref: CollectionReference }) {
+    console.log('[toRefreshRef]', this.exerciseDocCash?.id);
+
+    return this.getExerciseCollectionRef({ ref, sortOrder }).endAt(
+      this.exerciseDocCash,
+    );
+  }
+
+  private getExerciseCollectionRef({
+    ref,
+    sortOrder,
+  }: Partial<SearchOptions> & { ref: CollectionReference }) {
+    return ref?.orderBy(
+      new firebase.firestore.FieldPath('baseData', EXERCISE_FIELD_NAMES.RATING),
+      sortOrder,
+    );
   }
 }

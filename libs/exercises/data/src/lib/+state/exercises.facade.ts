@@ -73,6 +73,10 @@ export class ExercisesFacade {
     this.store.dispatch(ExercisesActions.findExercises({ payload }));
   }
 
+  public refreshExercises(payload: Partial<SearchOptions>): void {
+    this.store.dispatch(ExercisesActions.refreshExercises({ payload }));
+  }
+
   public emptyExercisesList(): void {
     this.store.dispatch(ExercisesActions.emptyExercisesList());
   }

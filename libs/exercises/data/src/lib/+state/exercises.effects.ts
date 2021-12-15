@@ -12,6 +12,7 @@ import {
   of,
   switchMap,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import {
   ExerciseMetaDTO,
@@ -19,10 +20,13 @@ import {
   ExercisesEntity,
 } from '@fitness-tracker/exercises/model';
 import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { loadExercisesSuccess } from './exercises.actions';
 import { ExercisesService } from '../exercises.service';
 import { Router } from '@angular/router';
+import { selectLanguage } from '@fitness-tracker/shared/data-access';
+import { LanguageCodes } from 'shared-package';
+import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class ExercisesEffects {
@@ -36,30 +40,37 @@ export class ExercisesEffects {
 
   public findExercises$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.FIND_EXERCISES),
-      concatMap(({ payload }: WithPayload<Partial<SearchOptions>>) =>
-        this.exercisesService.findExercises({ ...payload }).pipe(
-          map((payload: ExercisesEntity[]) =>
-            ExercisesActions.findExercisesSuccess({ payload }),
-          ),
-          catchError(() => of(ExercisesActions.findExercisesFailure())),
-        ),
+      ofType(
+        EXERCISES_ACTION_NAMES.FIND_EXERCISES,
+        EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
+      ),
+      withLatestFrom(this.store.select(selectLanguage)),
+      concatMap(
+        ([{ payload, type }, language]: [
+          TypedAction<
+            | EXERCISES_ACTION_NAMES.FIND_EXERCISES
+            | EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
+          > &
+            WithPayload<Partial<SearchOptions>>,
+          LanguageCodes,
+        ]) =>
+          this.exercisesService
+            .findExercises(
+              { ...payload },
+              language,
+              type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
+            )
+            .pipe(
+              map((payload: ExercisesEntity[]) =>
+                type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
+                  ? ExercisesActions.refreshExercisesSuccess({ payload })
+                  : ExercisesActions.findExercisesSuccess({ payload }),
+              ),
+              catchError(() => of(ExercisesActions.findExercisesFailure())),
+            ),
       ),
     ),
   );
-
-  // public createExerciseOptimistically$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(EXERCISES_ACTION_NAMES.CREATE_EXERCISE),
-  //     mergeMap(({ payload: { id, ...data } }: WithPayload<ExercisesEntity>): Observable<Action> =>
-  //       this.exercisesService.createExercise(data, id).pipe(
-  //         tap(() => this.redirectToExerciseList()),
-  //         map(() => ExercisesActions.createExerciseSuccess()),
-  //         catchError(() => of(ExercisesActions.createExerciseFailure({ payload: id }))),
-  //       )
-  //     ),
-  //   )
-  // );
 
   public createExerciseMeta$ = createEffect(
     () =>
@@ -84,21 +95,22 @@ export class ExercisesEffects {
     { dispatch: false },
   );
 
-  public updateExercise$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
-    mergeMap(
-      ({
-        payload,
-      }: WithPayload<ExerciseRequestDTO>) =>
-        this.exercisesService.updateExercise(payload).pipe(
-          // tap(() => this.redirectToExerciseList()),
-          // map(() => ExercisesActions.updateExerciseSuccess()),
-          // catchError(() => of(ExercisesActions.updateExerciseFailure())),
+  public updateExercise$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
+        mergeMap(({ payload }: WithPayload<ExerciseRequestDTO>) =>
+          this.exercisesService
+            .updateExercise(payload)
+            .pipe
+            // tap(() => this.redirectToExerciseList()),
+            // map(() => ExercisesActions.updateExerciseSuccess()),
+            // catchError(() => of(ExercisesActions.updateExerciseFailure())),
+            (),
         ),
-    ),
-  ), { dispatch: false },
-);
+      ),
+    { dispatch: false },
+  );
 
   // public updateExerciseOptimistically$ = createEffect(() =>
   //   this.actions$.pipe(
@@ -152,5 +164,6 @@ export class ExercisesEffects {
     private readonly actions$: Actions,
     private readonly router: Router,
     private readonly exercisesService: ExercisesService,
+    private readonly store: Store,
   ) {}
 }

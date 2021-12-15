@@ -32,18 +32,17 @@ export const initialState: State = exercisesAdapter.getInitialState({
 
 const exercisesReducer = createReducer(
   initialState,
-  on(ExercisesActions.loadExercises, (state) => ({
+  on(ExercisesActions.refreshExercises, (state) => ({
     ...state,
     loading: true,
     error: null,
   })),
-  on(ExercisesActions.loadExercisesSuccess, (state, { exercises }) =>
-    exercisesAdapter.setAll(exercises, { ...state, loading: false })
+  on(ExercisesActions.refreshExercisesSuccess, (state, { payload }) =>
+    exercisesAdapter.setAll(payload, { ...state, loading: false })
   ),
-  on(ExercisesActions.loadExercisesFailure, (state, { error }) => ({
+  on(ExercisesActions.refreshExercisesFailure, (state) => ({
     ...state,
     loading: false,
-    error,
   })),
   on(ExercisesActions.findExercises, (state) => ({
     ...state,

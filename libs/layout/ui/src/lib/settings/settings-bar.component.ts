@@ -10,8 +10,6 @@ import {
   Languages,
   LANGUAGES_LABELS_LIST,
 } from '@fitness-tracker/shared/utils';
-import { Store } from '@ngrx/store';
-import { languageSelected } from 'libs/shared/data-access/src/lib/+state/actions/settings.actions';
 import { LanguageCodes } from 'shared-package';
 
 @Component({
@@ -29,8 +27,6 @@ export class SettingsBarComponent {
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
   @Output() public readonly languageSelected =
     new EventEmitter<LanguageCodes>();
-
-  constructor(private readonly store: Store) {}
 
   public readonly languages: Languages = LANGUAGES_LABELS_LIST;
 
