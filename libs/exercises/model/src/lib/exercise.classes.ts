@@ -1,8 +1,9 @@
-import { Exercise } from '..';
 import {
   ExerciseBaseData,
-  ExerciseFormData,
+  Exercise,
   ExerciseTranslatableData,
+  ExercisesEntity,
+  ExerciseCollectionsMeta,
 } from './exercise-model';
 
 export class ExerciseRequestDTO {
@@ -10,10 +11,26 @@ export class ExerciseRequestDTO {
   public translatableData!: ExerciseTranslatableData;
 
   constructor(
-    { rating, avatarUrl, coverUrl, ...translatableData }: ExerciseFormData,
+    {
+      rating,
+      avatarUrl,
+      coverUrl,
+      targetMuscle,
+      exerciseType,
+      equipment,
+      ...translatableData
+    }: Exercise,
     id?: string,
   ) {
-    this.baseData = { rating, coverUrl, avatarUrl, id };
+    this.baseData = {
+      rating,
+      coverUrl,
+      avatarUrl,
+      targetMuscle,
+      exerciseType,
+      equipment,
+      id,
+    };
     this.translatableData = translatableData;
   }
 
@@ -27,6 +44,18 @@ export class ExerciseRequestDTO {
     return { ...this };
   }
 }
+
+// export class ExerciseVM implements ExercisesEntity {
+//   constructor(
+//     public exercise: ExercisesEntity,
+//     public metaCollections: ExerciseCollectionsMeta,
+//   ) {}
+
+
+//   private toExerciseVM() {
+
+//   }
+// }
 
 export type ExerciseMetaDTO = Pick<
   ExerciseRequestDTO,

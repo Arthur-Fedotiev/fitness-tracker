@@ -1,4 +1,13 @@
+import {
+  CollectionsMetaKeys,
+  ExerciseCollectionsMeta,
+  ExerciseMetaCollectionsDictionaryUnit,
+  ExercisesEntity,
+} from '@fitness-tracker/exercises/model';
+import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { LanguageCodes } from 'shared-package';
+import { toMetaCollectionDictionaryLocalized } from '../utils/functions/mappers';
 import {
   EXERCISES_FEATURE_KEY,
   State,
@@ -17,6 +26,11 @@ export const getLoading = createSelector(
   (state: State) => state.loading,
 );
 
+export const getMetaCollections = createSelector(
+  getExercisesState,
+  (state: State) => state.collectionsMeta,
+);
+
 export const getExercisesError = createSelector(
   getExercisesState,
   (state: State) => state.error,
@@ -24,7 +38,16 @@ export const getExercisesError = createSelector(
 
 export const getAllExercises = createSelector(
   getExercisesState,
-  (state: State) => selectAll(state),
+  (state: State): ExercisesEntity[] => selectAll(state),
+);
+
+export const getMetaCollectionsVM = createSelector(
+  getMetaCollections,
+  selectLanguage,
+  (metaCollections: ExerciseCollectionsMeta | null, language: LanguageCodes) =>
+    !metaCollections
+      ? null
+      : toMetaCollectionDictionaryLocalized(metaCollections, language),
 );
 
 export const getExercisesEntities = createSelector(
@@ -46,9 +69,4 @@ export const getSelected = createSelector(
 export const getSelectedExerciseDetails = createSelector(
   getExercisesState,
   (state: State) => state.selectedExercise,
-);
-
-export const getMetaCollections = createSelector(
-  getExercisesState,
-  (state: State) => state.collectionsMeta,
 );

@@ -25,7 +25,7 @@
         <mat-select placeholder="Select Exercise Type"
                     formControlName="exerciseType">
           <mat-option *ngFor="let exerciseType of metaCollections['exercise-types'] | keyvalue; trackBy: trackByIndex"
-                      [value]="exerciseType.value">{{ exerciseType.value }}</mat-option>
+                      [value]="exerciseType.key">{{ exerciseType.value }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -33,7 +33,7 @@
         <mat-select placeholder="Select target muscle"
                     formControlName="targetMuscle">
           <ng-container *ngFor="let muscle of metaCollections.muscles | keyvalue; trackBy: trackByIndex">
-            <mat-option [value]="muscle.value">{{ muscle.value }}</mat-option>
+            <mat-option [value]="muscle.key">{{ muscle.value }}</mat-option>
           </ng-container>
         </mat-select>
       </mat-form-field>
@@ -42,7 +42,7 @@
         <mat-select placeholder="Select Equipment"
                     formControlName="equipment">
           <mat-option *ngFor="let equipmentItem of metaCollections.equipment | keyvalue; trackBy: trackByIndex"
-                      [value]="equipmentItem.value">{{ equipmentItem.value }}</mat-option>
+                      [value]="equipmentItem.key">{{ equipmentItem.value }}</mat-option>
         </mat-select>
       </mat-form-field>
 

@@ -3,7 +3,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromExercises from './+state/exercises.reducer';
 import { ExercisesEffects } from './+state/exercises.effects';
-import { ExercisesFacade } from './+state/exercises-facade.service';
 import { ExerciseResolver } from './resolvers/exercise.resolver';
 
 @NgModule({
@@ -14,6 +13,6 @@ import { ExerciseResolver } from './resolvers/exercise.resolver';
     ),
     EffectsModule.forFeature([ExercisesEffects]),
   ],
-  providers: [ExercisesFacade, ExerciseResolver],
+  providers: [ExerciseResolver],
 })
 export class ExercisesDataModule {}

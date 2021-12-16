@@ -13,7 +13,7 @@
          class="exercises__filters"></aside>
 
   <section class="exercises__list">
-    <ft-exercise-list [exerciseList]="allExercises$ | async"
+    <ft-exercise-list [exerciseList]="exercisesList$ | async"
                       (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
                       (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"
                       (exerciseDeleted)="deleteExercise($event)"></ft-exercise-list>

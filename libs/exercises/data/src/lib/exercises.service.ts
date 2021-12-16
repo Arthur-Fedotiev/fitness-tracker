@@ -5,18 +5,14 @@ import {
 } from '@angular/fire/compat/firestore';
 import {
   CollectionMetaArray,
-  CollectionMetaUnit,
   CollectionsMetaKeys,
   ExerciseBaseData,
   ExerciseCollectionsMeta,
-  ExerciseCollectionsMetaArrays,
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,
   ExercisesMetaCollectionKeyTypes,
-  ExercisesMetaUnit,
   EXERCISE_FIELD_NAMES,
-  MuscleMetaArray,
 } from '@fitness-tracker/exercises/model';
 import {
   convertOneSnap,
@@ -36,7 +32,6 @@ import {
   tap,
   combineLatest,
   from,
-  timestamp,
   shareReplay,
 } from 'rxjs';
 import {
@@ -48,7 +43,6 @@ import {
   toBaseDataWithId,
   toExerciseTranslation$,
 } from './utils/functions/mappers';
-console.log(COLLECTIONS.EQUIPMENT);
 
 @Injectable({
   providedIn: 'root',

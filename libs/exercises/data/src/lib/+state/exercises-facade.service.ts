@@ -7,10 +7,10 @@ import { select, Store } from '@ngrx/store';
 import * as ExercisesActions from './exercises.actions';
 import * as ExercisesSelectors from './exercises.selectors';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ExercisesFacade {
   public readonly loading$ = this.store.select(ExercisesSelectors.getLoading);
-  public readonly allExercises$ = this.store.select(
+  public readonly exercisesList$ = this.store.select(
     ExercisesSelectors.getAllExercises,
   );
   public readonly selectedExerciseDetails$ = this.store.select(
@@ -18,7 +18,7 @@ export class ExercisesFacade {
   );
 
   public readonly exercisesMetaCollections$ = this.store.select(
-    ExercisesSelectors.getMetaCollections,
+    ExercisesSelectors.getMetaCollectionsVM,
   );
 
   constructor(

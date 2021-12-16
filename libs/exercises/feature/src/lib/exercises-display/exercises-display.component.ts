@@ -6,14 +6,18 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { EXERCISE_MODE } from '@fitness-tracker/exercises/model';
+import {
+  ExerciseMetaCollectionsDictionaryUnit,
+  ExercisesEntity,
+  EXERCISE_MODE,
+} from '@fitness-tracker/exercises/model';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, Observable, skip, Subject, tap } from 'rxjs';
+import { filter, map, Observable, skip, Subject, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -24,7 +28,10 @@ import { map, Observable, skip, Subject, tap } from 'rxjs';
 })
 export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly exerciseMode = EXERCISE_MODE;
-  public readonly allExercises$ = this.exerciseFacade.allExercises$;
+  public readonly exercisesList$: Observable<ExercisesEntity[]> =
+    this.exerciseFacade.exercisesList$;
+  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
+    this.exerciseFacade.exercisesMetaCollections$.pipe(filter(Boolean));
 
   private readonly loadExercises: Subject<boolean> = new Subject<boolean>();
   private readonly loadExercises$: Observable<Pagination> = this.loadExercises

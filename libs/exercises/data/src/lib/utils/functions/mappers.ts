@@ -1,5 +1,8 @@
 import {
+  CollectionsMetaKeys,
   ExerciseBaseData,
+  ExerciseCollectionsMeta,
+  ExerciseMetaCollectionsDictionaryUnit,
   ExerciseMetaDTO,
   ExercisesEntity,
 } from '@fitness-tracker/exercises/model';
@@ -47,3 +50,18 @@ export const toBaseDataWithId = ({
   ...baseData,
   id,
 });
+
+export const toMetaCollectionDictionaryLocalized = (
+  metaCollections: ExerciseCollectionsMeta,
+  language: LanguageCodes,
+): ExerciseMetaCollectionsDictionaryUnit =>
+  (<Array<CollectionsMetaKeys>>Object.keys(metaCollections)).reduce(
+    (
+      acc: ExerciseMetaCollectionsDictionaryUnit,
+      collectionName: CollectionsMetaKeys,
+    ) => ({
+      ...acc,
+      [collectionName]: metaCollections[collectionName][language],
+    }),
+    {} as ExerciseMetaCollectionsDictionaryUnit,
+  );

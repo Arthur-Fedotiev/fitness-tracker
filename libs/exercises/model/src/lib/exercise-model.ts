@@ -12,7 +12,14 @@ import {
   LanguageCodes,
 } from 'shared-package';
 
-export type Exercise = IExercise;
+export type Exercise = IExercise & {
+  targetMuscle: typeof MUSCLE_KEYS[number];
+  equipment: typeof EQUIPMENT_KEYS[number];
+  exerciseType: typeof EXERCISE_TYPE_KEYS[number];
+};
+export interface ExercisesEntity extends Exercise {
+  id: string;
+}
 
 export type Muscle = typeof MUSCLE_LIST[number];
 export type MuscleList = typeof MUSCLE_LIST;
@@ -21,30 +28,17 @@ export type EquipmentItem = Equipment[number];
 export type ExerciseTypes = typeof EXERCISE_TYPES;
 export type ExerciseType = ExerciseTypes[number];
 
-/// !REFACTOR
-export interface ExerciseFormData {
-  name: string;
-  exerciseType: string;
-  targetMuscle: string;
-  equipment: string;
-  rating: number;
-  avatarUrl: string;
-  coverUrl: string;
-  shortDescription: string;
-  longDescription: string;
-  instructions: string[];
-  benefits: string[];
-}
-
 export type ExerciseBaseData = Pick<
-  ExerciseFormData,
-  'rating' | 'avatarUrl' | 'coverUrl'
+  ExercisesEntity,
+  | 'rating'
+  | 'avatarUrl'
+  | 'coverUrl'
+  | 'equipment'
+  | 'exerciseType'
+  | 'targetMuscle'
 > & { id?: string };
 
-export type ExerciseTranslatableData = Omit<
-  ExerciseFormData,
-  keyof ExerciseBaseData
->;
+export type ExerciseTranslatableData = Omit<Exercise, keyof ExerciseBaseData>;
 export type WithOptionalId<T> = T & { id?: string };
 
 export type CollectionsMetaKeys =
@@ -68,13 +62,6 @@ export type ExerciseTypesMetaUnit = CollectionMetaUnit<
   typeof EXERCISE_TYPE_KEYS
 >;
 
-export type ExercisesMetaUnit =
-  | MuscleMetaUnit
-  | EquipmentMetaUnit
-  | ExerciseTypesMetaUnit;
-
-//
-
 export interface ExerciseCollectionsMetaArrays {
   [COLLECTIONS.MUSCLES]: MuscleMetaArray;
   [COLLECTIONS.EQUIPMENT]: EquipmentMetaArray;
@@ -96,6 +83,8 @@ export type ExercisesMetaCollectionKeyTypes =
   | typeof EQUIPMENT_KEYS
   | typeof EXERCISE_TYPE_KEYS;
 
-export type MetaArrayDoc = Partial<
-  CollectionMetaArray<ExercisesMetaCollectionKeyTypes>[number]
->;
+export interface ExerciseMetaCollectionsDictionaryUnit {
+  [COLLECTIONS.MUSCLES]: MuscleMetaUnit[LanguageCodes];
+  [COLLECTIONS.EQUIPMENT]: EquipmentMetaUnit[LanguageCodes];
+  [COLLECTIONS.EXERCISE_TYPES]: ExerciseTypesMetaUnit[LanguageCodes];
+}

@@ -16,9 +16,18 @@ import {
   ExercisesEntity,
   ExerciseRequestDTO,
   CollectionsMetaKeys,
-  ExerciseCollectionsMeta,
+  Exercise,
+  ExerciseMetaCollectionsDictionaryUnit,
 } from '@fitness-tracker/exercises/model';
-import { combineLatest, map, Subject, tap } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  map,
+  Observable,
+  ReplaySubject,
+  Subject,
+  tap,
+} from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 
@@ -31,29 +40,18 @@ import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 })
 export class CreateExerciseComponent implements OnInit, OnDestroy {
   public readonly exerciseForm: FormGroup = this.getForm();
-  // public readonly muscles = MUSCLE_KEYS;
-  // public readonly equipment: Equipment = EQUIPMENT;
-  // public readonly exerciseTypes: ExerciseTypes = EXERCISE_TYPES;
 
-  public readonly metaCollections$ = combineLatest([
-    this.exercisesFacade.exercisesMetaCollections$,
-    this.settingsFacade.language$,
-  ]).pipe(
-    map(
-      ([metaDictionary, lang]) =>
-        metaDictionary &&
-        (<Array<CollectionsMetaKeys>>Object.keys(metaDictionary)).reduce(
-          (
-            acc: ExerciseCollectionsMeta,
-            collectionName: CollectionsMetaKeys,
-          ) => ({
-            ...acc,
-            [collectionName]: metaDictionary[collectionName][lang],
-          }),
-          {} as ExerciseCollectionsMeta,
-        ),
-    ),
-  );
+  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
+    this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
+
+  private readonly patchExerciseFormValue: ReplaySubject<Exercise> =
+    new ReplaySubject<Exercise>(1);
+  private readonly pathExerciseFormValue$ = this.patchExerciseFormValue
+    .asObservable()
+    .pipe(
+      tap((exercise: Exercise) => this.exerciseForm.patchValue(exercise)),
+      untilDestroyed(this),
+    );
 
   public resolvedExercise: ExercisesEntity | null = null;
 
@@ -125,13 +123,12 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   private initData(): void {
     this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
     this.resolvedExercise &&
-      this.exerciseForm.patchValue(this.resolvedExercise);
-    console.log(this.resolvedExercise);
-
+      this.patchExerciseFormValue.next(this.resolvedExercise);
     this.exercisesFacade.loadExercisesMeta();
   }
 
   private initListeners(): void {
     this.onSave$.subscribe();
+    this.pathExerciseFormValue$.subscribe();
   }
 }
