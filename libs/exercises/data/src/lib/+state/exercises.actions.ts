@@ -1,6 +1,8 @@
 import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
 import {
+  ExerciseCollectionsMeta,
+  ExerciseCollectionsMetaArrays,
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,
@@ -116,5 +118,18 @@ export const releaseExerciseDetails = createAction(
 );
 
 export const loadExerciseDetailsFailure = createAction(
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
+);
+
+export const loadExercisesMeta = createAction(
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_META,
+);
+
+export const loadExercisesMetaSuccess = createAction(
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_META_SUCCESS,
+  props<WithPayload<ExerciseCollectionsMeta>>(),
+);
+
+export const loadExercisesMetaFailure = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
 );

@@ -40,7 +40,7 @@
     "firebaseui-angular": "^6.1.0",
     "rxfire": "^6.0.0",
     "rxjs": "~7.4.0",
-    "shared-package": "file:libs/packages/shared-utils/shared-package-2.0.0.tgz",
+    "shared-package": "file:shared-package-3.0.0.tgz",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },

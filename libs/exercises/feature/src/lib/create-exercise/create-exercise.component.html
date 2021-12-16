@@ -7,7 +7,8 @@
            fxFlex.md="75">
     <h3>Create New Exercise</h3>
 
-    <form [formGroup]="exerciseForm">
+    <form *ngIf="metaCollections$ | async as metaCollections"
+          [formGroup]="exerciseForm">
       <mat-form-field appearance="outline">
         <input placeholder="Exercise name"
                matInput
@@ -23,16 +24,16 @@
       <mat-form-field appearance="outline">
         <mat-select placeholder="Select Exercise Type"
                     formControlName="exerciseType">
-          <mat-option *ngFor="let item of exerciseTypes; trackBy: trackByItem"
-                      [value]="item">{{ item }}</mat-option>
+          <mat-option *ngFor="let exerciseType of metaCollections['exercise-types'] | keyvalue; trackBy: trackByIndex"
+                      [value]="exerciseType.value">{{ exerciseType.value }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-select placeholder="Select target muscle"
                     formControlName="targetMuscle">
-          <ng-container *ngFor="let muscle of muscles; trackBy: trackByItem">
-            <mat-option [value]="muscle">{{ muscle }}</mat-option>
+          <ng-container *ngFor="let muscle of metaCollections.muscles | keyvalue; trackBy: trackByIndex">
+            <mat-option [value]="muscle.value">{{ muscle.value }}</mat-option>
           </ng-container>
         </mat-select>
       </mat-form-field>
@@ -40,8 +41,8 @@
       <mat-form-field appearance="outline">
         <mat-select placeholder="Select Equipment"
                     formControlName="equipment">
-          <mat-option *ngFor="let item of equipment; trackBy: trackByItem"
-                      [value]="item">{{ item }}</mat-option>
+          <mat-option *ngFor="let equipmentItem of metaCollections.equipment | keyvalue; trackBy: trackByIndex"
+                      [value]="equipmentItem.value">{{ equipmentItem.value }}</mat-option>
         </mat-select>
       </mat-form-field>
 

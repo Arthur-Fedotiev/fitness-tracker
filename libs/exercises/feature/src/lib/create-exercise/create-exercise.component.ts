@@ -13,17 +13,14 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
-  MUSCLE_LIST,
-  EQUIPMENT,
-  MuscleList,
-  Equipment,
-  ExerciseTypes,
-  EXERCISE_TYPES,
   ExercisesEntity,
   ExerciseRequestDTO,
+  CollectionsMetaKeys,
+  ExerciseCollectionsMeta,
 } from '@fitness-tracker/exercises/model';
-import { Subject, tap } from 'rxjs';
+import { combineLatest, map, Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 
 @UntilDestroy()
 @Component({
@@ -34,9 +31,29 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 })
 export class CreateExerciseComponent implements OnInit, OnDestroy {
   public readonly exerciseForm: FormGroup = this.getForm();
-  public readonly muscles: MuscleList = MUSCLE_LIST;
-  public readonly equipment: Equipment = EQUIPMENT;
-  public readonly exerciseTypes: ExerciseTypes = EXERCISE_TYPES;
+  // public readonly muscles = MUSCLE_KEYS;
+  // public readonly equipment: Equipment = EQUIPMENT;
+  // public readonly exerciseTypes: ExerciseTypes = EXERCISE_TYPES;
+
+  public readonly metaCollections$ = combineLatest([
+    this.exercisesFacade.exercisesMetaCollections$,
+    this.settingsFacade.language$,
+  ]).pipe(
+    map(
+      ([metaDictionary, lang]) =>
+        metaDictionary &&
+        (<Array<CollectionsMetaKeys>>Object.keys(metaDictionary)).reduce(
+          (
+            acc: ExerciseCollectionsMeta,
+            collectionName: CollectionsMetaKeys,
+          ) => ({
+            ...acc,
+            [collectionName]: metaDictionary[collectionName][lang],
+          }),
+          {} as ExerciseCollectionsMeta,
+        ),
+    ),
+  );
 
   public resolvedExercise: ExercisesEntity | null = null;
 
@@ -65,6 +82,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private exercisesFacade: ExercisesFacade,
+    private settingsFacade: SettingsFacadeService,
   ) {}
 
   ngOnInit(): void {
@@ -84,8 +102,8 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     this.ratingControl?.setValue(rating, { emitEvent: false });
   }
 
-  public trackByItem(index: number, item: string | number): string | number {
-    return item ?? index;
+  public trackByIndex(index: number): number {
+    return index;
   }
 
   private getForm(): FormGroup {
@@ -108,6 +126,9 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
     this.resolvedExercise &&
       this.exerciseForm.patchValue(this.resolvedExercise);
+    console.log(this.resolvedExercise);
+
+    this.exercisesFacade.loadExercisesMeta();
   }
 
   private initListeners(): void {

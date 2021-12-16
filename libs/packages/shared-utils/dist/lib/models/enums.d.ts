@@ -4,5 +4,8 @@ export declare enum ROLES {
 }
 export declare enum COLLECTIONS {
     'EXERCISES' = "exercises",
-    'TRANSLATIONS' = "translations"
+    'TRANSLATIONS' = "translations",
+    'EXERCISE_TYPES' = "exercise-types",
+    'EQUIPMENT' = "equipment",
+    'MUSCLES' = "muscles"
 }

@@ -7,43 +7,48 @@ import {
 
 // Lookup the 'Exercises' feature state managed by NgRx
 export const getExercisesState = createFeatureSelector<State>(
-  EXERCISES_FEATURE_KEY
+  EXERCISES_FEATURE_KEY,
 );
 
 const { selectAll, selectEntities } = exercisesAdapter.getSelectors();
 
 export const getLoading = createSelector(
   getExercisesState,
-  (state: State) => state.loading
+  (state: State) => state.loading,
 );
 
 export const getExercisesError = createSelector(
   getExercisesState,
-  (state: State) => state.error
+  (state: State) => state.error,
 );
 
 export const getAllExercises = createSelector(
   getExercisesState,
-  (state: State) => selectAll(state)
+  (state: State) => selectAll(state),
 );
 
 export const getExercisesEntities = createSelector(
   getExercisesState,
-  (state: State) => selectEntities(state)
+  (state: State) => selectEntities(state),
 );
 
 export const getSelectedId = createSelector(
   getExercisesState,
-  (state: State) => state.selectedId
+  (state: State) => state.selectedId,
 );
 
 export const getSelected = createSelector(
   getExercisesEntities,
   getSelectedId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined),
 );
 
 export const getSelectedExerciseDetails = createSelector(
   getExercisesState,
   (state: State) => state.selectedExercise,
+);
+
+export const getMetaCollections = createSelector(
+  getExercisesState,
+  (state: State) => state.collectionsMeta,
 );

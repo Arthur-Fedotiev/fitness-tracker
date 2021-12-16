@@ -10,18 +10,20 @@ import {
   mergeMap,
   Observable,
   of,
+  shareReplay,
   switchMap,
   tap,
   withLatestFrom,
 } from 'rxjs';
 import {
+  ExerciseCollectionsMeta,
+  ExerciseCollectionsMetaArrays,
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,
 } from '@fitness-tracker/exercises/model';
 import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
 import { Action, Store } from '@ngrx/store';
-import { loadExercisesSuccess } from './exercises.actions';
 import { ExercisesService } from '../exercises.service';
 import { Router } from '@angular/router';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
@@ -30,14 +32,6 @@ import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class ExercisesEffects {
-  public loadAllExercises$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISES),
-      concatMap(() => this.exercisesService.loadAllExercises()),
-      map((exercises) => loadExercisesSuccess({ exercises })),
-    ),
-  );
-
   public findExercises$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -155,6 +149,20 @@ export class ExercisesEffects {
       ),
     ),
   );
+
+  public loadExerciseMeta$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_META),
+      switchMap(() =>
+        this.exercisesService.exercisesMeta$.pipe(
+          map((payload: ExerciseCollectionsMeta) =>
+            ExercisesActions.loadExercisesMetaSuccess({ payload }),
+          ),
+          catchError(() => of(ExercisesActions.loadExercisesMetaFailure())),
+        ),
+      ),
+    );
+  });
 
   private redirectToExerciseList(): void {
     this.router.navigate(['exercises', 'all']);

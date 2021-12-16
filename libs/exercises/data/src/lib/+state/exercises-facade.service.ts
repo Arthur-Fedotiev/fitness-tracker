@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {
-  Exercise,
-  ExerciseMetaDTO,
-  ExerciseRequestDTO,
-  ExercisesEntity,
-} from '@fitness-tracker/exercises/model';
+import { ExerciseRequestDTO } from '@fitness-tracker/exercises/model';
 import { SearchOptions } from '@fitness-tracker/shared/utils';
 import { select, Store } from '@ngrx/store';
 
@@ -14,14 +9,16 @@ import * as ExercisesSelectors from './exercises.selectors';
 
 @Injectable()
 export class ExercisesFacade {
-  public readonly loading$ = this.store.pipe(
-    select(ExercisesSelectors.getLoading),
+  public readonly loading$ = this.store.select(ExercisesSelectors.getLoading);
+  public readonly allExercises$ = this.store.select(
+    ExercisesSelectors.getAllExercises,
   );
-  public readonly allExercises$ = this.store.pipe(
-    select(ExercisesSelectors.getAllExercises),
+  public readonly selectedExerciseDetails$ = this.store.select(
+    ExercisesSelectors.getSelectedExerciseDetails,
   );
-  public readonly selectedExerciseDetails$ = this.store.pipe(
-    select(ExercisesSelectors.getSelectedExerciseDetails),
+
+  public readonly exercisesMetaCollections$ = this.store.select(
+    ExercisesSelectors.getMetaCollections,
   );
 
   constructor(
@@ -79,5 +76,9 @@ export class ExercisesFacade {
 
   public emptyExercisesList(): void {
     this.store.dispatch(ExercisesActions.emptyExercisesList());
+  }
+
+  public loadExercisesMeta(): void {
+    this.store.dispatch(ExercisesActions.loadExercisesMeta());
   }
 }

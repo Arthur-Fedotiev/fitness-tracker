@@ -7,7 +7,7 @@ import { readFirst } from '@nrwl/angular/testing';
 
 import * as ExercisesActions from './exercises.actions';
 import { ExercisesEffects } from './exercises.effects';
-import { ExercisesFacade } from './exercises.facade';
+import { ExercisesFacade } from './exercises-facade.service';
 import { ExercisesEntity } from './exercises.models';
 import {
   EXERCISES_FEATURE_KEY,
@@ -90,7 +90,7 @@ describe('ExercisesFacade', () => {
             createExercisesEntity('AAA'),
             createExercisesEntity('BBB'),
           ],
-        })
+        }),
       );
 
       list = await readFirst(facade.allExercises$);

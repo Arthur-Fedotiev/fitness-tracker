@@ -10,5 +10,8 @@ var COLLECTIONS;
 (function (COLLECTIONS) {
     COLLECTIONS["EXERCISES"] = "exercises";
     COLLECTIONS["TRANSLATIONS"] = "translations";
+    COLLECTIONS["EXERCISE_TYPES"] = "exercise-types";
+    COLLECTIONS["EQUIPMENT"] = "equipment";
+    COLLECTIONS["MUSCLES"] = "muscles";
 })(COLLECTIONS = exports.COLLECTIONS || (exports.COLLECTIONS = {}));
 //# sourceMappingURL=enums.js.map

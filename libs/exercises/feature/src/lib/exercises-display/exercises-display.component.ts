@@ -38,13 +38,11 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
       untilDestroyed(this),
     );
 
-  private readonly refreshExercises$ = this.settingsFacade.language$
-    .pipe(
-      skip(1),
-      tap((a) => console.log('[ExercisesDisplayComponent]', a)),
-      tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
-    )
-    .subscribe();
+  private readonly refreshExercises$ = this.settingsFacade.language$.pipe(
+    skip(1),
+    tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
+    untilDestroyed(this),
+  );
 
   constructor(
     private readonly exerciseFacade: ExercisesFacade,
@@ -54,8 +52,10 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
+    this.refreshExercises$.subscribe();
     this.loadExercises$.subscribe();
     this.loadExercises.next(false);
+    this.exerciseFacade.loadExercisesMeta();
   }
 
   public ngOnDestroy(): void {

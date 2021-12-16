@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
-import {
-  Resolve,
-  ActivatedRouteSnapshot
-} from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { filter, first, Observable, of, tap } from 'rxjs';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
-import { ExercisesFacade } from '../+state/exercises.facade';
+import { ExercisesFacade } from '../+state/exercises-facade.service';
 
 @Injectable()
 export class ExerciseResolver implements Resolve<ExercisesEntity> {
-  constructor(private exerciseFacade: ExercisesFacade) {
-
-  }
+  constructor(private exerciseFacade: ExercisesFacade) {}
   resolve(route: ActivatedRouteSnapshot): Observable<ExercisesEntity> {
-    const id = (route.paramMap.get('id'));
+    const id = route.paramMap.get('id');
 
     return this.hasIdParam(id)
       ? this.exerciseFacade.selectedExerciseDetails$.pipe(
-        tap((exercise: ExercisesEntity | null) => !exercise && this.exerciseFacade.loadExerciseDetails(id)),
-        filter(Boolean),
-        first(),
-      )
-      : of({} as ExercisesEntity)
+          tap(
+            (exercise: ExercisesEntity | null) =>
+              !exercise && this.exerciseFacade.loadExerciseDetails(id),
+          ),
+          filter(Boolean),
+          first(),
+        )
+      : of({} as ExercisesEntity);
   }
 
   private hasIdParam(id: string | null): id is string {
