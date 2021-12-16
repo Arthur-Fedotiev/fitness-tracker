@@ -100,12 +100,11 @@ export class ExercisesService {
       .get()
       .pipe(
         tap(
-          (snaps) =>
+          (snaps: firebase.firestore.QuerySnapshot<ExerciseMetaDTO>) =>
             (this.exerciseDocCash =
               [...snaps.docs][snaps.docs.length - 1] ?? null),
         ),
         map(convertSnaps),
-        tap(console.log),
         map((exercises: WithId<ExerciseMetaDTO>[]) =>
           exercises.map(toBaseDataWithId),
         ),
