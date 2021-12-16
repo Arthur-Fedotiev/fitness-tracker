@@ -11,7 +11,7 @@ import * as ExercisesSelectors from './exercises.selectors';
 export class ExercisesFacade {
   public readonly loading$ = this.store.select(ExercisesSelectors.getLoading);
   public readonly exercisesList$ = this.store.select(
-    ExercisesSelectors.getAllExercises,
+    ExercisesSelectors.getExercisesListVM,
   );
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,

@@ -9,6 +9,7 @@ import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
   ExerciseMetaCollectionsDictionaryUnit,
   ExercisesEntity,
+  ExerciseVM,
   EXERCISE_MODE,
 } from '@fitness-tracker/exercises/model';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
@@ -28,7 +29,7 @@ import { filter, map, Observable, skip, Subject, tap } from 'rxjs';
 })
 export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly exerciseMode = EXERCISE_MODE;
-  public readonly exercisesList$: Observable<ExercisesEntity[]> =
+  public readonly exercisesList$: Observable<ExerciseVM[]> =
     this.exerciseFacade.exercisesList$;
   public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
     this.exerciseFacade.exercisesMetaCollections$.pipe(filter(Boolean));
@@ -54,8 +55,8 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   constructor(
     private readonly exerciseFacade: ExercisesFacade,
     private readonly settingsFacade: SettingsFacadeService,
-    private router: Router,
-    private route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
   ) {}
 
   public ngOnInit(): void {

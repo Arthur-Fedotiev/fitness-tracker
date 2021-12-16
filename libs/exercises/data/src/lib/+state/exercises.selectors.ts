@@ -1,8 +1,8 @@
 import {
-  CollectionsMetaKeys,
   ExerciseCollectionsMeta,
   ExerciseMetaCollectionsDictionaryUnit,
   ExercisesEntity,
+  ExerciseVM,
 } from '@fitness-tracker/exercises/model';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
@@ -48,6 +48,31 @@ export const getMetaCollectionsVM = createSelector(
     !metaCollections
       ? null
       : toMetaCollectionDictionaryLocalized(metaCollections, language),
+);
+
+export const getExercisesListVM = createSelector(
+  getAllExercises,
+  getMetaCollectionsVM,
+  (
+    exercises: ExercisesEntity[] | null,
+    metaCollectionDictionary: ExerciseMetaCollectionsDictionaryUnit | null,
+  ): ExerciseVM[] =>
+    (metaCollectionDictionary &&
+      exercises?.map(
+        ({
+          targetMuscle,
+          equipment,
+          exerciseType,
+          ...exercise
+        }: ExercisesEntity) => ({
+          ...exercise,
+          targetMuscle: metaCollectionDictionary.muscles[targetMuscle],
+          equipment: metaCollectionDictionary.equipment[equipment],
+          exerciseType:
+            metaCollectionDictionary['exercise-types'][exerciseType],
+        }),
+      )) ??
+    [],
 );
 
 export const getExercisesEntities = createSelector(

@@ -1,14 +1,20 @@
-import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { ExercisesEntity, ExerciseVM } from '@fitness-tracker/exercises/model';
 
 @Component({
   selector: 'ft-exercise-list',
   templateUrl: './exercise-list.component.html',
   styleUrls: ['./exercise-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseListComponent {
-  @Input() public exerciseList: ExercisesEntity[] | null = null;
+  @Input() public exerciseList: ExerciseVM[] | null = null;
 
   @Output()
   public readonly exerciseEdited = new EventEmitter<string>();
@@ -17,11 +23,11 @@ export class ExerciseListComponent {
   @Output()
   public readonly exerciseDeleted = new EventEmitter<string>();
 
-  public viewExercise({ id }: ExercisesEntity): void {
+  public viewExercise({ id }: ExerciseVM): void {
     this.exerciseViewed.emit(id);
   }
 
-  public editExercise({ id }: ExercisesEntity): void {
+  public editExercise({ id }: ExerciseVM): void {
     this.exerciseEdited.emit(id);
   }
 

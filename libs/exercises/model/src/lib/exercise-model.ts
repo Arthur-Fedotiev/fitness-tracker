@@ -21,6 +21,10 @@ export interface ExercisesEntity extends Exercise {
   id: string;
 }
 
+export interface ExerciseVM extends IExercise {
+  id: string;
+}
+
 export type Muscle = typeof MUSCLE_LIST[number];
 export type MuscleList = typeof MUSCLE_LIST;
 export type Equipment = typeof EQUIPMENT;
