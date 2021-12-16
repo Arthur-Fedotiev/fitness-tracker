@@ -25,36 +25,34 @@ export default async (
   const exerciseId: string = context.params.exerciseId;
   const newTranslatedData: TranslatedData<Exercise> | undefined =
     change.after.data().translatedData;
-  const oldTranslatedData: TranslatedData<Exercise> | undefined =
-    change.before.data().translatedData;
 
-  if (!(newTranslatedData && !oldTranslatedData)) return;
+  if (!newTranslatedData) return;
 
   try {
     functions.logger.log(
         ` Run translation collection updates for exercise with id ${context.params.exerciseId}`,
     );
     const translations: Translations<Exercise> =
-        mapTranslatedData<Exercise>(newTranslatedData);
+      mapTranslatedData<Exercise>(newTranslatedData);
     const exerciseRef = db.doc(`${COLLECTIONS.EXERCISES}/${exerciseId}`);
 
     functions.logger.log(`translations ${JSON.stringify(translations)}`);
 
     const batch: firestore.WriteBatch = db.batch();
     const langRefs: ReadonlyArray<
-        [firestore.DocumentReference<firestore.DocumentData>, LanguageCodes]
-      > = LANG_CODES.map((langKey: LanguageCodes) => [
-        db.doc(
-            `${COLLECTIONS.EXERCISES}/${exerciseId}/${COLLECTIONS.TRANSLATIONS}/${langKey}`,
-        ),
-        langKey,
-      ]);
+      [firestore.DocumentReference<firestore.DocumentData>, LanguageCodes]
+    > = LANG_CODES.map((langKey: LanguageCodes) => [
+      db.doc(
+          `${COLLECTIONS.EXERCISES}/${exerciseId}/${COLLECTIONS.TRANSLATIONS}/${langKey}`,
+      ),
+      langKey,
+    ]);
 
     langRefs.forEach(
         ([langRef, langKey]: [
-          firestore.DocumentReference<firestore.DocumentData>,
-          LanguageCodes,
-        ]) =>
+        firestore.DocumentReference<firestore.DocumentData>,
+        LanguageCodes,
+      ]) =>
           batch.set(langRef, translations[langKey], {
             merge: true,
           }),
