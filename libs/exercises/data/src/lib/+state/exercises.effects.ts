@@ -138,9 +138,13 @@ export class ExercisesEffects {
   public loadExerciseDetails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS),
+      withLatestFrom(this.store.select(selectLanguage)),
       switchMap(
-        ({ payload }: WithPayload<string>): Observable<Action> =>
-          this.exercisesService.getExerciseDetails(payload).pipe(
+        ([{ payload }, lang]: [
+          WithPayload<string>,
+          LanguageCodes,
+        ]): Observable<Action> =>
+          this.exercisesService.getExerciseDetails(payload, lang).pipe(
             map((payload: ExercisesEntity) =>
               ExercisesActions.loadExerciseDetailsSuccess({ payload }),
             ),
