@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { ExercisesEntity, ExerciseVM } from '@fitness-tracker/exercises/model';
+import { ExerciseVM } from '@fitness-tracker/exercises/model';
 
 @Component({
   selector: 'ft-exercise-list',

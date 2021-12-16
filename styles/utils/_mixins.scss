@@ -1,3 +1,5 @@
+$lineCountDefault: 1;
+
 @mixin text-overflow($textOverflow: ellipsis) {
   overflow: hidden;
   white-space: nowrap;

@@ -1,7 +1,10 @@
-@use 'styles/utils/mixins.scss' as mixins;
-
 .exercise-actions {
   text-align: center;
+}
+
+.card {
+  &__title {
+  }
 }
 
 :host ::ng-deep {
