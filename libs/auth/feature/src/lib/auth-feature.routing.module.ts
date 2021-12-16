@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginFormComponent } from '@fitness-tracker/auth/ui';
 import { AuthComponent } from './login/auth.component';
 
 export const authFeatureRoutes: Routes = [
   {
-    path: '', component: AuthComponent, children: [
-      { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }
-    ]
-  }
-]
+    path: '',
+    component: AuthComponent,
+    children: [
+      {
+        path: 'login',
+        loadChildren: () =>
+          import('./login/login.module').then((m) => m.LoginModule),
+      },
+    ],
+  },
+];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(authFeatureRoutes),
-
-  ],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(authFeatureRoutes)],
+  exports: [RouterModule],
 })
-export class AuthFeatureRoutingModule { }
+export class AuthFeatureRoutingModule {}

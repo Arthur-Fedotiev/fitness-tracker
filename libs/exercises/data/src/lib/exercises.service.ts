@@ -182,7 +182,7 @@ export class ExercisesService {
       ref,
       sortOrder,
       pageSize,
-    }).limit(1);
+    }).limit(pageSize);
 
     return firstPage ? newRef : newRef.startAfter(this.exerciseDocCash);
   }

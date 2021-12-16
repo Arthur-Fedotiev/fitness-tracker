@@ -1,11 +1,15 @@
 <article class="exercises-panel"
-         fxLayout="column"
+         fxLayout="row wrap"
          fxLayoutGap="0.5rem"
          fxLayoutAlign="center">
-       <ft-exercise *ngFor="let exercise of exerciseList"
-                    [exercise]="exercise"
-                    (exerciseEdited)="editExercise(exercise)"
-                    (exerciseViewed)="viewExercise(exercise)"
-                    (exerciseDeleted)="deleteExercise($event)"></ft-exercise>
+  <ft-exercise *ngFor="let exercise of exerciseList"
+               class="exercises-panel__item"
+               fxFlex="90%"
+               fxFlex.gt-sm="80%"
+               fxFlex.gt-md="45%"
+               [exercise]="exercise"
+               (exerciseEdited)="editExercise(exercise)"
+               (exerciseViewed)="viewExercise(exercise)"
+               (exerciseDeleted)="deleteExercise($event)"></ft-exercise>
 
 </article>
