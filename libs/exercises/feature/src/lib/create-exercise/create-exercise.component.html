@@ -33,7 +33,7 @@
         <mat-select placeholder="Select target muscle"
                     formControlName="targetMuscle">
           <ng-container *ngFor="let muscle of metaCollections.muscles | keyvalue; trackBy: trackByIndex">
-            <mat-option [value]="muscle.key">{{ muscle.value }}</mat-option>
+            <mat-option [value]="muscle.key">{{ muscle.value | titlecase }}</mat-option>
           </ng-container>
         </mat-select>
       </mat-form-field>
