@@ -39,6 +39,7 @@
       "@fitness-tracker/shared-ui-material": [
         "libs/shared/ui/material/src/index.ts"
       ],
+      "@fitness-tracker/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@fitness-tracker/shared/data-access": [
         "libs/shared/data-access/src/index.ts"
       ],

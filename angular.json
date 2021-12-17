@@ -304,12 +304,15 @@
             "tsConfig": "apps/fitness-tracker/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/fitness-tracker/src/favicon.ico",
-              "apps/fitness-tracker/src/assets",
               {
-                "input": "libs/layout/ui/src/assets",
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src",
+                "output": "./"
+              },
+              {
+                "input": "libs/shared/assets/src/assets",
                 "glob": "**/*",
-                "output": "assets/layout-ui"
+                "output": "assets"
               }
             ],
             "stylePreprocessorOptions": {
@@ -489,6 +492,14 @@
         }
       },
       "tags": []
+    },
+    "shared-assets": {
+      "projectType": "library",
+      "root": "libs/shared/assets",
+      "sourceRoot": "libs/shared/assets/src",
+      "prefix": "fitness-tracker",
+      "architect": {},
+      "tags": ["scope:shared", "type:assets"]
     },
     "shared-data-access": {
       "projectType": "library",
