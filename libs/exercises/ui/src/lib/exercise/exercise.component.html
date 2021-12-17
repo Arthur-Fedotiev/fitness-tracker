@@ -8,9 +8,8 @@
          ftWithFallback>
 
 
-    <mat-card-title>
-      <span class="card__title"
-            [matBadge]="exercise?.rating"
+    <mat-card-title class="card__title">
+      <span [matBadge]="exercise?.rating"
             matBadgeSize="medium"
             matBadgeColor="accent"
             [matBadgeOverlap]="true">{{ exercise.name }}</span>

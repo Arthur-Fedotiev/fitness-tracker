@@ -45,6 +45,7 @@
       "@fitness-tracker/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],
+      "@fitness-tracker/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@fitness-tracker/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },

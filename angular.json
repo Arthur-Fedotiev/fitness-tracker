@@ -312,6 +312,9 @@
                 "output": "assets/layout-ui"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src/lib"]
+            },
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "apps/fitness-tracker/src/styles.scss"
@@ -538,6 +541,32 @@
         }
       },
       "tags": ["scope:shared", "type:environments"]
+    },
+    "shared-styles": {
+      "projectType": "library",
+      "root": "libs/shared/styles",
+      "sourceRoot": "libs/shared/styles/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/styles"],
+          "options": {
+            "jestConfig": "libs/shared/styles/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/styles/src/**/*.ts",
+              "libs/shared/styles/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:shared", "type:styles"]
     },
     "shared-ui-material": {
       "projectType": "library",

@@ -1,9 +1,12 @@
+@use 'mixins';
+
 .exercise-actions {
   text-align: center;
 }
 
 .card {
   &__title {
+    @include mixins.multiline-text-overflow;
   }
 }
 
