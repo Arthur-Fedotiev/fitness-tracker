@@ -35,6 +35,7 @@ export class SettingsBarComponent {
   }
 
   selectLanguage(language: LanguageCodes) {
+    this.language = language as any;
     this.languageSelected.emit(language);
   }
 }

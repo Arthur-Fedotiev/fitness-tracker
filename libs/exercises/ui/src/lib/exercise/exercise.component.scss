@@ -8,6 +8,9 @@
   &__title {
     @include mixins.multiline-text-overflow;
   }
+  &__rating {
+    width: 5rem;
+  }
 }
 
 :host ::ng-deep {

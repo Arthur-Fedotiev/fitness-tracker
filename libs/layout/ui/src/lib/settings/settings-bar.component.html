@@ -4,9 +4,8 @@
     <mat-select-trigger>
       <div fxLayout="row"
            fxLayoutAlign="start center"
-           fxLayoutGap="10px"><img [src]="'/assets/images/flags/' + language?.value + '.svg'"
-             class="flag" />
-        <span>{{ language?.label }}</span>
+           fxLayoutGap="10px">
+        <mat-icon [svgIcon]="language!.value"></mat-icon>
       </div>
 
     </mat-select-trigger>
@@ -15,8 +14,7 @@
       <div fxLayout="row"
            fxLayoutAlign="sideNav center"
            fxLayoutGap="10px">
-        <img [src]="'/assets/images/flags/' + opt?.value + '.svg'"
-             class="flag" />
+        <mat-icon [svgIcon]="opt.value"></mat-icon>
         <span>{{ opt.label }}</span>
       </div>
     </mat-option>

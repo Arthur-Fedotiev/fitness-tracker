@@ -21,7 +21,7 @@ export const languageMetaReducer = (
 
       const localeData = APP_LOCALE.get(language);
 
-      state = { settings: { language, localeData } };
+      state = { settings: { language: languageStored, localeData } };
     }
 
     return reducer(state, action);

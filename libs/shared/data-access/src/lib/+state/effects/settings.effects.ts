@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 import { LANG_STORAGE_KEY, WithPayload } from '@fitness-tracker/shared/utils';
 import { SETTINGS_ACTIONS_NAMES } from '../actions/action-names.enum';
+import { LanguageCodes } from 'shared-package';
 
 @Injectable()
 export class SettingsEffects {
@@ -10,7 +11,7 @@ export class SettingsEffects {
     () =>
       this.actions$.pipe(
         ofType(SETTINGS_ACTIONS_NAMES.LANGUAGE_SELECTED),
-        tap(({ payload }: WithPayload<tempLang>) =>
+        tap(({ payload }: WithPayload<LanguageCodes>) =>
           localStorage.setItem(LANG_STORAGE_KEY, payload),
         ),
       ),
@@ -18,5 +19,3 @@ export class SettingsEffects {
   );
   constructor(private actions$: Actions) {}
 }
-
-export type tempLang = 'en' | 'ru';
