@@ -22,6 +22,14 @@ export class ExercisesFeatureModule {
           },
           multi: true,
         },
+        {
+          provide: ICON_PROVIDER,
+          useValue: {
+            iconKeys: ['exercise-bench', 'shield'],
+            iconUrl: '/assets/icons/exercises',
+          },
+          multi: true,
+        },
       ],
     };
   }

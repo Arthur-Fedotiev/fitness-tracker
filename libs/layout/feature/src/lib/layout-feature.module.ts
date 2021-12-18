@@ -21,6 +21,22 @@ export class LayoutFeatureModule {
           useValue: { iconKeys: LANG_CODES, iconUrl: '/assets/images/flags' },
           multi: true,
         },
+        {
+          provide: ICON_PROVIDER,
+          useValue: {
+            iconKeys: ['exercises', 'add-user', 'blacksmith', 'stud'],
+            iconUrl: '/assets/images/navigation',
+          },
+          multi: true,
+        },
+        {
+          provide: ICON_PROVIDER,
+          useValue: {
+            iconKeys: ['exit'],
+            iconUrl: '/assets/images/settings',
+          },
+          multi: true,
+        },
       ],
     };
   }

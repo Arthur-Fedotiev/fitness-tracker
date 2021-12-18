@@ -8,7 +8,8 @@
          ftWithFallback>
 
     <mat-card-title class="card__title">
-      <mat-icon [svgIcon]="'exercise-rating'"></mat-icon>
+      <mat-icon class="icon"
+                svgIcon="shield"></mat-icon>
       <span [matBadge]="exercise?.rating"
             matBadgeSize="medium"
             matBadgeColor="accent"
@@ -22,6 +23,8 @@
       </div>
       <div class="subtitle-item">
         <p>Equipment:</p>
+        <mat-icon class="icon"
+                  svgIcon="exercise-bench"></mat-icon>
         <a href="javascript:void(0)">{{ exercise?.equipment }}</a>
       </div>
       <div class="subtitle-item">

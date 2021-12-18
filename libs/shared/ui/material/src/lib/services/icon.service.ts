@@ -1,7 +1,6 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { LANG_CODES } from 'shared-package';
 import { IconProvider, ICON_PROVIDER } from '../providers/icon-token';
 
 @Injectable({
@@ -25,7 +24,6 @@ export class IconService {
 
   private loadIcons({ iconKeys, iconUrl }: IconProvider): void {
     iconKeys.forEach((key) => {
-      console.log(`${iconUrl}/${key}.svg`);
       this.matIconRegistry.addSvgIcon(
         key,
         this.domSanitizer.bypassSecurityTrustResourceUrl(

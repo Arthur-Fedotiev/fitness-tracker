@@ -3,22 +3,23 @@
               [class]="{'horizontal': layout === 'row'}">
   <a mat-list-item
      [routerLink]="['exercises', 'all']">
-    <mat-icon>library_books</mat-icon>
+    <mat-icon class="nav-icon"
+              svgIcon="exercises"></mat-icon>
     <span>{{ localeData?.exercisesLink }}</span>
   </a>
 
   <a *ftRoles="roles.ADMIN"
      mat-list-item
      [routerLink]="['exercises', 'create']">
-    <mat-icon>add_circle_outline</mat-icon>
-    <span>{{ localeData?.createExerciseLink }}</span>
+    <mat-icon class="nav-icon"
+              svgIcon="blacksmith"></mat-icon> <span>{{ localeData?.createExerciseLink }}</span>
   </a>
 
   <a *ftRoles="roles.ADMIN"
      mat-list-item
      [routerLink]="['create-user']">
-    <mat-icon>add_circle_outline</mat-icon>
-    <span>{{ localeData?.createUserLink }}</span>
+    <mat-icon class="nav-icon"
+              svgIcon="stud"></mat-icon> <span>{{ localeData?.createUserLink }}</span>
   </a>
 
   <a *ngIf="isLoggedOut"

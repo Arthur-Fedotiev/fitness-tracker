@@ -1,3 +1,10 @@
+:host ::ng-deep {
+  .nav-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
 .toolbar-tools {
   display: flex;
   width: 100%;
