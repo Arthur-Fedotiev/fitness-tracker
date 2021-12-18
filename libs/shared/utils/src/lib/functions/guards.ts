@@ -1,19 +1,16 @@
-import { map, pipe, pluck } from 'rxjs';
-import { AngularFireAuthGuard, customClaims, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { map, Observable, pipe, pluck, UnaryFunction } from 'rxjs';
+import {
+  AngularFireAuthGuard,
+  customClaims,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/compat/auth-guard';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-const adminOnly = () => pipe(customClaims, pluck('admin'), map(Boolean));
-
-export const canActivateAdmin = {
-  canActivate: [AngularFireAuthGuard],
-  data: {
-    authGuardPipe: adminOnly
-  },
-};
-
-export const canActivateAuthorized = {
-  canActivate: [AngularFireAuthGuard],
-  data: {
-    authGuardPipe: redirectUnauthorizedToLogin
-  },
-}
+export const redirectUnauthorizedToLogin = () =>
+  redirectUnauthorizedTo(['auth', 'login']);
+export const adminOnly: () => UnaryFunction<
+  Observable<any>,
+  Observable<boolean>
+> = () => pipe(customClaims, pluck('admin'), map(Boolean));
+export const redirectLoggedInToExercises = () =>
+  redirectLoggedInTo(['exercises', 'all']);

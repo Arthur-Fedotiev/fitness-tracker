@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { first, map, switchMapTo, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TokenResult, UserInfo } from '@fitness-tracker/auth/model';
 
 import * as AuthActions from '../actions/auth.actions';
@@ -10,7 +10,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { toUserInfo } from '../../../utils/functions';
 import { GLOBAL_PATHS } from '@fitness-tracker/shared/utils';
 import { Store } from '@ngrx/store';
-import { selectDestinationUrl } from '../selectors/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -40,16 +39,6 @@ export class AuthEffects {
           : AuthActions.logoutSuccess(),
       ),
     ),
-  );
-
-  public loginSuccessfully$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AUTH_ACTION_NAMES.LOGIN_SUCCESS),
-        switchMapTo(this.store.select(selectDestinationUrl).pipe(first())),
-        tap((destinationUrl) => this.router.navigateByUrl(destinationUrl)),
-      ),
-    { dispatch: false },
   );
 
   public logOut$ = createEffect(() =>

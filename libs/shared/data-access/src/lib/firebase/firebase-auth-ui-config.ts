@@ -9,6 +9,7 @@ export const firebaseUiAuthConfig: firebaseui.auth.Config = {
       provider: firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD,
     },
   ],
+  signInSuccessUrl: 'exercises/all',
   tosUrl: '<your-tos-link>',
   privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
   credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
