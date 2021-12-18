@@ -20,10 +20,8 @@
     <footer>
       <button mat-raised-button
               color="accent"
+              [disabled]="isLoadingProhibited$ | async"
               (click)="loadMoreExercises(true)">Load More</button>
-      <button mat-raised-button
-              color="warn"
-              (click)="loadMoreExercises(false)">Start Over</button>
     </footer>
   </section>
 </main>

@@ -1,6 +1,6 @@
-import { Pagination } from "../..";
+import { Pagination } from '../..';
 
 export const DEFAULT_PAGINATION_STATE: Pagination = {
-  pageSize: 5,
+  pageSize: 2,
   firstPage: true,
-}
+};

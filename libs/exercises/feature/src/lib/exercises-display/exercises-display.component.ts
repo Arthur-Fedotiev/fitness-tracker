@@ -8,7 +8,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
   ExerciseMetaCollectionsDictionaryUnit,
-  ExercisesEntity,
   ExerciseVM,
   EXERCISE_MODE,
 } from '@fitness-tracker/exercises/model';
@@ -18,7 +17,15 @@ import {
   DEFAULT_PAGINATION_STATE,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, map, Observable, skip, Subject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  filter,
+  map,
+  Observable,
+  skip,
+  Subject,
+  tap,
+} from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -30,15 +37,23 @@ import { filter, map, Observable, skip, Subject, tap } from 'rxjs';
 export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly exercisesList$: Observable<ExerciseVM[]> =
-    this.exerciseFacade.exercisesList$;
+    this.exerciseFacade.exercisesList$.pipe(
+      tap(() => this.isLoadingProhibited.next(false)),
+    );
   public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
     this.exerciseFacade.exercisesMetaCollections$.pipe(filter(Boolean));
 
-  private readonly loadExercises: Subject<boolean> = new Subject<boolean>();
+  private readonly isLoadingProhibited = new BehaviorSubject(false);
+  public readonly isLoadingProhibited$ =
+    this.isLoadingProhibited.asObservable();
+
+  private readonly loadExercises: Subject<{ isLoadMore: boolean }> =
+    new Subject<{ isLoadMore: boolean }>();
   private readonly loadExercises$: Observable<Pagination> = this.loadExercises
     .asObservable()
     .pipe(
-      map((isLoadMore: boolean) => ({
+      tap(() => this.isLoadingProhibited.next(true)),
+      map(({ isLoadMore }: { isLoadMore: boolean }) => ({
         ...DEFAULT_PAGINATION_STATE,
         firstPage: !isLoadMore,
       })),
@@ -62,7 +77,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.refreshExercises$.subscribe();
     this.loadExercises$.subscribe();
-    this.loadExercises.next(false);
+    this.loadExercises.next({ isLoadMore: false });
     this.exerciseFacade.loadExercisesMeta();
   }
 
@@ -79,7 +94,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   }
 
   public loadMoreExercises(isLoadMore: boolean): void {
-    this.loadExercises.next(isLoadMore);
+    this.loadExercises.next({ isLoadMore });
   }
 
   private findExercises(paginationData: Pagination): void {
