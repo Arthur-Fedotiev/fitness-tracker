@@ -319,7 +319,11 @@
               "includePaths": ["libs/shared/styles/src/lib"]
             },
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              {
+                "input": "node_modules/firebaseui/dist/firebaseui.css",
+                "bundleName": "firebase-ui",
+                "inject": false
+              },
               "libs/shared/styles/src/index.scss"
             ],
             "scripts": []
