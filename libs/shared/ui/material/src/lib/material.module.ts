@@ -8,12 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatBadgeModule } from "@angular/material/badge";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
@@ -27,12 +23,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatTableModule,
     MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MatSliderModule,
-    MatBadgeModule,
     MatSlideToggleModule,
   ],
   exports: [
@@ -45,13 +37,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatTableModule,
     MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MatSliderModule,
-    MatBadgeModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
 })
-export class MaterialModule { }
+export class MaterialModule {}
