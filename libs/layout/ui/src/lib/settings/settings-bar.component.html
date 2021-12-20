@@ -30,6 +30,12 @@
   <span fxHide.gt-sm>Logout</span>
 </button>
 
+<button mat-icon-button
+        (click)="toggleDarkMode()"
+        aria-label="Toggle Dark Theme">
+  <mat-icon>{{ isDarkMode ? "dark_mode" : "light_mode" }}</mat-icon>
+</button>
+
 <ng-container *ngIf="photoUrl">
   <img [src]="photoUrl"
        fxHide.lt-md

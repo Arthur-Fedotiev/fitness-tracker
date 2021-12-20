@@ -30,6 +30,7 @@ export class LayoutUiComponent {
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
   @Output() public readonly languageSelected =
     new EventEmitter<LanguageCodes>();
+  @Output() public readonly darkModeChanged = new EventEmitter<void>();
 
   public logOut(): void {
     this.loggedOutChange.emit();
@@ -37,5 +38,9 @@ export class LayoutUiComponent {
 
   public selectLanguage(language: LanguageCodes) {
     this.languageSelected.emit(language);
+  }
+
+  public toggleDarkMode(): void {
+    this.darkModeChanged.emit();
   }
 }

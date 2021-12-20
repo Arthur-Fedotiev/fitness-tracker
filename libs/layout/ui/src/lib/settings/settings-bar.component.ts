@@ -23,10 +23,12 @@ export class SettingsBarComponent {
   @Input() public isLoggedOut: boolean | null = false;
   @Input() public photoUrl: string | null = null;
   @Input() public language: Language | null = null;
+  @Input() public isDarkMode = false;
 
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
   @Output() public readonly languageSelected =
     new EventEmitter<LanguageCodes>();
+  @Output() public readonly darkModeChanged = new EventEmitter<void>();
 
   public readonly languages: Languages = LANGUAGES_LABELS_LIST;
 
@@ -34,8 +36,11 @@ export class SettingsBarComponent {
     this.loggedOutChange.emit();
   }
 
-  selectLanguage(language: LanguageCodes) {
-    this.language = language as any;
+  public selectLanguage(language: LanguageCodes) {
     this.languageSelected.emit(language);
+  }
+
+  public toggleDarkMode(): void {
+    this.darkModeChanged.emit();
   }
 }
