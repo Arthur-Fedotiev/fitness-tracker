@@ -16,6 +16,9 @@ $ft-app-light-theme: mat.define-light-theme(
   )
 );
 
+body:not(.dark-theme) {
+  @include mat.all-component-themes($ft-app-light-theme);
+}
 // $ft-app-light-success: mat.define-palette(mat.$green-palette);
 // $ft-app-light-info: mat.define-palette(mat.$blue-palette);
 

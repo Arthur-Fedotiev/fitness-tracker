@@ -23,6 +23,8 @@ export class LayoutUiComponent {
   @Input() public isLoggedOut: boolean | null = false;
   @Input() public photoUrl: string | null = null;
   @Input() public language: Language | null = null;
+  @Input() public isDarkMode = false;
+
   @Input()
   public navigationBarLocaleData:
     | Locales[ComponentNames.NavigationBarComponent]

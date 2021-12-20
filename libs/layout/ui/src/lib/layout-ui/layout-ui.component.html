@@ -28,9 +28,12 @@
            [fxHide.lt-md]="layout === 'row'"
            [class.toolbar]="layout === 'row'">
     <ft-settings-bar [fxLayout]="layout"
+                     fxLayoutAlign="center center"
+                     fxLayoutGap="1rem"
                      [attr.mat-list-item]="layout !== 'row'"
                      [isLoggedIn]="isLoggedIn"
                      [isLoggedOut]="isLoggedOut"
+                     [isDarkMode]="isDarkMode"
                      [photoUrl]="photoUrl"
                      [language]="language"
                      (loggedOutChange)="logOut()"

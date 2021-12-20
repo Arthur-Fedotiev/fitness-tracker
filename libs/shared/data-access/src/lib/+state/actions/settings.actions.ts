@@ -8,6 +8,10 @@ export const languageSelected = createAction(
   props<WithPayload<LanguageCodes>>(),
 );
 
+export const darkModeChanged = createAction(
+  SETTINGS_ACTIONS_NAMES.DARK_MODE_CHANGED,
+);
+
 export const languageSelectedSuccess = createAction(
   SETTINGS_ACTIONS_NAMES.LANGUAGE_SELECTED_SUCCESS,
   props<WithPayload<Locales>>(),

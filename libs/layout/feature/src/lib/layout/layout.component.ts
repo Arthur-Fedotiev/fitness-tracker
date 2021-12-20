@@ -36,11 +36,13 @@ export class LayoutComponent {
   );
   public readonly language$: Observable<Language> =
     this.settingsFacade.language$.pipe(
-      map((langCode) =>
+      map((langCode: LanguageCodes) =>
         LANGUAGES_LABELS_LIST.find((lang) => langCode === lang.value),
       ),
       filter(Boolean),
     );
+  public readonly isDarkMode$: Observable<boolean> =
+    this.settingsFacade.isDarkMode$;
 
   constructor(
     private readonly authFacade: AuthFacadeService,
@@ -53,5 +55,9 @@ export class LayoutComponent {
 
   public selectLanguage(language: LanguageCodes): void {
     this.settingsFacade.selectLanguage(language);
+  }
+
+  public toggleDarkMode(): void {
+    this.settingsFacade.toggleDarkMode();
   }
 }

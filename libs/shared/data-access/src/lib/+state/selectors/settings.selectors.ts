@@ -13,6 +13,11 @@ export const selectLanguage = createSelector(
   (state): LanguageCodes => state.language,
 );
 
+export const selectIsDarkMode = createSelector(
+  selectSettingsState,
+  (state): boolean => state.isDarkMode,
+);
+
 export const selectLocaleData = createSelector(
   selectSettingsState,
   ({

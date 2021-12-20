@@ -37,6 +37,6 @@ $ft-app-dark-theme: mat.define-dark-theme(
 //   );
 // }
 
-.dark-theme {
+body.dark-theme {
   @include mat.all-component-colors($ft-app-dark-theme);
 }

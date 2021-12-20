@@ -324,6 +324,16 @@
                 "bundleName": "firebase-ui",
                 "inject": false
               },
+              {
+                "input": "libs/shared/styles/src/lib/themes/_dark.scss",
+                "bundleName": "dark-theme",
+                "inject": false
+              },
+              {
+                "input": "libs/shared/styles/src/lib/themes/_light.scss",
+                "bundleName": "light-theme",
+                "inject": false
+              },
               "libs/shared/styles/src/index.scss"
             ],
             "scripts": []

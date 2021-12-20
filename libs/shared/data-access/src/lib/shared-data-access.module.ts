@@ -18,13 +18,12 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { SettingsEffects } from './+state/effects/settings.effects';
+import { darkMode } from './+state/meta-reducers/dark-mode.reducer';
 
 @NgModule({
   imports: [
     StoreModule.forRoot<FtState>(appReduceMap, {
-      metaReducers: !environment.production
-        ? [languageMetaReducer]
-        : [languageMetaReducer],
+      metaReducers: [languageMetaReducer, darkMode],
       runtimeChecks: {
         strictActionImmutability: true,
         strictStateImmutability: true,

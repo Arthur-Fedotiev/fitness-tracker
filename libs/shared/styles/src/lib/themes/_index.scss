@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-@use './themes/light' as *;
-@use './themes/dark';
+// @use './themes/light' as *;
+// @use './themes/dark';
 // @use "./styles/components";
 // @use "./styles/typography/config" as typography;
 
@@ -16,5 +16,3 @@
 //   typography.$my-app-typography,
 //   light.$my-app-light-variants
 // );
-
-@include mat.all-component-themes($ft-app-light-theme);
