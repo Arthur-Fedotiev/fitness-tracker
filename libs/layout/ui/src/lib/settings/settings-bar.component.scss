@@ -2,9 +2,12 @@
   display: block;
   ::ng-deep {
     .mat-form-field-infix {
-      width: 3rem;
+      width: var(--settings-flag-width);
       padding: 0;
       border: 0;
+    }
+    .mat-list-base {
+      padding: 0;
     }
 
     .mat-select-hide-underline .mat-form-field-underline {
@@ -20,6 +23,15 @@
       height: 100%;
     }
   }
+}
+
+.list {
+  display: var(--settings-layout);
+}
+
+.action {
+  width: 100%;
+  text-align: start;
 }
 
 .user-avatar {

@@ -1,25 +1,27 @@
-<mat-card class="card mat-elevation-z8">
+<mat-card class="card mat-elevation-z8"
+          tabindex="0">
   <mat-card-title-group>
     <img fxHide.xs
-         width="112px"
-         height="112px"
+         class="card__avatar"
          mat-card-md-image
          [src]="exercise?.avatarUrl"
          ftWithFallback>
 
     <mat-card-title class="card__title">
-      {{ exercise.name }}
+      <span ngClass.sm="ft-sm"
+            ngClass.md="ft-md"
+            ngClass.lg="ft-lg"
+            ngClass.xl="ft-xl">{{ exercise.name }}</span>
     </mat-card-title>
     <mat-card-subtitle>
 
       <div class="subtitle-item">
         <p>Targeted muscle:</p>
-        <a href="javascript:void(0)">{{ exercise?.targetMuscle | titlecase }}</a>
+        <a class="mat-icon"
+           href="javascript:void(0)">{{ exercise?.targetMuscle | titlecase }}</a>
       </div>
       <div class="subtitle-item">
         <p>Equipment:</p>
-        <mat-icon class="icon"
-                  svgIcon="exercise-bench"></mat-icon>
         <a href="javascript:void(0)">{{ exercise?.equipment }}</a>
       </div>
       <div class="subtitle-item">

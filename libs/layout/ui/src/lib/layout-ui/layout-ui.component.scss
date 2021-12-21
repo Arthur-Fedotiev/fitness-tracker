@@ -11,15 +11,20 @@
 }
 
 .settings {
-  &.toolbar {
+  .toolbar {
     margin-left: auto;
+    --settings-layout: flex;
+    --settings-flag-width: 3rem;
   }
   &:not(.toolbar) {
-    padding: 0 1rem;
+    padding: 0 0.25rem;
+    --settings-layout: block;
+    --settings-flag-width: 10rem;
   }
 }
 
 mat-toolbar {
+  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 9999;

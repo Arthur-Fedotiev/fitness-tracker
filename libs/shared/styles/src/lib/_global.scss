@@ -1,4 +1,7 @@
 @use 'themes';
+@use 'responsive' as responsive;
+
+@include responsive.title();
 
 html,
 body {

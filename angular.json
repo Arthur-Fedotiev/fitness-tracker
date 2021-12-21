@@ -316,7 +316,10 @@
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/shared/styles/src/lib"]
+              "includePaths": [
+                "libs/shared/styles/src/lib",
+                "libs/shared/styles/src/lib/mixins"
+              ]
             },
             "styles": [
               {
@@ -360,13 +363,14 @@
               ],
               "outputHashing": "all",
               "optimization": {
-                "fonts": {
-                  "inline": true
-                },
+                "scripts": true,
                 "styles": {
+                  "minify": true,
                   "inlineCritical": true
-                }
-              }
+                },
+                "fonts": true
+              },
+              "sourceMap": true
             },
             "development": {
               "buildOptimizer": false,

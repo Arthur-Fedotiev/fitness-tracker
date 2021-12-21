@@ -25,12 +25,10 @@
                      [layout]="layout"
                      [localeData]="navigationBarLocaleData"></ft-navigation-bar>
   <section class="settings"
-           [fxHide.lt-md]="layout === 'row'"
-           [class.toolbar]="layout === 'row'">
-    <ft-settings-bar [fxLayout]="layout"
-                     fxLayoutAlign="center center"
+           [fxHide.lt-md]="layout === 'row'">
+    <ft-settings-bar [class.toolbar]="layout === 'row'"
+                     class="settings"
                      fxLayoutGap="1rem"
-                     [attr.mat-list-item]="layout !== 'row'"
                      [isLoggedIn]="isLoggedIn"
                      [isLoggedOut]="isLoggedOut"
                      [isDarkMode]="isDarkMode"

@@ -7,17 +7,22 @@
 .icon {
   width: 3rem;
   height: 3rem;
-  &.shield {
-    // position: absolute;
-  }
 }
 
 .card {
+  &__avatar {
+    border-radius: 0.5rem;
+  }
   &__title {
     @include mixins.multiline-text-overflow;
+    font-size: 1rem;
   }
   &__rating {
     width: 5rem;
+  }
+
+  .subtitle-item > a {
+    color: #fff;
   }
 }
 
