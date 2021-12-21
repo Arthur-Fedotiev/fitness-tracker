@@ -4,11 +4,12 @@
 @use '@angular/material' as mat;
 
 // @use "../typography/config" as typography;
-// @use "../components";
+@use '../components';
 
 $ft-app-dark-primary: mat.define-palette(mat.$deep-orange-palette);
 $ft-app-dark-accent: mat.define-palette(mat.$yellow-palette, A200, A100, A400);
 $ft-app-dark-warn: mat.define-palette(mat.$red-palette);
+
 $ft-app-dark-theme: mat.define-dark-theme(
   (
     color: (
@@ -19,24 +20,14 @@ $ft-app-dark-theme: mat.define-dark-theme(
   )
 );
 
-// $ft-app-dark-success: mat.define-palette(mat.$light-green-palette);
-// $ft-app-dark-info: mat.define-palette(mat.$light-blue-palette);
-
-// $ft-app-dark-variants: (
-//   success: $ft-app-dark-success,
-//   info: $ft-app-dark-info,
-// );
-
-// .dark-theme {
-//   @include mat.core-color($ft-app-dark-theme);
-//   @include mat.button-color($ft-app-dark-theme);
-//   @include components.theme(
-//     $ft-app-dark-theme,
-//     typography.$ft-app-typography,
-//     $ft-app-dark-variants
-//   );
-// }
+$ft-app-dark-success: mat.define-palette(mat.$light-green-palette);
+$ft-app-dark-info: mat.define-palette(mat.$light-blue-palette);
+$ft-app-dark-variants: (
+  success: $ft-app-dark-success,
+  info: $ft-app-dark-info,
+);
 
 body.dark-theme {
   @include mat.all-component-colors($ft-app-dark-theme);
+  @include components.theme($ft-app-dark-theme, null, $ft-app-dark-variants);
 }
