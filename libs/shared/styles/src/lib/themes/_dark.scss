@@ -28,6 +28,8 @@ $ft-app-dark-variants: (
 );
 
 body.dark-theme {
-  @include mat.all-component-colors($ft-app-dark-theme);
+  @include mat.all-component-themes($ft-app-dark-theme);
+
+  // @include mat.all-component-colors($ft-app-dark-theme);
   @include components.theme($ft-app-dark-theme, null, $ft-app-dark-variants);
 }
