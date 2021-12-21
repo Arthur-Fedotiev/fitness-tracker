@@ -6,9 +6,9 @@
 // @use "../typography/config" as typography;
 // @use "../components";
 
-$ft-app-dark-primary: mat.define-palette(mat.$blue-grey-palette);
-$ft-app-dark-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
-$ft-app-dark-warn: mat.define-palette(mat.$deep-orange-palette);
+$ft-app-dark-primary: mat.define-palette(mat.$deep-orange-palette);
+$ft-app-dark-accent: mat.define-palette(mat.$yellow-palette, A200, A100, A400);
+$ft-app-dark-warn: mat.define-palette(mat.$red-palette);
 $ft-app-dark-theme: mat.define-dark-theme(
   (
     color: (
