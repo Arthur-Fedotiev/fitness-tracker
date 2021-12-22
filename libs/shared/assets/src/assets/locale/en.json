@@ -1,0 +1,10 @@
+{
+  "COMMON": {
+    "HEADER": "Ngx Translate Application Usage in Angular"
+  },
+  "LANGUAGES": {
+    "EN": "English",
+    "RU": "Russian",
+    "TITLE": "Language"
+  }
+}

@@ -2,8 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { LANG_CODES } from 'shared-package';
+
 export const environment = {
   useEmulators: false,
+  locales: [...LANG_CODES],
+  defaultLocale: 'en',
   firebase: {
     projectId: 'fitness-tracker-de06b',
     appId: '1:450961916900:web:a85ab7b9651ed92cd5bdf1',

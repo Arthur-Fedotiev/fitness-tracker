@@ -571,6 +571,32 @@
       },
       "tags": ["scope:shared", "type:environments"]
     },
+    "shared-i18n": {
+      "projectType": "library",
+      "root": "libs/shared/i18n",
+      "sourceRoot": "libs/shared/i18n/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/i18n"],
+          "options": {
+            "jestConfig": "libs/shared/i18n/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/i18n/src/**/*.ts",
+              "libs/shared/i18n/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:shared", "type:i18n"]
+    },
     "shared-styles": {
       "projectType": "library",
       "root": "libs/shared/styles",
