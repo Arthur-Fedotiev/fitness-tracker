@@ -15,19 +15,10 @@ import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
   ExercisesEntity,
   ExerciseRequestDTO,
-  CollectionsMetaKeys,
   Exercise,
   ExerciseMetaCollectionsDictionaryUnit,
 } from '@fitness-tracker/exercises/model';
-import {
-  combineLatest,
-  filter,
-  map,
-  Observable,
-  ReplaySubject,
-  Subject,
-  tap,
-} from 'rxjs';
+import { filter, Observable, ReplaySubject, Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 
