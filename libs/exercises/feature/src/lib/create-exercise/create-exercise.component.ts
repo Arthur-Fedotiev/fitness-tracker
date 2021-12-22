@@ -35,11 +35,12 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
     this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
 
-  private readonly patchExerciseFormValue: ReplaySubject<Exercise> =
-    new ReplaySubject<Exercise>(1);
+  private readonly patchExerciseFormValue: ReplaySubject<Exercise | null> =
+    new ReplaySubject<Exercise | null>(1);
   private readonly pathExerciseFormValue$ = this.patchExerciseFormValue
     .asObservable()
     .pipe(
+      filter(Boolean),
       tap((exercise: Exercise) => this.exerciseForm.patchValue(exercise)),
       untilDestroyed(this),
     );
@@ -71,7 +72,6 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private exercisesFacade: ExercisesFacade,
-    private settingsFacade: SettingsFacadeService,
   ) {}
 
   ngOnInit(): void {
@@ -113,8 +113,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
 
   private initData(): void {
     this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
-    this.resolvedExercise &&
-      this.patchExerciseFormValue.next(this.resolvedExercise);
+    this.patchExerciseFormValue.next(this.resolvedExercise);
     this.exercisesFacade.loadExercisesMeta();
   }
 
