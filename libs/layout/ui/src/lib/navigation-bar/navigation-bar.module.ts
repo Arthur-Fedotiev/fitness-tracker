@@ -5,6 +5,7 @@ import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { RouterModule } from '@angular/router';
 import { RolesModule } from '@fitness-tracker/auth/feature';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [NavigationBarComponent],
@@ -14,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     RouterModule,
     RolesModule,
     FlexLayoutModule,
+    TranslateModule,
   ],
   exports: [NavigationBarComponent],
 })

@@ -5,6 +5,14 @@ import { LayoutUiModule } from '@fitness-tracker/layout/ui';
 import { RouterModule } from '@angular/router';
 import { ICON_PROVIDER } from '@fitness-tracker/shared-ui-material';
 import { LANG_CODES } from 'shared-package';
+import {
+  TranslateModule,
+  TranslateLoader,
+  MissingTranslationHandler,
+} from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
 
 @NgModule({
   imports: [CommonModule, LayoutUiModule, RouterModule],

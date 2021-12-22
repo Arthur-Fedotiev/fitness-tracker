@@ -313,6 +313,11 @@
                 "input": "libs/shared/assets/src/assets",
                 "glob": "**/*",
                 "output": "assets"
+              },
+              {
+                "input": "libs/exercises/feature/src/assets/i18n/exercises-display",
+                "glob": "*.json",
+                "output": "assets/i18n/exercises-display"
               }
             ],
             "stylePreprocessorOptions": {

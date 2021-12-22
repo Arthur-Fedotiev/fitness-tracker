@@ -21,7 +21,8 @@
       <button mat-raised-button
               color="accent"
               [disabled]="isLoadingProhibited$ | async"
-              (click)="loadMoreExercises(true)">Load More</button>
+              (click)="loadMoreExercises(true)"> <span>{{ 'loadMore' | translate }}</span>
+      </button>
     </footer>
   </section>
 </main>

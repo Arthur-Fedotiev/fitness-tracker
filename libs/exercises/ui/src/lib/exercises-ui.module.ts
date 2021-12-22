@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ImgFallbackModule } from '@fitness-tracker/shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -13,6 +14,7 @@ import { ImgFallbackModule } from '@fitness-tracker/shared/utils';
     RouterModule,
     FlexLayoutModule,
     ImgFallbackModule,
+    TranslateModule,
   ],
   declarations: [ExerciseComponent, ExerciseListComponent],
   exports: [ExerciseComponent, ExerciseListComponent],
