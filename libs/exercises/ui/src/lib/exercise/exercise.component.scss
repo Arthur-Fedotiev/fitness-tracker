@@ -10,6 +10,7 @@
 }
 
 .card {
+  border-radius: 1.5rem;
   &__avatar {
     border-radius: 0.5rem;
   }
@@ -22,7 +23,7 @@
   }
 
   .subtitle-item > a {
-    color: #fff;
+    color: #ff5722;
   }
 }
 
