@@ -45,7 +45,8 @@
             class="action"
             (click)="toggleDarkMode()"
             aria-label="Toggle Dark Theme">
-      <mat-icon matListIcon>{{ isDarkMode ? "dark_mode" : "light_mode" }}</mat-icon>
+      <mat-icon matListIcon
+                color="accent">{{ isDarkMode ? "dark_mode" : "light_mode" }}</mat-icon>
       <span fxHide.gt-sm> {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }} </span>
     </button>
   </mat-list-item>
