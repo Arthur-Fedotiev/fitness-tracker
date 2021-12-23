@@ -21,8 +21,7 @@
 <ng-template #navList
              let-layout
              let-isDesktop>
-  <ft-navigation-bar [isLoggedOut]="isLoggedOut"
-                     [layout]="layout"
+  <ft-navigation-bar [layout]="layout"
                      [localeData]="navigationBarLocaleData"></ft-navigation-bar>
   <section class="settings"
            [fxHide.lt-md]="layout === 'row'">

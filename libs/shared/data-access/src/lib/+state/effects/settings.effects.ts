@@ -5,29 +5,22 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
-import { mapTo, tap, withLatestFrom } from 'rxjs/operators';
+import { first, mapTo, switchMapTo, tap, withLatestFrom } from 'rxjs/operators';
 import { LANG_STORAGE_KEY, WithPayload } from '@fitness-tracker/shared/utils';
 import { SETTINGS_ACTIONS_NAMES } from '../actions/action-names.enum';
 import { LanguageCodes } from 'shared-package';
 import { Store } from '@ngrx/store';
 import { StyleManagerService } from '../../services/style-manager.service';
-import { selectIsDarkMode } from '../selectors/settings.selectors';
+import {
+  selectIsDarkMode,
+  selectLanguage,
+} from '../selectors/settings.selectors';
 import { getIsDarkMode } from '../../utils/functions';
 import { DARK_MODE_STORAGE_KEY } from '../../models/theme';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class SettingsEffects {
-  public languageSelected$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(SETTINGS_ACTIONS_NAMES.LANGUAGE_SELECTED),
-        tap(({ payload }: WithPayload<LanguageCodes>) =>
-          localStorage.setItem(LANG_STORAGE_KEY, payload),
-        ),
-      ),
-    { dispatch: false },
-  );
-
   public loadInitialTheme$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -36,6 +29,37 @@ export class SettingsEffects {
         tap((isDarkMode: boolean) => {
           this.styleManager.toggleDarkMode(isDarkMode);
         }),
+      ),
+    { dispatch: false },
+  );
+
+  public setInitialLanguage$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ROOT_EFFECTS_INIT),
+        switchMapTo(
+          this.store.select(selectLanguage).pipe(
+            tap((language: LanguageCodes) => {
+              this.translateService.use(language);
+            }),
+            first(),
+          ),
+        ),
+      ),
+
+    { dispatch: false },
+  );
+
+  public languageSelected$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(SETTINGS_ACTIONS_NAMES.LANGUAGE_SELECTED),
+        tap(({ payload }: WithPayload<LanguageCodes>) =>
+          localStorage.setItem(LANG_STORAGE_KEY, payload),
+        ),
+        tap(({ payload }: WithPayload<LanguageCodes>) =>
+          this.translateService.use(payload),
+        ),
       ),
     { dispatch: false },
   );
@@ -59,8 +83,15 @@ export class SettingsEffects {
   );
 
   constructor(
-    private actions$: Actions,
+    private readonly actions$: Actions,
     private readonly styleManager: StyleManagerService,
     private readonly store: Store,
-  ) {}
+    private readonly translateService: TranslateService,
+  ) {
+    // const origUse = this.translateService.use;
+    // this.translateService.use = function (lang) {
+    //   console.log('this.translateService.use', lang);
+    //   return origUse.call(this, lang);
+    // };
+  }
 }

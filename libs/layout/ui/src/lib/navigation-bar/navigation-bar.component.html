@@ -1,32 +1,26 @@
 <mat-nav-list [fxLayout]="layout"
               [fxHide.lt-md]="layout === 'row'"
-              [class]="{'horizontal': layout === 'row'}">
+              [class]="{ horizontal: layout === 'row' }">
   <a mat-list-item
      [routerLink]="['exercises', 'all']">
     <mat-icon class="nav-icon"
               svgIcon="exercises"></mat-icon>
-    <span>{{ localeData?.exercisesLink }}</span>
-    <span>{{ 'LANGUAGES.TITLE' | translate }}</span>
+    <span translate>NAVIGATION_BAR.exercisesLink</span>
   </a>
 
   <a *ftRoles="roles.ADMIN"
      mat-list-item
      [routerLink]="['exercises', 'create']">
     <mat-icon class="nav-icon"
-              svgIcon="blacksmith"></mat-icon> <span>{{ localeData?.createExerciseLink }}</span>
+              svgIcon="blacksmith"></mat-icon>
+    <span translate>NAVIGATION_BAR.createExerciseLink</span>
   </a>
 
   <a *ftRoles="roles.ADMIN"
      mat-list-item
      [routerLink]="['create-user']">
     <mat-icon class="nav-icon"
-              svgIcon="stud"></mat-icon> <span>{{ localeData?.createUserLink }}</span>
-  </a>
-
-  <a *ngIf="isLoggedOut"
-     mat-list-item
-     [routerLink]="['auth', 'login']">
-    <mat-icon>account_circle</mat-icon>
-    <span>{{ localeData?.loginLink }}</span>
+              svgIcon="stud"></mat-icon>
+    <span translate>NAVIGATION_BAR.createUserLink</span>
   </a>
 </mat-nav-list>

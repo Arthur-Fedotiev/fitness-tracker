@@ -1,10 +1,7 @@
 {
-  "COMMON": {
-    "HEADER": "Пример использования библиотеки Ngx Translate"
-  },
-  "LANGUAGES": {
-    "EN": "Английский",
-    "RU": "Русский",
-    "TITLE": "Язык"
-  }
+	"NAVIGATION_BAR": {
+		"createExerciseLink": "Создать упражнение",
+		"createUserLink": "Создать пользователя",
+		"exercisesLink": "Упражнения"
+	}
 }

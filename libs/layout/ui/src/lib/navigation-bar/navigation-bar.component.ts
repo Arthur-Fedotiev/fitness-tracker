@@ -9,7 +9,6 @@ import { ROLES } from 'shared-package';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationBarComponent {
-  @Input() public isLoggedOut: boolean | null = false;
   @Input() public layout!: 'row' | 'column';
   @Input()
   public localeData: Locales[ComponentNames.NavigationBarComponent] | null =
