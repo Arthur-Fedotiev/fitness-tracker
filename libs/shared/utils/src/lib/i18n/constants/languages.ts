@@ -12,6 +12,7 @@ export const LANGUAGES_LABELS_LIST = [
   { value: 'es', label: 'español' },
 ] as const;
 
+export const TRANSLATION_ASSET_FORMAT = 'json';
 export const LANG_STORAGE_KEY = 'language';
 
 export type Languages = typeof LANGUAGES_LABELS_LIST;

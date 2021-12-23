@@ -13,16 +13,9 @@ import {
   TranslateLoader,
   MissingTranslationHandler,
 } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { environment } from '@fitness-tracker/shared/environments';
+import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(
-    http,
-    'assets/i18n/exercises-display/',
-    '.json',
-  );
-}
+const i18nAssetsPath = 'assets/i18n/exercises-display/';
 
 @NgModule({
   declarations: [ExercisesDisplayComponent],
@@ -35,7 +28,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
-        useFactory: createTranslateLoader,
+        useFactory: translationsLoaderFactory(i18nAssetsPath),
         deps: [HttpClient],
       },
       missingTranslationHandler: {

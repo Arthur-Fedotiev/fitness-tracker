@@ -5,19 +5,17 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from './services/missing-translation.service';
+import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
 
-export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+const i18nGlobalPath = './assets/i18n/';
 
 @NgModule({
   imports: [
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: translationsLoaderFactory(i18nGlobalPath),
         deps: [HttpClient],
       },
       missingTranslationHandler: {
