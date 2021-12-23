@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromExercises from './+state/exercises.reducer';
 import { ExercisesEffects } from './+state/exercises.effects';
 import { ExerciseResolver } from './resolvers/exercise.resolver';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { ExerciseResolver } from './resolvers/exercise.resolver';
       fromExercises.reducer,
     ),
     EffectsModule.forFeature([ExercisesEffects]),
+    TranslateModule,
   ],
   providers: [ExerciseResolver],
 })

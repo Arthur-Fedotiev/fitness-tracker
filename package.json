@@ -12,6 +12,7 @@
     "export-emulator": "firebase emulators:export sample-exercises",
     "emulator": "firebase emulators:start --import sample-exercises",
     "analyze:fitness-tracker": "webpack-bundle-analyzer dist/apps/fitness-tracker/stats.json",
+    "update-locale": "ngx-translate-extract -i ./src -o src/assets/locale/*.json --sort --format namespaced-json",
     "test": "nx test"
   },
   "private": true,

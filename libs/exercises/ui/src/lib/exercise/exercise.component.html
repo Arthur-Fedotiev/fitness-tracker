@@ -34,18 +34,15 @@
   <mat-card-actions class="exercise-actions">
 
     <button mat-button
-            translate
             class="mat-raised-button mat-primary"
             (click)="viewExercise(exercise)">
-      EXERCISE.view
+      {{'EXERCISE.viewBtn' | translate}}
     </button>
 
     <button mat-button
-            translate
             class="mat-raised-button mat-accent"
             (click)="editExercise(exercise)">
-      EXERCISE.edit
-    </button>
+      {{'EXERCISE.editBtn' | translate}} </button>
     <button mat-mini-fab
             color="warn"
             (click)="deleteExercise(exercise)">

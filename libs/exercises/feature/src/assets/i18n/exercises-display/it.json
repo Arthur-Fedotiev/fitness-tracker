@@ -1,0 +1,11 @@
+{
+	"EXERCISE": {
+		"editBtn": "Modificare",
+		"equipment": "attrezzatura",
+		"exerciseType": "genere",
+		"targetMuscle": "Muscolo",
+		"viewBtn": "vista"
+	},
+	"loadMore": "Carica di più",
+	"showFilters": "mostra filtri"
+}

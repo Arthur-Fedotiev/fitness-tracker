@@ -17,6 +17,7 @@ import {
   DEFAULT_PAGINATION_STATE,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   filter,
@@ -62,6 +63,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     );
 
   private readonly refreshExercises$ = this.settingsFacade.language$.pipe(
+    tap((language) => this.translateService.use(language)),
     skip(1),
     tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
     untilDestroyed(this),
@@ -72,6 +74,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     private readonly settingsFacade: SettingsFacadeService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly translateService: TranslateService,
   ) {}
 
   public ngOnInit(): void {

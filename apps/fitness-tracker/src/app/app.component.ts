@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { IconService } from '@fitness-tracker/shared-ui-material';
-import { environment } from '@fitness-tracker/shared/environments';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-root',
@@ -10,13 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private iconService: IconService,
-    private translateService: TranslateService,
-  ) {}
+  constructor(private iconService: IconService) {}
   public ngOnInit() {
     this.iconService.registerIcons();
-    this.translateService.use(environment.defaultLocale);
-    console.log(this.translateService);
   }
 }

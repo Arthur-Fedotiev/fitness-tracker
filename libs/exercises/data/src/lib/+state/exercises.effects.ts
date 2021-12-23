@@ -10,14 +10,11 @@ import {
   mergeMap,
   Observable,
   of,
-  shareReplay,
   switchMap,
-  tap,
   withLatestFrom,
 } from 'rxjs';
 import {
   ExerciseCollectionsMeta,
-  ExerciseCollectionsMetaArrays,
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,

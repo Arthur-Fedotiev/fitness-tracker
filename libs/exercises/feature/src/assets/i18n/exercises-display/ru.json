@@ -1,10 +1,11 @@
 {
-  "COMMON": {
-    "HEADER": "Пример использования библиотеки Ngx Translate"
-  },
-  "LANGUAGES": {
-    "EN": "Английский",
-    "RU": "Русский",
-    "TITLE": "Язык"
-  }
+	"EXERCISE": {
+		"editBtn": "Редактировать",
+		"equipment": "Снаряжение",
+		"exerciseType": "Тип",
+		"targetMuscle": "Мышца",
+		"viewBtn": "Детальнее"
+	},
+	"loadMore": "Загрузить ещё",
+	"showFilters": "Показать фильтры"
 }

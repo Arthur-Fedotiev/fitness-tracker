@@ -43,8 +43,6 @@ export function createTranslateLoader(http: HttpClient) {
         useClass: MissingTranslationService,
       },
       isolate: true,
-      extend: false,
-      defaultLanguage: environment.defaultLocale,
     }),
   ],
 })
