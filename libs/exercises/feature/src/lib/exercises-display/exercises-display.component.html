@@ -2,6 +2,9 @@
       fxLayout.xs="column"
       fxLayoutGap="1rem"
       class="exercises">
+  <button mat-raised-button
+          class="workout-btn"
+          color="primary">Compose workout</button>
   <button *ngIf="false"
           fxHide.gt-xs
           mat-button
@@ -21,7 +24,7 @@
       <button mat-raised-button
               color="accent"
               [disabled]="isLoadingProhibited$ | async"
-              (click)="loadMoreExercises(true)"> <span>{{ 'loadMore' | translate }}</span>
+              (click)="loadMoreExercises(true)"> <span translate>loadMore</span>
       </button>
     </footer>
   </section>

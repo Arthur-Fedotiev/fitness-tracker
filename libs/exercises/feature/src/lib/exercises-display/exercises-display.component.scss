@@ -1,6 +1,10 @@
 :host {
   .exercises {
     height: 100%;
+    .workout-btn {
+      flex: 1 0 auto;
+      align-self: flex-start;
+    }
     &__list {
       width: 90%;
       height: 100%;
