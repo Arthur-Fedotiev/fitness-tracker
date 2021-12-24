@@ -14,6 +14,7 @@ import {
   MissingTranslationHandler,
 } from '@ngx-translate/core';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
+import { ComposeWorkoutModule } from '@fitness-tracker/shared/dialogs';
 
 const i18nAssetsPath = 'assets/i18n/exercises-display/';
 
@@ -25,6 +26,7 @@ const i18nAssetsPath = 'assets/i18n/exercises-display/';
     ExercisesUiModule,
     FlexLayoutModule,
     MaterialModule,
+    ComposeWorkoutModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

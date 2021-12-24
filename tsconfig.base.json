@@ -43,6 +43,7 @@
       "@fitness-tracker/shared/data-access": [
         "libs/shared/data-access/src/index.ts"
       ],
+      "@fitness-tracker/shared/dialogs": ["libs/shared/dialogs/src/index.ts"],
       "@fitness-tracker/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],

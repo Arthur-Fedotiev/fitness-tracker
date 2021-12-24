@@ -550,6 +550,32 @@
       },
       "tags": ["scope:shared", "type:data-access"]
     },
+    "shared-dialogs": {
+      "projectType": "library",
+      "root": "libs/shared/dialogs",
+      "sourceRoot": "libs/shared/dialogs/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/dialogs"],
+          "options": {
+            "jestConfig": "libs/shared/dialogs/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/dialogs/src/**/*.ts",
+              "libs/shared/dialogs/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:shared", "type:feature"]
+    },
     "shared-environments": {
       "projectType": "library",
       "root": "libs/shared/environments",

@@ -1,0 +1,105 @@
+<h2 mat-dialog-title>Compose Workout</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-tree [dataSource]="dataSource"
+            [treeControl]="treeControl"
+            class="example-tree">
+    <!-- This is the tree node template for leaf nodes -->
+    <!-- There is inline padding applied to this node using styles.
+      This padding value depends on the mat-icon-button width. -->
+
+    <mat-tree-node *matTreeNodeDef="let node"
+                   matTreeNodePadding>
+      <button *ngIf="isSupersetComposeUnderway && !node.isNested"
+              mat-mini-fab
+              class="add-btn"
+              color="success"
+              (click)="addToComposableSuperset.next(node)">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{node.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Type: {{node.instructionStrategy?.type ?? 'N/A'}}
+              Load: {{node.instructionStrategy?.load ?? 'N/A'}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <form #workoutItemForm="ngForm">
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select Exercise Type"
+                          name="type"
+                          [(ngModel)]="node.instructionStrategy.type"
+                          required>
+                <mat-option [value]="'reps'">Repetitions</mat-option>
+                <mat-option [value]="'duration'">Seconds</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Load</mat-label>
+              <input type="number"
+                     step="1"
+                     name="load"
+                     [(ngModel)]="node.instructionStrategy.load"
+                     matInput
+                     required>
+            </mat-form-field>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-tree-node>
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"
+                          matTreeNodePadding>
+      <div class="mat-tree-node">
+        <button mat-icon-button
+                matTreeNodeToggle
+                [attr.aria-label]="'Toggle ' + node.name">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        <mat-form-field appearance="outline">
+
+          <input placeholder="User email"
+                 matInput
+                 [value]="node.name"
+                 [(ngModel)]="node.name">
+
+        </mat-form-field>
+        <button mat-mini-fab
+                color="warn"
+                (click)="decompose(node)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <!-- There is inline padding applied to this div using styles.
+            This padding value depends on the mat-icon-button width.  -->
+      <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+           role="group">
+        <ng-container matTreeNodeOutlet></ng-container>
+      </div>
+    </mat-nested-tree-node>
+  </mat-tree>
+  <!-- <p *ngFor="let item of data">
+    <mat-icon *ngIf="isSupersetComposeUnderway">add_circle</mat-icon> {{ item.name }}
+  </p> -->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button
+          class="workout-btn"
+          color="primary"
+          (click)="toggleComposeSuperset()">{{isSupersetComposeUnderway ? 'Stop composing' : 'Compose' }} superset</button>
+  <button *ngIf="isSupersetComposeUnderway"
+          mat-raised-button
+          class="workout-btn"
+          color="success"
+          (click)="saveSuperset()">SAVE superset</button>
+  <button mat-raised-button
+          color="warn">Cancel Workout</button>
+  <button mat-raised-button
+          color="success">Save Workout</button>
+</mat-dialog-actions>

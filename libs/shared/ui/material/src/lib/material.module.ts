@@ -11,6 +11,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -26,6 +29,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
+    MatDialogModule,
+    MatTreeModule,
+    MatExpansionModule,
   ],
   exports: [
     MatInputModule,
@@ -40,6 +46,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
+    MatDialogModule,
+    MatTreeModule,
+    MatExpansionModule,
   ],
 })
 export class MaterialModule {}
