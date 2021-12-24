@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ExerciseRequestDTO } from '@fitness-tracker/exercises/model';
+import {
+  ExerciseRequestDTO,
+  ExercisesEntity,
+} from '@fitness-tracker/exercises/model';
 import { SearchOptions } from '@fitness-tracker/shared/utils';
 import { select, Store } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';
 import * as ExercisesSelectors from './exercises.selectors';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ExercisesFacade {
@@ -32,6 +36,12 @@ export class ExercisesFacade {
    */
   init() {
     console.log('[INIT] ExercisesFacade');
+  }
+
+  public exercisePreviews$(
+    ids: Set<string>,
+  ): Observable<Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[]> {
+    return this.store.select(ExercisesSelectors.selectExercisePreview(ids));
   }
 
   public getAllExercises(): void {

@@ -1,31 +1,56 @@
-<main fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="1rem"
-      class="exercises">
-  <button mat-raised-button
-          class="workout-btn"
-          color="primary">Compose workout</button>
-  <button *ngIf="false"
-          fxHide.gt-xs
-          mat-button
-          class="mat-raised-button mat-accent">
-    SHOW FILTERS
-  </button>
-  <aside *ngIf="false"
-         fxHide.xs
-         class="exercises__filters"></aside>
+<main>
+  <section>
+    <button *ngIf="false"
+            fxHide.gt-xs
+            mat-button
+            class="mat-raised-button mat-accent">
+      SHOW FILTERS
+    </button>
+  </section>
+  <section fxLayout="row"
+           fxLayout.xs="column"
+           fxLayoutGap="1rem"
+           class="exercises-list">
 
-  <section class="exercises__list">
-    <ft-exercise-list [exerciseList]="exercisesList$ | async"
-                      (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
-                      (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"
-                      (exerciseDeleted)="deleteExercise($event)"></ft-exercise-list>
-    <footer>
-      <button mat-raised-button
-              color="accent"
-              [disabled]="isLoadingProhibited$ | async"
-              (click)="loadMoreExercises(true)"> <span translate>loadMore</span>
-      </button>
-    </footer>
+    <button mat-raised-button
+            class="workout-btn"
+            color="primary">Compose workout</button>
+
+    <article class="exercises-list__list">
+      <ft-exercise-list [exerciseList]="exercisesList$ | async"
+                        (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
+                        (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"
+                        (exerciseDeleted)="deleteExercise($event)"
+                        (exerciseAddedToWorkout)="addToComposedWorkout($event)"></ft-exercise-list>
+      <footer>
+        <button mat-raised-button
+                color="accent"
+                [disabled]="isLoadingProhibited$ | async"
+                (click)="loadMoreExercises(true)"> <span translate>loadMore</span>
+        </button>
+      </footer>
+    </article>
+  </section>
+  <section *ngIf="composeWorkout$ | async as workoutExercisesList"
+           fxLayout="column"
+           fxLayoutAlign="center center"
+           class="composed-workout">
+    <ng-container *ngIf="workoutExercisesList.length">
+      <article fxLayout="row"
+               fxLayoutAlign="center center"
+               fxLayoutGap="1rem"><img *ngFor="let exercise of workoutExercisesList"
+             class="composed-workout__item"
+             [src]="exercise.avatarUrl"
+             [attr.alt]="exercise.name"
+             (click)="removeFromComposedWorkout(exercise.id)">
+      </article>
+      <footer><button mat-raised-button
+                color="success">Proceed</button>
+        <button mat-raised-button
+                color="warn">Cancel</button>
+      </footer>
+
+    </ng-container>
+
   </section>
 </main>

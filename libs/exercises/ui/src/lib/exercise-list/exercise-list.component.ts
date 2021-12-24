@@ -22,16 +22,22 @@ export class ExerciseListComponent {
   public readonly exerciseViewed = new EventEmitter<string>();
   @Output()
   public readonly exerciseDeleted = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseAddedToWorkout = new EventEmitter<string>();
 
-  public viewExercise({ id }: ExerciseVM): void {
+  public viewExercise(id: string): void {
     this.exerciseViewed.emit(id);
   }
 
-  public editExercise({ id }: ExerciseVM): void {
+  public editExercise(id: string): void {
     this.exerciseEdited.emit(id);
   }
 
   public deleteExercise(id: string): void {
     this.exerciseDeleted.emit(id);
+  }
+
+  public addedToWorkout(id: string): void {
+    this.exerciseAddedToWorkout.emit(id);
   }
 }

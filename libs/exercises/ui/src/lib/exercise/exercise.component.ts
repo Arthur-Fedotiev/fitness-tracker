@@ -23,6 +23,8 @@ export class ExerciseComponent {
   public readonly exerciseViewed = new EventEmitter<string>();
   @Output()
   public readonly exerciseDeleted = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseAddedToWorkout = new EventEmitter<string>();
 
   public viewExercise({ id }: ExerciseVM): void {
     this.exerciseViewed.emit(id);
@@ -34,5 +36,9 @@ export class ExerciseComponent {
 
   public deleteExercise({ id }: ExerciseVM): void {
     this.exerciseDeleted.emit(id);
+  }
+
+  public addedToWorkout({ id }: ExerciseVM): void {
+    this.exerciseAddedToWorkout.emit(id);
   }
 }

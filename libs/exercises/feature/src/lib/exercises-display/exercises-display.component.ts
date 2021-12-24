@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
   ExerciseMetaCollectionsDictionaryUnit,
+  ExercisesEntity,
   ExerciseVM,
   EXERCISE_MODE,
 } from '@fitness-tracker/exercises/model';
@@ -22,9 +23,12 @@ import {
   BehaviorSubject,
   filter,
   map,
+  merge,
   Observable,
+  scan,
   skip,
   Subject,
+  switchMap,
   tap,
 } from 'rxjs';
 
@@ -40,6 +44,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly exercisesList$: Observable<ExerciseVM[]> =
     this.exerciseFacade.exercisesList$.pipe(
       tap(() => this.isLoadingProhibited.next(false)),
+      tap(console.log),
     );
   public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
     this.exerciseFacade.exercisesMetaCollections$.pipe(filter(Boolean));
@@ -67,6 +72,18 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     skip(1),
     tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
     untilDestroyed(this),
+  );
+
+  private readonly composeWorkout = new Subject<{ id: string; add: boolean }>();
+  public readonly composeWorkout$: Observable<
+    Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[]
+  > = this.composeWorkout.asObservable().pipe(
+    scan((exercisesSet, { id, add }) => {
+      add ? exercisesSet.add(id) : exercisesSet.delete(id);
+      return exercisesSet;
+    }, new Set<string>()),
+    switchMap((idsSet) => this.exerciseFacade.exercisePreviews$(idsSet)),
+    tap(console.log),
   );
 
   constructor(
@@ -98,6 +115,14 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
 
   public loadMoreExercises(isLoadMore: boolean): void {
     this.loadExercises.next({ isLoadMore });
+  }
+
+  public addToComposedWorkout(id: string): void {
+    this.composeWorkout.next({ id, add: true });
+  }
+
+  public removeFromComposedWorkout(id: string): void {
+    this.composeWorkout.next({ id, add: false });
   }
 
   private findExercises(paginationData: Pagination): void {

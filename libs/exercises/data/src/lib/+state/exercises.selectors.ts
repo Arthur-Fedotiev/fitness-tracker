@@ -80,6 +80,16 @@ export const getExercisesEntities = createSelector(
   (state: State) => selectEntities(state),
 );
 
+export const selectExercisePreview = (exerciseIds: Set<string>) =>
+  createSelector(
+    getExercisesEntities,
+    (entities): Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[] =>
+      [...exerciseIds].map((exerciseId) => {
+        const { id, name, avatarUrl } = entities[exerciseId] as ExercisesEntity;
+        return { id, name, avatarUrl };
+      }),
+  );
+
 export const getSelectedId = createSelector(
   getExercisesState,
   (state: State) => state.selectedId,
