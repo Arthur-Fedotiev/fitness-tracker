@@ -10,6 +10,33 @@ service cloud.firestore {
 
       allow create,update: if isValidExercise() && isAdmin();
       allow delete: if isAuthenticated() && isAdmin();
+
+      match /translations/{translationId} {
+        allow read: if isKnownUser();
+      }
+
+    }
+
+    match /muscles/{doc=**} {
+      allow read: if isAuthenticated();
+
+      allow write: if isAdmin();
+    }
+
+    match /equipment/{doc=**} {
+      allow read: if isAuthenticated();
+
+      allow write: if isAdmin();
+    }
+
+    match /exercise-types/{doc=**} {
+      allow read: if isAuthenticated();
+
+      allow write: if isAdmin();
+    }
+
+    match /{path=**}/translations/{lessonId} {
+      allow read: if isKnownUser();
     }
 
     function isAdmin() {
