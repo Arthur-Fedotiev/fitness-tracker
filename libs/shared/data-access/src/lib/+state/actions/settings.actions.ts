@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { SETTINGS_ACTIONS_NAMES } from './action-names.enum';
-import { Locales, WithPayload } from '@fitness-tracker/shared/utils';
+import { WithPayload } from '@fitness-tracker/shared/utils';
 import { LanguageCodes } from 'shared-package';
 
 export const languageSelected = createAction(
@@ -14,5 +14,5 @@ export const darkModeChanged = createAction(
 
 export const languageSelectedSuccess = createAction(
   SETTINGS_ACTIONS_NAMES.LANGUAGE_SELECTED_SUCCESS,
-  props<WithPayload<Locales>>(),
+  props<WithPayload<LanguageCodes>>(),
 );

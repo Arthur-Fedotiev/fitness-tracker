@@ -1,8 +1,4 @@
-import {
-  APP_LOCALE,
-  LanguagesISO,
-  LANG_STORAGE_KEY,
-} from '@fitness-tracker/shared/utils';
+import { LanguagesISO, LANG_STORAGE_KEY } from '@fitness-tracker/shared/utils';
 import { Action, ActionReducer, INIT } from '@ngrx/store';
 import { LanguageCodes } from 'shared-package';
 import { FtState } from '../reducers/app.reduce-map';
@@ -12,25 +8,18 @@ export const languageMetaReducer = (
 ): ActionReducer<FtState> => {
   return (state: FtState | undefined, action: Action) => {
     if (action.type === INIT) {
-      const languageStored: LanguageCodes = (localStorage.getItem(
-        LANG_STORAGE_KEY,
-      ) ?? LanguagesISO.DEFAULT) as LanguageCodes;
-      const language: LanguageCodes = APP_LOCALE.has(languageStored)
-        ? languageStored
-        : LanguagesISO.DEFAULT;
-
-      const localeData = APP_LOCALE.get(language);
+      const language: LanguageCodes = (localStorage.getItem(LANG_STORAGE_KEY) ??
+        LanguagesISO.DEFAULT) as LanguageCodes;
 
       state = state
         ? {
             ...state,
             settings: {
               ...state.settings,
-              language: languageStored,
-              localeData,
+              language,
             },
           }
-        : ({ settings: { language: languageStored, localeData } } as FtState);
+        : ({ settings: { language } } as FtState);
     }
 
     return reducer(state, action);

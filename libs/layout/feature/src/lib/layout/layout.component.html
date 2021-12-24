@@ -1,7 +1,6 @@
 <ft-layout-ui [isLoggedIn]="isLoggedIn$ | async"
               [isLoggedOut]="isLoggedOut$ | async"
               [photoUrl]="photoUrl$ | async"
-              [navigationBarLocaleData]="navigationBarLocaleData$ | async"
               [language]="language$ | async"
               [isDarkMode]="(isDarkMode$ | async) ?? false"
               (loggedOutChange)="logOut()"

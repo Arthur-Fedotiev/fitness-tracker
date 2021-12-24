@@ -21,8 +21,7 @@
 <ng-template #navList
              let-layout
              let-isDesktop>
-  <ft-navigation-bar [layout]="layout"
-                     [localeData]="navigationBarLocaleData"></ft-navigation-bar>
+  <ft-navigation-bar [layout]="layout"></ft-navigation-bar>
   <section class="settings"
            [fxHide.lt-md]="layout === 'row'">
     <ft-settings-bar [class.toolbar]="layout === 'row'"

@@ -5,11 +5,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import {
-  ComponentNames,
-  Language,
-  Locales,
-} from '@fitness-tracker/shared/utils';
+import { Language } from '@fitness-tracker/shared/utils';
 import { LanguageCodes } from 'shared-package';
 
 @Component({
@@ -25,10 +21,6 @@ export class LayoutUiComponent {
   @Input() public language: Language | null = null;
   @Input() public isDarkMode = false;
 
-  @Input()
-  public navigationBarLocaleData:
-    | Locales[ComponentNames.NavigationBarComponent]
-    | null = null;
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
   @Output() public readonly languageSelected =
     new EventEmitter<LanguageCodes>();

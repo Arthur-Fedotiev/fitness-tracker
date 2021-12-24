@@ -5,13 +5,8 @@ import {
 } from '@angular/core';
 import { AuthFacadeService } from '@fitness-tracker/auth/data';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
-import {
-  ComponentNames,
-  Language,
-  LANGUAGES_LABELS_LIST,
-  Locales,
-} from '@fitness-tracker/shared/utils';
-import { filter, map, Observable, tap } from 'rxjs';
+import { Language, LANGUAGES_LABELS_LIST } from '@fitness-tracker/shared/utils';
+import { filter, map, Observable } from 'rxjs';
 import { LanguageCodes } from 'shared-package';
 
 @Component({
@@ -28,12 +23,6 @@ export class LayoutComponent {
     this.authFacade.isLoggedOut$;
   public readonly photoUrl$: Observable<string | null> =
     this.authFacade.photoUrl$;
-  public readonly navigationBarLocaleData$: Observable<
-    Locales[ComponentNames.NavigationBarComponent]
-  > = this.settingsFacade.selectLocaleData$.pipe(
-    map((selectFn) => selectFn(ComponentNames.NavigationBarComponent)),
-    filter(Boolean),
-  );
   public readonly language$: Observable<Language> =
     this.settingsFacade.language$.pipe(
       map((langCode: LanguageCodes) =>

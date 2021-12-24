@@ -1,7 +1,6 @@
 import * as fromSettings from '../reducers/settings.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { LanguageCodes } from 'shared-package';
-import { ComponentNames, Locales } from '@fitness-tracker/shared/utils';
 
 export const selectSettingsState =
   createFeatureSelector<fromSettings.SettingsState>(
@@ -16,13 +15,4 @@ export const selectLanguage = createSelector(
 export const selectIsDarkMode = createSelector(
   selectSettingsState,
   (state): boolean => state.isDarkMode,
-);
-
-export const selectLocaleData = createSelector(
-  selectSettingsState,
-  ({
-      localeData,
-    }): ((component: ComponentNames) => Locales[ComponentNames] | null) =>
-    (component: ComponentNames): Locales[ComponentNames] | null =>
-      localeData && localeData[component],
 );
