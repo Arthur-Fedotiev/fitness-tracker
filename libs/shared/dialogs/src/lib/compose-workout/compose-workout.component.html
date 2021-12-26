@@ -3,10 +3,6 @@
   <mat-tree [dataSource]="dataSource"
             [treeControl]="treeControl"
             class="example-tree">
-    <!-- This is the tree node template for leaf nodes -->
-    <!-- There is inline padding applied to this node using styles.
-      This padding value depends on the mat-icon-button width. -->
-
     <mat-tree-node *matTreeNodeDef="let node"
                    matTreeNodePadding>
       <button *ngIf="isSupersetComposeUnderway && !node.isNested"
@@ -29,58 +25,15 @@
               {{node.name}}
             </mat-panel-title>
             <mat-panel-description>
-              Type: {{node.instructionStrategy?.instruction?.type ?? 'N/A'}}
-              Load: {{node.instructionStrategy?.instruction?.load ?? 'N/A'}}
-              <ng-container *ngIf="!node.parent">Rest pause between sets: {{node.instructionStrategy?.instruction?.restPause ?? 'N/A'}}</ng-container>
+              Type: {{node.instructionStrategy?.type ?? 'N/A'}}
+              Load: {{node.instructionStrategy?.load ?? 'N/A'}}
+              <ng-container *ngIf="!node.parent">Rest pause between sets: {{node.instructionStrategy?.restPause ?? 'N/A'}}</ng-container>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <form #instructionsForm="ngForm"
-                (ngSubmit)="saveStrategy(node, instructionsForm.value)">
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select Exercise Type"
-                          ngModel
-                          name="type"
-                          required>
-                <mat-option [value]="instructionType.REPS">Repetitions</mat-option>
-                <mat-option [value]="instructionType.DURATION">Seconds</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Load</mat-label>
-              <input type="number"
-                     step="1"
-                     ngModel
-                     name="load"
-                     min="0"
-                     matInput
-                     required>
-            </mat-form-field>
-            <ng-container *ngIf="!node.parent">
-              <mat-form-field>
-                <mat-label>Rest Pause Between</mat-label>
-                <input type="number"
-                       step="1"
-                       ngModel
-                       name="restPauseBetween"
-                       min="0"
-                       matInput
-                       required>
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>Rest Pause after Complete</mat-label>
-                <input type="number"
-                       step="1"
-                       ngModel
-                       name="restPauseAfterComplete"
-                       min="0"
-                       matInput
-                       required>
-              </mat-form-field>
-            </ng-container>
-
-            <button mat-button
-                    [disabled]="!instructionsForm.valid"
-                    type="submit">Save</button>
+          <form #instructionsForm="ngForm">
+            <ft-workout-item-load [instruction]="node.instructionStrategy"></ft-workout-item-load>
+            <ft-workout-item-rest *ngIf="!node.parent"
+                                  [instruction]="node.instructionStrategy"></ft-workout-item-rest>
           </form>
         </mat-expansion-panel>
       </mat-accordion>
@@ -103,58 +56,15 @@
           <mat-icon>delete</mat-icon>
         </button>
         <mat-form-field appearance="outline">
-
           <input placeholder="Superset Name"
                  matInput
                  [value]="node.name"
                  [(ngModel)]="node.name">
-
         </mat-form-field>
 
-        <form #setInstructionsForm="ngForm"
-              (ngSubmit)="saveStrategy(node, setInstructionsForm.value)">
-          <mat-form-field appearance="outline">
-            <mat-select placeholder="Repetitions"
-                        ngModel
-                        name="type"
-                        [value]="instructionType.REPS"
-                        required>
-              <mat-option [value]="instructionType.REPS">Repetitions</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Times</mat-label>
-            <input type="number"
-                   step="1"
-                   ngModel
-                   name="load"
-                   min="0"
-                   matInput
-                   required>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Rest between sets</mat-label>
-            <input type="number"
-                   step="1"
-                   ngModel
-                   name="restPauseBetween"
-                   min="0"
-                   matInput
-                   required>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Rest after complete</mat-label>
-            <input type="number"
-                   step="1"
-                   ngModel
-                   name="restPauseAfterComplete"
-                   min="0"
-                   matInput
-                   required>
-          </mat-form-field>
-          <button mat-button
-                  [disabled]="!setInstructionsForm.valid"
-                  type="submit">Save</button>
+        <form #setInstructionsForm="ngForm">
+          <ft-workout-item-load [instruction]="node.instructionStrategy"></ft-workout-item-load>
+          <ft-workout-item-rest [instruction]="node.instructionStrategy"></ft-workout-item-rest>
         </form>
       </div>
       <!-- There is inline padding applied to this div using styles.

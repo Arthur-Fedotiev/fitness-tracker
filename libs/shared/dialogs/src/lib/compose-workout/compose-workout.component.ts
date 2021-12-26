@@ -24,68 +24,66 @@ export enum InstructionType {
 
 export const DEFAULT_REST_PAUSE = 0;
 
-export abstract class Instruction<T> {
-  abstract instruction: T | null;
-  abstract setInstruction(
-    instruction: SingleWorkoutItemInstruction,
-  ): Instruction<T>;
-  abstract isValid(): boolean;
-  reset(): Instruction<T> {
-    this.instruction = null;
-    return this;
+export type IInstruction<T = Record<string, any>> = {
+  [P in keyof T]: T[P];
+};
+export abstract class Instruction implements WorkoutItemInstruction {
+  public abstract load: number | null;
+  public abstract type: InstructionType | null;
+  public abstract restPauseBetween: number;
+  public abstract restPauseAfterComplete: number;
+
+  public isValid(): boolean {
+    return Boolean(
+      this.load &&
+        this.load >= 0 &&
+        this.type &&
+        InstructionType[this.type] &&
+        this.restPauseBetween >= 0 &&
+        this.restPauseBetween >= 0,
+    );
+  }
+
+  public reset(): void {
+    this.load = null;
+    this.restPauseBetween = DEFAULT_REST_PAUSE;
+    this.restPauseAfterComplete = DEFAULT_REST_PAUSE;
   }
 }
 
-export interface SingleWorkoutItemInstruction {
+export interface WorkoutItemInstruction {
   load: number | null;
   type: InstructionType | null;
   restPauseBetween: number;
   restPauseAfterComplete: number;
+  isValid: () => boolean;
+  reset: () => void;
 }
 
-export interface CompositeWorkoutItemInstruction {
-  load: number;
+export interface CompositeWorkoutItemInstruction
+  extends WorkoutItemInstruction {
   type: InstructionType.REPS;
-  restPauseBetween: number;
-  restPauseAfterComplete: number;
 }
-export class ConcreteSingleWorkoutItemInstruction extends Instruction<SingleWorkoutItemInstruction> {
-  public instruction: SingleWorkoutItemInstruction | null = null;
+export class ConcreteSingleWorkoutItemInstruction extends Instruction {
+  public load: number | null = null;
+  public type: InstructionType | null = null;
+  public restPauseBetween: number = DEFAULT_REST_PAUSE;
+  public restPauseAfterComplete: number = DEFAULT_REST_PAUSE;
 
-  public setInstruction(
-    instruction: SingleWorkoutItemInstruction,
-  ): Instruction<SingleWorkoutItemInstruction> {
-    this.instruction = instruction;
-    return this;
-  }
-
-  public isValid(): boolean {
-    return Boolean(
-      this.instruction?.load &&
-        this.instruction.type &&
-        InstructionType[this.instruction.type] &&
-        this.instruction.restPauseBetween >= 0 &&
-        this.instruction.restPauseBetween >= 0,
-    );
+  public reset(): void {
+    super.reset();
+    this.load = null;
   }
 }
 
-export class ConcreteCompositeWorkoutItemInstruction extends Instruction<CompositeWorkoutItemInstruction> {
-  instruction: CompositeWorkoutItemInstruction | null = null;
-  setInstruction(
-    instruction: CompositeWorkoutItemInstruction,
-  ): Instruction<CompositeWorkoutItemInstruction> {
-    this.instruction = instruction;
-    this.instruction.type = InstructionType.REPS;
-    return this;
-  }
-  isValid(): boolean {
-    return Boolean(
-      this.instruction &&
-        this.instruction.load >= 0 &&
-        this.instruction.restPauseBetween >= 0 &&
-        this.instruction.restPauseAfterComplete >= 0,
-    );
+export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
+  public readonly type = InstructionType.REPS;
+  public load: number | null = null;
+  public restPauseBetween: number = DEFAULT_REST_PAUSE;
+  public restPauseAfterComplete: number = DEFAULT_REST_PAUSE;
+
+  public reset(): void {
+    super.reset();
   }
 }
 
@@ -95,19 +93,19 @@ export interface WorkoutItem {
   id: string;
   children?: WorkoutItem[];
   parent: WorkoutItem | null;
-  getInstructions: () => Instruction<unknown>;
+  getInstructions: () => WorkoutItemInstruction;
   isValid: () => boolean;
 }
 export class SingleWorkoutItem implements WorkoutItem {
   constructor(
     public name: string,
     public id: string,
-    public instructionStrategy: Instruction<SingleWorkoutItemInstruction>,
+    public instructionStrategy: WorkoutItemInstruction,
     public parent: WorkoutItem | null = null,
     public isNested: boolean = false,
   ) {}
 
-  public getInstructions(): Instruction<SingleWorkoutItemInstruction> {
+  public getInstructions(): WorkoutItemInstruction {
     return this.instructionStrategy;
   }
 
@@ -135,10 +133,10 @@ export class WorkoutItemComposite implements WorkoutItem {
   constructor(
     public name: string,
     public children: SingleWorkoutItem[],
-    public instructionStrategy: Instruction<CompositeWorkoutItemInstruction>,
+    public instructionStrategy: CompositeWorkoutItemInstruction,
   ) {}
 
-  public getInstructions(): Instruction<CompositeWorkoutItemInstruction> {
+  public getInstructions(): CompositeWorkoutItemInstruction {
     return this.instructionStrategy;
   }
 
@@ -246,10 +244,10 @@ export class ComposeWorkoutComponent implements OnInit {
       );
   }
 
-  public saveStrategy(node: WorkoutItem, instructionStrategy: any): void {
-    console.log('[saveStrategy]:', node, instructionStrategy);
-    node.getInstructions().setInstruction(instructionStrategy);
-  }
+  // public saveStrategy(node: WorkoutItem, instructionStrategy: any): void {
+  //   console.log('[saveStrategy]:', node, instructionStrategy);
+  //   node.getInstructions().setInstruction(instructionStrategy);
+  // }
 
   public removeFromSuperset(node: SingleWorkoutItem): void {
     console.log(node);
