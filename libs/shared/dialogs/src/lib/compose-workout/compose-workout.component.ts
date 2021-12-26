@@ -4,18 +4,13 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
-import { BehaviorSubject, merge, scan, Subject } from 'rxjs';
-import {
-  map,
-  shareReplay,
-  switchMapTo,
-  tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { merge, scan, Subject } from 'rxjs';
+import { map, shareReplay, tap, withLatestFrom } from 'rxjs/operators';
 
 export enum InstructionType {
   'REPS' = 'REPS',
@@ -88,6 +83,7 @@ export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
 }
 
 export interface WorkoutItem {
+  instructionStrategy: WorkoutItemInstruction;
   isNested: boolean;
   name: string;
   id: string;
@@ -95,6 +91,9 @@ export interface WorkoutItem {
   parent: WorkoutItem | null;
   getInstructions: () => WorkoutItemInstruction;
   isValid: () => boolean;
+  setParent(parentNode: WorkoutItem | null): WorkoutItem;
+  remove(childNode: WorkoutItem): void;
+  setNested(isNested: boolean): WorkoutItem;
 }
 export class SingleWorkoutItem implements WorkoutItem {
   constructor(
@@ -109,7 +108,7 @@ export class SingleWorkoutItem implements WorkoutItem {
     return this.instructionStrategy;
   }
 
-  public setNested(isNested: boolean): SingleWorkoutItem {
+  public setNested(isNested: boolean): WorkoutItem {
     this.isNested = isNested;
     return this;
   }
@@ -119,21 +118,24 @@ export class SingleWorkoutItem implements WorkoutItem {
     return this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public remove(): void {}
+
   public isValid(): boolean {
     return this.instructionStrategy.isValid();
   }
 }
 export class WorkoutItemComposite implements WorkoutItem {
   public isNested = false;
-  public parent = null;
 
   public get id() {
     return this.name;
   }
   constructor(
     public name: string,
-    public children: SingleWorkoutItem[],
+    public children: WorkoutItem[],
     public instructionStrategy: CompositeWorkoutItemInstruction,
+    public parent: WorkoutItem | null = null,
   ) {}
 
   public getInstructions(): CompositeWorkoutItemInstruction {
@@ -143,10 +145,25 @@ export class WorkoutItemComposite implements WorkoutItem {
   public isValid(): boolean {
     return this.children.every((child) => child.isValid());
   }
+
+  public setParent(parent: WorkoutItem | null): WorkoutItem {
+    this.parent = parent;
+    return this;
+  }
+
+  public remove(node: WorkoutItem): void {
+    this.children = this.children.filter(
+      (childNode) => childNode.id !== node.id,
+    );
+  }
+
+  public setNested(isNested: boolean): WorkoutItem {
+    this.isNested = isNested;
+    return this;
+  }
 }
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ft-compose-workout',
   templateUrl: './compose-workout.component.html',
   styleUrls: ['./compose-workout.component.scss'],
@@ -155,8 +172,10 @@ export class WorkoutItemComposite implements WorkoutItem {
 export class ComposeWorkoutComponent implements OnInit {
   public readonly instructionType = InstructionType;
   public isSupersetComposeUnderway = false;
-  treeControl = new NestedTreeControl<WorkoutItem>((node) => node.children);
-  dataSource = new MatTreeNestedDataSource<WorkoutItem>();
+  public readonly treeControl = new NestedTreeControl<WorkoutItem>(
+    (node) => node.children,
+  );
+  public readonly dataSource = new MatTreeNestedDataSource<WorkoutItem>();
 
   public readonly addToComposableSuperset = new Subject<SingleWorkoutItem>();
   public readonly reset = new Subject<void>();
@@ -204,6 +223,7 @@ export class ComposeWorkoutComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
     private dialogRef: MatDialogRef<ComposeWorkoutComponent>,
+    private readonly cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -231,13 +251,13 @@ export class ComposeWorkoutComponent implements OnInit {
   public hasChild = (_: number, node: WorkoutItem) =>
     !!node.children && node.children.length > 0;
 
-  public decompose(decomposedSet: any): void {
-    console.log(decomposedSet);
+  public decompose(decomposedNode: WorkoutItemComposite): void {
+    console.log(decomposedNode);
 
     this.dataSource.data = this.dataSource.data
-      .filter((node) => node.name !== decomposedSet.name)
+      .filter((node) => node.name !== decomposedNode.name)
       .concat(
-        decomposedSet.children.map((node: SingleWorkoutItem) => {
+        decomposedNode.children.map((node: WorkoutItem) => {
           node.setNested(false).setParent(null).instructionStrategy.reset();
           return node;
         }),
@@ -249,18 +269,34 @@ export class ComposeWorkoutComponent implements OnInit {
   //   node.getInstructions().setInstruction(instructionStrategy);
   // }
 
-  public removeFromSuperset(node: SingleWorkoutItem): void {
-    console.log(node);
-    // this.dataSource.data = this.dataSource.data
-    //   .filter((node) => node.name !== decomposedSet.name)
-    //   .concat(
-    //     decomposedSet.children.map((node: SingleWorkoutItem) =>
-    //       node.setNested(false),
-    //     ),
-    //   );
+  public removeFromSuperset(
+    node: SingleWorkoutItem,
+    parent: WorkoutItemComposite,
+  ): void {
+    console.log(node, parent);
+
+    if (parent.children && parent.children.length <= 2) {
+      this.decompose(parent);
+    } else {
+      parent.remove(node);
+      node.getInstructions().reset();
+      const newData = [
+        ...this.dataSource.data,
+        node.setParent(null).setNested(false),
+      ];
+      this.resetDataSource(newData);
+    }
   }
 
   public saveWorkout(): void {
     console.log(this.dataSource.data);
+  }
+
+  private resetDataSource(newData: WorkoutItem[]): void {
+    this.dataSource.data = [];
+    this.dataSource.data = newData;
+  }
+  public trackById(_: number, node: WorkoutItem): string | number {
+    return node.id;
   }
 }

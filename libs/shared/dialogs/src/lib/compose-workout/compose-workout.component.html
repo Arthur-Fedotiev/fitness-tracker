@@ -2,6 +2,7 @@
 <mat-dialog-content class="mat-typography">
   <mat-tree [dataSource]="dataSource"
             [treeControl]="treeControl"
+            [trackBy]="trackById"
             class="example-tree">
     <mat-tree-node *matTreeNodeDef="let node"
                    matTreeNodePadding>
@@ -15,7 +16,7 @@
       <button *ngIf="node.isNested"
               mat-mini-fab
               color="warn"
-              (click)="removeFromSuperset(node)">
+              (click)="removeFromSuperset(node, node.parent)">
         <mat-icon>delete</mat-icon>
       </button>
       <mat-accordion>
