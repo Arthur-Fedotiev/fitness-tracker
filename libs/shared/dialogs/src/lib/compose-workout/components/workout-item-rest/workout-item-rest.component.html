@@ -1,0 +1,20 @@
+<mat-form-field>
+  <mat-label>Rest between sets</mat-label>
+  <input type="number"
+         step="1"
+         [(ngModel)]="instruction.restPauseBetween"
+         name="restPauseBetween"
+         min="0"
+         matInput
+         required>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Rest after complete</mat-label>
+  <input type="number"
+         step="1"
+         [(ngModel)]="instruction.restPauseAfterComplete"
+         name="restPauseAfterComplete"
+         min="0"
+         matInput
+         required>
+</mat-form-field>
