@@ -7,4 +7,5 @@ export * from './lib/interfaces/routing.interfaces';
 export * from './lib/functions';
 export * from './lib/i18n';
 export * from './lib/i18n/functions/getTranslationsLoader';
+export * from './lib/providers/form-view.provider';
 export { ImgFallbackModule } from './lib/directives/img-fallback/img-fallback.module';
