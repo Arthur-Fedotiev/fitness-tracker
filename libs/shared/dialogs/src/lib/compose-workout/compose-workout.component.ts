@@ -17,84 +17,150 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-export class WorkoutItemInstruction {
-  constructor(public type: string, public _load?: number) {}
+export enum InstructionType {
+  'REPS' = 'REPS',
+  'DURATION' = 'DURATION',
+}
 
-  public getLoad(): number | null {
-    return this._load || null;
-  }
+export const DEFAULT_REST_PAUSE = 0;
 
-  public setLoad(load: number): WorkoutItemInstruction {
-    this._load = load;
-    return this;
-  }
-
-  public setType(load: number): WorkoutItemInstruction {
-    this._load = load;
+export abstract class Instruction<T> {
+  abstract instruction: T | null;
+  abstract setInstruction(
+    instruction: SingleWorkoutItemInstruction,
+  ): Instruction<T>;
+  abstract isValid(): boolean;
+  reset(): Instruction<T> {
+    this.instruction = null;
     return this;
   }
 }
 
-export interface WorkoutItemComposite {
+export interface SingleWorkoutItemInstruction {
+  load: number | null;
+  type: InstructionType | null;
+  restPauseBetween: number;
+  restPauseAfterComplete: number;
+}
+
+export interface CompositeWorkoutItemInstruction {
+  load: number;
+  type: InstructionType.REPS;
+  restPauseBetween: number;
+  restPauseAfterComplete: number;
+}
+export class ConcreteSingleWorkoutItemInstruction extends Instruction<SingleWorkoutItemInstruction> {
+  public instruction: SingleWorkoutItemInstruction | null = null;
+
+  public setInstruction(
+    instruction: SingleWorkoutItemInstruction,
+  ): Instruction<SingleWorkoutItemInstruction> {
+    this.instruction = instruction;
+    return this;
+  }
+
+  public isValid(): boolean {
+    return Boolean(
+      this.instruction?.load &&
+        this.instruction.type &&
+        InstructionType[this.instruction.type] &&
+        this.instruction.restPauseBetween >= 0 &&
+        this.instruction.restPauseBetween >= 0,
+    );
+  }
+}
+
+export class ConcreteCompositeWorkoutItemInstruction extends Instruction<CompositeWorkoutItemInstruction> {
+  instruction: CompositeWorkoutItemInstruction | null = null;
+  setInstruction(
+    instruction: CompositeWorkoutItemInstruction,
+  ): Instruction<CompositeWorkoutItemInstruction> {
+    this.instruction = instruction;
+    this.instruction.type = InstructionType.REPS;
+    return this;
+  }
+  isValid(): boolean {
+    return Boolean(
+      this.instruction &&
+        this.instruction.load >= 0 &&
+        this.instruction.restPauseBetween >= 0 &&
+        this.instruction.restPauseAfterComplete >= 0,
+    );
+  }
+}
+
+export interface WorkoutItem {
   isNested: boolean;
   name: string;
-  id?: string;
-  children?: WorkoutItemComposite[];
-  getInstructions: () => WorkoutItemInstruction | Record<string, never>;
+  id: string;
+  children?: WorkoutItem[];
+  parent: WorkoutItem | null;
+  getInstructions: () => Instruction<unknown>;
+  isValid: () => boolean;
 }
-
-export class WorkoutItem implements WorkoutItemComposite {
-  public instructionStrategy;
-
+export class SingleWorkoutItem implements WorkoutItem {
   constructor(
     public name: string,
     public id: string,
+    public instructionStrategy: Instruction<SingleWorkoutItemInstruction>,
+    public parent: WorkoutItem | null = null,
     public isNested: boolean = false,
-    instructionStrategy?: WorkoutItemInstruction | undefined,
-  ) {
-    this.instructionStrategy = instructionStrategy || {};
+  ) {}
+
+  public getInstructions(): Instruction<SingleWorkoutItemInstruction> {
+    return this.instructionStrategy;
   }
 
-  public getInstructions() {
-    return this.instructionStrategy ?? {};
-  }
-
-  public setNested(isNested: boolean) {
+  public setNested(isNested: boolean): SingleWorkoutItem {
     this.isNested = isNested;
     return this;
   }
-}
 
-export class WorkoutSet implements WorkoutItemComposite {
-  public isNested = false;
-  public instructionStrategy;
-  constructor(
-    public name: string,
-    public children: WorkoutItem[],
-    instructionStrategy?: WorkoutItemInstruction | undefined,
-  ) {
-    this.instructionStrategy = instructionStrategy || {};
+  public setParent(parent: WorkoutItem | null): SingleWorkoutItem {
+    this.parent = parent;
+    return this;
   }
 
-  public getInstructions() {
-    return this.instructionStrategy ?? {};
+  public isValid(): boolean {
+    return this.instructionStrategy.isValid();
+  }
+}
+export class WorkoutItemComposite implements WorkoutItem {
+  public isNested = false;
+  public parent = null;
+
+  public get id() {
+    return this.name;
+  }
+  constructor(
+    public name: string,
+    public children: SingleWorkoutItem[],
+    public instructionStrategy: Instruction<CompositeWorkoutItemInstruction>,
+  ) {}
+
+  public getInstructions(): Instruction<CompositeWorkoutItemInstruction> {
+    return this.instructionStrategy;
+  }
+
+  public isValid(): boolean {
+    return this.children.every((child) => child.isValid());
   }
 }
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ft-compose-workout',
   templateUrl: './compose-workout.component.html',
   styleUrls: ['./compose-workout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComposeWorkoutComponent implements OnInit {
+  public readonly instructionType = InstructionType;
   public isSupersetComposeUnderway = false;
-  treeControl = new NestedTreeControl<WorkoutItemComposite>(
-    (node) => node.children,
-  );
-  dataSource = new MatTreeNestedDataSource<WorkoutItemComposite>();
+  treeControl = new NestedTreeControl<WorkoutItem>((node) => node.children);
+  dataSource = new MatTreeNestedDataSource<WorkoutItem>();
 
-  public readonly addToComposableSuperset = new Subject<WorkoutItem>();
+  public readonly addToComposableSuperset = new Subject<SingleWorkoutItem>();
   public readonly reset = new Subject<void>();
   public readonly saveSupersetSubj = new Subject<void>();
 
@@ -102,7 +168,10 @@ export class ComposeWorkoutComponent implements OnInit {
     this.addToComposableSuperset.asObservable(),
     this.reset,
   ).pipe(
-    scan((acc, curr) => (curr ? [...acc, curr] : []), [] as WorkoutItem[]),
+    scan(
+      (acc, curr) => (curr ? [...acc, curr] : []),
+      [] as SingleWorkoutItem[],
+    ),
     shareReplay(1),
   );
 
@@ -115,7 +184,16 @@ export class ComposeWorkoutComponent implements OnInit {
           !id ? true : !superset.map((ex) => ex.id).includes(id),
         )),
     ),
-    map((superset) => new WorkoutSet('Superset', superset)),
+    map((superset) => {
+      const set = new WorkoutItemComposite(
+        'Superset',
+        superset,
+        new ConcreteCompositeWorkoutItemInstruction(),
+      );
+      set.children.map((node) => node.setParent(set));
+
+      return set;
+    }),
     tap(
       (workoutSet) =>
         (this.dataSource.data = [...this.dataSource.data, workoutSet]),
@@ -133,7 +211,12 @@ export class ComposeWorkoutComponent implements OnInit {
   ngOnInit(): void {
     this.createSuperset$.subscribe(console.log);
     this.dataSource.data = this.data.map(
-      ({ name, id }) => new WorkoutItem(name, id, false),
+      ({ name, id }) =>
+        new SingleWorkoutItem(
+          name,
+          id,
+          new ConcreteSingleWorkoutItemInstruction(),
+        ),
     );
   }
 
@@ -147,7 +230,7 @@ export class ComposeWorkoutComponent implements OnInit {
     this.saveSupersetSubj.next();
   }
 
-  public hasChild = (_: number, node: WorkoutItemComposite) =>
+  public hasChild = (_: number, node: WorkoutItem) =>
     !!node.children && node.children.length > 0;
 
   public decompose(decomposedSet: any): void {
@@ -156,9 +239,30 @@ export class ComposeWorkoutComponent implements OnInit {
     this.dataSource.data = this.dataSource.data
       .filter((node) => node.name !== decomposedSet.name)
       .concat(
-        decomposedSet.children.map((node: WorkoutItem) =>
-          node.setNested(false),
-        ),
+        decomposedSet.children.map((node: SingleWorkoutItem) => {
+          node.setNested(false).setParent(null).instructionStrategy.reset();
+          return node;
+        }),
       );
+  }
+
+  public saveStrategy(node: WorkoutItem, instructionStrategy: any): void {
+    console.log('[saveStrategy]:', node, instructionStrategy);
+    node.getInstructions().setInstruction(instructionStrategy);
+  }
+
+  public removeFromSuperset(node: SingleWorkoutItem): void {
+    console.log(node);
+    // this.dataSource.data = this.dataSource.data
+    //   .filter((node) => node.name !== decomposedSet.name)
+    //   .concat(
+    //     decomposedSet.children.map((node: SingleWorkoutItem) =>
+    //       node.setNested(false),
+    //     ),
+    //   );
+  }
+
+  public saveWorkout(): void {
+    console.log(this.dataSource.data);
   }
 }

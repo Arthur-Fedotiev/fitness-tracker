@@ -16,6 +16,12 @@
               (click)="addToComposableSuperset.next(node)">
         <mat-icon>add</mat-icon>
       </button>
+      <button *ngIf="node.isNested"
+              mat-mini-fab
+              color="warn"
+              (click)="removeFromSuperset(node)">
+        <mat-icon>delete</mat-icon>
+      </button>
       <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
@@ -23,29 +29,58 @@
               {{node.name}}
             </mat-panel-title>
             <mat-panel-description>
-              Type: {{node.instructionStrategy?.type ?? 'N/A'}}
-              Load: {{node.instructionStrategy?.load ?? 'N/A'}}
+              Type: {{node.instructionStrategy?.instruction?.type ?? 'N/A'}}
+              Load: {{node.instructionStrategy?.instruction?.load ?? 'N/A'}}
+              <ng-container *ngIf="!node.parent">Rest pause between sets: {{node.instructionStrategy?.instruction?.restPause ?? 'N/A'}}</ng-container>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <form #workoutItemForm="ngForm">
+          <form #instructionsForm="ngForm"
+                (ngSubmit)="saveStrategy(node, instructionsForm.value)">
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select Exercise Type"
+                          ngModel
                           name="type"
-                          [(ngModel)]="node.instructionStrategy.type"
                           required>
-                <mat-option [value]="'reps'">Repetitions</mat-option>
-                <mat-option [value]="'duration'">Seconds</mat-option>
+                <mat-option [value]="instructionType.REPS">Repetitions</mat-option>
+                <mat-option [value]="instructionType.DURATION">Seconds</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Load</mat-label>
               <input type="number"
                      step="1"
+                     ngModel
                      name="load"
-                     [(ngModel)]="node.instructionStrategy.load"
+                     min="0"
                      matInput
                      required>
             </mat-form-field>
+            <ng-container *ngIf="!node.parent">
+              <mat-form-field>
+                <mat-label>Rest Pause Between</mat-label>
+                <input type="number"
+                       step="1"
+                       ngModel
+                       name="restPauseBetween"
+                       min="0"
+                       matInput
+                       required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Rest Pause after Complete</mat-label>
+                <input type="number"
+                       step="1"
+                       ngModel
+                       name="restPauseAfterComplete"
+                       min="0"
+                       matInput
+                       required>
+              </mat-form-field>
+            </ng-container>
+
+            <button mat-button
+                    [disabled]="!instructionsForm.valid"
+                    type="submit">Save</button>
           </form>
         </mat-expansion-panel>
       </mat-accordion>
@@ -62,19 +97,65 @@
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        <mat-form-field appearance="outline">
-
-          <input placeholder="User email"
-                 matInput
-                 [value]="node.name"
-                 [(ngModel)]="node.name">
-
-        </mat-form-field>
         <button mat-mini-fab
                 color="warn"
                 (click)="decompose(node)">
           <mat-icon>delete</mat-icon>
         </button>
+        <mat-form-field appearance="outline">
+
+          <input placeholder="Superset Name"
+                 matInput
+                 [value]="node.name"
+                 [(ngModel)]="node.name">
+
+        </mat-form-field>
+
+        <form #setInstructionsForm="ngForm"
+              (ngSubmit)="saveStrategy(node, setInstructionsForm.value)">
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Repetitions"
+                        ngModel
+                        name="type"
+                        [value]="instructionType.REPS"
+                        required>
+              <mat-option [value]="instructionType.REPS">Repetitions</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Times</mat-label>
+            <input type="number"
+                   step="1"
+                   ngModel
+                   name="load"
+                   min="0"
+                   matInput
+                   required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Rest between sets</mat-label>
+            <input type="number"
+                   step="1"
+                   ngModel
+                   name="restPauseBetween"
+                   min="0"
+                   matInput
+                   required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Rest after complete</mat-label>
+            <input type="number"
+                   step="1"
+                   ngModel
+                   name="restPauseAfterComplete"
+                   min="0"
+                   matInput
+                   required>
+          </mat-form-field>
+          <button mat-button
+                  [disabled]="!setInstructionsForm.valid"
+                  type="submit">Save</button>
+        </form>
       </div>
       <!-- There is inline padding applied to this div using styles.
             This padding value depends on the mat-icon-button width.  -->
@@ -84,9 +165,6 @@
       </div>
     </mat-nested-tree-node>
   </mat-tree>
-  <!-- <p *ngFor="let item of data">
-    <mat-icon *ngIf="isSupersetComposeUnderway">add_circle</mat-icon> {{ item.name }}
-  </p> -->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button
@@ -101,5 +179,6 @@
   <button mat-raised-button
           color="warn">Cancel Workout</button>
   <button mat-raised-button
-          color="success">Save Workout</button>
+          color="success"
+          (click)="saveWorkout()">Save Workout</button>
 </mat-dialog-actions>
