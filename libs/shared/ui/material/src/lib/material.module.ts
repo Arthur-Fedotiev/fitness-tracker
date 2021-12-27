@@ -14,6 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDialogModule,
     MatTreeModule,
     MatExpansionModule,
+    DragDropModule,
   ],
   exports: [
     MatInputModule,
@@ -49,6 +51,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDialogModule,
     MatTreeModule,
     MatExpansionModule,
+    DragDropModule,
   ],
 })
 export class MaterialModule {}

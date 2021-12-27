@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   Component,
@@ -9,8 +10,14 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
-import { merge, scan, Subject } from 'rxjs';
-import { map, shareReplay, tap, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, merge, scan, Subject } from 'rxjs';
+import {
+  debounceTime,
+  map,
+  shareReplay,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 export enum InstructionType {
   'REPS' = 'REPS',
@@ -170,6 +177,11 @@ export class WorkoutItemComposite implements WorkoutItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComposeWorkoutComponent implements OnInit {
+  public readonly nestedDrag = new BehaviorSubject(false);
+  public readonly nestedDrag$ = this.nestedDrag
+    .asObservable()
+    .pipe(debounceTime(50), tap(console.log));
+
   public readonly instructionType = InstructionType;
   public isSupersetComposeUnderway = false;
   public readonly treeControl = new NestedTreeControl<WorkoutItem>(
@@ -298,5 +310,23 @@ export class ComposeWorkoutComponent implements OnInit {
   }
   public trackById(_: number, node: WorkoutItem): string | number {
     return node.id;
+  }
+
+  drop(event: CdkDragDrop<WorkoutItem[]>) {
+    const newData = [...this.dataSource.data];
+    console.log(event.item.data.container, event.item.data.node);
+
+    // const previousNode = this.dataSource.data[event.previousIndex];
+    // newData[event.previousIndex] = this.dataSource.data[event.currentIndex];
+    // newData[event.currentIndex] = previousNode;
+
+    // this.resetDataSource(newData);
+
+    // moveItemInArray(
+    //   this.dataSource.data,
+    //   event.previousIndex,
+    //   event.currentIndex,
+    // );
+    console.log(event.container.data);
   }
 }

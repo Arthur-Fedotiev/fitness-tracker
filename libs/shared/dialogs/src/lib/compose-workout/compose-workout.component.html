@@ -3,9 +3,16 @@
   <mat-tree [dataSource]="dataSource"
             [treeControl]="treeControl"
             [trackBy]="trackById"
+            cdkDropList
+            [cdkDropListDisabled]="nestedDrag$ | async"
+            [cdkDropListData]="dataSource.data"
+            (cdkDropListDropped)="drop($event)"
             class="example-tree">
     <mat-tree-node *matTreeNodeDef="let node"
-                   matTreeNodePadding>
+                   cdkDrag
+                   (mouseenter)="nestedDrag.next(node.isNested)"
+                   (mouseleave)="nestedDrag.next(false)"
+                   [cdkDragData]="{ node, container: node?.parent ?? dataSource.data }">
       <button *ngIf="isSupersetComposeUnderway && !node.isNested"
               mat-mini-fab
               class="add-btn"
@@ -42,8 +49,13 @@
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
     <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"
-                          matTreeNodePadding>
-      <div class="mat-tree-node">
+                          matTreeNodePadding
+                          cdkDrag
+                          (mouseEnter)="nestedDrag.next(false)"
+                          (mouseleave)="nestedDrag.next(false)"
+                          [cdkDragData]="{node, container: node.children}">
+      <div class="mat-tree-node"
+           (click)="nestedDrag.next(true)">
         <button mat-icon-button
                 matTreeNodeToggle
                 [attr.aria-label]="'Toggle ' + node.name">
@@ -68,10 +80,11 @@
           <ft-workout-item-rest [instruction]="node.instructionStrategy"></ft-workout-item-rest>
         </form>
       </div>
-      <!-- There is inline padding applied to this div using styles.
-            This padding value depends on the mat-icon-button width.  -->
       <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
-           role="group">
+           role="group"
+           cdkDropList
+           [cdkDropListDisabled]="(nestedDrag$ | async) === false"
+           (cdkDropListDropped)="drop($event)">
         <ng-container matTreeNodeOutlet></ng-container>
       </div>
     </mat-nested-tree-node>
