@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { formViewProvider } from '@fitness-tracker/shared/utils';
 import {
+  formViewProvider,
   InstructionType,
   WorkoutItemInstruction,
-} from '../../compose-workout.component';
+} from '@fitness-tracker/shared/utils';
 
 @Component({
   selector: 'ft-workout-item-load',

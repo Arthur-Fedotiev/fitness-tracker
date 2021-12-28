@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { formViewProvider } from '@fitness-tracker/shared/utils';
-import { WorkoutItemInstruction } from '../../compose-workout.component';
+import {
+  formViewProvider,
+  WorkoutItemInstruction,
+} from '@fitness-tracker/shared/utils';
 
 @Component({
   selector: 'ft-workout-item-rest',
