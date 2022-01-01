@@ -84,9 +84,22 @@ export interface WorkoutItem {
   setLevel(level: number): WorkoutItem;
 }
 
-export interface WorkoutItemFlatNode extends WorkoutItem {
-  expandable: boolean;
-  level: number;
+// export interface WorkoutItemFlatNode {
+//   workoutItem: WorkoutItem;
+//   expandable: boolean;
+//   level: number;
+// }
+
+export class WorkoutItemFlatNode {
+  public get id(): string {
+    return this.workoutItem.id;
+  }
+
+  constructor(
+    public workoutItem: WorkoutItem,
+    public expandable: boolean,
+    public level: number,
+  ) {}
 }
 
 export class SingleWorkoutItem implements WorkoutItem {

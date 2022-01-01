@@ -48,12 +48,46 @@ export class WorkoutDatabase {
         ),
     );
   }
-}
 
-export const transformer = (
-  node: WorkoutItem,
-  level: number,
-): WorkoutItemFlatNode => node.setLevel(level);
+  public insertTest(): void {
+    console.log('this.data[WorkoutDatabase]', this.data);
+  }
+
+  insertItem(parent: WorkoutItem, child: WorkoutItem): WorkoutItem {
+    if (!parent.children) {
+      parent.children = [];
+    }
+    parent.children.push(child.setParent(parent));
+
+    this.dataChange.next(this.data);
+    return child;
+  }
+
+  public addItem(node: WorkoutItem): WorkoutItem {
+    this.data.push(node);
+    this.dataChange.next(this.data);
+
+    return node;
+  }
+
+  public deleteItem(node: WorkoutItem): void {
+    this.deleteNode(this.data, node);
+    this.dataChange.next(this.data);
+  }
+
+  private deleteNode(nodes: WorkoutItem[], nodeToDelete: WorkoutItem) {
+    const index = nodes.indexOf(nodeToDelete, 0);
+    if (index > -1) {
+      nodes.splice(index, 1);
+    } else {
+      nodes.forEach((node) => {
+        if (node.children && node.children.length > 0) {
+          this.deleteNode(node.children, nodeToDelete);
+        }
+      });
+    }
+  }
+}
 
 export const getLevel = (node: WorkoutItemFlatNode) => node.level;
 export const isExpandable = (node: WorkoutItemFlatNode) => node.expandable;
