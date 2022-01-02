@@ -4,6 +4,7 @@ export enum InstructionType {
 }
 
 export const DEFAULT_REST_PAUSE = 0;
+export const DEFAULT_TOTAL_SETS = 1;
 
 export type IInstruction<T = Record<string, any>> = {
   [P in keyof T]: T[P];
@@ -13,6 +14,7 @@ export abstract class Instruction implements WorkoutItemInstruction {
   public abstract type: InstructionType | null;
   public abstract restPauseBetween: number;
   public abstract restPauseAfterComplete: number;
+  public abstract totalSets: number;
 
   public isValid(): boolean {
     return Boolean(
@@ -20,8 +22,9 @@ export abstract class Instruction implements WorkoutItemInstruction {
         this.load >= 0 &&
         this.type &&
         InstructionType[this.type] &&
-        this.restPauseBetween >= 0 &&
-        this.restPauseBetween >= 0,
+        this.restPauseBetween >= DEFAULT_REST_PAUSE &&
+        this.restPauseBetween >= DEFAULT_REST_PAUSE &&
+        this.totalSets >= DEFAULT_TOTAL_SETS,
     );
   }
 
@@ -37,6 +40,7 @@ export interface WorkoutItemInstruction {
   type: InstructionType | null;
   restPauseBetween: number;
   restPauseAfterComplete: number;
+  totalSets: number;
   isValid: () => boolean;
   reset: () => void;
 }
@@ -50,6 +54,7 @@ export class ConcreteSingleWorkoutItemInstruction extends Instruction {
   public type: InstructionType | null = null;
   public restPauseBetween: number = DEFAULT_REST_PAUSE;
   public restPauseAfterComplete: number = DEFAULT_REST_PAUSE;
+  public totalSets: number = DEFAULT_TOTAL_SETS;
 
   public reset(): void {
     super.reset();
@@ -62,6 +67,7 @@ export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
   public load: number | null = null;
   public restPauseBetween: number = DEFAULT_REST_PAUSE;
   public restPauseAfterComplete: number = DEFAULT_REST_PAUSE;
+  public totalSets: number = DEFAULT_TOTAL_SETS;
 
   public reset(): void {
     super.reset();

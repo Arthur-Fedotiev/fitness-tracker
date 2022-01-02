@@ -18,3 +18,13 @@
          matInput
          required>
 </mat-form-field>
+<mat-form-field>
+  <mat-label>Total Sets</mat-label>
+  <input type="number"
+         step="1"
+         [(ngModel)]="instruction.totalSets"
+         name="totalSets"
+         min="1"
+         matInput
+         required>
+</mat-form-field>
