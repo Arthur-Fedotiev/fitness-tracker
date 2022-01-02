@@ -10,4 +10,5 @@ export * from './lib/i18n/functions/getTranslationsLoader';
 export * from './lib/providers/form-view.provider';
 export * from './lib/classes/workout';
 export * from './lib/services/workout-db';
+export * from './lib/classes/workout-serializer';
 export { ImgFallbackModule } from './lib/directives/img-fallback/img-fallback.module';

@@ -7,6 +7,7 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
+import { WorkoutService } from '@fitness-tracker/exercises/data';
 import {
   InstructionType,
   WorkoutItem,
@@ -18,6 +19,7 @@ import {
   getLevel,
   isExpandable,
   hasChild,
+  SerializedWorkout,
 } from '@fitness-tracker/shared/utils';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, merge, scan, Subject } from 'rxjs';
@@ -103,6 +105,7 @@ export class ComposeWorkoutComponent implements OnInit {
   );
 
   constructor(
+    private readonly workoutAPI: WorkoutService,
     // @Inject(MAT_DIALOG_DATA)
     // public data: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
     readonly workoutDB: WorkoutDatabase, // private dialogRef: MatDialogRef<ComposeWorkoutComponent>, // private readonly cdr: ChangeDetectorRef,
@@ -179,10 +182,28 @@ export class ComposeWorkoutComponent implements OnInit {
   }
 
   public saveWorkout(): void {
+    if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
+      console.log('Data is not valid to be saved');
+      return;
+    }
+
+    const serializedWorkoutContent = this.dataSource.data.map((workoutItem) =>
+      workoutItem.serialize(),
+    );
+    const serializedWorkout: SerializedWorkout = {
+      content: serializedWorkoutContent,
+      name: 'Shitty Workout #1',
+      muscles: ['BICEPS'],
+      importantNotes: ['Dont fuck up please'],
+      description: 'Strong arms - tight jerking',
+      coverUrl: 'Url of jerking mazafucker',
+    };
     console.log(this.dataSource.data);
     console.log(
       this.dataSource.data.map((workoutItem) => workoutItem.serialize()),
     );
+
+    this.workoutAPI.createWorkout(serializedWorkout);
   }
 
   public trackById(_: number, node: WorkoutItem): string | number {

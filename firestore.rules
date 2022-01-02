@@ -35,6 +35,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    match /workouts/{doc=**} {
+      allow read: if isAuthenticated();
+
+      allow write: if isAdmin();
+    }
+
     match /{path=**}/translations/{lessonId} {
       allow read: if isKnownUser();
     }
