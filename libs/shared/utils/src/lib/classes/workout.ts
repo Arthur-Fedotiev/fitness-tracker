@@ -1,3 +1,9 @@
+import { SerializerStrategy } from '../interfaces/serializer.interface';
+import {
+  ConcreteWorkoutItemSerializer,
+  SerializeWorkoutItem,
+} from './workout-serializer';
+
 export enum InstructionType {
   'REPS' = 'REPS',
   'DURATION' = 'DURATION',
@@ -10,11 +16,13 @@ export type IInstruction<T = Record<string, any>> = {
   [P in keyof T]: T[P];
 };
 export abstract class Instruction implements WorkoutItemInstruction {
-  public abstract load: number | null;
-  public abstract type: InstructionType | null;
-  public abstract restPauseBetween: number;
-  public abstract restPauseAfterComplete: number;
-  public abstract totalSets: number;
+  constructor(
+    public load: number | null = null,
+    public type: InstructionType | null = null,
+    public restPauseBetween: number = DEFAULT_REST_PAUSE,
+    public restPauseAfterComplete: number = DEFAULT_REST_PAUSE,
+    public totalSets: number = DEFAULT_TOTAL_SETS,
+  ) {}
 
   public isValid(): boolean {
     return Boolean(
@@ -50,11 +58,9 @@ export interface CompositeWorkoutItemInstruction
   type: InstructionType.REPS;
 }
 export class ConcreteSingleWorkoutItemInstruction extends Instruction {
-  public load: number | null = null;
-  public type: InstructionType | null = null;
-  public restPauseBetween: number = DEFAULT_REST_PAUSE;
-  public restPauseAfterComplete: number = DEFAULT_REST_PAUSE;
-  public totalSets: number = DEFAULT_TOTAL_SETS;
+  constructor() {
+    super();
+  }
 
   public reset(): void {
     super.reset();
@@ -63,11 +69,12 @@ export class ConcreteSingleWorkoutItemInstruction extends Instruction {
 }
 
 export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
-  public readonly type = InstructionType.REPS;
-  public load: number | null = null;
-  public restPauseBetween: number = DEFAULT_REST_PAUSE;
-  public restPauseAfterComplete: number = DEFAULT_REST_PAUSE;
-  public totalSets: number = DEFAULT_TOTAL_SETS;
+  public readonly type: InstructionType.REPS;
+
+  constructor() {
+    super();
+    this.type = InstructionType.REPS;
+  }
 
   public reset(): void {
     super.reset();
@@ -76,6 +83,7 @@ export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
 
 export interface WorkoutItem {
   instructionStrategy: WorkoutItemInstruction;
+  serializerStrategy: SerializerStrategy;
   name: string;
   id: string;
   children?: WorkoutItem[];
@@ -84,6 +92,7 @@ export interface WorkoutItem {
   isValid: () => boolean;
   setParent(parentNode: WorkoutItem | null): WorkoutItem;
   remove(childNode: WorkoutItem): void;
+  serialize(): SerializeWorkoutItem;
 }
 
 export class WorkoutItemFlatNode {
@@ -104,6 +113,7 @@ export class SingleWorkoutItem implements WorkoutItem {
     public id: string,
     public instructionStrategy: WorkoutItemInstruction,
     public parent: WorkoutItem | null = null,
+    public serializerStrategy: ConcreteWorkoutItemSerializer = new ConcreteWorkoutItemSerializer(),
   ) {}
 
   public getInstructions(): WorkoutItemInstruction {
@@ -117,6 +127,10 @@ export class SingleWorkoutItem implements WorkoutItem {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   public remove(): void {}
+
+  public serialize(): SerializeWorkoutItem {
+    return this.serializerStrategy.serialize(this);
+  }
 
   public isValid(): boolean {
     return this.instructionStrategy.isValid();
@@ -133,10 +147,15 @@ export class WorkoutItemComposite implements WorkoutItem {
     public instructionStrategy: CompositeWorkoutItemInstruction,
     private _id: string,
     public parent: WorkoutItem | null = null,
+    public serializerStrategy: ConcreteWorkoutItemSerializer = new ConcreteWorkoutItemSerializer(),
   ) {}
 
   public getInstructions(): CompositeWorkoutItemInstruction {
     return this.instructionStrategy;
+  }
+
+  public serialize(): SerializeWorkoutItem {
+    return this.serializerStrategy.serialize(this);
   }
 
   public isValid(): boolean {

@@ -180,6 +180,9 @@ export class ComposeWorkoutComponent implements OnInit {
 
   public saveWorkout(): void {
     console.log(this.dataSource.data);
+    console.log(
+      this.dataSource.data.map((workoutItem) => workoutItem.serialize()),
+    );
   }
 
   public trackById(_: number, node: WorkoutItem): string | number {
