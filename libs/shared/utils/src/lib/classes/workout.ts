@@ -58,8 +58,14 @@ export interface CompositeWorkoutItemInstruction
   type: InstructionType.REPS;
 }
 export class ConcreteSingleWorkoutItemInstruction extends Instruction {
-  constructor() {
-    super();
+  constructor(
+    load?: number | null,
+    type?: InstructionType | null,
+    restPauseBetween?: number,
+    restPauseAfterComplete?: number,
+    totalSets?: number,
+  ) {
+    super(load, type, restPauseAfterComplete, restPauseBetween, totalSets);
   }
 
   public reset(): void {
@@ -71,8 +77,14 @@ export class ConcreteSingleWorkoutItemInstruction extends Instruction {
 export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
   public readonly type: InstructionType.REPS;
 
-  constructor() {
-    super();
+  constructor(
+    load?: number | null,
+    type?: InstructionType | null,
+    restPauseBetween?: number,
+    restPauseAfterComplete?: number,
+    totalSets?: number,
+  ) {
+    super(load, type, restPauseAfterComplete, restPauseBetween, totalSets);
     this.type = InstructionType.REPS;
   }
 

@@ -1,6 +1,13 @@
 import { MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
 import { SerializerStrategy } from '../interfaces/serializer.interface';
-import { InstructionType, WorkoutItem } from './workout';
+import {
+  ConcreteCompositeWorkoutItemInstruction,
+  ConcreteSingleWorkoutItemInstruction,
+  InstructionType,
+  SingleWorkoutItem,
+  WorkoutItem,
+  WorkoutItemComposite,
+} from './workout';
 
 export interface WorkoutBasicInfo {
   name: string;
@@ -59,32 +66,46 @@ export class ConcreteWorkoutItemSerializer
       totalSets,
     };
   }
-  // public deserialize({
-  //   children,
-  //   id,
-  //   name,
-  //   parentId,
-  //   load,
-  //   type,
-  //   restPauseAfterComplete,
-  //   restPauseBetween,
-  //   totalSets,
-  // }: SerializeWorkoutItem): WorkoutItem {
-  //   const deserializedItem = children
-  //     ? new WorkoutItemComposite(
-  //         name,
-  //         [],
-  //         new ConcreteCompositeWorkoutItemInstruction(
-  //           load,
-  //           type,
-  //           restPauseAfterComplete,
-  //           restPauseBetween,
-  //           totalSets,
-  //         ),
-  //         id,
-  //         null,
-  //         new ConcreteWorkoutItemSerializer(),
-  //       )
-  //     : new SingleWorkoutItem();
-  // }
+  public deserialize({
+    children,
+    id,
+    name,
+    parentId,
+    load,
+    type,
+    restPauseAfterComplete,
+    restPauseBetween,
+    totalSets,
+  }: SerializeWorkoutItem): WorkoutItem {
+    const deserializedItem = children
+      ? new WorkoutItemComposite(
+          name,
+          [],
+          new ConcreteCompositeWorkoutItemInstruction(
+            load,
+            type,
+            restPauseAfterComplete,
+            restPauseBetween,
+            totalSets,
+          ),
+          id,
+          null,
+          new ConcreteWorkoutItemSerializer(),
+        )
+      : new SingleWorkoutItem(
+          name,
+          id,
+          new ConcreteSingleWorkoutItemInstruction(
+            load,
+            type,
+            restPauseAfterComplete,
+            restPauseBetween,
+            totalSets,
+          ),
+          null,
+          new ConcreteWorkoutItemSerializer(),
+        );
+
+    return deserializedItem;
+  }
 }
