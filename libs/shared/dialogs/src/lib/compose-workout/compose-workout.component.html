@@ -8,11 +8,7 @@
                    matTreeNodeToggle
                    matTreeNodePadding
                    cdkDrag
-                   [cdkDragData]="node"
-                   (mouseenter)="dragHover(node)"
-                   (mouseleave)="dragHoverEnd()"
-                   (cdkDragStarted)="dragStart()"
-                   (cdkDragReleased)="dragEnd()">
+                   [cdkDragData]="node">
       <button mat-icon-button
               disabled></button><button *ngIf="isSupersetComposeUnderway && !node.workoutItem.parent"
               mat-mini-fab
@@ -49,25 +45,13 @@
       </mat-accordion>
 
     </mat-tree-node>
-    <!-- <mat-tree-node *matTreeNodeDef="let node"
-         matTreeNodeToggle
-         matTreeNodePadding
-         cdkDrag
-         [cdkDragData]="node">
-<button mat-icon-button
-    disabled></button>
-{{node.workoutItem.filename}} : {{node.workoutItem.type}}
-</mat-tree-node> -->
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
                    matTreeNodePadding
                    cdkDrag
-                   [cdkDragData]="node"
-                   (mouseenter)="dragHover(node)"
-                   (mouseleave)="dragHoverEnd()"
-                   (cdkDragStarted)="dragStart()"
-                   (cdkDragReleased)="dragEnd()">
+                   [cdkDragData]="node">
       <button mat-icon-button
               matTreeNodeToggle
+              (click)="expansionModel.toggle(node.id)"
               [attr.aria-label]="'Toggle ' + node.workoutItem.name">
         <mat-icon class="mat-icon-rtl-mirror">
           {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
@@ -90,23 +74,6 @@
         <ft-workout-item-rest [instruction]="node.workoutItem.instructionStrategy"></ft-workout-item-rest>
       </form>
     </mat-tree-node>
-
-
-
-    <!-- <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
-         matTreeNodePadding
-         cdkDrag
-         [cdkDragData]="node">
-<button mat-icon-button
-    matTreeNodeToggle
-    (click)="expansionModel.toggle(node.workoutItem.id)"
-    [attr.aria-label]="'toggle ' + node.workoutItem.filename">
-<mat-icon class="mat-icon-rtl-mirror">
-{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-</mat-icon>
-</button>
-{{node.workoutItem.filename}} : {{node.workoutItem.type}}
-</mat-tree-node> -->
   </mat-tree>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

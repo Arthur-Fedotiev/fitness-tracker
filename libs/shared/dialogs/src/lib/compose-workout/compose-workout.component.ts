@@ -10,7 +10,6 @@ import {
 import {
   InstructionType,
   WorkoutItem,
-  SingleWorkoutItem,
   WorkoutItemComposite,
   ConcreteCompositeWorkoutItemInstruction,
   WorkoutItemFlatNode,
@@ -29,7 +28,6 @@ import {
   tap,
   withLatestFrom,
 } from 'rxjs/operators';
-
 @UntilDestroy()
 @Component({
   selector: 'ft-compose-workout',
@@ -39,21 +37,13 @@ import {
   providers: [WorkoutDatabase],
 })
 export class ComposeWorkoutComponent implements OnInit {
-  /** Map from flat node to nested node. This helps us finding the nested node to be modified */
-  flatNodeMap = new Map<WorkoutItemFlatNode, WorkoutItem>();
+  private flatNodeMap = new Map<WorkoutItemFlatNode, WorkoutItem>();
+  private nestedNodeMap = new Map<WorkoutItem, WorkoutItemFlatNode>();
 
-  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
-  nestedNodeMap = new Map<WorkoutItem, WorkoutItemFlatNode>();
-
-  treeControl: FlatTreeControl<WorkoutItemFlatNode>;
-  treeFlattener: MatTreeFlattener<WorkoutItem, WorkoutItemFlatNode>;
-  dataSource: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
-  // expansion model tracks expansion state
-  expansionModel = new SelectionModel<string>(true);
-
-  dragging = false;
-  expandTimeout: any;
-  expandDelay = 1000;
+  public treeControl: FlatTreeControl<WorkoutItemFlatNode>;
+  public treeFlattener: MatTreeFlattener<WorkoutItem, WorkoutItemFlatNode>;
+  public dataSource: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
+  public expansionModel = new SelectionModel<string>(true);
 
   public hasChild = hasChild;
 
@@ -90,14 +80,16 @@ export class ComposeWorkoutComponent implements OnInit {
     ),
     debounceTime(0),
     tap((superset) => {
+      const supersetsNth = this.dataSource.data.reduce(
+        (acc, curr) => (curr instanceof WorkoutItemComposite ? ++acc : acc),
+        1,
+      );
+
       const set = new WorkoutItemComposite(
-        'Superset',
+        `Superset #${supersetsNth}`,
         [],
         new ConcreteCompositeWorkoutItemInstruction(),
-        `${this.dataSource.data.reduce(
-          (acc, curr) => (curr instanceof WorkoutItemComposite ? ++acc : acc),
-          0,
-        )}`,
+        String(supersetsNth),
       );
 
       const parent = this.workoutDB.addItem(set);
@@ -194,50 +186,107 @@ export class ComposeWorkoutComponent implements OnInit {
     return node.id;
   }
 
-  drop(event: CdkDragDrop<WorkoutItem[]>) {
-    const newData = [...this.dataSource.data];
-    console.log(event.previousIndex, event.currentIndex);
+  public visibleNodes(): WorkoutItem[] {
+    const result: WorkoutItem[] = [];
 
-    // const previousNode = this.dataSource.data[event.previousIndex];
-    // newData[event.previousIndex] = this.dataSource.data[event.currentIndex];
-    // newData[event.currentIndex] = previousNode;
-
-    // this.resetDataSource(newData);
-
-    // moveItemInArray(
-    //   this.dataSource.data,
-    //   event.previousIndex,
-    //   event.currentIndex,
-    // );
-    console.log(event.container.data);
-  }
-
-  dragStart() {
-    this.dragging = true;
-  }
-  dragEnd() {
-    this.dragging = false;
-  }
-  dragHover(node: WorkoutItemFlatNode) {
-    if (this.dragging) {
-      clearTimeout(this.expandTimeout);
-      this.expandTimeout = setTimeout(() => {
-        this.treeControl.expand(node);
-      }, this.expandDelay);
+    function addExpandedChildren(node: WorkoutItem, expanded: string[]) {
+      result.push(node);
+      if (expanded.includes(node.id) && node.children) {
+        node.children.map((child) => addExpandedChildren(child, expanded));
+      }
     }
-  }
-  dragHoverEnd() {
-    if (this.dragging) {
-      clearTimeout(this.expandTimeout);
-    }
+    this.dataSource.data.forEach((node) => {
+      addExpandedChildren(node, this.expansionModel.selected);
+    });
+    console.log('this.expansionModel.selected', this.expansionModel.selected);
+    return result;
   }
 
+  drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
+    console.log('origin/destination', event.previousIndex, event.currentIndex);
+    // ignore drops outside of the tree
+    if (!event.isPointerOverContainer) return;
+
+    const visibleNodes: WorkoutItem[] = this.visibleNodes();
+
+    const isDroppedToBottomOfLevel = (
+      nodeAtDest: WorkoutItem,
+      siblings: WorkoutItem[],
+    ): boolean => {
+      return nodeAtDest.id === siblings[siblings.length - 1].id;
+    };
+
+    const isDraggedAcrossLevels = (
+      previousLevel: number,
+      currentLevel: number,
+    ) => previousLevel !== currentLevel;
+
+    // recursive find function to find siblings of node
+    function findNodeSiblings(
+      arr: WorkoutItem[],
+      id: string,
+    ): WorkoutItem[] | null {
+      let result = null;
+      let subResult;
+
+      arr.forEach((item, i) => {
+        if (item.id === id) {
+          result = arr;
+        } else if (item.children) {
+          subResult = findNodeSiblings(item.children, id);
+          if (subResult) result = subResult;
+        }
+      });
+      return result;
+    }
+
+    // determine where to insert the node
+    const nodeAtDest: WorkoutItem = visibleNodes[event.currentIndex];
+    const flatNodeAtDest: WorkoutItemFlatNode | undefined =
+      this.nestedNodeMap.get(nodeAtDest)!;
+
+    const nodeDragged: WorkoutItemFlatNode = event.item.data;
+    const nodeToInsert = this.flatNodeMap.get(nodeDragged)!;
+
+    if (nodeAtDest === nodeToInsert) return;
+
+    const newSiblings: WorkoutItem[] | null = findNodeSiblings(
+      this.dataSource.data,
+      nodeAtDest?.id,
+    );
+
+    console.log('visibleNodes', visibleNodes);
+
+    console.log('nodeAtDest', nodeAtDest);
+    console.log('newSiblings', newSiblings);
+
+    if (!newSiblings) return;
+
+    const nodeAtDestFlatNode = this.treeControl.dataNodes.find(
+      (n) => nodeAtDest.id === n.id,
+    );
+    if (nodeAtDestFlatNode?.expandable && nodeDragged.expandable) {
+      alert('Items can only be moved within the same level.');
+      return;
+    }
+
+    this.workoutDB.deleteItem(nodeToInsert);
+
+    if (nodeAtDest.id === nodeDragged?.id) return;
+
+    console.log('CHECK', isDroppedToBottomOfLevel(nodeAtDest, newSiblings));
+
+    isDroppedToBottomOfLevel(nodeAtDest, newSiblings) &&
+    !isDraggedAcrossLevels(flatNodeAtDest.level, nodeDragged.level)
+      ? this.workoutDB.insertItemBelow(nodeAtDest, nodeToInsert)
+      : this.workoutDB.insertItemAbove(nodeAtDest, nodeToInsert);
+  }
   rebuildTreeForData(data: any) {
     this.dataSource.data = [];
     this.dataSource.data = data;
-    // this.expansionModel.selected.forEach((id) => {
-    //   const node = this.treeControl.dataNodes.find((n) => n.id === id);
-    //   node && this.treeControl.expand(node);
-    // });
+    this.expansionModel.selected.forEach((id) => {
+      const node = this.treeControl.dataNodes.find((n) => n.id === id);
+      node && this.treeControl.expand(node);
+    });
   }
 }

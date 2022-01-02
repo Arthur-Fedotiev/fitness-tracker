@@ -43,7 +43,7 @@ export class WorkoutDatabase {
       ({ name, id }) =>
         new SingleWorkoutItem(
           name,
-          `${level}/${id}`,
+          id,
           new ConcreteSingleWorkoutItemInstruction(),
         ),
     );
@@ -63,8 +63,71 @@ export class WorkoutDatabase {
     return child;
   }
 
+  insertItemAbove(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
+    const parentNode = this.getParentFromNodes(node);
+    if (parentNode?.children) {
+      parentNode.children.splice(
+        parentNode.children.indexOf(node),
+        0,
+        item.setParent(parentNode),
+      );
+    } else {
+      this.data.splice(this.data.indexOf(node), 0, item.setParent(parentNode));
+    }
+    this.dataChange.next(this.data);
+    return item;
+  }
+
+  insertItemBelow(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
+    const parentNode = this.getParentFromNodes(node);
+
+    if (parentNode?.children) {
+      parentNode.children.splice(
+        parentNode.children.indexOf(node) + 1,
+        0,
+        item.setParent(parentNode),
+      );
+    } else {
+      this.data.splice(
+        this.data.indexOf(node) + 1,
+        0,
+        item.setParent(parentNode),
+      );
+    }
+    this.dataChange.next(this.data);
+    return item;
+  }
+
+  getParentFromNodes(node: WorkoutItem): WorkoutItem | null {
+    for (let i = 0; i < this.data.length; ++i) {
+      const currentRoot = this.data[i];
+      const parent = this.getParent(currentRoot, node);
+      if (parent != null) {
+        return parent;
+      }
+    }
+    return null;
+  }
+
+  getParent(currentRoot: WorkoutItem, node: WorkoutItem): WorkoutItem | null {
+    if (currentRoot.children && currentRoot.children.length > 0) {
+      for (let i = 0; i < currentRoot.children.length; ++i) {
+        const child = currentRoot.children[i];
+        if (child === node) {
+          return currentRoot;
+        } else if (child.children && child.children.length > 0) {
+          const parent = this.getParent(child, node);
+          if (parent != null) {
+            return parent;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
   public addItem(node: WorkoutItem): WorkoutItem {
-    this.data.push(node);
+    this.data.push(node.setParent(null));
     this.dataChange.next(this.data);
 
     return node;

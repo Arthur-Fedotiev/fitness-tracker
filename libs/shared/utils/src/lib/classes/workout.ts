@@ -70,8 +70,6 @@ export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
 
 export interface WorkoutItem {
   instructionStrategy: WorkoutItemInstruction;
-  expandable: boolean;
-  level: number;
   name: string;
   id: string;
   children?: WorkoutItem[];
@@ -80,15 +78,7 @@ export interface WorkoutItem {
   isValid: () => boolean;
   setParent(parentNode: WorkoutItem | null): WorkoutItem;
   remove(childNode: WorkoutItem): void;
-  setExpandable?(isExpandable: boolean): WorkoutItem;
-  setLevel(level: number): WorkoutItem;
 }
-
-// export interface WorkoutItemFlatNode {
-//   workoutItem: WorkoutItem;
-//   expandable: boolean;
-//   level: number;
-// }
 
 export class WorkoutItemFlatNode {
   public get id(): string {
@@ -103,8 +93,6 @@ export class WorkoutItemFlatNode {
 }
 
 export class SingleWorkoutItem implements WorkoutItem {
-  public expandable = false;
-  public level = 0;
   constructor(
     public name: string,
     public id: string,
@@ -121,11 +109,6 @@ export class SingleWorkoutItem implements WorkoutItem {
     return this;
   }
 
-  public setLevel(level: number): SingleWorkoutItem {
-    this.level = level;
-    return this;
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   public remove(): void {}
 
@@ -134,9 +117,6 @@ export class SingleWorkoutItem implements WorkoutItem {
   }
 }
 export class WorkoutItemComposite implements WorkoutItem {
-  public level = 0;
-  public expandable = true;
-
   public get id(): string {
     return this.name + '/' + this._id;
   }
@@ -159,11 +139,6 @@ export class WorkoutItemComposite implements WorkoutItem {
 
   public setParent(parent: WorkoutItem | null): WorkoutItem {
     this.parent = parent;
-    return this;
-  }
-
-  public setLevel(level: number): WorkoutItemComposite {
-    this.level = level;
     return this;
   }
 
