@@ -20,6 +20,7 @@ import {
   isExpandable,
   hasChild,
   SerializedWorkout,
+  ConcreteWorkoutItemSerializer,
 } from '@fitness-tracker/shared/utils';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, merge, scan, Subject } from 'rxjs';
@@ -106,6 +107,7 @@ export class ComposeWorkoutComponent implements OnInit {
 
   constructor(
     private readonly workoutAPI: WorkoutService,
+    private readonly workoutItemSerializeStrategy: ConcreteWorkoutItemSerializer,
     // @Inject(MAT_DIALOG_DATA)
     // public data: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
     readonly workoutDB: WorkoutDatabase, // private dialogRef: MatDialogRef<ComposeWorkoutComponent>, // private readonly cdr: ChangeDetectorRef,
@@ -188,7 +190,7 @@ export class ComposeWorkoutComponent implements OnInit {
     }
 
     const serializedWorkoutContent = this.dataSource.data.map((workoutItem) =>
-      workoutItem.serialize(),
+      this.workoutItemSerializeStrategy.serialize(workoutItem),
     );
     const serializedWorkout: SerializedWorkout = {
       content: serializedWorkoutContent,
@@ -200,7 +202,9 @@ export class ComposeWorkoutComponent implements OnInit {
     };
     console.log(this.dataSource.data);
     console.log(
-      this.dataSource.data.map((workoutItem) => workoutItem.serialize()),
+      this.dataSource.data.map((workoutItem) =>
+        this.workoutItemSerializeStrategy.serialize(workoutItem),
+      ),
     );
 
     this.workoutAPI.createWorkout(serializedWorkout);

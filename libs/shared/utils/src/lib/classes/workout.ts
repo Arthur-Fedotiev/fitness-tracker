@@ -1,9 +1,3 @@
-import { SerializerStrategy } from '../interfaces/serializer.interface';
-import {
-  ConcreteWorkoutItemSerializer,
-  SerializeWorkoutItem,
-} from './workout-serializer';
-
 export enum InstructionType {
   'REPS' = 'REPS',
   'DURATION' = 'DURATION',
@@ -95,7 +89,6 @@ export class ConcreteCompositeWorkoutItemInstruction extends Instruction {
 
 export interface WorkoutItem {
   instructionStrategy: WorkoutItemInstruction;
-  serializerStrategy: SerializerStrategy;
   name: string;
   id: string;
   children?: WorkoutItem[];
@@ -104,7 +97,6 @@ export interface WorkoutItem {
   isValid: () => boolean;
   setParent(parentNode: WorkoutItem | null): WorkoutItem;
   remove(childNode: WorkoutItem): void;
-  serialize(): SerializeWorkoutItem;
 }
 
 export class WorkoutItemFlatNode {
@@ -125,7 +117,6 @@ export class SingleWorkoutItem implements WorkoutItem {
     public id: string,
     public instructionStrategy: WorkoutItemInstruction,
     public parent: WorkoutItem | null = null,
-    public serializerStrategy: ConcreteWorkoutItemSerializer = new ConcreteWorkoutItemSerializer(),
   ) {}
 
   public getInstructions(): WorkoutItemInstruction {
@@ -139,10 +130,6 @@ export class SingleWorkoutItem implements WorkoutItem {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   public remove(): void {}
-
-  public serialize(): SerializeWorkoutItem {
-    return this.serializerStrategy.serialize(this);
-  }
 
   public isValid(): boolean {
     return this.instructionStrategy.isValid();
@@ -159,15 +146,10 @@ export class WorkoutItemComposite implements WorkoutItem {
     public instructionStrategy: CompositeWorkoutItemInstruction,
     private _id: string,
     public parent: WorkoutItem | null = null,
-    public serializerStrategy: ConcreteWorkoutItemSerializer = new ConcreteWorkoutItemSerializer(),
   ) {}
 
   public getInstructions(): CompositeWorkoutItemInstruction {
     return this.instructionStrategy;
-  }
-
-  public serialize(): SerializeWorkoutItem {
-    return this.serializerStrategy.serialize(this);
   }
 
   public isValid(): boolean {
@@ -185,3 +167,22 @@ export class WorkoutItemComposite implements WorkoutItem {
     );
   }
 }
+
+// export class Workout {
+//   constructor(
+//     public content: WorkoutItem[],
+//     public readonly basicInfo: WorkoutBasicInfo,
+//     public readonly serializeStrategy: SerializerStrategy<
+//       SerializeWorkoutItem,
+//       WorkoutItem
+//     >,
+//   ) {}
+//   public serialize(): SerializeWorkoutItem[] {
+//     return this.content.map((workoutItem) =>
+//       this.serializeStrategy.serialize(workoutItem),
+//     );
+//   }
+//   public deserialize() {
+//     return;
+//   }
+// }

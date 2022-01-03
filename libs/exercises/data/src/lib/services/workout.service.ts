@@ -4,6 +4,7 @@ import {
   DocumentReference,
 } from '@angular/fire/compat/firestore';
 import {
+  ConcreteWorkoutItemSerializer,
   convertOneSnap,
   SerializedWorkout,
   WithId,
@@ -15,7 +16,23 @@ import firebase from 'firebase/compat/app';
   providedIn: 'root',
 })
 export class WorkoutService {
-  constructor(public readonly afs: AngularFirestore) {}
+  constructor(
+    public readonly afs: AngularFirestore,
+    private readonly serializer: ConcreteWorkoutItemSerializer,
+  ) {
+    this.getWorkout('qvSIdyZgZwRc1sxoDswM')
+      .pipe(
+        map(({ content, ...data }) => {
+          const strategy = serializer;
+
+          return {
+            ...data,
+            content: content.map(strategy.deserialize.bind(strategy)),
+          };
+        }),
+      )
+      .subscribe(console.log);
+  }
 
   public createWorkout(
     workout: SerializedWorkout,

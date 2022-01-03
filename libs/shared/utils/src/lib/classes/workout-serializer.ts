@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
 import { SerializerStrategy } from '../interfaces/serializer.interface';
 import {
@@ -34,6 +35,7 @@ export interface SerializeWorkoutItem {
   totalSets: number;
 }
 
+@Injectable({ providedIn: 'root' })
 export class ConcreteWorkoutItemSerializer
   implements SerializerStrategy<SerializeWorkoutItem, WorkoutItem>
 {
@@ -51,9 +53,7 @@ export class ConcreteWorkoutItemSerializer
     },
   }: WorkoutItem): SerializeWorkoutItem {
     const serializedChildren =
-      children?.map((child: WorkoutItem) =>
-        child.serializerStrategy.serialize(child),
-      ) ?? null;
+      children?.map((child: WorkoutItem) => this.serialize(child)) ?? null;
     return {
       children: serializedChildren,
       id,
@@ -80,7 +80,7 @@ export class ConcreteWorkoutItemSerializer
     const deserializedItem = children
       ? new WorkoutItemComposite(
           name,
-          [],
+          children.map((child) => this.createOrphan(child)),
           new ConcreteCompositeWorkoutItemInstruction(
             load,
             type,
@@ -90,22 +90,45 @@ export class ConcreteWorkoutItemSerializer
           ),
           id,
           null,
-          new ConcreteWorkoutItemSerializer(),
         )
-      : new SingleWorkoutItem(
-          name,
+      : this.createOrphan({
           id,
-          new ConcreteSingleWorkoutItemInstruction(
-            load,
-            type,
-            restPauseAfterComplete,
-            restPauseBetween,
-            totalSets,
-          ),
-          null,
-          new ConcreteWorkoutItemSerializer(),
-        );
+          name,
+          load,
+          type,
+          restPauseAfterComplete,
+          restPauseBetween,
+          totalSets,
+        });
+
+    deserializedItem.children &&
+      deserializedItem.children.map((child) =>
+        child.setParent(deserializedItem),
+      );
 
     return deserializedItem;
+  }
+
+  private createOrphan({
+    id,
+    name,
+    load,
+    type,
+    restPauseAfterComplete,
+    restPauseBetween,
+    totalSets,
+  }: Omit<SerializeWorkoutItem, 'children' | 'parentId'>): WorkoutItem {
+    return new SingleWorkoutItem(
+      name,
+      id,
+      new ConcreteSingleWorkoutItemInstruction(
+        load,
+        type,
+        restPauseAfterComplete,
+        restPauseBetween,
+        totalSets,
+      ),
+      null,
+    );
   }
 }
