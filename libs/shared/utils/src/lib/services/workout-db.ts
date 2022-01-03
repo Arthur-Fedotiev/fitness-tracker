@@ -27,17 +27,11 @@ export class WorkoutDatabase {
   private initialize(
     initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
   ) {
-    const data = this.buildFileTree(initialData, 0);
-
-    console.log(data);
-
-    this.dataChange.next(data);
+    this.dataChange.next(this.buildFileTree(initialData));
   }
 
   public buildFileTree(
     initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
-    level: number,
-    parentId: string = '0',
   ): WorkoutItem[] {
     return initialData.map(
       ({ name, id }) =>
