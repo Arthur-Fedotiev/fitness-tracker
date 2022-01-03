@@ -687,6 +687,110 @@
         }
       },
       "tags": []
+    },
+    "workout-data": {
+      "projectType": "library",
+      "root": "libs/workout/data",
+      "sourceRoot": "libs/workout/data/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/workout/data"],
+          "options": {
+            "jestConfig": "libs/workout/data/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/workout/data/src/**/*.ts",
+              "libs/workout/data/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:workout", "type:data"]
+    },
+    "workout-feature": {
+      "projectType": "library",
+      "root": "libs/workout/feature",
+      "sourceRoot": "libs/workout/feature/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/workout/feature"],
+          "options": {
+            "jestConfig": "libs/workout/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/workout/feature/src/**/*.ts",
+              "libs/workout/feature/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:workout", "type:feature"]
+    },
+    "workout-model": {
+      "projectType": "library",
+      "root": "libs/workout/model",
+      "sourceRoot": "libs/workout/model/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/workout/model"],
+          "options": {
+            "jestConfig": "libs/workout/model/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/workout/model/src/**/*.ts",
+              "libs/workout/model/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:workout", "type:model"]
+    },
+    "workout-ui": {
+      "projectType": "library",
+      "root": "libs/workout/ui",
+      "sourceRoot": "libs/workout/ui/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/workout/ui"],
+          "options": {
+            "jestConfig": "libs/workout/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/workout/ui/src/**/*.ts",
+              "libs/workout/ui/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:workout", "type:ui"]
     }
   }
 }
