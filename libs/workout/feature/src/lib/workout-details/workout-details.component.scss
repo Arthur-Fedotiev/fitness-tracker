@@ -19,3 +19,43 @@
     height: fit-content !important;
   }
 }
+
+.divider {
+  margin: 2rem 0;
+}
+
+.card {
+  margin-bottom: 1rem;
+
+  &__avatar-container {
+    white-space: nowrap;
+  }
+  &__avatar {
+    border-radius: 1rem;
+    align-self: flex-end;
+    &:first-of-type {
+      margin-right: 0.5rem;
+    }
+  }
+  &__actions {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+:host ::ng-deep {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  article {
+    flex-basis: 90%;
+  }
+
+  mat-card-title-group > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+}
