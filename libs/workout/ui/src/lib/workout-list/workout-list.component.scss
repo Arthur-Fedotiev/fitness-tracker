@@ -1,0 +1,7 @@
+.content ::ng-deep {
+  padding: 1rem;
+
+  & mat-card {
+    margin-bottom: 3rem;
+  }
+}

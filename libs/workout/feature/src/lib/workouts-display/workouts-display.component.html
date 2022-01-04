@@ -1,0 +1,5 @@
+<ft-workout-list [listData]="(workoutPreviews$ | async)!">
+  <ng-template let-workoutItem>
+    <ft-workout-preview [workout]="workoutItem"></ft-workout-preview>
+  </ng-template>
+</ft-workout-list>

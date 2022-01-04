@@ -1,0 +1,39 @@
+<article *ngIf="workoutDetails$ | async as workout">
+  <h1> {{ workout.name }}</h1>
+  <mat-list>
+    <ng-container *ngFor="let workoutItem of workout.content; index as i;">
+      <ng-template [ngTemplateOutlet]="workoutTpl"
+                   [ngTemplateOutletContext]="{$implicit: workoutItem, parentIdx: i + 1}"></ng-template>
+    </ng-container>
+  </mat-list>
+</article>
+
+<ng-template #workoutTpl
+             let-item
+             let-parentIdx="parentIdx"
+             let-idx="idx">
+  <mat-list-item>
+    <div class="item-header">
+      <h2>{{ parentIdx }}.{{ idx ? +idx : ''}} {{item.name}}
+        <span *ngIf="item.parentId"> - {{ item.load }} RM</span>
+      </h2>
+    </div>
+
+    <div>
+      <ng-container *ngIf="!item.parentId">
+        <p> Sets: {{ item.totalSets }}/{{ item.load }} RM </p>
+        <p>Rest between sets: {{ item.restPauseBetween}}</p>
+        <p>Rest after exercise completed: {{ item.restPauseAfterComplete }} </p>
+      </ng-container>
+
+    </div>
+    <mat-list *ngIf="item.children?.length">
+      <div *ngFor="let item of item.children; index as idx;">
+        <ng-template [ngTemplateOutlet]="workoutTpl"
+                     [ngTemplateOutletContext]="{$implicit: item, idx: idx + 1, parentIdx }"></ng-template>
+      </div>
+
+    </mat-list>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</ng-template>

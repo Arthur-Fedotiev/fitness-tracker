@@ -23,6 +23,13 @@ const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'workouts',
+        loadChildren: () =>
+          import('@fitness-tracker/workout/feature').then(
+            (m) => m.WorkoutFeatureModule,
+          ),
+      },
+      {
         path: 'create-user',
         loadChildren: () =>
           import('@fitness-tracker/create-user/feature').then(

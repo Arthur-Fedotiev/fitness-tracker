@@ -1,0 +1,21 @@
+.workout-item {
+  .workout-item {
+    padding-left: 3rem;
+  }
+}
+
+.item-header {
+  display: flex;
+}
+
+:host ::ng-deep {
+  .mat-list-item-content {
+    display: flex;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  mat-list-item {
+    height: fit-content !important;
+  }
+}

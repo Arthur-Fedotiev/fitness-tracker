@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
+import { WorkoutLevel } from '@fitness-tracker/workout/model';
 import { SerializerStrategy } from '../interfaces/serializer.interface';
 import {
   ConcreteCompositeWorkoutItemInstruction,
@@ -17,6 +18,7 @@ export interface WorkoutBasicInfo {
   importantNotes: string[];
   description: string;
   coverUrl: string;
+  level: WorkoutLevel;
 }
 
 export interface SerializedWorkout extends WorkoutBasicInfo {

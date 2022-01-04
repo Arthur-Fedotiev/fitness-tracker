@@ -7,7 +7,6 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { WorkoutService } from '@fitness-tracker/exercises/data';
 import {
   InstructionType,
   WorkoutItem,
@@ -22,6 +21,8 @@ import {
   SerializedWorkout,
   ConcreteWorkoutItemSerializer,
 } from '@fitness-tracker/shared/utils';
+import { WorkoutService } from '@fitness-tracker/workout/data';
+import { WorkoutLevel } from '@fitness-tracker/workout/model';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, merge, scan, Subject } from 'rxjs';
 import {
@@ -195,6 +196,7 @@ export class ComposeWorkoutComponent implements OnInit {
     const serializedWorkout: SerializedWorkout = {
       content: serializedWorkoutContent,
       name: 'Shitty Workout #1',
+      level: WorkoutLevel.INTERMEDIATE,
       muscles: ['BICEPS'],
       importantNotes: ['Dont fuck up please'],
       description: 'Strong arms - tight jerking',

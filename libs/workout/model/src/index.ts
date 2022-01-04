@@ -1,1 +1,2 @@
-export * from './lib/workout-model.module';
+export * from './lib/workout-level';
+export * from './lib/workout-preview';

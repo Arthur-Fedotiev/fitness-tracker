@@ -8,6 +8,13 @@
     <span translate>NAVIGATION_BAR.exercisesLink</span>
   </a>
 
+  <a mat-list-item
+     [routerLink]="['workouts', 'all']">
+    <mat-icon class="nav-icon"
+              svgIcon="exercises"></mat-icon>
+    <span>Workouts</span>
+  </a>
+
   <a *ftRoles="roles.ADMIN"
      mat-list-item
      [routerLink]="['exercises', 'create']">
