@@ -5,9 +5,13 @@ export interface Exercise {
   equipment: string;
   rating: number;
   avatarUrl: string;
+  avatarSecondaryUrl: string;
   coverUrl: string;
+  coverSecondaryUrl: string;
   shortDescription: string;
   longDescription: string;
-  instructions: string[];
-  benefits: string[];
+  instructions: string;
+  instructionVideo: string;
+  muscleDiagramUrl: string;
+  benefits: string;
 }
