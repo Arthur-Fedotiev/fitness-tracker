@@ -96,3 +96,7 @@ export interface ExerciseMetaCollectionsDictionaryUnit {
   [COLLECTIONS.EQUIPMENT]: EquipmentMetaUnit[LanguageCodes];
   [COLLECTIONS.EXERCISE_TYPES]: ExerciseTypesMetaUnit[LanguageCodes];
 }
+
+export type ExerciseVm = Omit<Exercise, 'instructions'> & {
+  instructions: string[];
+};

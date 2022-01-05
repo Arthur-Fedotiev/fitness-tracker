@@ -16,4 +16,5 @@ export interface Pagination {
 
 export interface SearchOptions extends Pagination {
   sortOrder: OrderByDirection;
+  ids: string[];
 }

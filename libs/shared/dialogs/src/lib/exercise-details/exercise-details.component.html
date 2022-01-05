@@ -1,0 +1,25 @@
+<h2 mat-dialog-title> {{ exercise?.name }} </h2>
+<mat-dialog-content fxLayout="column nowrap"
+                    class="mat-typography">
+  <video *ngIf="exercise?.instructionVideo as videoUrl"
+         class="video-instructions"
+         muted
+         controls
+         loop>
+    <source [src]="videoUrl"
+            type="video/mp4" />
+    Browser not supported
+  </video>
+  <section *ngIf="exercise?.instructions?.length">
+    <h3>Instructions</h3>
+    <p *ngFor="let instruction of exercise?.instructions; index as i">
+      {{ i + 1 }}. {{ instruction }}
+    </p>
+  </section>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button
+          [mat-dialog-close]="true"
+          cdkFocusInitial>Close</button>
+</mat-dialog-actions>

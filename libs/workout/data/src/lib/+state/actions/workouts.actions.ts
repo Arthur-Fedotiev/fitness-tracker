@@ -1,6 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { WorkoutActionNames } from './workout-action-names';
-import { SerializedWorkout, WithPayload } from '@fitness-tracker/shared/utils';
+import {
+  SerializedWorkout,
+  WithPayload,
+  WorkoutDetails,
+} from '@fitness-tracker/shared/utils';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 
 export const loadWorkoutPreviews = createAction(
@@ -24,7 +28,7 @@ export const loadWorkoutDetails = createAction(
 
 export const loadWorkoutDetailsSuccess = createAction(
   WorkoutActionNames.LOAD_WORKOUT_DETAILS_SUCCESS,
-  props<WithPayload<SerializedWorkout>>(),
+  props<WithPayload<WorkoutDetails>>(),
 );
 
 export const loadWorkoutDetailsFailure = createAction(

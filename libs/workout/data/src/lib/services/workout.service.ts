@@ -8,13 +8,17 @@ import {
   ConcreteWorkoutItemSerializer,
   convertOneSnap,
   convertSnaps,
+  LanguagesISO,
   SerializedWorkout,
+  toIdsFromSerializedWorkout,
   WithId,
   WorkoutBasicInfo,
 } from '@fitness-tracker/shared/utils';
 import { Observable, from, first, map } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { LanguageCodes } from 'shared-package';
+import { mapTo } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,19 +28,8 @@ export class WorkoutService {
     public readonly afs: AngularFirestore,
     private readonly workoutSerializeStrategy: ConcreteWorkoutItemSerializer,
   ) {
-    // this.getWorkout('qvSIdyZgZwRc1sxoDswM')
-    //   .pipe(
-    //     map(({ content, ...data }) => {
-    //       return {
-    //         ...data,
-    //         content: content.map(
-    //           this.workoutSerializeStrategy.deserialize.bind(
-    //             this.workoutSerializeStrategy,
-    //           ),
-    //         ),
-    //       };
-    //     }),
-    //   )
+    // this.getWorkout2('75dtgXrUVd96PUTDKbZs')
+    //   .pipe(map(toIdsFromSerializedWorkout))
     //   .subscribe(console.log);
   }
 
@@ -53,7 +46,10 @@ export class WorkoutService {
         ).pipe(first());
   }
 
-  public getWorkout(workoutId: string): Observable<SerializedWorkout> {
+  public getWorkout(
+    workoutId: string,
+    lang: LanguageCodes = LanguagesISO.ENGLISH,
+  ): Observable<SerializedWorkout> {
     return this.afs
       .doc<SerializedWorkout>(`workouts/${workoutId}`)
       .get()
@@ -102,5 +98,18 @@ export class WorkoutService {
         ),
       ),
     );
+  }
+
+  public getWorkout2(workoutId: string): Observable<string[]> {
+    return this.afs
+      .doc<SerializedWorkout>(`workouts/${workoutId}`)
+      .get()
+      .pipe(
+        map<
+          firebase.firestore.DocumentSnapshot<SerializedWorkout>,
+          WithId<SerializedWorkout>
+        >(convertOneSnap),
+        map(toIdsFromSerializedWorkout),
+      );
   }
 }

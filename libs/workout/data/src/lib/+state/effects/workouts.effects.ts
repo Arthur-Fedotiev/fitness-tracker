@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  concatMap,
+  withLatestFrom,
+  tap,
+} from 'rxjs/operators';
 import { Observable, EMPTY, of, switchMap } from 'rxjs';
 
 import { loadExerciseDetailsFailure } from '../../../../../../exercises/data/src/lib/+state/exercises.actions';
@@ -13,7 +19,17 @@ import {
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
-import { SerializedWorkout } from '@fitness-tracker/shared/utils';
+import {
+  SerializedWorkout,
+  toExercisesMap,
+  toIdsFromSerializedWorkout,
+  toWorkoutDetails,
+  WorkoutDetails,
+} from '@fitness-tracker/shared/utils';
+import { Store } from '@ngrx/store';
+import { selectLanguage } from '@fitness-tracker/shared/data-access';
+import { ExercisesService } from '@fitness-tracker/exercises/data';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 @Injectable()
 export class WorkoutsEffects {
@@ -34,12 +50,37 @@ export class WorkoutsEffects {
   public readonly loadWorkoutDetails = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActionNames.LOAD_WORKOUT_DETAILS),
-      switchMap(({ payload }) =>
+      withLatestFrom(this.store.select(selectLanguage)),
+      switchMap(([{ payload }, lang]) =>
         this.workoutAPI.getWorkout(payload).pipe(
-          map((payload: SerializedWorkout) =>
+          map((serializedWorkout) => ({
+            serializedWorkout,
+            ids: toIdsFromSerializedWorkout(serializedWorkout),
+          })),
+          switchMap(
+            ({
+              ids,
+              serializedWorkout,
+            }: {
+              ids: string[];
+              serializedWorkout: SerializedWorkout;
+            }) =>
+              this.exercisesService.findExercises({ ids }, lang).pipe(
+                map((exercises: ExercisesEntity[]) => ({
+                  exercises: exercises.reduce(
+                    toExercisesMap,
+                    new Map<string, ExercisesEntity>(),
+                  ),
+                  serializedWorkout,
+                })),
+              ),
+          ),
+          map(toWorkoutDetails),
+          map((payload: WorkoutDetails) =>
             loadWorkoutDetailsSuccess({ payload }),
           ),
-          catchError((error) => of(loadWorkoutDetailsFailure())),
+          tap((a) => console.log('[loadWorkoutDetails2', a)),
+          catchError(() => of(loadWorkoutDetailsFailure())),
         ),
       ),
     ),
@@ -47,6 +88,8 @@ export class WorkoutsEffects {
 
   constructor(
     private readonly actions$: Actions,
+    private readonly store: Store,
     private readonly workoutAPI: WorkoutService,
+    private readonly exercisesService: ExercisesService,
   ) {}
 }

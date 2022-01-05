@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
+import { ExercisesEntity, MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
 import { WorkoutLevel } from '@fitness-tracker/workout/model';
 import { SerializerStrategy } from '../interfaces/serializer.interface';
 import {
@@ -35,6 +35,10 @@ export interface SerializeWorkoutItem {
   restPauseBetween: number;
   restPauseAfterComplete: number;
   totalSets: number;
+}
+
+export interface WorkoutDetails extends WorkoutBasicInfo {
+  content: (SerializeWorkoutItem | (SerializeWorkoutItem & ExercisesEntity))[];
 }
 
 @Injectable({ providedIn: 'root' })

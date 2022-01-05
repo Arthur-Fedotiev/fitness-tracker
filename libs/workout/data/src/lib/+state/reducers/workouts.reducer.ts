@@ -1,4 +1,4 @@
-import { SerializedWorkout } from '@fitness-tracker/shared/utils';
+import { WorkoutDetails } from '@fitness-tracker/shared/utils';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import { createReducer, on } from '@ngrx/store';
 import * as WorkoutsActions from '../actions/workouts.actions';
@@ -7,7 +7,7 @@ export const workoutsFeatureKey = 'workouts';
 
 export interface WorkoutsState {
   workoutPreviews: WorkoutPreview[];
-  workoutDetails: SerializedWorkout | null;
+  workoutDetails: WorkoutDetails | null;
 }
 
 export const initialState: WorkoutsState = {

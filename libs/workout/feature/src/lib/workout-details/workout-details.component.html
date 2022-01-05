@@ -49,11 +49,11 @@
     <mat-card-title-group>
       <div class="card__avatar-container"><img class="card__avatar"
              mat-card-sm-image
-             src="https://media.istockphoto.com/photos/bodybuilder-performing-power-lift-curl-picture-id181894126?k=20&m=181894126&s=612x612&w=0&h=-Sz5JAGc66ztJUEDwtSHaEA6n59Lnl19zmrw5iL-gkc="
+             [src]="item.avatarUrl"
              ftWithFallback>
         <img class="card__avatar"
              mat-card-sm-image
-             src="https://media.istockphoto.com/photos/bodybuilder-performing-power-lift-curl-picture-id181894126?k=20&m=181894126&s=612x612&w=0&h=-Sz5JAGc66ztJUEDwtSHaEA6n59Lnl19zmrw5iL-gkc="
+             [src]="item.avatarSecondaryUrl"
              ftWithFallback>
       </div>
 
@@ -71,7 +71,8 @@
     </mat-card-title-group>
     <mat-card-actions class="card__actions">
       <button mat-button
-              class="mat-raised-button mat-primary">
+              class="mat-raised-button mat-primary"
+              (click)="showExerciseDetails(item.id)">
         VIEW INSTRUCTIONS
       </button>
     </mat-card-actions>

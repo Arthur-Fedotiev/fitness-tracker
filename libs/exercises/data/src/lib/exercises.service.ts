@@ -93,7 +93,9 @@ export class ExercisesService {
       .collection<ExerciseMetaDTO>(
         COLLECTIONS.EXERCISES,
         (ref: CollectionReference) =>
-          !refresh
+          searchOptions.ids?.length
+            ? this.toParticularExercisesRef({ ref, ...searchOptions })
+            : !refresh
             ? this.toPaginatedRef({ ref, ...searchOptions })
             : this.toRefreshRef({ ref, ...searchOptions }),
       )
@@ -193,6 +195,13 @@ export class ExercisesService {
     return this.getExerciseCollectionRef({ ref, sortOrder }).endAt(
       this.exerciseDocCash,
     );
+  }
+
+  private toParticularExercisesRef({
+    ref,
+    ids,
+  }: Partial<SearchOptions> & { ref: CollectionReference }) {
+    return ref.where(firebase.firestore.FieldPath.documentId(), 'in', ids);
   }
 
   private getExerciseCollectionRef({

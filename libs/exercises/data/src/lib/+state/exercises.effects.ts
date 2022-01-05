@@ -11,6 +11,7 @@ import {
   Observable,
   of,
   switchMap,
+  tap,
   withLatestFrom,
 } from 'rxjs';
 import {
@@ -26,6 +27,9 @@ import { Router } from '@angular/router';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { LanguageCodes } from 'shared-package';
 import { TypedAction } from '@ngrx/store/src/models';
+import { MatDialog } from '@angular/material/dialog';
+import { ExerciseDetailsComponent } from '@fitness-tracker/shared/dialogs';
+import { first, switchMapTo } from 'rxjs/operators';
 
 @Injectable()
 export class ExercisesEffects {
@@ -165,6 +169,33 @@ export class ExercisesEffects {
     );
   });
 
+  public readonly showExerciseDetails$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
+      map(({ payload }) => ExercisesActions.loadExerciseDetails({ payload })),
+    ),
+  );
+
+  public readonly openExerciseDetailsDialog$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
+        switchMapTo(
+          this.actions$.pipe(
+            ofType(
+              EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
+              EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
+            ),
+            first(),
+          ),
+        ),
+        tap(({ payload: exercise }) => {
+          this.dialog.open(ExerciseDetailsComponent, { data: { exercise } });
+        }),
+      ),
+    { dispatch: false },
+  );
+
   private redirectToExerciseList(): void {
     this.router.navigate(['exercises', 'all']);
   }
@@ -174,5 +205,6 @@ export class ExercisesEffects {
     private readonly router: Router,
     private readonly exercisesService: ExercisesService,
     private readonly store: Store,
+    private readonly dialog: MatDialog,
   ) {}
 }

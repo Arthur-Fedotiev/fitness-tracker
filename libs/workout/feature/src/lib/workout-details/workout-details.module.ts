@@ -5,6 +5,8 @@ import { WorkoutDetailsRoutingModule } from './workout-details-routing.module';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { ImgFallbackModule } from '@fitness-tracker/shared/utils';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ExerciseDetailsModule } from '@fitness-tracker/shared/dialogs';
+import { ExercisesDataModule } from '@fitness-tracker/exercises/data';
 
 @NgModule({
   declarations: [WorkoutDetailsComponent],
@@ -14,6 +16,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MaterialModule,
     ImgFallbackModule,
     FlexLayoutModule,
+    ExerciseDetailsModule,
+    ExercisesDataModule,
   ],
   exports: [WorkoutDetailsComponent],
 })

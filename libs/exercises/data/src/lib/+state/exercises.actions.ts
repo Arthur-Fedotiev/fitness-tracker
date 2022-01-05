@@ -131,5 +131,10 @@ export const loadExercisesMetaSuccess = createAction(
 );
 
 export const loadExercisesMetaFailure = createAction(
-  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
+  EXERCISES_ACTION_NAMES.LOAD_EXERCISE_META_FAILURE,
+);
+
+export const openExerciseDetailsDialog = createAction(
+  EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG,
+  props<WithPayload<string>>(),
 );
