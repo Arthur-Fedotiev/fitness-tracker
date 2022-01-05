@@ -20,7 +20,6 @@ import {
 } from '@fitness-tracker/exercises/model';
 import { filter, Observable, ReplaySubject, Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 
 @UntilDestroy()
 @Component({
@@ -102,11 +101,15 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
       targetMuscle: [null, Validators.required],
       equipment: [null, Validators.required],
       coverUrl: [null],
+      coverSecondaryUrl: [null],
       avatarUrl: [null, Validators.required],
+      avatarSecondaryUrl: [null],
       shortDescription: [null],
       longDescription: [null],
       benefits: [null],
       instructions: [null],
+      instructionVideo: [null],
+      muscleDiagramUrl: [null],
       rating: [null, Validators.required],
     });
   }

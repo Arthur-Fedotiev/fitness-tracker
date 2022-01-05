@@ -2,8 +2,6 @@ import {
   ExerciseBaseData,
   Exercise,
   ExerciseTranslatableData,
-  ExercisesEntity,
-  ExerciseCollectionsMeta,
 } from './exercise-model';
 
 export class ExerciseRequestDTO {
@@ -14,10 +12,14 @@ export class ExerciseRequestDTO {
     {
       rating,
       avatarUrl,
+      avatarSecondaryUrl,
       coverUrl,
+      coverSecondaryUrl,
       targetMuscle,
       exerciseType,
       equipment,
+      instructionVideo,
+      muscleDiagramUrl,
       ...translatableData
     }: Exercise,
     id?: string,
@@ -25,11 +27,15 @@ export class ExerciseRequestDTO {
     this.baseData = {
       rating,
       coverUrl,
+      coverSecondaryUrl,
       avatarUrl,
+      avatarSecondaryUrl,
       targetMuscle,
       exerciseType,
       equipment,
       id,
+      instructionVideo,
+      muscleDiagramUrl,
     };
     this.translatableData = translatableData;
   }
@@ -45,25 +51,7 @@ export class ExerciseRequestDTO {
   }
 }
 
-// export class ExerciseVM implements ExercisesEntity {
-//   constructor(
-//     public exercise: ExercisesEntity,
-//     public metaCollections: ExerciseCollectionsMeta,
-//   ) {}
-
-
-//   private toExerciseVM() {
-
-//   }
-// }
-
 export type ExerciseMetaDTO = Pick<
   ExerciseRequestDTO,
   'baseData' | 'translatableData'
 >;
-
-export interface ExerciseBase {
-  rating: number;
-  avatarUrl: string;
-  coverUrl: string;
-}

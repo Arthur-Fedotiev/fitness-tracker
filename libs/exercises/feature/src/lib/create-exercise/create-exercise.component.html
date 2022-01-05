@@ -53,9 +53,21 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
+        <input placeholder="Cover secondary url"
+               matInput
+               formControlName="coverSecondaryUrl" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
         <input placeholder="Avatar url"
                matInput
                formControlName="avatarUrl" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input placeholder="Avatar secondary url"
+               matInput
+               formControlName="avatarSecondaryUrl" />
       </mat-form-field>
 
       <mat-form-field>
@@ -83,6 +95,23 @@
         <textarea matInput
                   placeholder="Exercise long description"
                   formControlName="longDescription"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput
+                  placeholder="Exercise instructions"
+                  formControlName="instructions"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input placeholder="Instructions video"
+               matInput
+               formControlName="instructionVideo" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input placeholder="Muscle diagram video"
+               matInput
+               formControlName="muscleDiagramUrl" />
       </mat-form-field>
       <button mat-raised-button
               color="warn"

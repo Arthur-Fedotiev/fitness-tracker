@@ -40,6 +40,10 @@ export type ExerciseBaseData = Pick<
   | 'equipment'
   | 'exerciseType'
   | 'targetMuscle'
+  | 'avatarSecondaryUrl'
+  | 'coverSecondaryUrl'
+  | 'instructionVideo'
+  | 'muscleDiagramUrl'
 > & { id?: string };
 
 export type ExerciseTranslatableData = Omit<Exercise, keyof ExerciseBaseData>;
