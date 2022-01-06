@@ -39,16 +39,19 @@
       {{'EXERCISE.viewBtn' | translate}}
     </button>
 
-    <button mat-button
+    <button *ftRoles="roles.ADMIN"
+            mat-button
             class="mat-raised-button mat-accent"
             (click)="editExercise(exercise)">
       {{'EXERCISE.editBtn' | translate}} </button>
-    <button mat-mini-fab
+    <button *ftRoles="roles.ADMIN"
+            mat-mini-fab
             color="warn"
             (click)="deleteExercise(exercise)">
       <mat-icon>delete</mat-icon>
     </button>
-    <button mat-mini-fab
+    <button *ftRoles="roles.ADMIN"
+            mat-mini-fab
             class="add-btn"
             color="success"
             (click)="addedToWorkout(exercise)">

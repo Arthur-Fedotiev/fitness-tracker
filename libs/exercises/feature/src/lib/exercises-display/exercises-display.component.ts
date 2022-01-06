@@ -33,6 +33,7 @@ import {
   tap,
 } from 'rxjs';
 import { ComposeWorkoutComponent } from '@fitness-tracker/shared/dialogs';
+import { ROLES } from 'shared-package';
 
 @UntilDestroy()
 @Component({
@@ -42,6 +43,8 @@ import { ComposeWorkoutComponent } from '@fitness-tracker/shared/dialogs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExercisesDisplayComponent implements OnInit, OnDestroy {
+  public readonly roles = ROLES;
+
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly exercisesList$: Observable<ExerciseVM[]> =
     this.exerciseFacade.exercisesList$.pipe(
@@ -135,6 +138,10 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     dialogConfig.data = workoutExercisesList;
 
     const dialogRef = this.dialog.open(ComposeWorkoutComponent, dialogConfig);
+  }
+
+  public showExerciseDetails(id: string): void {
+    this.exerciseFacade.openExerciseDetailsDialog(id);
   }
 
   public removeFromComposedWorkout(id: string): void {

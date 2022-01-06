@@ -6,6 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { ExerciseVM } from '@fitness-tracker/exercises/model';
+import { ROLES } from 'shared-package';
 
 @Component({
   selector: 'ft-exercise',
@@ -14,6 +15,8 @@ import { ExerciseVM } from '@fitness-tracker/exercises/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseComponent {
+  public readonly roles = ROLES;
+
   @Input()
   public exercise!: ExerciseVM;
 

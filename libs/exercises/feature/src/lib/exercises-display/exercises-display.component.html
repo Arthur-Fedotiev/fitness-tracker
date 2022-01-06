@@ -12,14 +12,15 @@
            fxLayoutGap="1rem"
            class="exercises-list">
 
-    <button mat-raised-button
+    <button *ftRoles="roles.ADMIN"
+            mat-raised-button
             class="workout-btn"
             color="primary">Compose workout</button>
 
     <article class="exercises-list__list">
       <ft-exercise-list [exerciseList]="exercisesList$ | async"
                         (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
-                        (exerciseViewed)="navigate(exerciseMode.VIEW, $event)"
+                        (exerciseViewed)="showExerciseDetails($event)"
                         (exerciseDeleted)="deleteExercise($event)"
                         (exerciseAddedToWorkout)="addToComposedWorkout($event)"></ft-exercise-list>
       <footer>

@@ -15,10 +15,11 @@ import {
   map,
   first,
   skip,
+  distinctUntilChanged,
 } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-
+import { isEqual } from 'lodash-es';
 @UntilDestroy()
 @Component({
   selector: 'ft-workouts-display',
@@ -35,8 +36,9 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   public readonly queryParams$ = this.route.queryParamMap.pipe(
     map((queryParams: ParamMap) => queryParams.get('targetMuscles')),
-    map((targetMuscles) => (targetMuscles ? JSON.parse(targetMuscles) : [])),
     debounceTime(500),
+    distinctUntilChanged(isEqual),
+    map((targetMuscles) => (targetMuscles ? JSON.parse(targetMuscles) : [])),
     tap((filters: typeof MUSCLE_KEYS[number][]) =>
       this.workoutFacade.loadWorkoutPreviews(filters),
     ),
