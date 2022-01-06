@@ -32,10 +32,9 @@
   <div *ngIf="item.children"
        class="workout-item-description">
     <h1> {{ item.name }} </h1>
-    <p>Perform the exercises in order, resting as little as possible between movements. </p>
-
-    <p>Sets - {{ item.totalSets }}, times - {{ item.load }}</p>
-    <p> Rest between sets - {{ item.restPauseBetween}} sec., and after all sets done - {{ item.restPauseAfterComplete }} sec.</p>
+    <p [translate]="'supersetNotes'"></p>
+    <p [translate]="'restPause'"
+       [translateParams]="{restPauseBetween: item.restPauseBetween, restPauseAfterComplete: item.restPauseAfterComplete}"></p>
   </div>
 
   <ng-container *ngIf="item.children?.length">
@@ -76,7 +75,10 @@
               ngClass.xl="ft-xl">{{ item.name }}</span>
       </mat-card-title>
       <mat-card-subtitle>
-        <span *ngIf="!isChild">Sets - {{ item.totalSets }}, </span>reps/duration - {{ item.load }} <span *ngIf="!isChild">(rest {{ item.restPauseBetween }} sec.)</span>
+        <span *ngIf="!isChild"> {{'totalSets' | translate}} - {{ item.totalSets }},</span> {{'instructions.'+item.type | translate | titlecase}} - {{ item.load }}
+        <span *ngIf="!isChild"
+              [translate]="'notChildRest'"
+              [translateParams]="{restPauseBetween: item.restPauseBetween}"></span>
       </mat-card-subtitle>
 
     </mat-card-title-group>

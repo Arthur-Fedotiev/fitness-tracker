@@ -5,7 +5,10 @@ import { filter, Observable, skip, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
+import { TranslateService } from '@ngx-translate/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'ft-workout-details',
   templateUrl: './workout-details.component.html',
@@ -23,11 +26,17 @@ export class WorkoutDetailsComponent implements OnInit {
     tap(() => this.workoutFacade.loadWorkoutDetails(this.workoutId)),
   );
 
+  private readonly refreshLang$ = this.settingsFacade.language$.pipe(
+    tap((language) => this.translateService.use(language)),
+    untilDestroyed(this),
+  );
+
   constructor(
     private readonly workoutFacade: WorkoutFacadeService,
     private readonly settingsFacade: SettingsFacadeService,
     private readonly exercisesFacade: ExercisesFacade,
     private readonly route: ActivatedRoute,
+    private readonly translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +55,6 @@ export class WorkoutDetailsComponent implements OnInit {
 
   private initListeners(): void {
     this.updateWorkoutDetails$.subscribe();
+    this.refreshLang$.subscribe();
   }
 }
