@@ -8,15 +8,20 @@
   display: flex;
 }
 
-:host ::ng-deep {
-  .mat-list-item-content {
-    display: flex;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-  }
+.workout-header {
+  background-color: black;
+  background-image: url(https://www.bodybuilding.com/images/2019/june/gethin-8-week-salespage-header-mobile-550x1085.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  min-height: 600px;
+  overflow: auto;
+  padding: 30px 15px;
+  display: flex;
 
-  mat-list-item {
-    height: fit-content !important;
+  &__content {
+    width: 100%;
   }
 }
 
@@ -45,7 +50,7 @@
 
 :host ::ng-deep {
   display: flex;
-  flex-direction: row;
+  flex-flow: column nowrap;
   justify-content: center;
 
   article {

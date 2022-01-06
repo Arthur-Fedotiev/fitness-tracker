@@ -19,6 +19,7 @@ import {
   convertSnaps,
   convertSnapsToDictionary,
   DEFAULT_PAGINATION_STATE,
+  LanguagesISO,
   ORDER_BY,
   SearchOptions,
   WithId,
@@ -86,7 +87,7 @@ export class ExercisesService {
 
   public findExercises(
     searchOptions: Partial<SearchOptions>,
-    lang: LanguageCodes = 'en',
+    lang: LanguageCodes = LanguagesISO.ENGLISH,
     refresh: boolean = false,
   ): Observable<ExercisesEntity[]> {
     return this.afs
@@ -131,7 +132,7 @@ export class ExercisesService {
 
   public getExerciseDetails(
     exerciseId: string,
-    lang: LanguageCodes = 'en',
+    lang: LanguageCodes = LanguagesISO.ENGLISH,
   ): Observable<ExercisesEntity> {
     return this.afs
       .doc<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES}/${exerciseId}`)

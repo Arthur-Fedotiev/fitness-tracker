@@ -1,16 +1,25 @@
-<article fxFlex.sm="80%"
-         fxFlex.md="65%"
-         fxFlex.lg="55%"
-         fxFlex.xl="45%"
+<article fxLayout="column nowrap"
          *ngIf="workoutDetails$ | async as workout">
-  <div class="workout-wrapper">
-    <h1> {{ workout.name }}</h1>
-    <p>{{ workout.description }}</p>
+  <header class="workout-header">
+    <div class="workout-header__content"
+         fxLayout="column nowrap"
+         fxLayoutAlign="space-between center">
+      <h1> {{ workout.name }}</h1>
+      <p>{{ workout.description }}</p>
+    </div>
+
+  </header>
+  <section fxFlex.sm="80%"
+           fxFlex.md="65%"
+           fxFlex.lg="55%"
+           fxFlex.xl="45%"
+           class="workout-wrapper">
+
     <ng-container *ngFor="let workoutItem of workout.content; first as first;">
       <ng-template [ngTemplateOutlet]="workoutTpl"
                    [ngTemplateOutletContext]="{$implicit: workoutItem, first }"></ng-template>
     </ng-container>
-  </div>
+  </section>
 </article>
 
 <ng-template #workoutTpl
