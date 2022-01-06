@@ -12,9 +12,8 @@ service cloud.firestore {
       allow delete: if isAuthenticated() && isAdmin();
 
       match /translations/{translationId} {
-        allow read: if isKnownUser();
+        allow read: if isAuthenticated();
       }
-
     }
 
     match /muscles/{doc=**} {
@@ -41,7 +40,7 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    match /{path=**}/translations/{lessonId} {
+    match /{path=**}/translations/{id} {
       allow read: if isKnownUser();
     }
 
@@ -64,7 +63,7 @@ service cloud.firestore {
       isNonEmptyString('exerciseType') &&
       isNonEmptyString('targetMuscle') &&
       isNonEmptyString('equipment') &&
-      isNonEmptyString('avatarUrl') &&
+      isNonEmptyString('avatarUrl');
     }
 
     function isNonEmptyString(fieldName) {
