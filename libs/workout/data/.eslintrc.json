@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "fitness-tracker",
+            "prefix": "ft",
             "style": "kebab-case"
           }
         ]
