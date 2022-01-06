@@ -1,11 +1,5 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'ft-workout-preview',
@@ -13,10 +7,6 @@ import { from } from 'rxjs';
   styleUrls: ['./workout-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WorkoutPreviewComponent implements OnInit {
+export class WorkoutPreviewComponent {
   @Input() workout!: WorkoutPreview;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

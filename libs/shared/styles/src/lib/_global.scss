@@ -11,3 +11,13 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.title-link {
+  color: #000;
+}
+
+body.dark-theme {
+  .title-link {
+    color: wheat;
+  }
+}

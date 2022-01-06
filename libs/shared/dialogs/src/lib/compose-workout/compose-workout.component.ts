@@ -25,9 +25,8 @@ import {
   WorkoutBasicInfo,
 } from '@fitness-tracker/shared/utils';
 import { WorkoutService } from '@fitness-tracker/workout/data';
-import { WorkoutLevel } from '@fitness-tracker/workout/model';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import { BehaviorSubject, merge, Observable, scan, Subject } from 'rxjs';
+import { merge, Observable, scan, Subject } from 'rxjs';
 import {
   debounceTime,
   filter,
@@ -58,11 +57,6 @@ export class ComposeWorkoutComponent implements OnInit {
 
   public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
     this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
-
-  public readonly nestedDrag = new BehaviorSubject(false);
-  public readonly nestedDrag$ = this.nestedDrag
-    .asObservable()
-    .pipe(debounceTime(50), tap(console.log));
 
   public readonly instructionType = InstructionType;
   public isSupersetComposeUnderway = false;

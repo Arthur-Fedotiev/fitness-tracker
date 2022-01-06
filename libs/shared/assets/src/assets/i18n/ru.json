@@ -1,7 +1,15 @@
 {
-	"NAVIGATION_BAR": {
-		"createExerciseLink": "Создать упражнение",
-		"createUserLink": "Создать пользователя",
-		"exercisesLink": "Упражнения"
-	}
+  "NAVIGATION_BAR": {
+    "createExerciseLink": "Создать упражнение",
+    "createUserLink": "Создать пользователя",
+    "exercisesLink": "Упражнения"
+  },
+  "LEVELS": {
+    "BEGINNER": "Начальный",
+    "INTERMEDIATE": "Средний",
+    "ADVANCED": "Продвинутый"
+  },
+  "EXERCISES_META": {
+    "lvl": "Уровень сложности"
+  }
 }

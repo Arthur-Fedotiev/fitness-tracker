@@ -1,0 +1,15 @@
+<form class="filters"
+      fxLayoutAlign.gt-sm="flex-start"
+      [formGroup]="workoutFilters">
+  <mat-form-field class="filters__item"
+                  fxFlex.gt-sm="25%"
+                  appearance="outline">
+    <mat-select placeholder="Select target muscle"
+                formControlName="targetMuscles"
+                multiple>
+      <ng-container *ngFor="let muscle of metaCollections?.muscles | keyvalue; trackBy: trackByIndex">
+        <mat-option [value]="muscle.key">{{ muscle.value | titlecase }}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</form>

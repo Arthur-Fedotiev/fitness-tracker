@@ -1,7 +1,15 @@
 {
-	"NAVIGATION_BAR": {
-		"createExerciseLink": "Створити вправу",
-		"createUserLink": "Створити користувача",
-		"exercisesLink": "Вправи"
-	}
+  "NAVIGATION_BAR": {
+    "createExerciseLink": "Створити вправу",
+    "createUserLink": "Створити користувача",
+    "exercisesLink": "Вправи"
+  },
+  "LEVELS": {
+    "BEGINNER": "Початковий",
+    "INTERMEDIATE": "Середній",
+    "ADVANCED": "Продвинутий"
+  },
+  "EXERCISES_META": {
+    "lvl": "Рівень складності"
+  }
 }

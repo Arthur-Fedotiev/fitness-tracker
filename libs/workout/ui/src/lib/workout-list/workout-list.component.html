@@ -5,7 +5,7 @@
       <div [fxFlex]="(100/4) + '%'"
            fxFlex.xs="100%"
            fxFlex.sm="33%"
-           *ngFor="let item of listData">
+           *ngFor="let item of listData; trackBy: trackById">
 
         <ng-template [ngTemplateOutlet]="workoutTemplate"
                      [ngTemplateOutletContext]="{$implicit: item}"></ng-template>

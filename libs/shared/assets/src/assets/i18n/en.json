@@ -1,7 +1,15 @@
 {
-	"NAVIGATION_BAR": {
-		"createExerciseLink": "Create Exercise",
-		"createUserLink": "Create user",
-		"exercisesLink": "Exercises"
-	}
+  "NAVIGATION_BAR": {
+    "createExerciseLink": "Create Exercise",
+    "createUserLink": "Create user",
+    "exercisesLink": "Exercises"
+  },
+  "LEVELS": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  },
+  "EXERCISES_META": {
+    "lvl": "Level"
+  }
 }

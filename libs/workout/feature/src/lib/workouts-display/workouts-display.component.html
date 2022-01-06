@@ -1,5 +1,18 @@
-<ft-workout-list [listData]="(workoutPreviews$ | async)!">
-  <ng-template let-workoutItem>
-    <ft-workout-preview [workout]="workoutItem"></ft-workout-preview>
-  </ng-template>
-</ft-workout-list>
+<ft-workout-filters [metaCollections]="metaCollections$ | async"
+                    [initialTargetMuscles]="(targetMuscles$ | async)!"
+                    (targetMusclesFiltersChanges)="targetMusclesChanges($event)"></ft-workout-filters>
+
+<ng-container *ngIf="(workoutPreviews$ | async)! as workoutPreviews">
+  <ng-container *ngIf="workoutPreviews.length; else noWorkouts">
+    <ft-workout-list [listData]="(workoutPreviews$ | async)!">
+      <ng-template let-workoutItem>
+        <ft-workout-preview [workout]="workoutItem"></ft-workout-preview>
+      </ng-template>
+    </ft-workout-list>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #noWorkouts>
+  <h1>No workouts found for selected parameters</h1>
+</ng-template>
