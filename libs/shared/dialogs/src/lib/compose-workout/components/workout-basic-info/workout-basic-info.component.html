@@ -1,0 +1,69 @@
+<article fxLayout="row nowrap"
+         fxLayoutAlign="center">
+  <section class="create-exercise"
+           fxFlex="50%"
+           fxFlex.xs="90%"
+           fxFlex.sm="60%"
+           fxFlex.md="75">
+    <h3>Create New Workout</h3>
+    <form *ngIf="metaCollections"
+          [formGroup]="workoutInfoForm">
+      <mat-form-field appearance="outline">
+        <input placeholder="Workout name"
+               matInput
+               formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select target muscle"
+                    formControlName="targetMuscles"
+                    multiple>
+          <ng-container *ngFor="let muscle of metaCollections.muscles | keyvalue; trackBy: trackByIndex">
+            <mat-option [value]="muscle.key">{{ muscle.value | titlecase }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select level"
+                    formControlName="level">
+          <mat-option [value]="workoutLevels.BEGINNER">{{ workoutLevels.BEGINNER | titlecase }}</mat-option>
+          <mat-option [value]="workoutLevels.INTERMEDIATE">{{ workoutLevels.INTERMEDIATE | titlecase }}</mat-option>
+          <mat-option [value]="workoutLevels.ADVANCED">{{ workoutLevels.ADVANCED | titlecase }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input placeholder="Cover image url"
+               matInput
+               formControlName="coverUrl" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input placeholder="Avatar url"
+               matInput
+               formControlName="avatarUrl" />
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <textarea matInput
+                  placeholder="Workout description"
+                  formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput
+                  placeholder="Important Notes"
+                  formControlName="importantNotes"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button
+              color="primary"
+              [disabled]="!workoutInfoForm.valid || !workoutInfoForm.dirty"
+              (click)="onSave()">
+        SAVE
+      </button>
+    </form>
+    <pre> {{workoutInfoForm.value | json}} </pre>
+  </section>

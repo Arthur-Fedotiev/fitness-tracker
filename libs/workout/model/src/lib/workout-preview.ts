@@ -5,5 +5,5 @@ export interface WorkoutPreview {
   name: string;
   img: string;
   level: WorkoutLevel;
-  muscles: string[];
+  targetMuscles: string[];
 }

@@ -7,6 +7,8 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
+import { ExercisesFacade } from '@fitness-tracker/exercises/data';
+import { ExerciseMetaCollectionsDictionaryUnit } from '@fitness-tracker/exercises/model';
 import {
   InstructionType,
   WorkoutItem,
@@ -20,18 +22,21 @@ import {
   hasChild,
   SerializedWorkout,
   ConcreteWorkoutItemSerializer,
+  WorkoutBasicInfo,
 } from '@fitness-tracker/shared/utils';
 import { WorkoutService } from '@fitness-tracker/workout/data';
 import { WorkoutLevel } from '@fitness-tracker/workout/model';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import { BehaviorSubject, merge, scan, Subject } from 'rxjs';
+import { BehaviorSubject, merge, Observable, scan, Subject } from 'rxjs';
 import {
   debounceTime,
+  filter,
   map,
   shareReplay,
   tap,
   withLatestFrom,
 } from 'rxjs/operators';
+
 @UntilDestroy()
 @Component({
   selector: 'ft-compose-workout',
@@ -51,6 +56,9 @@ export class ComposeWorkoutComponent implements OnInit {
 
   public hasChild = hasChild;
 
+  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
+    this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
+
   public readonly nestedDrag = new BehaviorSubject(false);
   public readonly nestedDrag$ = this.nestedDrag
     .asObservable()
@@ -62,6 +70,8 @@ export class ComposeWorkoutComponent implements OnInit {
   public readonly addToComposableSuperset = new Subject<WorkoutItemFlatNode>();
   public readonly reset = new Subject<void>();
   public readonly saveSupersetSubj = new Subject<void>();
+  public readonly saveWorkoutSubj = new Subject<SerializedWorkout['content']>();
+  private readonly workoutBasicInfoSubj = new Subject<WorkoutBasicInfo>();
 
   public readonly temporarySuperset$ = merge(
     this.addToComposableSuperset.asObservable(),
@@ -102,16 +112,27 @@ export class ComposeWorkoutComponent implements OnInit {
         this.workoutDB.insertItem(parent, this.flatNodeMap.get(node)!),
       );
     }),
-
     tap(() => this.reset.next()),
+    untilDestroyed(this),
+  );
+
+  private readonly saveWorkout$ = this.saveWorkoutSubj.asObservable().pipe(
+    withLatestFrom(this.workoutBasicInfoSubj),
+    map(([content, basicInfo]) => ({
+      content,
+      ...basicInfo,
+    })),
+    tap((serializedWorkout: SerializedWorkout) =>
+      this.workoutAPI.createWorkout(serializedWorkout),
+    ),
+    tap(console.log),
   );
 
   constructor(
     private readonly workoutAPI: WorkoutService,
     private readonly workoutItemSerializeStrategy: ConcreteWorkoutItemSerializer,
-    // @Inject(MAT_DIALOG_DATA)
-    // public data: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
-    readonly workoutDB: WorkoutDatabase, // private dialogRef: MatDialogRef<ComposeWorkoutComponent>, // private readonly cdr: ChangeDetectorRef,
+    readonly workoutDB: WorkoutDatabase,
+    private exercisesFacade: ExercisesFacade,
   ) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
@@ -134,7 +155,9 @@ export class ComposeWorkoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.exercisesFacade.loadExercisesMeta();
     this.createSuperset$.pipe(untilDestroyed(this)).subscribe();
+    this.saveWorkout$.pipe(untilDestroyed(this)).subscribe();
   }
 
   public transformer = (
@@ -193,23 +216,8 @@ export class ComposeWorkoutComponent implements OnInit {
     const serializedWorkoutContent = this.dataSource.data.map((workoutItem) =>
       this.workoutItemSerializeStrategy.serialize(workoutItem),
     );
-    const serializedWorkout: SerializedWorkout = {
-      content: serializedWorkoutContent,
-      name: 'Shitty Workout #1',
-      level: WorkoutLevel.INTERMEDIATE,
-      muscles: ['BICEPS'],
-      importantNotes: ['Dont fuck up please'],
-      description: 'Strong arms - tight jerking',
-      coverUrl: 'Url of jerking mazafucker',
-    };
-    console.log(this.dataSource.data);
-    console.log(
-      this.dataSource.data.map((workoutItem) =>
-        this.workoutItemSerializeStrategy.serialize(workoutItem),
-      ),
-    );
 
-    this.workoutAPI.createWorkout(serializedWorkout);
+    this.saveWorkoutSubj.next(serializedWorkoutContent);
   }
 
   public trackById(_: number, node: WorkoutItem): string | number {
@@ -318,5 +326,9 @@ export class ComposeWorkoutComponent implements OnInit {
       const node = this.treeControl.dataNodes.find((n) => n.id === id);
       node && this.treeControl.expand(node);
     });
+  }
+
+  public saveBasicInfo($event: WorkoutBasicInfo): void {
+    this.workoutBasicInfoSubj.next($event);
   }
 }

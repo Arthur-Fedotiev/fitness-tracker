@@ -9,7 +9,7 @@ import { WorkoutPreview } from '@fitness-tracker/workout/model';
 
 export const loadWorkoutPreviews = createAction(
   WorkoutActionNames.LOAD_WORKOUT_PREVIEWS,
-  props<Partial<WithPayload<WorkoutPreview['muscles']>>>(),
+  props<Partial<WithPayload<WorkoutPreview['targetMuscles']>>>(),
 );
 
 export const loadWorkoutPreviewsSuccess = createAction(

@@ -1,5 +1,7 @@
 <h2 mat-dialog-title>Compose Workout</h2>
 <mat-dialog-content class="mat-typography">
+  <ft-workout-basic-info [metaCollections]="metaCollections$ | async"
+                         (workoutBasicInfoSaved)="saveBasicInfo($event)"></ft-workout-basic-info>
   <mat-tree [dataSource]="dataSource"
             [treeControl]="treeControl"
             cdkDropList

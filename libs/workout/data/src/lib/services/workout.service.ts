@@ -62,7 +62,7 @@ export class WorkoutService {
   }
 
   public findWorkouts(
-    muscles?: WorkoutBasicInfo['muscles'],
+    muscles?: WorkoutBasicInfo['targetMuscles'],
   ): Observable<Required<SerializedWorkout>[]> {
     return this.afs
       .collection<Required<SerializedWorkout>>(
@@ -77,7 +77,7 @@ export class WorkoutService {
   }
 
   public getWorkoutPreviews(
-    muscles?: WorkoutBasicInfo['muscles'],
+    muscles?: WorkoutBasicInfo['targetMuscles'],
   ): Observable<WorkoutPreview[]> {
     return this.findWorkouts(muscles).pipe(
       map((workouts: Required<SerializedWorkout>[]) =>
@@ -86,13 +86,13 @@ export class WorkoutService {
             id,
             name,
             coverUrl: img,
-            muscles,
+            targetMuscles,
             level,
           }: Required<SerializedWorkout>) => ({
             id,
             name,
             img,
-            muscles,
+            targetMuscles,
             level,
           }),
         ),

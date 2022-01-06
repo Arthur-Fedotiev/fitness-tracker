@@ -14,10 +14,11 @@ import {
 export interface WorkoutBasicInfo {
   name: string;
   id?: string;
-  muscles: typeof MUSCLE_KEYS[number][];
-  importantNotes: string[];
+  targetMuscles: typeof MUSCLE_KEYS[number][];
+  importantNotes: string;
   description: string;
   coverUrl: string;
+  avatarUrl: string;
   level: WorkoutLevel;
 }
 

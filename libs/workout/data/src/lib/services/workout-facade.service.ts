@@ -26,7 +26,9 @@ export class WorkoutFacadeService {
     this.store.select(workoutDetails);
   constructor(private readonly store: Store) {}
 
-  public loadWorkoutPreviews(payload?: WorkoutBasicInfo['muscles']): void {
+  public loadWorkoutPreviews(
+    payload?: WorkoutBasicInfo['targetMuscles'],
+  ): void {
     this.store.dispatch(loadWorkoutPreviews({ payload }));
   }
 
