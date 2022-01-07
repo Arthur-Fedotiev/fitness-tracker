@@ -5,8 +5,7 @@ import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateExerciseRoutingModule } from './create-exercise-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CreateExerciseComponent],
@@ -15,7 +14,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CreateExerciseRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
-export class CreateExerciseModule { }
+export class CreateExerciseModule {}

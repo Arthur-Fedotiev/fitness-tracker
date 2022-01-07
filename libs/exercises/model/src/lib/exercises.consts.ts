@@ -106,3 +106,16 @@ export const EXERCISE_TYPE_KEYS = [
   'STRETCHING',
   'STRONGMAN',
 ] as const;
+
+export const PROFICIENCY_TYPE_KEYS = [
+  'BEGINNER',
+  'INTERMEDIATE',
+  'ADVANCED',
+] as const;
+
+export const META_COLLECTIONS = {
+  muscles: MUSCLE_KEYS,
+  equipment: EQUIPMENT_KEYS,
+  'exercise-types': EXERCISE_TYPE_KEYS,
+  proficiencyLvl: PROFICIENCY_TYPE_KEYS,
+} as const;

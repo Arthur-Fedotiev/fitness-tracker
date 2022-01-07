@@ -22,7 +22,9 @@ const i18nGlobalPath = './assets/i18n/';
         provide: MissingTranslationHandler,
         useClass: MissingTranslationService,
       },
-      useDefaultLang: false,
+      // useDefaultLang: false,
+      isolate: false,
+      extend: true,
     }),
   ],
 })

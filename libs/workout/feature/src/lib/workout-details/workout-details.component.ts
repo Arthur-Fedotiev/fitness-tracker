@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { SerializedWorkout } from '@fitness-tracker/shared/utils';
+import {
+  loadIsolatedLang,
+  SerializedWorkout,
+} from '@fitness-tracker/shared/utils';
 import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { filter, Observable, skip, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +30,7 @@ export class WorkoutDetailsComponent implements OnInit {
   );
 
   private readonly refreshLang$ = this.settingsFacade.language$.pipe(
-    tap((language) => this.translateService.use(language)),
+    loadIsolatedLang(this.translateService),
     untilDestroyed(this),
   );
 

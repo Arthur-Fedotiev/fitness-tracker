@@ -28,9 +28,6 @@ import { isEqual } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutsDisplayComponent implements OnInit {
-  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
-    this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
-
   public readonly workoutPreviews$: Observable<WorkoutPreview[]> =
     this.workoutFacade.workoutPreviews$.pipe(filter(Boolean));
 

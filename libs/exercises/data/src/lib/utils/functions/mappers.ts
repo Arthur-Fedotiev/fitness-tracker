@@ -50,18 +50,3 @@ export const toBaseDataWithId = ({
   ...baseData,
   id,
 });
-
-export const toMetaCollectionDictionaryLocalized = (
-  metaCollections: ExerciseCollectionsMeta,
-  language: LanguageCodes,
-): ExerciseMetaCollectionsDictionaryUnit =>
-  (<Array<CollectionsMetaKeys>>Object.keys(metaCollections)).reduce(
-    (
-      acc: ExerciseMetaCollectionsDictionaryUnit,
-      collectionName: CollectionsMetaKeys,
-    ) => ({
-      ...acc,
-      [collectionName]: metaCollections[collectionName][language],
-    }),
-    {} as ExerciseMetaCollectionsDictionaryUnit,
-  );

@@ -2,8 +2,18 @@
   "NAVIGATION_BAR": {
     "createExerciseLink": "Створити вправу",
     "createUserLink": "Створити користувача",
-    "exercisesLink": "Вправи"
+    "exercisesLink": "Вправи",
+    "workoutsLink": "Тренування"
   },
+  "SETTINGS_BAR": {
+    "logout": "Вийти",
+    "darkMode": "Темний режим",
+    "lightMode": "Світлий режим"
+  },
+  "CONTROL_PLACEHOLDERS": {
+    "selectMuscles": "Оберіть цільові м'язи"
+  },
+  "NO_DATA": "Для обраних категорій нічого не знайдено :(",
   "LEVELS": {
     "BEGINNER": "Початковий",
     "INTERMEDIATE": "Середній",
@@ -16,5 +26,54 @@
     "close": "Закрити",
     "open": "Відкрити",
     "cancel": "Відмінити"
+  },
+  "EQUIPMENT": {
+    "NAME": "Знаряддя",
+    "BARBELL": "Штанга",
+    "MEDICINE_BALL": "Медицина-м'яч",
+    "OTHER": "Інше ",
+    "BODY_ONLY": "Тільки для тіла",
+    "EXERCISE_BALL": "Вправа М'яч",
+    "KETTLEBELLS": "Грі",
+    "ROLL": "Пінопласт",
+    "CABLE": "Кабель",
+    "NONE": "Немає",
+    "MACHINE": "Машина",
+    "BANDS": "Гумки",
+    "E-Z_BAR": "Грілка EZ",
+    "DUMBBELL": "Гантелі"
+  },
+  "EXERCISE-TYPES": {
+    "NAME": "Тип вправи",
+    "PLYOMETRICS": "Пліометрика",
+    "CARDIO": "Кардіо",
+    "STRONGMAN": "Стронгмен",
+    "STRENGTH": "Сила",
+    "WEIGHTLIFTING": "Олімпійська важка атлетика",
+    "POWERLIFTING": "Пауерліфтинг",
+    "STRETCHING": "Розтяжка"
+  },
+  "MUSCLES": {
+    "name": "М'язи",
+    "MIDDLE_BACK": "середня спина",
+    "GLUTES": "сідниці",
+    "LOWE_BACK": "нижня частина спина",
+    "TRAPS": "трапки",
+    "BICEPS": "біцепси",
+    "ABDOMINAL": "черевний м'яз",
+    "CHEST": "груди",
+    "SHOULDERS": "плечі",
+    "QUADRICEPS": "квадрицепс",
+    "NECK": "шия",
+    "TRICEPS": "трицепси",
+    "CALVES": "икри",
+    "FOREARM": "передпліччя",
+    "HAMSTRINGS": "підколінні сухожилля",
+    "LATS": "широчини"
+  },
+  "PROFICIENCY_LVL": {
+    "BEGINNER": "Початковий",
+    "INTERMEDIATE": "Середній",
+    "ADVANCED": "Продвинутий"
   }
 }

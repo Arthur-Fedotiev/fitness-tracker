@@ -55,9 +55,6 @@ export class ComposeWorkoutComponent implements OnInit {
 
   public hasChild = hasChild;
 
-  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
-    this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
-
   public readonly instructionType = InstructionType;
   public isSupersetComposeUnderway = false;
 

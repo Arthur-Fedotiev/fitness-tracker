@@ -2,8 +2,18 @@
   "NAVIGATION_BAR": {
     "createExerciseLink": "Créer un exercice",
     "createUserLink": "Créer un utilisateur",
-    "exercisesLink": "Des exercices"
+    "exercisesLink": "Des exercices",
+    "workoutsLink": "Workouts"
   },
+  "SETTINGS_BAR": {
+    "logout": "Logout",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "CONTROL_PLACEHOLDERS": {
+    "selectMuscles": "Select target muscles"
+  },
+  "NO_DATA": "No data for selected parameters",
   "LEVELS": {
     "BEGINNER": "Beginner",
     "INTERMEDIATE": "Intermediate",
@@ -16,5 +26,54 @@
     "close": "Close",
     "open": "Open",
     "cancel": "Cancel"
+  },
+  "EQUIPMENT": {
+    "NAME": "Equipment",
+    "ROLL": " Rouleau de mousse ",
+    "BARBELL": " Haltères ",
+    "EXERCISE_BALL": "Ballon d'exercice",
+    "CABLE": " Câble ",
+    "BODY_ONLY": " Corps seulement ",
+    "OTHER": " Autre ",
+    "NONE": " Aucun ",
+    "MACHINE": " Machine ",
+    "KETTLEBELLS": " Kettlebells ",
+    "BANDS": "Bandes ",
+    "E-Z_BAR": " Barre de courbure EZ ",
+    "MEDICINE_BALL": " Boule de médecine ",
+    "DUMBBELL": " Haltère "
+  },
+  "EXERCISE-TYPES": {
+    "NAME": "Exercise-type",
+    "PLYOMETRICS": "Plyométrie ",
+    "STRENGTH": "Force ",
+    "STRONGMAN": "Strongman",
+    "CARDIO": "Cardio ",
+    "POWERLIFTING": "Powerlifting ",
+    "STRETCHING": "Stretching ",
+    "WEIGHTLIFTING": "Haltérophilie olympique "
+  },
+  "MUSCLES": {
+    "name": "Muscles",
+    "QUADRICEPS": "quadriceps",
+    "MIDDLE_BACK": "milieu du dos",
+    "TRICEPS": "triceps",
+    "LOWE_BACK": "inférieur dos ",
+    "SHOULDERS": "épaules",
+    "CALVES": "mollets",
+    "LATS": "lats",
+    "GLUTES": " fessiers ",
+    "NECK": "cou",
+    "BICEPS": "biceps",
+    "TRAPS": "trappes",
+    "ABDOMINAL": "abdominal",
+    "HAMSTRINGS": " ischio-jambiers",
+    "FOREARM": "avant-bras",
+    "CHEST": "poitrine"
+  },
+  "PROFICIENCY_LVL": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
   }
 }

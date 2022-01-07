@@ -4,6 +4,7 @@ import { WorkoutFiltersComponent } from './workout-filters.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [WorkoutFiltersComponent],
@@ -12,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
+    TranslateModule,
   ],
   exports: [WorkoutFiltersComponent],
 })

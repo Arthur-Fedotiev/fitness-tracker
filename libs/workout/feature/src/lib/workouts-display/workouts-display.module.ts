@@ -17,10 +17,7 @@ import { RouterModule } from '@angular/router';
     WorkoutDisplayRoutingModule,
     WorkoutFiltersModule,
     RouterModule,
-    TranslateModule.forChild({
-      isolate: false,
-      extend: true,
-    }),
+    TranslateModule,
   ],
   exports: [WorkoutsDisplayComponent],
 })

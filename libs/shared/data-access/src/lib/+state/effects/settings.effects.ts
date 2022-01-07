@@ -87,11 +87,5 @@ export class SettingsEffects {
     private readonly styleManager: StyleManagerService,
     private readonly store: Store,
     private readonly translateService: TranslateService,
-  ) {
-    // const origUse = this.translateService.use;
-    // this.translateService.use = function (lang) {
-    //   console.log('this.translateService.use', lang);
-    //   return origUse.call(this, lang);
-    // };
-  }
+  ) {}
 }

@@ -5,7 +5,6 @@ import { WorkoutDetailsRoutingModule } from './workout-details-routing.module';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import {
   ImgFallbackModule,
-  LanguagesISO,
   translationsLoaderFactory,
 } from '@fitness-tracker/shared/utils';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -19,7 +18,7 @@ import {
   MissingTranslationHandler,
 } from '@ngx-translate/core';
 
-const i18nAssetsPath = 'assets/i18n/workout-display/';
+const i18nAssetsPath = 'assets/i18n/workout-details/';
 
 @NgModule({
   declarations: [WorkoutDetailsComponent],
@@ -41,10 +40,9 @@ const i18nAssetsPath = 'assets/i18n/workout-display/';
         provide: MissingTranslationHandler,
         useClass: MissingTranslationService,
       },
-      isolate: true,
-      defaultLanguage: LanguagesISO.ENGLISH,
+      isolate: false,
+      extend: true,
     }),
   ],
-  exports: [WorkoutDetailsComponent],
 })
 export class WorkoutDetailsModule {}

@@ -4,20 +4,15 @@ import {
   DocumentReference,
 } from '@angular/fire/compat/firestore';
 import {
-  CollectionMetaArray,
-  CollectionsMetaKeys,
   ExerciseBaseData,
-  ExerciseCollectionsMeta,
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,
-  ExercisesMetaCollectionKeyTypes,
   EXERCISE_FIELD_NAMES,
 } from '@fitness-tracker/exercises/model';
 import {
   convertOneSnap,
   convertSnaps,
-  convertSnapsToDictionary,
   DEFAULT_PAGINATION_STATE,
   LanguagesISO,
   ORDER_BY,
@@ -33,7 +28,6 @@ import {
   tap,
   combineLatest,
   from,
-  shareReplay,
 } from 'rxjs';
 import {
   CollectionReference,
@@ -50,13 +44,6 @@ import {
 })
 export class ExercisesService {
   private exerciseDocCash: QueryDocumentSnapshot<ExerciseMetaDTO> | null = null;
-  private readonly metaCollections: readonly [
-    COLLECTIONS,
-    COLLECTIONS,
-    COLLECTIONS,
-  ] = [COLLECTIONS.EQUIPMENT, COLLECTIONS.EXERCISE_TYPES, COLLECTIONS.MUSCLES];
-  private exercisesMetaCache$: Observable<ExerciseCollectionsMeta> | null =
-    null;
 
   constructor(public readonly afs: AngularFirestore) {}
 
@@ -145,33 +132,6 @@ export class ExercisesService {
         map(toBaseDataWithId),
         switchMap(toExerciseTranslation$.call(this, lang)),
       );
-  }
-
-  get exercisesMeta$(): Observable<ExerciseCollectionsMeta> {
-    if (!this.exercisesMetaCache$) {
-      this.exercisesMetaCache$ = this.loadExercisesMeta().pipe(shareReplay(1));
-    }
-
-    return this.exercisesMetaCache$;
-  }
-
-  public loadExercisesMeta(): Observable<ExerciseCollectionsMeta> {
-    const metaObs$ = this.metaCollections.reduce(
-      (acc, collection: COLLECTIONS) => ({
-        ...acc,
-        [collection]: this.afs
-          .collection<CollectionMetaArray<ExercisesMetaCollectionKeyTypes>>(
-            collection,
-          )
-          .get()
-          .pipe(map(convertSnapsToDictionary)),
-      }),
-      {} as {
-        [key in CollectionsMetaKeys]: Observable<ExerciseCollectionsMeta[key]>;
-      },
-    );
-
-    return combineLatest(metaObs$);
   }
 
   private toPaginatedRef({

@@ -13,6 +13,6 @@
   "supersetNotes": "Виконуйте вправи одну за іншою без відпочинку, або з мінімально можливим відпочинком.",
   "totalSets": "Підходів",
   "restPause": "Відпочинок між підходами - {{restPauseBetween}} сек., після суперсету - {{restPauseAfterComplete}} сек.",
-  "notChildRest": "(відпочинок {{restPauseBetween}} сек.)",
+  "notChildRest": "(відпочинок між підходами {{restPauseBetween}} сек., відпочинок після завершення вправи {{restPauseAfterComplete}})",
   "viewInstructionsBtn": "Інтсрукції"
 }

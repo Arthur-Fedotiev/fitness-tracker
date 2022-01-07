@@ -320,9 +320,9 @@
                 "output": "assets/i18n/exercises-display"
               },
               {
-                "input": "libs/workout/feature/src/assets/i18n/workout-display",
+                "input": "libs/workout/feature/src/assets/i18n/workout-details",
                 "glob": "*.json",
-                "output": "assets/i18n/workout-display"
+                "output": "assets/i18n/workout-details"
               }
             ],
             "stylePreprocessorOptions": {

@@ -3,6 +3,7 @@ import {
   EQUIPMENT_KEYS,
   EXERCISE_TYPES,
   EXERCISE_TYPE_KEYS,
+  META_COLLECTIONS,
   MUSCLE_KEYS,
   MUSCLE_LIST,
 } from '..';
@@ -100,3 +101,5 @@ export interface ExerciseMetaCollectionsDictionaryUnit {
 export type ExerciseVm = Omit<Exercise, 'instructions'> & {
   instructions: string[];
 };
+
+export type MetaCollection = typeof META_COLLECTIONS;

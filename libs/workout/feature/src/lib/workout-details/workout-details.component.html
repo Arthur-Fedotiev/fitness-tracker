@@ -44,6 +44,9 @@
   </ng-container>
 
   <ng-container *ngIf="!item.children">
+    <h2>
+      <ng-container *ngTemplateOutlet="titleTpl; context: {$implicit: item.name}"></ng-container>
+    </h2>
     <ng-template [ngTemplateOutlet]="workoutSingleItem"
                  [ngTemplateOutletContext]="{$implicit: item, isChild: false}"></ng-template>
   </ng-container>
@@ -66,19 +69,16 @@
              ftWithFallback>
       </div>
 
-      <mat-card-title class="card__title">
-        <span ngClass.xs="ft-xs"
-              ngClass.sm="ft-sm"
-              ngClass.md="ft-md"
-              ngClass.lg="ft-lg"
-              ngClass.xl="ft-xl">{{ item.name }}</span>
+      <mat-card-title *ngIf="isChild"
+                      class="card__title">
+        <ng-container *ngTemplateOutlet="titleTpl; context: {$implicit: item.name}"></ng-container>
       </mat-card-title>
       <mat-card-subtitle>
         <span *ngIf="!isChild"> {{'totalSets' | translate}} - {{ item.totalSets }},</span>
         {{'instructions.'+item.type | translate | titlecase}} - {{ item.load }} {{'instructions.units.'+item.type | translate}}
         <span *ngIf="!isChild"
               [translate]="'notChildRest'"
-              [translateParams]="{restPauseBetween: item.restPauseBetween}"></span>
+              [translateParams]="{restPauseBetween: item.restPauseBetween, restPauseAfterComplete: item.restPauseAfterComplete}"></span>
       </mat-card-subtitle>
 
     </mat-card-title-group>
@@ -90,4 +90,12 @@
       </button>
     </mat-card-actions>
   </mat-card>
+
+
 </ng-template>
+<ng-template #titleTpl
+             let-title><span ngClass.xs="ft-xs"
+        ngClass.sm="ft-sm"
+        ngClass.md="ft-md"
+        ngClass.lg="ft-lg"
+        ngClass.xl="ft-xl">{{ title }}</span></ng-template>

@@ -13,6 +13,6 @@
   "supersetNotes": "Perform the exercises in order, resting as little as possible between movements.",
   "totalSets": "Total sets",
   "restPause": "Rest between sets - {{restPauseBetween}} sec., and after all sets done - {{restPauseAfterComplete}} sec.",
-  "notChildRest": "(rest {{restPauseBetween}} sec.)",
+  "notChildRest": "(rest {{restPauseBetween}} sec., rest after exercise done {{restPauseAfterComplete}}))",
   "viewInstructionsBtn": "Instructions"
 }

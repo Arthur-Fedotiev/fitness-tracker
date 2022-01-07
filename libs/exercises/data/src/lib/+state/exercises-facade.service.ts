@@ -9,20 +9,16 @@ import { select, Store } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';
 import * as ExercisesSelectors from './exercises.selectors';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ExercisesFacade {
   public readonly loading$ = this.store.select(ExercisesSelectors.getLoading);
-  public readonly exercisesList$ = this.store.select(
-    ExercisesSelectors.getExercisesListVM,
-  );
+  public readonly exercisesList$ = this.store
+    .select(ExercisesSelectors.getAllExercises)
+    .pipe(tap(console.log));
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,
-  );
-
-  public readonly exercisesMetaCollections$ = this.store.select(
-    ExercisesSelectors.getMetaCollectionsVM,
   );
 
   constructor(

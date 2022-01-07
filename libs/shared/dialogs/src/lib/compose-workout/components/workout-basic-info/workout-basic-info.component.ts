@@ -6,7 +6,11 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExerciseMetaCollectionsDictionaryUnit } from '@fitness-tracker/exercises/model';
+import {
+  ExerciseMetaCollectionsDictionaryUnit,
+  MetaCollection,
+  META_COLLECTIONS,
+} from '@fitness-tracker/exercises/model';
 import { WorkoutBasicInfo } from '@fitness-tracker/shared/utils';
 import { WorkoutLevel } from '@fitness-tracker/workout/model';
 
@@ -17,12 +21,11 @@ import { WorkoutLevel } from '@fitness-tracker/workout/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutBasicInfoComponent {
-  @Input()
-  public metaCollections: ExerciseMetaCollectionsDictionaryUnit | null = null;
   @Output()
   public readonly workoutBasicInfoSaved = new EventEmitter<WorkoutBasicInfo>();
 
   public readonly workoutLevels = WorkoutLevel;
+  public readonly metaCollections: MetaCollection = META_COLLECTIONS;
   public readonly workoutInfoForm: FormGroup = this.getForm();
 
   constructor(private fb: FormBuilder) {}

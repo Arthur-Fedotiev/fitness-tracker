@@ -6,8 +6,7 @@
            fxFlex.sm="60%"
            fxFlex.md="75">
     <h3>Create New Workout</h3>
-    <form *ngIf="metaCollections"
-          [formGroup]="workoutInfoForm">
+    <form [formGroup]="workoutInfoForm">
       <mat-form-field appearance="outline">
         <input placeholder="Workout name"
                matInput
@@ -18,18 +17,16 @@
         <mat-select placeholder="Select target muscle"
                     formControlName="targetMuscles"
                     multiple>
-          <ng-container *ngFor="let muscle of metaCollections.muscles | keyvalue; trackBy: trackByIndex">
-            <mat-option [value]="muscle.key">{{ muscle.value | titlecase }}</mat-option>
-          </ng-container>
+          <mat-option *ngFor="let muscle of metaCollections.muscles; trackBy: trackByIndex"
+                      [value]="muscle">{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-select placeholder="Select level"
                     formControlName="level">
-          <mat-option [value]="workoutLevels.BEGINNER">{{ workoutLevels.BEGINNER | titlecase }}</mat-option>
-          <mat-option [value]="workoutLevels.INTERMEDIATE">{{ workoutLevels.INTERMEDIATE | titlecase }}</mat-option>
-          <mat-option [value]="workoutLevels.ADVANCED">{{ workoutLevels.ADVANCED | titlecase }}</mat-option>
+          <mat-option *ngFor="let lvl of metaCollections.proficiencyLvl; trackBy: trackByIndex"
+                      [value]="lvl">{{ 'PROFICIENCY_LVL.' + lvl | translate | titlecase }}</mat-option>
         </mat-select>
       </mat-form-field>
 

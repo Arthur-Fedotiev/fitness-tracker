@@ -17,12 +17,14 @@ import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
+  loadIsolatedLang,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   filter,
+  first,
   map,
   merge,
   Observable,
@@ -50,8 +52,6 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     this.exerciseFacade.exercisesList$.pipe(
       tap(() => this.isLoadingProhibited.next(false)),
     );
-  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
-    this.exerciseFacade.exercisesMetaCollections$.pipe(filter(Boolean));
 
   private readonly isLoadingProhibited = new BehaviorSubject(false);
   public readonly isLoadingProhibited$ =
@@ -72,7 +72,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     );
 
   private readonly refreshExercises$ = this.settingsFacade.language$.pipe(
-    tap((language) => this.translateService.use(language)),
+    loadIsolatedLang(this.translateService),
     skip(1),
     tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
     untilDestroyed(this),

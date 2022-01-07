@@ -39,7 +39,8 @@ const i18nAssetsPath = 'assets/i18n/exercises-display/';
         provide: MissingTranslationHandler,
         useClass: MissingTranslationService,
       },
-      isolate: true,
+      isolate: false,
+      extend: true,
     }),
   ],
 })

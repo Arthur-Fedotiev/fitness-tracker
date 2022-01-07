@@ -4,12 +4,11 @@
   <mat-form-field class="filters__item"
                   fxFlex.gt-sm="25%"
                   appearance="outline">
-    <mat-select placeholder="Select target muscle"
+    <mat-select [placeholder]="'CONTROL_PLACEHOLDERS.selectMuscles' | translate"
                 formControlName="targetMuscles"
                 multiple>
-      <ng-container *ngFor="let muscle of metaCollections?.muscles | keyvalue; trackBy: trackByIndex">
-        <mat-option [value]="muscle.key">{{ muscle.value | titlecase }}</mat-option>
-      </ng-container>
+      <mat-option *ngFor="let muscle of metaCollections.muscles; trackBy: trackByIndex"
+                  [value]="muscle">{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option>
     </mat-select>
   </mat-form-field>
 </form>

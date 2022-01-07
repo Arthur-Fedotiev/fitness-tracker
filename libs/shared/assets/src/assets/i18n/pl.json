@@ -2,8 +2,18 @@
   "NAVIGATION_BAR": {
     "createExerciseLink": "Utwórz ćwiczenie",
     "createUserLink": "Stwórz użytkownika",
-    "exercisesLink": "ćwiczenia"
+    "exercisesLink": "ćwiczenia",
+    "workoutsLink": "Workouts"
   },
+  "SETTINGS_BAR": {
+    "logout": "Logout",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "CONTROL_PLACEHOLDERS": {
+    "selectMuscles": "Select target muscles"
+  },
+  "NO_DATA": "No data for selected parameters",
   "LEVELS": {
     "BEGINNER": "Beginner",
     "INTERMEDIATE": "Intermediate",
@@ -16,5 +26,54 @@
     "close": "Close",
     "open": "Open",
     "cancel": "Cancel"
+  },
+  "EQUIPMENT": {
+    "NAME": "Equipment",
+    "E-Z_BAR": " EZ Curl Bar ",
+    "MEDICINE_BALL": " Piłka lekarska ",
+    "DUMBBELL": " Hantle ",
+    "BARBELL": " Sztanga ",
+    "BODY_ONLY": " Tylko do ciała ",
+    "OTHER": " Inne ",
+    "MACHINE": " Maszyna ",
+    "BANDS": "Opaski ",
+    "EXERCISE_BALL": " Piłka do ćwiczeń",
+    "NONE": " Brak ",
+    "KETTLEBELLS": " Kettlebells ",
+    "ROLL": " Wałek piankowy ",
+    "CABLE": " Kabel "
+  },
+  "EXERCISE-TYPES": {
+    "NAME": "Exercise-type",
+    "STRONGMAN": "Strongman",
+    "PLYOMETRICS": "Plyometria ",
+    "WEIGHTLIFTING": "Podnoszenie ciężarów olimpijskich ",
+    "STRENGTH": "Siła ",
+    "STRETCHING": "Rozciąganie ",
+    "POWERLIFTING": "Trójbój siłowy ",
+    "CARDIO": "Kardio "
+  },
+  "MUSCLES": {
+    "name": "Muscles",
+    "BICEPS": "bicepsy",
+    "HAMSTRINGS": " ścięgna podkolanowe",
+    "NECK": "szyja",
+    "FOREARM": "przedramię",
+    "TRICEPS": "triceps",
+    "GLUTES": " pośladki",
+    "QUADRICEPS": "mięsień czworogłowy",
+    "CHEST": "klatka piersiowa",
+    "CALVES": "łydki",
+    "SHOULDERS": "ramiona",
+    "LOWE_BACK": "dolny plecy",
+    "ABDOMINAL": "brzuszny",
+    "LATS": "lats",
+    "TRAPS": "pułapki",
+    "MIDDLE_BACK": "środkowy tył"
+  },
+  "PROFICIENCY_LVL": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
   }
 }

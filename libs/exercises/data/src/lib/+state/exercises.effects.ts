@@ -155,20 +155,6 @@ export class ExercisesEffects {
     ),
   );
 
-  public loadExerciseMeta$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_META),
-      switchMap(() =>
-        this.exercisesService.exercisesMeta$.pipe(
-          map((payload: ExerciseCollectionsMeta) =>
-            ExercisesActions.loadExercisesMetaSuccess({ payload }),
-          ),
-          catchError(() => of(ExercisesActions.loadExercisesMetaFailure())),
-        ),
-      ),
-    );
-  });
-
   public readonly showExerciseDetails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),

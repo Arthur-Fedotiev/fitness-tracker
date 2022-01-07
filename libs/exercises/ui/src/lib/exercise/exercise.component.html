@@ -14,19 +14,18 @@
             ngClass.xl="ft-xl">{{ exercise.name }}</span>
     </mat-card-title>
     <mat-card-subtitle>
-
       <div class="subtitle-item">
         <p translate>EXERCISE.targetMuscle</p>
         <a class="mat-icon"
-           href="javascript:void(0)">{{ exercise?.targetMuscle | titlecase }}</a>
+           href="javascript:void(0)">{{ 'MUSCLES.' + exercise.targetMuscle | translate | titlecase }}</a>
       </div>
       <div class="subtitle-item">
         <p translate>EXERCISE.equipment</p>
-        <a href="javascript:void(0)">{{ exercise?.equipment }}</a>
+        <a href="javascript:void(0)">{{ 'EQUIPMENT.' + exercise.equipment | translate }}</a>
       </div>
       <div class="subtitle-item">
         <p translate>EXERCISE.exerciseType</p>
-        <a href="javascript:void(0)">{{ exercise?.exerciseType }}</a>
+        <a href="javascript:void(0)">{{ 'EXERCISE-TYPES.' + exercise.exerciseType| translate }}</a>
       </div>
     </mat-card-subtitle>
 

@@ -1,5 +1,4 @@
-<ft-workout-filters [metaCollections]="metaCollections$ | async"
-                    [initialTargetMuscles]="(targetMuscles$ | async)!"
+<ft-workout-filters [initialTargetMuscles]="(targetMuscles$ | async)!"
                     (targetMusclesFiltersChanges)="targetMusclesChanges($event)"></ft-workout-filters>
 
 <ng-container *ngIf="(workoutPreviews$ | async)! as workoutPreviews">
@@ -14,5 +13,6 @@
 </ng-container>
 
 <ng-template #noWorkouts>
-  <h1>No workouts found for selected parameters</h1>
+  <h1 class="no-data"
+      translate="NO_DATA"></h1>
 </ng-template>

@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder } from '@angular/forms';
 import {
-  ExerciseMetaCollectionsDictionaryUnit,
+  MetaCollection,
+  META_COLLECTIONS,
   MUSCLE_KEYS,
 } from '@fitness-tracker/exercises/model';
 import { WorkoutLevel } from '@fitness-tracker/workout/model';
@@ -20,9 +21,8 @@ import { WorkoutLevel } from '@fitness-tracker/workout/model';
 export class WorkoutFiltersComponent {
   public workoutFilters: FormGroup = this.getForm();
   public readonly workoutLevels = WorkoutLevel;
+  public readonly metaCollections: MetaCollection = META_COLLECTIONS;
 
-  @Input()
-  public metaCollections: ExerciseMetaCollectionsDictionaryUnit | null = null;
   @Input()
   public set initialTargetMuscles(targetMuscles: typeof MUSCLE_KEYS[number][]) {
     console.log(targetMuscles);

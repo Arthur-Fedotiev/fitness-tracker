@@ -16,9 +16,10 @@ import {
   ExercisesEntity,
   ExerciseRequestDTO,
   Exercise,
-  ExerciseMetaCollectionsDictionaryUnit,
+  MetaCollection,
+  META_COLLECTIONS,
 } from '@fitness-tracker/exercises/model';
-import { filter, Observable, ReplaySubject, Subject, tap } from 'rxjs';
+import { filter, ReplaySubject, Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -29,10 +30,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateExerciseComponent implements OnInit, OnDestroy {
+  public readonly metaCollections: MetaCollection = META_COLLECTIONS;
   public readonly exerciseForm: FormGroup = this.getForm();
-
-  public readonly metaCollections$: Observable<ExerciseMetaCollectionsDictionaryUnit> =
-    this.exercisesFacade.exercisesMetaCollections$.pipe(filter(Boolean));
 
   private readonly patchExerciseFormValue: ReplaySubject<Exercise | null> =
     new ReplaySubject<Exercise | null>(1);

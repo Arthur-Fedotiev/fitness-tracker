@@ -36,7 +36,7 @@
       <mat-icon class="nav-icon"
                 svgIcon="exit"
                 aria-label="Logout"></mat-icon>
-      <span fxHide.gt-sm> Logout </span>
+      <span fxHide.gt-sm> {{ 'SETTINGS_BAR.logout' | translate }} </span>
 
     </button>
   </mat-list-item>
@@ -48,7 +48,7 @@
             aria-label="Toggle Dark Theme">
       <mat-icon matListIcon
                 color="accent">{{ isDarkMode ? "dark_mode" : "light_mode" }}</mat-icon>
-      <span fxHide.gt-sm> {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }} </span>
+      <span fxHide.gt-sm> {{ ('SETTINGS_BAR.' + (isDarkMode ? 'lightMode' : 'darkMode')) | translate }} </span>
     </button>
   </mat-list-item>
   <mat-list-item>
