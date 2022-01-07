@@ -11,5 +11,10 @@
   },
   "EXERCISES_META": {
     "lvl": "Level"
+  },
+  "BTN": {
+    "close": "Close",
+    "open": "Open",
+    "cancel": "Cancel"
   }
 }

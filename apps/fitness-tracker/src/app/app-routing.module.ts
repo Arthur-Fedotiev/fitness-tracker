@@ -10,6 +10,7 @@ import {
 } from '@fitness-tracker/shared/utils';
 
 const appRoutes: Route[] = [
+  { path: '', pathMatch: 'full', redirectTo: 'exercises/all' },
   {
     path: '',
     component: LayoutComponent,

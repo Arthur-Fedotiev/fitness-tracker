@@ -7,6 +7,9 @@
       "DURATION": "сек."
     }
   },
+  "compoundTypes": {
+    "superset": "Суперсет"
+  },
   "supersetNotes": "Виконуйте вправи одну за іншою без відпочинку, або з мінімально можливим відпочинком.",
   "totalSets": "Підходів",
   "restPause": "Відпочинок між підходами - {{restPauseBetween}} сек., після суперсету - {{restPauseAfterComplete}} сек.",

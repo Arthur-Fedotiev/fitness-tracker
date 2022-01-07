@@ -5,6 +5,7 @@ import { ExerciseDetailsRoutingModule } from './exercise-details-routing.module'
 import { ExerciseDetailsComponent } from './exercise-details.component';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ExerciseDetailsComponent],
@@ -13,6 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ExerciseDetailsRoutingModule,
     MaterialModule,
     FlexLayoutModule,
+    TranslateModule,
   ],
   exports: [ExerciseDetailsComponent],
 })

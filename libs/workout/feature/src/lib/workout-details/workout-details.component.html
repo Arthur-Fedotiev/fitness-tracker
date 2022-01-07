@@ -4,17 +4,16 @@
     <div class="workout-header__content"
          fxLayout="column nowrap"
          fxLayoutAlign="space-between center">
-      <h1> {{ workout.name }}</h1>
-      <p>{{ workout.description }}</p>
+      <h1 class="mat-display-1"> {{ workout.name | uppercase }}</h1>
     </div>
 
   </header>
   <section fxFlexAlign="center"
-           fxFlex="90%"
-           fxFlex.sm="80%"
-           fxFlex.md="65%"
-           fxFlex.lg="55%"
-           fxFlex.xl="45%"
+           ngClass.xs="ft-w-xs"
+           ngClass.sm="ft-w-sm"
+           ngClass.md="ft-w-md"
+           ngClass.lg="ft-w-lg"
+           ngClass.xl="ft-w-xl"
            class="workout-wrapper">
 
     <ng-container *ngFor="let workoutItem of workout.content; first as first;">
@@ -30,8 +29,8 @@
   <mat-divider *ngIf="!first"
                class="divider"></mat-divider>
   <div *ngIf="item.children"
-       class="workout-item-description">
-    <h1> {{ item.name }} </h1>
+       class="superset-description">
+    <h2> {{ 'compoundTypes.superset' | translate | uppercase }} </h2>
     <p [translate]="'supersetNotes'"></p>
     <p [translate]="'restPause'"
        [translateParams]="{restPauseBetween: item.restPauseBetween, restPauseAfterComplete: item.restPauseAfterComplete}"></p>
@@ -75,7 +74,8 @@
               ngClass.xl="ft-xl">{{ item.name }}</span>
       </mat-card-title>
       <mat-card-subtitle>
-        <span *ngIf="!isChild"> {{'totalSets' | translate}} - {{ item.totalSets }},</span> {{'instructions.'+item.type | translate | titlecase}} - {{ item.load }}
+        <span *ngIf="!isChild"> {{'totalSets' | translate}} - {{ item.totalSets }},</span>
+        {{'instructions.'+item.type | translate | titlecase}} - {{ item.load }} {{'instructions.units.'+item.type | translate}}
         <span *ngIf="!isChild"
               [translate]="'notChildRest'"
               [translateParams]="{restPauseBetween: item.restPauseBetween}"></span>
@@ -86,7 +86,7 @@
       <button mat-button
               class="mat-raised-button mat-primary"
               (click)="showExerciseDetails(item.id)">
-        VIEW INSTRUCTIONS
+        {{ 'viewInstructionsBtn' | translate }}
       </button>
     </mat-card-actions>
   </mat-card>

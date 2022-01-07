@@ -3,5 +3,18 @@
     "createExerciseLink": "Стварыце практыкаванне",
     "createUserLink": "Стварыць карыстальніка",
     "exercisesLink": "Практыкаванні"
+  },
+  "LEVELS": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  },
+  "EXERCISES_META": {
+    "lvl": "Level"
+  },
+  "BTN": {
+    "close": "Close",
+    "open": "Open",
+    "cancel": "Cancel"
   }
 }

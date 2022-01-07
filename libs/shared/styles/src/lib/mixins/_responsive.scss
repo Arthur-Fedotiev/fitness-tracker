@@ -15,3 +15,21 @@
     font-size: 1.5rem;
   }
 }
+
+@mixin width {
+  .ft-w-xs {
+    width: 90%;
+  }
+  .ft-w-sm {
+    width: 80%;
+  }
+  .ft-w-md {
+    width: 65%;
+  }
+  .ft-w-lg {
+    width: 55%;
+  }
+  .ft-w-xl {
+    width: 45%;
+  }
+}

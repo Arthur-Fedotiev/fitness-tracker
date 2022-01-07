@@ -1,36 +1,59 @@
-.workout-item {
-  .workout-item {
-    padding-left: 3rem;
-  }
-}
+@use 'responsive' as responsive;
 
-.item-header {
-  display: flex;
-}
+@include responsive.width();
 
 .workout-header {
+  position: relative;
+  min-height: 250px;
+  overflow: auto;
+  padding: 30px 15px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background-color: black;
   background-image: url(https://www.bodybuilding.com/images/2019/june/gethin-8-week-salespage-header-mobile-550x1085.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  position: relative;
-  min-height: 600px;
-  overflow: auto;
-  padding: 30px 15px;
-  display: flex;
 
   &__content {
     width: 100%;
+
+    h1 {
+      font-weight: 700;
+    }
   }
 }
 
+.superset-description {
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    padding: 0 0.5rem;
+  }
+}
+
+.workout-wrapper {
+  display: block;
+}
+
 .divider {
+  border-top-width: 3px;
   margin: 2rem 0;
 }
 
 .card {
   margin-bottom: 1rem;
+
+  &__title {
+    .name {
+      text-align: center;
+    }
+  }
 
   &__avatar-container {
     white-space: nowrap;
