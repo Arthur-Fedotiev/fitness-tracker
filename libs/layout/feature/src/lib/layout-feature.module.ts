@@ -24,7 +24,13 @@ export class LayoutFeatureModule {
         {
           provide: ICON_PROVIDER,
           useValue: {
-            iconKeys: ['exercises', 'add-user', 'blacksmith', 'stud'],
+            iconKeys: [
+              'exercises',
+              'add-user',
+              'blacksmith',
+              'stud',
+              'workouts',
+            ],
             iconUrl: '/assets/images/navigation',
           },
           multi: true,
