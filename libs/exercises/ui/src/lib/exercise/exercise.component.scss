@@ -1,5 +1,3 @@
-@use 'mixins';
-
 .exercise-actions {
   text-align: center;
 }
@@ -8,31 +6,26 @@
   margin-left: 0.5rem;
 }
 
-.icon {
-  width: 3rem;
-  height: 3rem;
-}
-
 .card {
   border-radius: 1.5rem;
   &__avatar {
     border-radius: 0.5rem;
   }
   &__title {
-    @include mixins.multiline-text-overflow;
     font-size: 1rem;
   }
-  &__rating {
-    width: 5rem;
-  }
 
-  .subtitle-item > a {
+  .subtitle-item > p:first-child {
     color: #ff5722;
   }
 }
 
 :host ::ng-deep {
-  mat-card-subtitle {
+  mat-card-title-group > div {
+    flex: 0.9;
+  }
+
+  mat-card-content {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -45,9 +38,5 @@
         white-space: nowrap;
       }
     }
-  }
-
-  mat-card-title-group > div {
-    flex: 0.9;
   }
 }
