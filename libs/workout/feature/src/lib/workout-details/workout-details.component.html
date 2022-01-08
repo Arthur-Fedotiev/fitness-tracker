@@ -1,6 +1,7 @@
 <article fxLayout="column nowrap"
          *ngIf="workoutDetails$ | async as workout">
-  <header class="workout-header">
+  <header class="workout-header"
+          [style.background-image]="'url('+ workout.avatarUrl +'), url(https://www.bodybuilding.com/images/2019/june/gethin-8-week-salespage-header-mobile-550x1085.jpg)'">
     <div class="workout-header__content"
          fxLayout="column nowrap"
          fxLayoutAlign="space-between center">
@@ -44,7 +45,7 @@
   </ng-container>
 
   <ng-container *ngIf="!item.children">
-    <h2>
+    <h2 class="mat-card-title single-item-title">
       <ng-container *ngTemplateOutlet="titleTpl; context: {$implicit: item.name}"></ng-container>
     </h2>
     <ng-template [ngTemplateOutlet]="workoutSingleItem"

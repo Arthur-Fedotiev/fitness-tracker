@@ -2,6 +2,10 @@
 
 @include responsive.width();
 
+.single-item-title {
+  text-align: center;
+}
+
 .workout-header {
   position: relative;
   min-height: 250px;
@@ -13,7 +17,6 @@
   align-items: center;
 
   background-color: black;
-  background-image: url(https://www.bodybuilding.com/images/2019/june/gethin-8-week-salespage-header-mobile-550x1085.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;

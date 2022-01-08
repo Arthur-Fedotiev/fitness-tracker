@@ -1,9 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import {
-  ExerciseMetaCollectionsDictionaryUnit,
-  MUSCLE_KEYS,
-} from '@fitness-tracker/exercises/model';
+import { MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
 import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import {
