@@ -13,6 +13,7 @@
   }
   &__title {
     font-size: 1rem;
+    text-align: center;
   }
 
   .subtitle-item > p:first-child {
@@ -21,8 +22,12 @@
 }
 
 :host ::ng-deep {
-  mat-card-title-group > div {
-    flex: 0.9;
+  mat-card-title-group {
+    display: flex;
+    align-items: center;
+    & > div {
+      flex: 0.9;
+    }
   }
 
   mat-card-content {

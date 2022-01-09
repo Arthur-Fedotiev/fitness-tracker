@@ -2,12 +2,16 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Inject,
+} from '@angular/core';
 import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
   InstructionType,
   WorkoutItem,
@@ -22,8 +26,8 @@ import {
   SerializedWorkout,
   ConcreteWorkoutItemSerializer,
   WorkoutBasicInfo,
+  WorkoutFacadeProvider,
 } from '@fitness-tracker/shared/utils';
-import { WorkoutService } from '@fitness-tracker/workout/data';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { merge, scan, Subject } from 'rxjs';
 import {
@@ -112,15 +116,15 @@ export class ComposeWorkoutComponent implements OnInit {
       ...basicInfo,
     })),
     tap((serializedWorkout: SerializedWorkout) =>
-      this.workoutAPI.createWorkout(serializedWorkout),
+      this.workoutFacade.createWorkout(serializedWorkout),
     ),
   );
 
   constructor(
-    private readonly workoutAPI: WorkoutService,
     private readonly workoutItemSerializeStrategy: ConcreteWorkoutItemSerializer,
-    readonly workoutDB: WorkoutDatabase,
-    private exercisesFacade: ExercisesFacade,
+    private readonly workoutDB: WorkoutDatabase,
+    @Inject(WorkoutFacadeProvider)
+    private readonly workoutFacade: WorkoutFacadeProvider,
   ) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
@@ -143,7 +147,6 @@ export class ComposeWorkoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.exercisesFacade.loadExercisesMeta();
     this.createSuperset$.pipe(untilDestroyed(this)).subscribe();
     this.saveWorkout$.pipe(untilDestroyed(this)).subscribe();
   }

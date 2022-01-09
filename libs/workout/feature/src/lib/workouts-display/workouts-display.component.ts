@@ -54,7 +54,6 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   public ngOnInit(): void {
     this.initListeners();
-    this.exercisesFacade.loadExercisesMeta();
   }
 
   public targetMusclesChanges($event: TargetMuscles): void {

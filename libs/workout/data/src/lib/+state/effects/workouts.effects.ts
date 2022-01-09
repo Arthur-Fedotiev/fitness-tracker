@@ -3,9 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, withLatestFrom } from 'rxjs/operators';
 import { of, switchMap } from 'rxjs';
 
-import { loadExerciseDetailsFailure } from '../../../../../../exercises/data/src/lib/+state/exercises.actions';
 import { WorkoutActionNames } from '../actions/workout-action-names';
 import {
+  createWorkoutFailure,
+  createWorkoutSuccess,
   loadWorkoutDetailsFailure,
   loadWorkoutDetailsSuccess,
   loadWorkoutPreviewsSuccess,
@@ -17,15 +18,31 @@ import {
   toExercisesMap,
   toIdsFromSerializedWorkout,
   toWorkoutDetails,
+  WithPayload,
   WorkoutDetails,
 } from '@fitness-tracker/shared/utils';
 import { Store } from '@ngrx/store';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
-import { ExercisesService } from '@fitness-tracker/exercises/data';
+import {
+  ExercisesService,
+  loadExerciseDetailsFailure,
+} from '@fitness-tracker/exercises/data';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 
 @Injectable()
 export class WorkoutsEffects {
+  public readonly createWorkout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WorkoutActionNames.CREATE_WORKOUT),
+      switchMap(({ payload }: WithPayload<SerializedWorkout>) =>
+        this.workoutAPI.createWorkout(payload).pipe(
+          map((payload) => createWorkoutSuccess()),
+          catchError((error) => of(createWorkoutFailure())),
+        ),
+      ),
+    ),
+  );
+
   public readonly loadWorkouts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActionNames.LOAD_WORKOUT_PREVIEWS),

@@ -4,7 +4,10 @@ import { ExercisesFeatureModule } from '@fitness-tracker/exercises/feature';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { SharedDataAccessModule } from '@fitness-tracker/shared/data-access';
 import { SharedI18nRootModule } from '@fitness-tracker/shared/i18n';
+import { WorkoutFacadeProvider } from '@fitness-tracker/shared/utils';
+import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { TranslateModule } from '@ngx-translate/core';
+
 export abstract class EnsureImportedOnceModule<T extends NgModule> {
   protected constructor(targetModule: T) {
     if (targetModule) {
@@ -22,6 +25,12 @@ export abstract class EnsureImportedOnceModule<T extends NgModule> {
     ExercisesFeatureModule.forRoot(),
     LayoutFeatureModule.forRoot(),
     AuthFeatureModule.forRoot(),
+  ],
+  providers: [
+    {
+      provide: WorkoutFacadeProvider,
+      useExisting: WorkoutFacadeService,
+    },
   ],
   exports: [TranslateModule],
 })

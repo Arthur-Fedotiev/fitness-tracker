@@ -34,3 +34,16 @@ export const loadWorkoutDetailsSuccess = createAction(
 export const loadWorkoutDetailsFailure = createAction(
   WorkoutActionNames.LOAD_WORKOUT_DETAILS_FAILURE,
 );
+
+export const createWorkout = createAction(
+  WorkoutActionNames.CREATE_WORKOUT,
+  props<WithPayload<SerializedWorkout>>(),
+);
+
+export const createWorkoutSuccess = createAction(
+  WorkoutActionNames.CREATE_WORKOUT_SUCCESS,
+);
+
+export const createWorkoutFailure = createAction(
+  WorkoutActionNames.CREATE_WORKOUT_FAILURE,
+);

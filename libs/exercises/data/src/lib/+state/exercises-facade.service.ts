@@ -84,10 +84,6 @@ export class ExercisesFacade {
     this.store.dispatch(ExercisesActions.emptyExercisesList());
   }
 
-  public loadExercisesMeta(): void {
-    this.store.dispatch(ExercisesActions.loadExercisesMeta());
-  }
-
   public openExerciseDetailsDialog(payload: string): void {
     this.store.dispatch(
       ExercisesActions.openExerciseDetailsDialog({ payload }),

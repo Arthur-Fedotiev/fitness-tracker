@@ -129,7 +129,6 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.initListeners();
     this.loadExercisesSubj.next({ isLoadMore: false });
-    this.exerciseFacade.loadExercisesMeta();
   }
 
   public ngOnDestroy(): void {

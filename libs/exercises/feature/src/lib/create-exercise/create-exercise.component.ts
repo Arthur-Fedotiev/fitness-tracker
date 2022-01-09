@@ -116,7 +116,6 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   private initData(): void {
     this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
     this.patchExerciseFormValue.next(this.resolvedExercise);
-    this.exercisesFacade.loadExercisesMeta();
   }
 
   private initListeners(): void {

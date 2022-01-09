@@ -6,6 +6,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
+  createWorkout,
   loadWorkoutDetails,
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
@@ -34,5 +35,9 @@ export class WorkoutFacadeService {
 
   public loadWorkoutDetails(payload: string): void {
     this.store.dispatch(loadWorkoutDetails({ payload }));
+  }
+
+  public createWorkout(payload: SerializedWorkout): void {
+    this.store.dispatch(createWorkout({ payload }));
   }
 }
