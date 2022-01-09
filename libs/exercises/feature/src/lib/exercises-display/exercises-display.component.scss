@@ -39,3 +39,11 @@
     border-radius: 0.25rem;
   }
 }
+
+.filters {
+  padding-right: 1rem;
+  &-large {
+    padding: 0 5%;
+    width: 150%;
+  }
+}

@@ -8,7 +8,6 @@ import {
   MatTreeFlattener,
 } from '@angular/material/tree';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { ExerciseMetaCollectionsDictionaryUnit } from '@fitness-tracker/exercises/model';
 import {
   InstructionType,
   WorkoutItem,
@@ -26,10 +25,9 @@ import {
 } from '@fitness-tracker/shared/utils';
 import { WorkoutService } from '@fitness-tracker/workout/data';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import { merge, Observable, scan, Subject } from 'rxjs';
+import { merge, scan, Subject } from 'rxjs';
 import {
   debounceTime,
-  filter,
   map,
   shareReplay,
   tap,
@@ -116,7 +114,6 @@ export class ComposeWorkoutComponent implements OnInit {
     tap((serializedWorkout: SerializedWorkout) =>
       this.workoutAPI.createWorkout(serializedWorkout),
     ),
-    tap(console.log),
   );
 
   constructor(
@@ -175,13 +172,10 @@ export class ComposeWorkoutComponent implements OnInit {
 
   public saveSuperset() {
     this.isSupersetComposeUnderway = !this.isSupersetComposeUnderway;
-    this.workoutDB.insertTest();
     this.saveSupersetSubj.next();
   }
 
   public decompose(decomposedNode: WorkoutItemFlatNode): void {
-    console.log(decomposedNode);
-
     this.flatNodeMap
       .get(decomposedNode)
       ?.children?.forEach((child) =>
@@ -227,13 +221,10 @@ export class ComposeWorkoutComponent implements OnInit {
     this.dataSource.data.forEach((node) => {
       addExpandedChildren(node, this.expansionModel.selected);
     });
-    console.log('this.expansionModel.selected', this.expansionModel.selected);
     return result;
   }
 
   drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
-    console.log('origin/destination', event.previousIndex, event.currentIndex);
-    // ignore drops outside of the tree
     if (!event.isPointerOverContainer) return;
 
     const visibleNodes: WorkoutItem[] = this.visibleNodes();
@@ -284,11 +275,6 @@ export class ComposeWorkoutComponent implements OnInit {
       nodeAtDest?.id,
     );
 
-    console.log('visibleNodes', visibleNodes);
-
-    console.log('nodeAtDest', nodeAtDest);
-    console.log('newSiblings', newSiblings);
-
     if (!newSiblings) return;
 
     const nodeAtDestFlatNode = this.treeControl.dataNodes.find(
@@ -302,8 +288,6 @@ export class ComposeWorkoutComponent implements OnInit {
     this.workoutDB.deleteItem(nodeToInsert);
 
     if (nodeAtDest.id === nodeDragged?.id) return;
-
-    console.log('CHECK', isDroppedToBottomOfLevel(nodeAtDest, newSiblings));
 
     isDroppedToBottomOfLevel(nodeAtDest, newSiblings) &&
     !isDraggedAcrossLevels(flatNodeAtDest.level, nodeDragged.level)

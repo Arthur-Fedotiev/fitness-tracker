@@ -15,7 +15,6 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import {
-  ExerciseCollectionsMeta,
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,
@@ -56,10 +55,14 @@ export class ExercisesEffects {
               type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
             )
             .pipe(
-              map((payload: ExercisesEntity[]) =>
+              map((exercises: ExercisesEntity[]) =>
                 type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
-                  ? ExercisesActions.refreshExercisesSuccess({ payload })
-                  : ExercisesActions.findExercisesSuccess({ payload }),
+                  ? ExercisesActions.refreshExercisesSuccess({
+                      payload: exercises,
+                    })
+                  : ExercisesActions.findExercisesSuccess({
+                      payload: { exercises, firstPage: payload.firstPage! },
+                    }),
               ),
               catchError(() => of(ExercisesActions.findExercisesFailure())),
             ),

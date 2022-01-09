@@ -5,10 +5,11 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
-  ExerciseMetaCollectionsDictionaryUnit,
+  ExerciseListQueryChange,
+  ExercisePagination,
   ExercisesEntity,
   ExerciseVM,
   EXERCISE_MODE,
@@ -18,11 +19,15 @@ import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
   loadIsolatedLang,
+  SearchOptions,
+  TargetMuscles,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
   filter,
   first,
   map,
@@ -36,6 +41,8 @@ import {
 } from 'rxjs';
 import { ComposeWorkoutComponent } from '@fitness-tracker/shared/dialogs';
 import { ROLES } from 'shared-package';
+import { isEqual } from 'lodash-es';
+import { toExerciseLoadState, toLoadMoreAction } from './utils/mappers';
 
 @UntilDestroy()
 @Component({
@@ -57,19 +64,35 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly isLoadingProhibited$ =
     this.isLoadingProhibited.asObservable();
 
-  private readonly loadExercises: Subject<{ isLoadMore: boolean }> =
+  private readonly loadExercisesSubj: Subject<{ isLoadMore: boolean }> =
     new Subject<{ isLoadMore: boolean }>();
-  private readonly loadExercises$: Observable<Pagination> = this.loadExercises
-    .asObservable()
-    .pipe(
-      tap(() => this.isLoadingProhibited.next(true)),
-      map(({ isLoadMore }: { isLoadMore: boolean }) => ({
-        ...DEFAULT_PAGINATION_STATE,
-        firstPage: !isLoadMore,
-      })),
-      tap(this.findExercises.bind(this)),
-      untilDestroyed(this),
-    );
+  private readonly loadMoreExercises$: Observable<ExercisePagination> =
+    this.loadExercisesSubj.asObservable().pipe(map(toLoadMoreAction));
+
+  public readonly targetMusclesFromQueries$ = this.route.queryParamMap.pipe(
+    map((queryParams: ParamMap) => queryParams.get('targetMuscles')),
+    debounceTime(500),
+    distinctUntilChanged(isEqual),
+    map((targetMuscles: string | null) =>
+      targetMuscles ? JSON.parse(targetMuscles) : [],
+    ),
+    tap((filters: TargetMuscles) => this.targetMusclesSubj.next(filters)),
+    map((targetMuscles) => new ExerciseListQueryChange({ targetMuscles })),
+    untilDestroyed(this),
+  );
+  private readonly loadExercises$: Observable<Pagination> = merge(
+    this.loadMoreExercises$,
+    this.targetMusclesFromQueries$,
+  ).pipe(
+    tap(() => this.isLoadingProhibited.next(true)),
+    scan(
+      toExerciseLoadState,
+      {} as Pick<SearchOptions, 'pageSize' | 'firstPage' | 'targetMuscles'>,
+    ),
+    skip(1),
+    tap(this.findExercises.bind(this)),
+    untilDestroyed(this),
+  );
 
   private readonly refreshExercises$ = this.settingsFacade.language$.pipe(
     loadIsolatedLang(this.translateService),
@@ -89,6 +112,11 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     switchMap((idsSet) => this.exerciseFacade.exercisePreviews$(idsSet)),
   );
 
+  private readonly targetMusclesSubj = new BehaviorSubject<TargetMuscles>([]);
+  public readonly targetMuscles$ = this.targetMusclesSubj
+    .asObservable()
+    .pipe(filter(Boolean), skip(1), first());
+
   constructor(
     private readonly exerciseFacade: ExercisesFacade,
     private readonly settingsFacade: SettingsFacadeService,
@@ -99,9 +127,8 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.refreshExercises$.subscribe();
-    this.loadExercises$.subscribe();
-    this.loadExercises.next({ isLoadMore: false });
+    this.initListeners();
+    this.loadExercisesSubj.next({ isLoadMore: false });
     this.exerciseFacade.loadExercisesMeta();
   }
 
@@ -118,7 +145,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   }
 
   public loadMoreExercises(isLoadMore: boolean): void {
-    this.loadExercises.next({ isLoadMore });
+    this.loadExercisesSubj.next({ isLoadMore });
   }
 
   public addToComposedWorkout(id: string): void {
@@ -137,7 +164,7 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
 
     dialogConfig.data = workoutExercisesList;
 
-    const dialogRef = this.dialog.open(ComposeWorkoutComponent, dialogConfig);
+    this.dialog.open(ComposeWorkoutComponent, dialogConfig);
   }
 
   public showExerciseDetails(id: string): void {
@@ -146,6 +173,23 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
 
   public removeFromComposedWorkout(id: string): void {
     this.composeWorkout.next({ id, add: false });
+  }
+
+  public targetMusclesChanges($event: TargetMuscles): void {
+    this.setMusclesQueryParams($event);
+  }
+
+  private initListeners(): void {
+    this.refreshExercises$.subscribe();
+    this.loadExercises$.subscribe();
+  }
+
+  private setMusclesQueryParams(targetMuscles: TargetMuscles): void {
+    const currentRoute: string = this.router.url.split('?')[0];
+
+    this.router.navigate([currentRoute], {
+      queryParams: { targetMuscles: JSON.stringify(targetMuscles) },
+    });
   }
 
   private findExercises(paginationData: Pagination): void {

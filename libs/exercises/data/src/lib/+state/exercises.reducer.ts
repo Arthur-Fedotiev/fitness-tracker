@@ -53,9 +53,16 @@ const exercisesReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(ExercisesActions.findExercisesSuccess, (state, { payload }) =>
-    exercisesAdapter.addMany(payload, { ...state, loading: false }),
-  ),
+  on(ExercisesActions.findExercisesSuccess, (state, { payload }) => {
+    const adapterAction = payload.firstPage
+      ? exercisesAdapter.setAll
+      : exercisesAdapter.addMany;
+
+    return adapterAction(payload.exercises, {
+      ...state,
+      loading: false,
+    });
+  }),
   on(ExercisesActions.findExercisesFailure, (state) => ({
     ...state,
     loading: false,

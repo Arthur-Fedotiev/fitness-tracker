@@ -12,12 +12,18 @@
            fxLayoutGap="1rem"
            class="exercises-list">
 
-    <button *ftRoles="roles.ADMIN"
+    <button *ngIf="false"
             mat-raised-button
             class="workout-btn"
             color="primary">Compose workout</button>
 
     <article class="exercises-list__list">
+      <ft-workout-filters class="filters"
+                          ngClass.gt-sm="filters-large"
+                          fxLayout
+                          [initialTargetMuscles]="(targetMuscles$ | async)!"
+                          (targetMusclesFiltersChanges)="targetMusclesChanges($event)"></ft-workout-filters>
+
       <ft-exercise-list [exerciseList]="exercisesList$ | async"
                         (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
                         (exerciseViewed)="showExerciseDetails($event)"

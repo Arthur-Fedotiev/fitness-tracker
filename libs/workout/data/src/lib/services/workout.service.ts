@@ -5,7 +5,6 @@ import {
   DocumentReference,
 } from '@angular/fire/compat/firestore';
 import {
-  ConcreteWorkoutItemSerializer,
   convertOneSnap,
   convertSnaps,
   LanguagesISO,
@@ -18,20 +17,12 @@ import { Observable, from, first, map } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import { LanguageCodes } from 'shared-package';
-import { mapTo } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkoutService {
-  constructor(
-    public readonly afs: AngularFirestore,
-    private readonly workoutSerializeStrategy: ConcreteWorkoutItemSerializer,
-  ) {
-    // this.getWorkout2('75dtgXrUVd96PUTDKbZs')
-    //   .pipe(map(toIdsFromSerializedWorkout))
-    //   .subscribe(console.log);
-  }
+  constructor(public readonly afs: AngularFirestore) {}
 
   public createWorkout(
     workout: SerializedWorkout,

@@ -43,10 +43,6 @@ export class WorkoutDatabase {
     );
   }
 
-  public insertTest(): void {
-    console.log('this.data[WorkoutDatabase]', this.data);
-  }
-
   insertItem(parent: WorkoutItem, child: WorkoutItem): WorkoutItem {
     if (!parent.children) {
       parent.children = [];

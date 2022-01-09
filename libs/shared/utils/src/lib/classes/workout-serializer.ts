@@ -14,13 +14,15 @@ import {
 export interface WorkoutBasicInfo {
   name: string;
   id?: string;
-  targetMuscles: typeof MUSCLE_KEYS[number][];
+  targetMuscles: TargetMuscles;
   importantNotes: string;
   description: string;
   coverUrl: string;
   avatarUrl: string;
   level: WorkoutLevel;
 }
+
+export type TargetMuscles = typeof MUSCLE_KEYS[number][];
 
 export interface SerializedWorkout extends WorkoutBasicInfo {
   content: SerializeWorkoutItem[];

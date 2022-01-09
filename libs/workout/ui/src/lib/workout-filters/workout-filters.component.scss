@@ -1,6 +1,7 @@
 .filters {
   display: flex;
   justify-content: center;
+  flex: 1;
   &__item {
     flex: 1;
   }

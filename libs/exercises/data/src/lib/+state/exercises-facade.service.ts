@@ -5,18 +5,18 @@ import {
   ExercisesEntity,
 } from '@fitness-tracker/exercises/model';
 import { SearchOptions } from '@fitness-tracker/shared/utils';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';
 import * as ExercisesSelectors from './exercises.selectors';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ExercisesFacade {
   public readonly loading$ = this.store.select(ExercisesSelectors.getLoading);
-  public readonly exercisesList$ = this.store
-    .select(ExercisesSelectors.getAllExercises)
-    .pipe(tap(console.log));
+  public readonly exercisesList$ = this.store.select(
+    ExercisesSelectors.getAllExercises,
+  );
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,
   );

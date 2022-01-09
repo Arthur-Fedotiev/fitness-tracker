@@ -32,7 +32,5 @@ export class ExerciseDetailsComponent implements OnInit {
             : [],
         }
       : null;
-
-    console.log(this.exercise);
   }
 }

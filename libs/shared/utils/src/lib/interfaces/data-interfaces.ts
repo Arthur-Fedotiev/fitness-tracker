@@ -1,4 +1,5 @@
 import firebase from 'firebase/compat/app';
+import { TargetMuscles } from '../..';
 import OrderByDirection = firebase.firestore.OrderByDirection;
 
 export interface WithPayload<T> {
@@ -17,4 +18,5 @@ export interface Pagination {
 export interface SearchOptions extends Pagination {
   sortOrder: OrderByDirection;
   ids: string[];
+  targetMuscles: TargetMuscles;
 }

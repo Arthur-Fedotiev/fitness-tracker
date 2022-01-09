@@ -10,21 +10,22 @@ import { User } from '@fitness-tracker/create-user/models';
 import { UsersService } from '../../services/create-user.service';
 import { WithPayload } from '@fitness-tracker/shared/utils';
 
-
 @Injectable()
 export class UsersEffects {
   public createUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(USERS_ACTION_NAMES.CREATE_USER),
-      mergeMap(({ payload }: WithPayload<User>) => this.usersService.createUser(payload).pipe(
-        tap(console.log),
-        map((payload: number) => UsersActions.createUserSuccess({ payload })),
-        catchError(() => of(UsersActions.createUserFailure()))
-      ))
+      mergeMap(({ payload }: WithPayload<User>) =>
+        this.usersService.createUser(payload).pipe(
+          map((payload: number) => UsersActions.createUserSuccess({ payload })),
+          catchError(() => of(UsersActions.createUserFailure())),
+        ),
+      ),
     );
   });
 
-
-  constructor(private actions$: Actions, private readonly usersService: UsersService) { }
-
+  constructor(
+    private actions$: Actions,
+    private readonly usersService: UsersService,
+  ) {}
 }

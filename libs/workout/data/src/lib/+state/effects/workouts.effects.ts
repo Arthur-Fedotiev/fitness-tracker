@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  map,
-  concatMap,
-  withLatestFrom,
-  tap,
-} from 'rxjs/operators';
-import { Observable, EMPTY, of, switchMap } from 'rxjs';
+import { catchError, map, withLatestFrom } from 'rxjs/operators';
+import { of, switchMap } from 'rxjs';
 
 import { loadExerciseDetailsFailure } from '../../../../../../exercises/data/src/lib/+state/exercises.actions';
 import { WorkoutActionNames } from '../actions/workout-action-names';
@@ -16,7 +10,6 @@ import {
   loadWorkoutDetailsSuccess,
   loadWorkoutPreviewsSuccess,
 } from '../actions/workouts.actions';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import {
@@ -79,7 +72,6 @@ export class WorkoutsEffects {
           map((payload: WorkoutDetails) =>
             loadWorkoutDetailsSuccess({ payload }),
           ),
-          tap((a) => console.log('[loadWorkoutDetails2', a)),
           catchError(() => of(loadWorkoutDetailsFailure())),
         ),
       ),

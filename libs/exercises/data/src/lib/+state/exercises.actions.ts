@@ -32,7 +32,7 @@ export const findExercises = createAction(
 
 export const findExercisesSuccess = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES_SUCCESS,
-  props<WithPayload<ExercisesEntity[]>>(),
+  props<WithPayload<{ exercises: ExercisesEntity[]; firstPage: boolean }>>(),
 );
 
 export const findExercisesFailure = createAction(

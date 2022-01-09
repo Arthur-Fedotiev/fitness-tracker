@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { MUSCLE_KEYS } from '@fitness-tracker/exercises/model';
 import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import {
@@ -17,6 +16,7 @@ import {
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isEqual } from 'lodash-es';
+import { TargetMuscles } from '@fitness-tracker/shared/utils';
 @UntilDestroy()
 @Component({
   selector: 'ft-workouts-display',
@@ -33,18 +33,14 @@ export class WorkoutsDisplayComponent implements OnInit {
     debounceTime(500),
     distinctUntilChanged(isEqual),
     map((targetMuscles) => (targetMuscles ? JSON.parse(targetMuscles) : [])),
-    tap((filters: typeof MUSCLE_KEYS[number][]) =>
+    tap((filters: TargetMuscles) =>
       this.workoutFacade.loadWorkoutPreviews(filters),
     ),
-    tap((filters: typeof MUSCLE_KEYS[number][]) =>
-      this.targetMusclesSubj.next(filters),
-    ),
+    tap((filters: TargetMuscles) => this.targetMusclesSubj.next(filters)),
     untilDestroyed(this),
   );
 
-  private readonly targetMusclesSubj = new BehaviorSubject<
-    typeof MUSCLE_KEYS[number][]
-  >([]);
+  private readonly targetMusclesSubj = new BehaviorSubject<TargetMuscles>([]);
   public readonly targetMuscles$ = this.targetMusclesSubj
     .asObservable()
     .pipe(skip(1), first());
@@ -61,7 +57,7 @@ export class WorkoutsDisplayComponent implements OnInit {
     this.exercisesFacade.loadExercisesMeta();
   }
 
-  public targetMusclesChanges($event: typeof MUSCLE_KEYS[number][]): void {
+  public targetMusclesChanges($event: TargetMuscles): void {
     this.setMusclesQueryParams($event);
   }
 
@@ -69,9 +65,7 @@ export class WorkoutsDisplayComponent implements OnInit {
     this.queryParams$.subscribe();
   }
 
-  private setMusclesQueryParams(
-    targetMuscles: typeof MUSCLE_KEYS[number][],
-  ): void {
+  private setMusclesQueryParams(targetMuscles: TargetMuscles): void {
     const currentRoute: string = this.router.url.split('?')[0];
 
     this.router.navigate([currentRoute], {

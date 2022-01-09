@@ -10,6 +10,7 @@ import {
   META_COLLECTIONS,
   MUSCLE_KEYS,
 } from '@fitness-tracker/exercises/model';
+import { TargetMuscles } from '@fitness-tracker/shared/utils';
 import { WorkoutLevel } from '@fitness-tracker/workout/model';
 
 @Component({
@@ -24,9 +25,7 @@ export class WorkoutFiltersComponent {
   public readonly metaCollections: MetaCollection = META_COLLECTIONS;
 
   @Input()
-  public set initialTargetMuscles(targetMuscles: typeof MUSCLE_KEYS[number][]) {
-    console.log(targetMuscles);
-
+  public set initialTargetMuscles(targetMuscles: TargetMuscles) {
     this.workoutFilters.patchValue({ targetMuscles }, { emitEvent: false });
   }
   @Output()

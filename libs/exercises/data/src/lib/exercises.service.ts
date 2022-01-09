@@ -28,6 +28,7 @@ import {
   tap,
   combineLatest,
   from,
+  of,
 } from 'rxjs';
 import {
   CollectionReference,
@@ -82,7 +83,7 @@ export class ExercisesService {
         COLLECTIONS.EXERCISES,
         (ref: CollectionReference) =>
           searchOptions.ids?.length
-            ? this.toParticularExercisesRef({ ref, ...searchOptions })
+            ? this.toRefOfWorkoutList({ ref, ...searchOptions })
             : !refresh
             ? this.toPaginatedRef({ ref, ...searchOptions })
             : this.toRefreshRef({ ref, ...searchOptions }),
@@ -95,6 +96,7 @@ export class ExercisesService {
               [...snaps.docs][snaps.docs.length - 1] ?? null),
         ),
         map(convertSnaps),
+
         map((exercises: WithId<ExerciseMetaDTO>[]) =>
           exercises.map(toBaseDataWithId),
         ),
@@ -103,8 +105,11 @@ export class ExercisesService {
             toExerciseTranslation$.call(this, lang),
           );
 
-          return combineLatest(exercisesTranslationsObs);
+          return exercisesBaseData?.length
+            ? combineLatest(exercisesTranslationsObs)
+            : of([]);
         }),
+
         first(),
       );
   }
@@ -136,12 +141,14 @@ export class ExercisesService {
 
   private toPaginatedRef({
     ref,
+    targetMuscles,
     sortOrder = ORDER_BY.DESC,
     firstPage = DEFAULT_PAGINATION_STATE.firstPage,
     pageSize = DEFAULT_PAGINATION_STATE.pageSize,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
     const newRef = this.getExerciseCollectionRef({
       ref,
+      targetMuscles,
       sortOrder,
       pageSize,
     }).limit(pageSize);
@@ -151,27 +158,46 @@ export class ExercisesService {
 
   private toRefreshRef({
     ref,
+    targetMuscles,
     sortOrder = ORDER_BY.DESC,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
-    return this.getExerciseCollectionRef({ ref, sortOrder }).endAt(
-      this.exerciseDocCash,
-    );
-  }
-
-  private toParticularExercisesRef({
-    ref,
-    ids,
-  }: Partial<SearchOptions> & { ref: CollectionReference }) {
-    return ref.where(firebase.firestore.FieldPath.documentId(), 'in', ids);
+    return this.getExerciseCollectionRef({
+      ref,
+      sortOrder,
+      targetMuscles,
+    }).endAt(this.exerciseDocCash);
   }
 
   private getExerciseCollectionRef({
     ref,
+    targetMuscles,
     sortOrder,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
-    return ref?.orderBy(
+    const filteredRef = targetMuscles?.length
+      ? ref.where(
+          new firebase.firestore.FieldPath(
+            'baseData',
+            EXERCISE_FIELD_NAMES.TARGET_MUSCLE,
+          ),
+          'in',
+          targetMuscles,
+        )
+      : ref;
+
+    return filteredRef;
+
+    // TODO FInd out why sorting doesn't work with filtering by targetMuscle
+
+    return filteredRef.orderBy(
       new firebase.firestore.FieldPath('baseData', EXERCISE_FIELD_NAMES.RATING),
       sortOrder,
     );
+  }
+
+  private toRefOfWorkoutList({
+    ref,
+    ids,
+  }: Partial<SearchOptions> & { ref: CollectionReference }) {
+    return ref.where(firebase.firestore.FieldPath.documentId(), 'in', ids);
   }
 }
