@@ -26,8 +26,8 @@ import {
   SerializedWorkout,
   ConcreteWorkoutItemSerializer,
   WorkoutBasicInfo,
-  WorkoutFacadeProvider,
 } from '@fitness-tracker/shared/utils';
+import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { merge, scan, Subject } from 'rxjs';
 import {
@@ -123,8 +123,7 @@ export class ComposeWorkoutComponent implements OnInit {
   constructor(
     private readonly workoutItemSerializeStrategy: ConcreteWorkoutItemSerializer,
     private readonly workoutDB: WorkoutDatabase,
-    @Inject(WorkoutFacadeProvider)
-    private readonly workoutFacade: WorkoutFacadeProvider,
+    private readonly workoutFacade: WorkoutFacadeService,
   ) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, tap, withLatestFrom } from 'rxjs/operators';
 import { of, switchMap } from 'rxjs';
 
 import { WorkoutActionNames } from '../actions/workout-action-names';

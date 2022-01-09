@@ -8,11 +8,12 @@ service cloud.firestore {
     match /exercises/{exerciseId} {
       allow read: if isAuthenticated();
 
-      allow create,update: if isValidExercise() && isAdmin();
+      allow create,update: if isAdmin();
       allow delete: if isAuthenticated() && isAdmin();
 
       match /translations/{translationId} {
         allow read: if isAuthenticated();
+        allow write: if isAdmin();
       }
     }
 
@@ -42,6 +43,7 @@ service cloud.firestore {
 
     match /{path=**}/translations/{id} {
       allow read: if isKnownUser();
+      allow write: if isAdmin();
     }
 
     function isAdmin() {
