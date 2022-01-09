@@ -26,14 +26,6 @@ export class ExercisesFacade {
     private readonly afs: AngularFirestore,
   ) {}
 
-  /**
-   * Use the initialization action to perform one
-   * or more tasks in your Effects.
-   */
-  init() {
-    console.log('[INIT] ExercisesFacade');
-  }
-
   public exercisePreviews$(
     ids: Set<string>,
   ): Observable<Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[]> {

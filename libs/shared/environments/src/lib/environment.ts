@@ -5,7 +5,7 @@
 import { LANG_CODES } from 'shared-package';
 
 export const environment = {
-  useEmulators: false,
+  useEmulators: true,
   locales: [...LANG_CODES],
   defaultLocale: 'en',
   firebase: {

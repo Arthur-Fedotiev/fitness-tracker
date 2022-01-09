@@ -7,6 +7,8 @@ import { SharedI18nRootModule } from '@fitness-tracker/shared/i18n';
 import { WorkoutFacadeProvider } from '@fitness-tracker/shared/utils';
 import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { TranslateModule } from '@ngx-translate/core';
+import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
+import { environment } from '@fitness-tracker/shared/environments';
 
 export abstract class EnsureImportedOnceModule<T extends NgModule> {
   protected constructor(targetModule: T) {
@@ -27,6 +29,10 @@ export abstract class EnsureImportedOnceModule<T extends NgModule> {
     AuthFeatureModule.forRoot(),
   ],
   providers: [
+    {
+      provide: USE_FUNCTIONS_EMULATOR,
+      useValue: environment.useEmulators ? ['localhost', 5001] : undefined,
+    },
     {
       provide: WorkoutFacadeProvider,
       useExisting: WorkoutFacadeService,

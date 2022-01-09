@@ -7,6 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
     "build": "nx build --stats-json",
+    "local-function": "firebase emulators:start --only functions",
     "local-dev": "firebase emulators:start --only firestore,functions --import sample-exercises",
     "empty-emulator": "firebase-emulators:start",
     "export-emulator": "firebase emulators:export sample-exercises",
