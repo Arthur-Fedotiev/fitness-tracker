@@ -75,7 +75,7 @@ export class WorkoutsEffects {
               ids: string[];
               serializedWorkout: SerializedWorkout;
             }) =>
-              this.exercisesService.findExercises({ ids }, lang).pipe(
+              this.exercisesService.findExercisesForWorkout({ ids }, lang).pipe(
                 map((exercises: ExercisesEntity[]) => ({
                   exercises: exercises.reduce(
                     toExercisesMap,
@@ -89,7 +89,10 @@ export class WorkoutsEffects {
           map((payload: WorkoutDetails) =>
             loadWorkoutDetailsSuccess({ payload }),
           ),
-          catchError(() => of(loadWorkoutDetailsFailure())),
+          catchError((err) => {
+            console.log(err);
+            return of(loadWorkoutDetailsFailure());
+          }),
         ),
       ),
     ),

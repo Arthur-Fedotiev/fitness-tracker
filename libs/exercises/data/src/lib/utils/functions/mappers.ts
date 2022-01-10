@@ -1,8 +1,5 @@
 import {
-  CollectionsMetaKeys,
   ExerciseBaseData,
-  ExerciseCollectionsMeta,
-  ExerciseMetaCollectionsDictionaryUnit,
   ExerciseMetaDTO,
   ExercisesEntity,
 } from '@fitness-tracker/exercises/model';
@@ -50,3 +47,5 @@ export const toBaseDataWithId = ({
   ...baseData,
   id,
 });
+
+export const shouldSplitToChunks = (ids: string[]) => ids?.length > 10;

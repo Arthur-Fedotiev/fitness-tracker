@@ -29,6 +29,7 @@ import {
   combineLatest,
   from,
   of,
+  forkJoin,
 } from 'rxjs';
 import {
   CollectionReference,
@@ -36,6 +37,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { COLLECTIONS, LanguageCodes } from 'shared-package';
 import {
+  shouldSplitToChunks,
   toBaseDataWithId,
   toExerciseTranslation$,
 } from './utils/functions/mappers';
@@ -71,6 +73,29 @@ export class ExercisesService {
         .doc(`${COLLECTIONS.EXERCISES}/${exercise?.baseData?.id}`)
         .update(exercise),
     );
+  }
+
+  public findExercisesForWorkout(
+    { ids, ...searchOptions }: Pick<SearchOptions, 'ids'>,
+    lang: LanguageCodes = LanguagesISO.ENGLISH,
+    refresh: boolean = false,
+  ): Observable<ExercisesEntity[]> {
+    if (ids && !shouldSplitToChunks(ids)) {
+      return this.findExercises({ ids, ...searchOptions }, lang, refresh);
+    }
+    const clonedIds = Array.from(ids);
+    const chunk: string[] = clonedIds?.splice(0, 10);
+
+    const result$: Observable<ExercisesEntity[]> = forkJoin([
+      this.findExercises({ ids: chunk, ...searchOptions }, lang, refresh),
+      this.findExercisesForWorkout(
+        { ids: clonedIds, ...searchOptions },
+        lang,
+        refresh,
+      ),
+    ]).pipe(map((exercises: ExercisesEntity[][]) => exercises.flat()));
+
+    return result$;
   }
 
   public findExercises(
@@ -198,6 +223,8 @@ export class ExercisesService {
     ref,
     ids,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
+    console.log();
+
     return ref.where(firebase.firestore.FieldPath.documentId(), 'in', ids);
   }
 }
