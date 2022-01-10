@@ -40,4 +40,8 @@ export class ExerciseListComponent {
   public addedToWorkout(id: string): void {
     this.exerciseAddedToWorkout.emit(id);
   }
+
+  public trackById(idx: number, item: ExerciseVM): string | number {
+    return item.id ?? idx;
+  }
 }
