@@ -209,14 +209,14 @@ export class ExercisesService {
         )
       : ref;
 
-    return filteredRef;
-
-    // TODO FInd out why sorting doesn't work with filtering by targetMuscle
-
-    return filteredRef.orderBy(
+    const sortedRef = ref.orderBy(
       new firebase.firestore.FieldPath('baseData', EXERCISE_FIELD_NAMES.RATING),
       sortOrder,
     );
+
+    // TODO FInd out why sorting doesn't work with filtering by targetMuscle
+
+    return filteredRef;
   }
 
   private toRefOfWorkoutList({
