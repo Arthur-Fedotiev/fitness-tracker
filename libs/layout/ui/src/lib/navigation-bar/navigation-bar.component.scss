@@ -1,0 +1,10 @@
+mat-nav-list.horizontal {
+  width: 100%;
+  & > a {
+    flex: 0 1;
+  }
+}
+
+.black-icon {
+  color: #000;
+}

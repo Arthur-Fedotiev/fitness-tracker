@@ -1,0 +1,16 @@
+<article>
+  <div class="content">
+    <div fxLayout="row wrap"
+         fxLayoutGap="16px grid">
+      <div [fxFlex]="(100/3) + '%'"
+           fxFlex.xs="100%"
+           fxFlex.sm="50%"
+           *ngFor="let item of listData; trackBy: trackById">
+
+        <ng-template [ngTemplateOutlet]="workoutTemplate"
+                     [ngTemplateOutletContext]="{$implicit: item}"></ng-template>
+
+      </div>
+    </div>
+  </div>
+</article>

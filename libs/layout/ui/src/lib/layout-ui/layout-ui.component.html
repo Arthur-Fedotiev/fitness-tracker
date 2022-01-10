@@ -1,0 +1,39 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sideNav
+               (click)="sideNav.close()">
+    <ng-container *ngTemplateOutlet="navList; context: {$implicit: 'column'}"></ng-container>
+  </mat-sidenav>
+
+  <mat-toolbar color="primary">
+    <div fxHide.gt-sm
+         class="toolbar-tools">
+      <button mat-icon-button
+              (click)="sideNav.open('mouse')">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <ng-container *ngTemplateOutlet="navList; context: {$implicit: 'row'}"></ng-container>
+  </mat-toolbar>
+
+  <ng-content></ng-content>
+</mat-sidenav-container>
+
+<ng-template #navList
+             let-layout
+             let-isDesktop>
+  <ft-navigation-bar [layout]="layout"></ft-navigation-bar>
+  <section class="settings"
+           [fxHide.lt-md]="layout === 'row'">
+    <ft-settings-bar [class.toolbar]="layout === 'row'"
+                     class="settings"
+                     fxLayoutGap="1rem"
+                     [isLoggedIn]="isLoggedIn"
+                     [isLoggedOut]="isLoggedOut"
+                     [isDarkMode]="isDarkMode"
+                     [photoUrl]="photoUrl"
+                     [language]="language"
+                     (loggedOutChange)="logOut()"
+                     (languageSelected)="selectLanguage($event)"
+                     (darkModeChanged)="toggleDarkMode()"></ft-settings-bar>
+  </section>
+</ng-template>

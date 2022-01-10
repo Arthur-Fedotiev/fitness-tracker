@@ -1,0 +1,92 @@
+@use 'responsive' as responsive;
+
+@include responsive.width();
+
+.single-item-title {
+  text-align: center;
+}
+
+.workout-header {
+  position: relative;
+  min-height: 250px;
+  overflow: auto;
+  padding: 30px 15px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  &__content {
+    width: 100%;
+
+    h1 {
+      font-weight: 700;
+    }
+  }
+}
+
+.superset-description {
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    padding: 0 0.5rem;
+  }
+}
+
+.workout-wrapper {
+  display: block;
+}
+
+.divider {
+  border-top-width: 3px;
+  margin: 2rem 0;
+}
+
+.card {
+  margin-bottom: 1rem;
+
+  &__title {
+    .name {
+      text-align: center;
+    }
+  }
+
+  &__avatar-container {
+    white-space: nowrap;
+  }
+  &__avatar {
+    border-radius: 1rem;
+    align-self: flex-end;
+    &:first-of-type {
+      margin-right: 0.5rem;
+    }
+  }
+  &__actions {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+:host ::ng-deep {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+
+  article {
+    flex-basis: 90%;
+  }
+
+  mat-card-title-group > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+}

@@ -1,0 +1,11 @@
+{
+	"EXERCISE": {
+		"editBtn": "BEWERK",
+		"equipment": "uitrusting",
+		"exerciseType": "Type",
+		"targetMuscle": "Spier",
+		"viewBtn": "Uitzicht"
+	},
+	"loadMore": "Meer laden",
+	"showFilters": "Toon filters"
+}

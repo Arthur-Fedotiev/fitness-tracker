@@ -1,0 +1,11 @@
+{
+	"EXERCISE": {
+		"editBtn": "Editar",
+		"equipment": "Equipamento",
+		"exerciseType": "Tipo",
+		"targetMuscle": "Músculo",
+		"viewBtn": "Visão"
+	},
+	"loadMore": "Carregue mais",
+	"showFilters": "Mostrar filtros"
+}

@@ -1,0 +1,10 @@
+<ft-layout-ui [isLoggedIn]="isLoggedIn$ | async"
+              [isLoggedOut]="isLoggedOut$ | async"
+              [photoUrl]="photoUrl$ | async"
+              [language]="language$ | async"
+              [isDarkMode]="(isDarkMode$ | async) ?? false"
+              (loggedOutChange)="logOut()"
+              (languageSelected)="selectLanguage($event)"
+              (darkModeChanged)="toggleDarkMode()">
+  <router-outlet></router-outlet>
+</ft-layout-ui>

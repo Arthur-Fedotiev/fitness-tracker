@@ -1,0 +1,77 @@
+{
+  "NAVIGATION_BAR": {
+    "createExerciseLink": "Стварыце практыкаванне",
+    "createUserLink": "Стварыць карыстальніка",
+    "exercisesLink": "Практыкаванні",
+    "workoutsLink": "Workouts"
+  },
+  "SETTINGS_BAR": {
+    "logout": "Logout",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "CONTROL_PLACEHOLDERS": {
+    "selectMuscles": "Select target muscles"
+  },
+  "NO_DATA": "No data for selected parameters",
+  "LEVELS": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  },
+  "EXERCISES_META": {
+    "lvl": "Level"
+  },
+  "BTN": {
+    "close": "Close",
+    "open": "Open",
+    "cancel": "Cancel"
+  },
+  "EQUIPMENT": {
+    "NAME": "Equipment",
+    "KETTLEBELLS": "Толькі для цела",
+    "CABLE": "Медыцынскі мяч",
+    "BARBELL": "Штанга",
+    "BODY_ONLY": "Машына",
+    "NONE": " EZ Curl Bar",
+    "MACHINE": "Кабель",
+    "MEDICINE_BALL": "Гантэлі",
+    "OTHER": "Мяч для практыкаванняў",
+    "E-Z_BAR": "Іншае ",
+    "DUMBBELL": "Няма",
+    "BANDS": "Паласы"
+  },
+  "EXERCISE-TYPES": {
+    "NAME": "Exercise-type",
+    "STRETCHING": "Расцяжка",
+    "POWERLIFTING": "Пауэрліфтынг",
+    "STRONGMAN": "Стронгмен",
+    "PLYOMETRICS": "Пліяметрыка",
+    "STRENGTH": "Сіла",
+    "CARDIO": "Кардыё",
+    "WEIGHTLIFTING": "Алімпійская цяжкая атлетыка"
+  },
+  "MUSCLES": {
+    "name": "Muscles",
+    "GLUTES": "ягадзіцы",
+    "QUADRICEPS": "квадрыцэпс",
+    "LOWE_BACK": "ніжэй спіна",
+    "ABDOMINAL": "брушны",
+    "LATS": "шырацы",
+    "SHOULDERS": "плечы",
+    "TRICEPS": "трыцэпс",
+    "MIDDLE_BACK": "сярэдзіна спіны",
+    "FOREARM": "перадплечча",
+    "NECK": "шыя",
+    "CALVES": "ікры",
+    "HAMSTRINGS": " падкаленныя сухажыллі",
+    "TRAPS": "пасткі",
+    "CHEST": "грудзі",
+    "BICEPS": "біцэпс"
+  },
+  "PROFICIENCY_LVL": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  }
+}

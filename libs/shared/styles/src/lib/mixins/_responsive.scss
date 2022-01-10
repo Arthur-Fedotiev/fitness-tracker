@@ -1,0 +1,35 @@
+@mixin title() {
+  .ft-xs {
+    font-size: 1rem;
+  }
+  .ft-sm {
+    font-size: 1.25rem;
+  }
+  .ft-md {
+    font-size: 1.5rem;
+  }
+  .ft-lg {
+    font-size: 1.5rem;
+  }
+  .ft-xl {
+    font-size: 1.5rem;
+  }
+}
+
+@mixin width {
+  .ft-w-xs {
+    width: 90%;
+  }
+  .ft-w-sm {
+    width: 80%;
+  }
+  .ft-w-md {
+    width: 65%;
+  }
+  .ft-w-lg {
+    width: 55%;
+  }
+  .ft-w-xl {
+    width: 45%;
+  }
+}

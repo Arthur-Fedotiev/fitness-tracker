@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline">
+  <mat-select placeholder="Select Exercise Type"
+              [(ngModel)]="instruction.type"
+              name="type"
+              required>
+    <mat-option [value]="instructionType.REPS">Repetitions</mat-option>
+    <mat-option [value]="instructionType.DURATION">Seconds</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Load</mat-label>
+  <input type="number"
+         step="1"
+         [(ngModel)]="instruction.load"
+         name="load"
+         min="0"
+         matInput
+         required>
+</mat-form-field>

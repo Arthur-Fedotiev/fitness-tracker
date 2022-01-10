@@ -1,0 +1,79 @@
+{
+  "NAVIGATION_BAR": {
+    "createExerciseLink": "Crear ejercicio",
+    "createUserLink": "Crear usuario",
+    "exercisesLink": "Ejercicios",
+    "workoutsLink": "Workouts"
+  },
+  "SETTINGS_BAR": {
+    "logout": "Logout",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "CONTROL_PLACEHOLDERS": {
+    "selectMuscles": "Select target muscles"
+  },
+  "NO_DATA": "No data for selected parameters",
+  "LEVELS": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  },
+  "EXERCISES_META": {
+    "lvl": "Level"
+  },
+  "BTN": {
+    "close": "Close",
+    "open": "Open",
+    "cancel": "Cancel"
+  },
+  "EQUIPMENT": {
+    "NAME": "Equipment",
+    "CABLE": " Cable ",
+    "E-Z_BAR": " Barra EZ Curl ",
+    "BARBELL": " Barra ",
+    "BODY_ONLY": " Solo cuerpo ",
+    "NONE": " Ninguna ",
+    "DUMBBELL": " Mancuerna ",
+    "MEDICINE_BALL": " Balón medicinal ",
+    "MACHINE": " Máquina ",
+    "ROLL": " Rollo de espuma ",
+    "KETTLEBELLS": " Pesas rusas ",
+    "BANDS": "Bandas ",
+    "OTHER": " Otro ",
+    "EXERCISE_BALL": " Bola de ejercicio"
+  },
+  "EXERCISE-TYPES": {
+    "NAME": "Exercise-type",
+    "STRETCHING": "Estiramiento",
+    "WEIGHTLIFTING": "Levantamiento de pesas olímpico",
+    "POWERLIFTING": "Levantamiento de pesas",
+    "CARDIO": "Cardio ",
+    "STRONGMAN": "Hombre fuerte",
+    "STRENGTH": "Fuerza",
+    "PLYOMETRICS": "Pliometría"
+  },
+  "MUSCLES": {
+    "name": "Muscles",
+    "SHOULDERS": " hombros ",
+    "LATS": " dorsales ",
+    "QUADRICEPS": " cuádriceps ",
+    "CALVES": " pantorrillas ",
+    "CHEST": " pecho ",
+    "FOREARM": " antebrazo ",
+    "HAMSTRINGS": " isquiotibiales",
+    "LOWE_BACK": " parte inferior espalda ",
+    "ABDOMINAL": " abdominal ",
+    "GLUTES": " glúteos ",
+    "BICEPS": " bíceps ",
+    "TRICEPS": " tríceps ",
+    "TRAPS": " trapecios ",
+    "MIDDLE_BACK": " espalda media ",
+    "NECK": "cuello "
+  },
+  "PROFICIENCY_LVL": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  }
+}

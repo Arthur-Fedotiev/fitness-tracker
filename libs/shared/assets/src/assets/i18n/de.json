@@ -1,0 +1,78 @@
+{
+  "NAVIGATION_BAR": {
+    "createExerciseLink": "Übung erstellen",
+    "createUserLink": "Benutzer erstellen",
+    "exercisesLink": "Übungen"
+  },
+  "SETTINGS_BAR": {
+    "logout": "Logout",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "CONTROL_PLACEHOLDERS": {
+    "selectMuscles": "Select target muscles"
+  },
+  "NO_DATA": "No data for selected parameters",
+  "LEVELS": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  },
+  "EXERCISES_META": {
+    "lvl": "Level"
+  },
+  "BTN": {
+    "close": "Close",
+    "open": "Open",
+    "cancel": "Cancel"
+  },
+  "EQUIPMENT": {
+    "NAME": "Equipment",
+    "CABLE": "Kabel",
+    "BARBELL": "Langhantel",
+    "KETTLEBELLS": "Kettlebells",
+    "ROLL": "Schaumrolle",
+    "NONE": "Keine",
+    "OTHER": "Andere ",
+    "E-Z_BAR": "EZ Curl Bar",
+    "DUMBBELL": "Hantel",
+    "EXERCISE_BALL": "Übungsball",
+    "BODY_ONLY": "Nur Körper",
+    "MACHINE": "Maschine",
+    "MEDICINE_BALL": "Medizinkugel",
+    "BANDS": "Bänder"
+  },
+  "EXERCISE-TYPES": {
+    "NAME": "Exercise-type",
+    "STRONGMAN": "Strongman",
+    "POWERLIFTING": "Powerlifting",
+    "PLYOMETRICS": "Plyometrie",
+    "STRENGTH": "Kraft",
+    "STRETCHING": "Stretching",
+    "CARDIO": "Cardio",
+    "WEIGHTLIFTING": "Olympisches Gewichtheben"
+  },
+  "MUSCLES": {
+    "name": "Muscles",
+    "CHEST": "Brust",
+    "SHOULDERS": "Schultern",
+    "GLUTES": "Gesäßmuskeln",
+    "QUADRICEPS": "Quadrizeps",
+    "LATS": "Lattes",
+    "FOREARM": "Unterarm",
+    "TRICEPS": "Trizeps",
+    "NECK": "Nacken",
+    "ABDOMINAL": "Bauch",
+    "CALVES": "Waden",
+    "HAMSTRINGS": " Kniesehnen",
+    "LOWE_BACK": "unteren Rücken",
+    "BICEPS": "Bizeps",
+    "MIDDLE_BACK": "mittlerer Rücken",
+    "TRAPS": "Traps"
+  },
+  "PROFICIENCY_LVL": {
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced"
+  }
+}

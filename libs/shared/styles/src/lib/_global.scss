@@ -1,0 +1,23 @@
+@use 'themes';
+@use 'responsive' as responsive;
+
+@include responsive.title();
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.title-link {
+  color: #000;
+}
+
+body.dark-theme {
+  .title-link {
+    color: wheat;
+  }
+}

@@ -1,0 +1,62 @@
+<mat-list class="list">
+  <mat-list-item>
+    <mat-form-field class="mat-select-hide-underline">
+      <mat-select [value]="language?.value"
+                  (click)="$event.stopPropagation()"
+                  (valueChange)="selectLanguage($event)">
+        <mat-select-trigger>
+          <div fxLayout="row"
+               fxLayoutAlign="start center"
+               fxLayoutGap="10px">
+            <mat-icon matListIcon
+                      [svgIcon]="language!.value"></mat-icon>
+            <span fxHide.gt-sm> {{ language!.label }}</span>
+          </div>
+
+        </mat-select-trigger>
+        <mat-option *ngFor="let opt of languages"
+                    [value]="opt.value">
+          <div fxLayout="row"
+               fxLayoutAlign="sideNav center"
+               fxLayoutGap="10px">
+            <mat-icon matListIcon
+                      [svgIcon]="opt.value"></mat-icon>
+            <span>{{ opt.label }}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-list-item>
+  <mat-list-item>
+    <button *ngIf="isLoggedIn"
+            (click)="logOut()"
+            class="action"
+            mat-icon-button
+            aria-label="Logout">
+      <mat-icon class="nav-icon"
+                svgIcon="exit"
+                aria-label="Logout"></mat-icon>
+      <span fxHide.gt-sm> {{ 'SETTINGS_BAR.logout' | translate }} </span>
+
+    </button>
+  </mat-list-item>
+  <mat-list-item>
+
+    <button mat-icon-button
+            class="action"
+            (click)="toggleDarkMode()"
+            aria-label="Toggle Dark Theme">
+      <mat-icon matListIcon
+                color="accent">{{ isDarkMode ? "dark_mode" : "light_mode" }}</mat-icon>
+      <span fxHide.gt-sm> {{ ('SETTINGS_BAR.' + (isDarkMode ? 'lightMode' : 'darkMode')) | translate }} </span>
+    </button>
+  </mat-list-item>
+  <mat-list-item>
+    <ng-container *ngIf="photoUrl">
+      <img [src]="photoUrl"
+           fxHide.lt-md
+           class="user-avatar" />
+    </ng-container>
+  </mat-list-item>
+
+</mat-list>

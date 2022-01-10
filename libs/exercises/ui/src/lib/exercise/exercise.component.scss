@@ -1,0 +1,47 @@
+.exercise-actions {
+  text-align: center;
+}
+
+.add-btn {
+  margin-left: 0.5rem;
+}
+
+.card {
+  border-radius: 1.5rem;
+  &__avatar {
+    border-radius: 0.5rem;
+  }
+  &__title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .subtitle-item > p:first-child {
+    color: #ff5722;
+  }
+}
+
+:host ::ng-deep {
+  mat-card-title-group {
+    display: flex;
+    align-items: center;
+    & > div {
+      flex: 0.9;
+    }
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .subtitle-item {
+      margin-top: 0.5rem;
+      :first-child {
+        font-size: 1rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+    }
+  }
+}

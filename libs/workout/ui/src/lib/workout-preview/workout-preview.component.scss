@@ -1,0 +1,12 @@
+:host ::ng-deep {
+  .mat-card-header-text {
+    margin: 0;
+  }
+}
+
+.card {
+  &__avatar {
+    object-fit: cover;
+    height: 250px;
+  }
+}

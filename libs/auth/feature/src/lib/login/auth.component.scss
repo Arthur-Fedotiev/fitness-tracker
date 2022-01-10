@@ -1,0 +1,17 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .welcome-icon {
+    margin: 2rem 0;
+    width: 35%;
+    height: 35%;
+  }
+
+  .auth-container {
+    margin-top: 1rem;
+  }
+}

@@ -1,0 +1,14 @@
+.filters {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  &__item {
+    flex: 1;
+  }
+}
+
+:host ::ng-deep {
+  .mat-form-field-wrapper {
+    padding: 1rem 1rem 0;
+  }
+}
