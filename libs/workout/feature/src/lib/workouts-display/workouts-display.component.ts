@@ -33,6 +33,7 @@ export class WorkoutsDisplayComponent implements OnInit {
     debounceTime(500),
     distinctUntilChanged(isEqual),
     map((targetMuscles) => (targetMuscles ? JSON.parse(targetMuscles) : [])),
+    tap((a) => console.log('queryParams$', a)),
     tap((filters: TargetMuscles) =>
       this.workoutFacade.loadWorkoutPreviews(filters),
     ),

@@ -9,7 +9,6 @@ import {
   convertSnaps,
   LanguagesISO,
   SerializedWorkout,
-  toIdsFromSerializedWorkout,
   WithId,
   WorkoutBasicInfo,
 } from '@fitness-tracker/shared/utils';
@@ -61,7 +60,7 @@ export class WorkoutService {
         (ref: CollectionReference) =>
           !muscles?.length
             ? ref
-            : ref.where('muscles', 'array-contains-any', muscles),
+            : ref.where('targetMuscles', 'array-contains-any', muscles),
       )
       .get()
       .pipe(map(convertSnaps));
@@ -89,18 +88,5 @@ export class WorkoutService {
         ),
       ),
     );
-  }
-
-  public getWorkout2(workoutId: string): Observable<string[]> {
-    return this.afs
-      .doc<SerializedWorkout>(`workouts/${workoutId}`)
-      .get()
-      .pipe(
-        map<
-          firebase.firestore.DocumentSnapshot<SerializedWorkout>,
-          WithId<SerializedWorkout>
-        >(convertOneSnap),
-        map(toIdsFromSerializedWorkout),
-      );
   }
 }
