@@ -17,6 +17,10 @@ export const environment = {
     authDomain: 'fitness-tracker-de06b.firebaseapp.com',
     messagingSenderId: '450961916900',
   },
+  algolia: {
+    appId: 'YDPTK1N3A0',
+    appKey: 'f276d50884ab207ec3de77c64dd4cb55',
+  },
   api: {
     createUser:
       'http://localhost:5001/fitness-tracker-de06b/us-central1/createUser',

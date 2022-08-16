@@ -9,7 +9,6 @@ import {
   convertSnaps,
   LanguagesISO,
   SerializedWorkout,
-  toIdsFromSerializedWorkout,
   WithId,
   WorkoutBasicInfo,
 } from '@fitness-tracker/shared/utils';
@@ -26,8 +25,8 @@ export class WorkoutService {
 
   public createWorkout(
     workout: SerializedWorkout,
-    id?: string,
   ): Observable<void | DocumentReference<SerializedWorkout>> {
+    const id = workout.id;
     return id
       ? from(
           this.afs.doc<SerializedWorkout>(`workouts/${id}`).set(workout),
@@ -52,6 +51,12 @@ export class WorkoutService {
       );
   }
 
+  public deleteWorkout(workoutId: string): Observable<void> {
+    return from(
+      this.afs.doc<SerializedWorkout>(`$workouts/${workoutId}`).delete(),
+    );
+  }
+
   public findWorkouts(
     muscles?: WorkoutBasicInfo['targetMuscles'],
   ): Observable<Required<SerializedWorkout>[]> {
@@ -61,7 +66,7 @@ export class WorkoutService {
         (ref: CollectionReference) =>
           !muscles?.length
             ? ref
-            : ref.where('muscles', 'array-contains-any', muscles),
+            : ref.where('targetMuscles', 'array-contains-any', muscles),
       )
       .get()
       .pipe(map(convertSnaps));
@@ -89,18 +94,5 @@ export class WorkoutService {
         ),
       ),
     );
-  }
-
-  public getWorkout2(workoutId: string): Observable<string[]> {
-    return this.afs
-      .doc<SerializedWorkout>(`workouts/${workoutId}`)
-      .get()
-      .pipe(
-        map<
-          firebase.firestore.DocumentSnapshot<SerializedWorkout>,
-          WithId<SerializedWorkout>
-        >(convertOneSnap),
-        map(toIdsFromSerializedWorkout),
-      );
   }
 }

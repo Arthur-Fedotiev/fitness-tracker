@@ -1,13 +1,16 @@
 import { Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Exercise } from 'shared-package';
 import {
   ConcreteSingleWorkoutItemInstruction,
   SingleWorkoutItem,
+  WithId,
   WorkoutItem,
   WorkoutItemFlatNode,
 } from '../..';
+
+export type Item = WithId<Exercise>;
 
 @Injectable()
 export class WorkoutDatabase {
@@ -19,20 +22,16 @@ export class WorkoutDatabase {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
+    public initialData: Item[],
   ) {
     this.initialize(initialData);
   }
 
-  private initialize(
-    initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
-  ) {
+  private initialize(initialData: Item[]) {
     this.dataChange.next(this.buildFileTree(initialData));
   }
 
-  public buildFileTree(
-    initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
-  ): WorkoutItem[] {
+  public buildFileTree(initialData: Item[]): WorkoutItem[] {
     return initialData.map(
       ({ name, id }) =>
         new SingleWorkoutItem(

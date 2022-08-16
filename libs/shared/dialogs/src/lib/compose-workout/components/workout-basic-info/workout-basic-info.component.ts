@@ -4,10 +4,10 @@ import {
   Input,
   Output,
   EventEmitter,
+  OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  ExerciseMetaCollectionsDictionaryUnit,
   MetaCollection,
   META_COLLECTIONS,
 } from '@fitness-tracker/exercises/model';
@@ -20,33 +20,50 @@ import { WorkoutLevel } from '@fitness-tracker/workout/model';
   styleUrls: ['./workout-basic-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WorkoutBasicInfoComponent {
+export class WorkoutBasicInfoComponent implements OnInit {
+  @Input()
+  public basicInfo: WorkoutBasicInfo | undefined;
   @Output()
   public readonly workoutBasicInfoSaved = new EventEmitter<WorkoutBasicInfo>();
 
   public readonly workoutLevels = WorkoutLevel;
   public readonly metaCollections: MetaCollection = META_COLLECTIONS;
-  public readonly workoutInfoForm: FormGroup = this.getForm();
+  public workoutInfoForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
+  public ngOnInit(): void {
+    this.workoutInfoForm = this.setForm(this.basicInfo);
+  }
+
   public onSave(): void {
-    this.workoutBasicInfoSaved.emit(this.workoutInfoForm.value);
+    this.workoutBasicInfoSaved.emit({
+      ...this.basicInfo,
+      ...this.workoutInfoForm.value,
+    });
   }
 
   public trackByIndex(index: number): number {
     return index;
   }
 
-  private getForm(): FormGroup {
+  private setForm({
+    name,
+    targetMuscles,
+    avatarUrl,
+    coverUrl,
+    description,
+    level,
+    importantNotes,
+  }: Partial<WorkoutBasicInfo> = {}): FormGroup {
     return this.fb.group({
-      name: ['', Validators.required],
-      targetMuscles: [null, Validators.required],
-      avatarUrl: [null, Validators.required],
-      coverUrl: [null],
-      description: [null],
-      level: [null, Validators.required],
-      importantNotes: [null],
+      name: [name ?? '', Validators.required],
+      targetMuscles: [targetMuscles, Validators.required],
+      avatarUrl: [avatarUrl, Validators.required],
+      coverUrl: [coverUrl],
+      description: [description],
+      level: [level, Validators.required],
+      importantNotes: [importantNotes],
     });
   }
 }

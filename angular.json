@@ -349,7 +349,7 @@
               },
               "libs/shared/styles/src/index.scss"
             ],
-            "scripts": []
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
           },
           "configurations": {
             "production": {
@@ -633,6 +633,32 @@
       },
       "tags": ["scope:shared", "type:i18n"]
     },
+    "shared-pwa": {
+      "projectType": "library",
+      "root": "libs/shared/pwa",
+      "sourceRoot": "libs/shared/pwa/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/pwa"],
+          "options": {
+            "jestConfig": "libs/shared/pwa/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/pwa/src/**/*.ts",
+              "libs/shared/pwa/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:shared", "type:infrastructure"]
+    },
     "shared-styles": {
       "projectType": "library",
       "root": "libs/shared/styles",
@@ -640,6 +666,32 @@
       "prefix": "fitness-tracker",
       "architect": {},
       "tags": ["scope:shared", "type:styles"]
+    },
+    "shared-ui-components": {
+      "projectType": "library",
+      "root": "libs/shared/ui/components",
+      "sourceRoot": "libs/shared/ui/components/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui/components"],
+          "options": {
+            "jestConfig": "libs/shared/ui/components/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ui/components/src/**/*.ts",
+              "libs/shared/ui/components/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["scope:shared", "type:ui"]
     },
     "shared-ui-material": {
       "projectType": "library",
@@ -797,5 +849,8 @@
       },
       "tags": ["scope:workout", "type:ui"]
     }
+  },
+  "cli": {
+    "analytics": "c396e8ba-5518-40b7-b083-4feb1ae2e570"
   }
 }

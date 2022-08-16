@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   createWorkout,
+  editWorkout,
   loadWorkoutDetails,
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
@@ -39,5 +40,9 @@ export class WorkoutFacadeService {
 
   public createWorkout(payload: SerializedWorkout): void {
     this.store.dispatch(createWorkout({ payload }));
+  }
+
+  public editWorkout(payload: string): void {
+    this.store.dispatch(editWorkout({ payload }));
   }
 }

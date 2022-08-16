@@ -1,18 +1,21 @@
-<ft-workout-filters [initialTargetMuscles]="(targetMuscles$ | async)!"
-                    (targetMusclesFiltersChanges)="targetMusclesChanges($event)"></ft-workout-filters>
+<ft-workout-filters
+  [initialTargetMuscles]="(targetMuscles$ | async)!"
+  (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
+></ft-workout-filters>
 
 <ng-container *ngIf="(workoutPreviews$ | async)! as workoutPreviews">
   <ng-container *ngIf="workoutPreviews.length; else noWorkouts">
     <ft-workout-list [listData]="(workoutPreviews$ | async)!">
       <ng-template let-workoutItem>
-        <ft-workout-preview [workout]="workoutItem"></ft-workout-preview>
+        <ft-workout-preview
+          [workout]="workoutItem"
+          (workoutEdited)="editWorkout($event)"
+        ></ft-workout-preview>
       </ng-template>
     </ft-workout-list>
   </ng-container>
-
 </ng-container>
 
 <ng-template #noWorkouts>
-  <h1 class="no-data"
-      translate="NO_DATA"></h1>
+  <h1 class="no-data" translate="NO_DATA"></h1>
 </ng-template>

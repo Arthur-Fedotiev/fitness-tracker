@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import {
@@ -17,6 +16,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isEqual } from 'lodash-es';
 import { TargetMuscles } from '@fitness-tracker/shared/utils';
+import { MatDialogConfig } from '@angular/material/dialog';
+import { ComposeWorkoutComponent } from '@fitness-tracker/shared/dialogs';
 @UntilDestroy()
 @Component({
   selector: 'ft-workouts-display',
@@ -47,7 +48,6 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   constructor(
     private readonly workoutFacade: WorkoutFacadeService,
-    private readonly exercisesFacade: ExercisesFacade,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
   ) {}
@@ -58,6 +58,10 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   public targetMusclesChanges($event: TargetMuscles): void {
     this.setMusclesQueryParams($event);
+  }
+
+  public editWorkout(id: string): void {
+    this.workoutFacade.editWorkout(id);
   }
 
   private initListeners(): void {

@@ -1,0 +1,71 @@
+<div class="wrapper" fxLayout="row nowrap" fxLayoutAlign="center center">
+  <ais-instantsearch *ngIf="searchConfig" [config]="searchConfig">
+    <ais-search-box
+      #searchBox
+      [searchAsYouType]="false"
+      placeholder="Search for exercises..."
+    ></ais-search-box>
+    <ais-configure
+      [searchParameters]="{ hitsPerPage: 5, distinct: true }"
+    ></ais-configure>
+    <ais-infinite-hits>
+      <ng-template
+        let-hits="hits"
+        let-results="results"
+        let-refineNext="showMore"
+      >
+        <div *ngIf="hits?.length === 0 && results?.query">
+          No results found matching <strong>{{ results?.query }}</strong
+          >.
+        </div>
+
+        <ng-container *ngIf="results?.query">
+          <div *ngFor="let hit of hits" class="content">
+            <section>
+              <ais-highlight
+                [attribute]="'translatableData.name'"
+                [hit]="hit"
+              ></ais-highlight>
+              <mat-card
+                class="card mat-elevation-z8"
+                tabindex="0"
+                (click)="selected(hit)"
+              >
+                <mat-card-title-group>
+                  <img
+                    class="card__avatar"
+                    mat-card-avatar
+                    [src]="hit['baseData.avatarUrl']"
+                    ftWithFallback
+                  />
+                  <mat-card-title class="card__title">
+                    <span
+                      ngClass.xs="ft-xs"
+                      ngClass.sm="ft-sm"
+                      ngClass.md="ft-md"
+                      ngClass.lg="ft-lg"
+                      ngClass.xl="ft-xl"
+                      >{{ hit['translatableData.name'] }}</span
+                    >
+                  </mat-card-title>
+                </mat-card-title-group>
+              </mat-card>
+            </section>
+          </div>
+        </ng-container>
+        <ng-template #templatePortalContent>
+          <button
+            fxFlexAlign="start"
+            mat-button
+            [disabled]="!hits?.length || !results?.query"
+            color="accent"
+            (click)="refineNext($event)"
+          >
+            Show more
+          </button>
+        </ng-template>
+      </ng-template>
+    </ais-infinite-hits>
+  </ais-instantsearch>
+  <ng-template [cdkPortalOutlet]="portalContent"></ng-template>
+</div>

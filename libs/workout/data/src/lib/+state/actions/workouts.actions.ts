@@ -47,3 +47,16 @@ export const createWorkoutSuccess = createAction(
 export const createWorkoutFailure = createAction(
   WorkoutActionNames.CREATE_WORKOUT_FAILURE,
 );
+
+export const editWorkout = createAction(
+  WorkoutActionNames.EDIT_WORKOUT,
+  props<WithPayload<string>>(),
+);
+
+export const editWorkoutSuccess = createAction(
+  WorkoutActionNames.EDIT_WORKOUT_SUCCESS,
+);
+
+export const editWorkouttFailure = createAction(
+  WorkoutActionNames.EDIT_WORKOUT_FAILURE,
+);

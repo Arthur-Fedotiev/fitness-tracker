@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, tap, withLatestFrom } from 'rxjs/operators';
-import { of, switchMap } from 'rxjs';
+import { EMPTY, Observable, of, pipe, switchMap, UnaryFunction } from 'rxjs';
 
 import { WorkoutActionNames } from '../actions/workout-action-names';
 import {
@@ -14,7 +14,9 @@ import {
 import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import {
+  ConcreteWorkoutItemSerializer,
   SerializedWorkout,
+  SerializeWorkoutItem,
   toExercisesMap,
   toIdsFromSerializedWorkout,
   toWorkoutDetails,
@@ -28,6 +30,12 @@ import {
   loadExerciseDetailsFailure,
 } from '@fitness-tracker/exercises/data';
 import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { LanguageCodes } from 'shared-package';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  ComposeWorkoutComponent,
+  getDialogConfig,
+} from '@fitness-tracker/shared/dialogs';
 
 @Injectable()
 export class WorkoutsEffects {
@@ -57,11 +65,56 @@ export class WorkoutsEffects {
     ),
   );
 
+  public readonly editWorkout = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(WorkoutActionNames.EDIT_WORKOUT),
+        this.getWorkoutDetailsLocalized$(),
+        map(({ content, ...basicInfo }: WorkoutDetails) =>
+          this.dialog.open(
+            ComposeWorkoutComponent,
+            getDialogConfig(
+              content.map((item) => this.workoutSerializer.deserialize(item)),
+              basicInfo,
+            ),
+          ),
+        ),
+        catchError((err: any) => {
+          console.error(err);
+          return EMPTY;
+        }),
+      ),
+    { dispatch: false },
+  );
+
   public readonly loadWorkoutDetails = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActionNames.LOAD_WORKOUT_DETAILS),
+      this.getWorkoutDetailsLocalized$(),
+      map((payload: WorkoutDetails) => loadWorkoutDetailsSuccess({ payload })),
+      catchError((err) => {
+        console.log(err);
+        return of(loadWorkoutDetailsFailure());
+      }),
+    ),
+  );
+
+  constructor(
+    private readonly actions$: Actions,
+    private readonly store: Store,
+    private readonly workoutAPI: WorkoutService,
+    private readonly exercisesService: ExercisesService,
+    private readonly dialog: MatDialog,
+    private readonly workoutSerializer: ConcreteWorkoutItemSerializer,
+  ) {}
+
+  private getWorkoutDetailsLocalized$(): UnaryFunction<
+    Observable<WithPayload<string>>,
+    Observable<WorkoutDetails>
+  > {
+    return pipe(
       withLatestFrom(this.store.select(selectLanguage)),
-      switchMap(([{ payload }, lang]) =>
+      switchMap(([{ payload }, lang]: [WithPayload<string>, LanguageCodes]) =>
         this.workoutAPI.getWorkout(payload).pipe(
           map((serializedWorkout) => ({
             serializedWorkout,
@@ -86,22 +139,8 @@ export class WorkoutsEffects {
               ),
           ),
           map(toWorkoutDetails),
-          map((payload: WorkoutDetails) =>
-            loadWorkoutDetailsSuccess({ payload }),
-          ),
-          catchError((err) => {
-            console.log(err);
-            return of(loadWorkoutDetailsFailure());
-          }),
         ),
       ),
-    ),
-  );
-
-  constructor(
-    private readonly actions$: Actions,
-    private readonly store: Store,
-    private readonly workoutAPI: WorkoutService,
-    private readonly exercisesService: ExercisesService,
-  ) {}
+    );
+  }
 }
