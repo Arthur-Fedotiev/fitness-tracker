@@ -19,7 +19,7 @@ import {
   SearchOptions,
   WithId,
 } from '@fitness-tracker/shared/utils';
-import firebase from 'firebase/compat/app';
+import { FieldPath, documentId } from 'firebase/firestore';
 import {
   first,
   map,
@@ -195,21 +195,17 @@ export class ExercisesService {
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
     const filteredRef = targetMuscles?.length
       ? ref.where(
-          new firebase.firestore.FieldPath(
-            'baseData',
-            EXERCISE_FIELD_NAMES.TARGET_MUSCLE,
-          ),
+          new FieldPath('baseData', EXERCISE_FIELD_NAMES.TARGET_MUSCLE),
           'in',
           targetMuscles,
         )
       : ref;
 
-    const sortedRef = ref.orderBy(
-      new firebase.firestore.FieldPath('baseData', EXERCISE_FIELD_NAMES.RATING),
+    // TODO FInd out why sorting doesn't work with filtering by targetMuscle
+    const _sortedRef = ref.orderBy(
+      new FieldPath('baseData', EXERCISE_FIELD_NAMES.RATING),
       sortOrder,
     );
-
-    // TODO FInd out why sorting doesn't work with filtering by targetMuscle
 
     return filteredRef;
   }
@@ -218,6 +214,6 @@ export class ExercisesService {
     ref,
     ids,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
-    return ref.where(firebase.firestore.FieldPath.documentId(), 'in', ids);
+    return ref.where(documentId(), 'in', ids);
   }
 }
