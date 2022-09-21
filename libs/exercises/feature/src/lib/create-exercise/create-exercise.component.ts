@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +31,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 })
 export class CreateExerciseComponent implements OnInit, OnDestroy {
   public readonly metaCollections: MetaCollection = META_COLLECTIONS;
-  public readonly exerciseForm: FormGroup = this.getForm();
+  public readonly exerciseForm: UntypedFormGroup = this.getForm();
 
   private readonly patchExerciseFormValue: ReplaySubject<Exercise | null> =
     new ReplaySubject<Exercise | null>(1);
@@ -67,7 +67,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private exercisesFacade: ExercisesFacade,
   ) {}
@@ -93,7 +93,7 @@ export class CreateExerciseComponent implements OnInit, OnDestroy {
     return index;
   }
 
-  private getForm(): FormGroup {
+  private getForm(): UntypedFormGroup {
     return this.fb.group({
       name: ['', Validators.required],
       exerciseType: [null, Validators.required],

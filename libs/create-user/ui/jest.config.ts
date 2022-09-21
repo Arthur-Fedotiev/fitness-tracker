@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'fitness-tracker',
-  preset: '../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'create-user-ui',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/fitness-tracker',
+  coverageDirectory: '../../../coverage/libs/create-user/ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

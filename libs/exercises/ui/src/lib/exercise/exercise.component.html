@@ -1,20 +1,26 @@
-<mat-card class="card mat-elevation-z8"
-          tabindex="0">
+<mat-card class="card mat-elevation-z8" tabindex="0">
   <mat-card-title-group>
-    <img class="card__avatar"
-         mat-card-sm-image
-         [src]="exercise?.avatarUrl"
-         ftWithFallback>
-    <img fxHide.lt-sm
-         class="card__avatar"
-         mat-card-sm-image
-         [src]="exercise?.avatarSecondaryUrl"
-         ftWithFallback>
+    <img
+      class="card__avatar"
+      mat-card-sm-image
+      [src]="exercise.avatarUrl"
+      ftWithFallback
+    />
+    <img
+      fxHide.lt-sm
+      class="card__avatar"
+      mat-card-sm-image
+      [src]="exercise.avatarSecondaryUrl"
+      ftWithFallback
+    />
     <mat-card-title class="card__title">
-      <span ngClass.sm="ft-sm"
-            ngClass.md="ft-md"
-            ngClass.lg="ft-lg"
-            ngClass.xl="ft-xl">{{ exercise.name }}</span>
+      <span
+        ngClass.sm="ft-sm"
+        ngClass.md="ft-md"
+        ngClass.lg="ft-lg"
+        ngClass.xl="ft-xl"
+        >{{ exercise.name }}</span
+      >
     </mat-card-title>
   </mat-card-title-group>
   <mat-card-content>
@@ -28,33 +34,41 @@
     </div>
     <div class="subtitle-item">
       <p translate>EXERCISE.exerciseType</p>
-      <p>{{ 'EXERCISE-TYPES.' + exercise.exerciseType| translate }}</p>
+      <p>{{ 'EXERCISE-TYPES.' + exercise.exerciseType | translate }}</p>
     </div>
   </mat-card-content>
   <mat-card-actions class="exercise-actions">
-
-    <button mat-button
-            class="mat-raised-button mat-primary"
-            (click)="viewExercise(exercise)">
-      {{'EXERCISE.viewBtn' | translate}}
+    <button
+      mat-button
+      class="mat-raised-button mat-primary"
+      (click)="viewExercise(exercise)"
+    >
+      {{ 'EXERCISE.viewBtn' | translate }}
     </button>
 
-    <button *ftRoles="roles.ADMIN"
-            mat-button
-            class="mat-raised-button mat-accent"
-            (click)="editExercise(exercise)">
-      {{'EXERCISE.editBtn' | translate}} </button>
-    <button *ftRoles="roles.ADMIN"
-            mat-mini-fab
-            color="warn"
-            (click)="deleteExercise(exercise)">
+    <button
+      *ftRoles="roles.ADMIN"
+      mat-button
+      class="mat-raised-button mat-accent"
+      (click)="editExercise(exercise)"
+    >
+      {{ 'EXERCISE.editBtn' | translate }}
+    </button>
+    <button
+      *ftRoles="roles.ADMIN"
+      mat-mini-fab
+      color="warn"
+      (click)="deleteExercise(exercise)"
+    >
       <mat-icon>delete</mat-icon>
     </button>
-    <button *ftRoles="roles.ADMIN"
-            mat-mini-fab
-            class="add-btn"
-            color="success"
-            (click)="addedToWorkout(exercise)">
+    <button
+      *ftRoles="roles.ADMIN"
+      mat-mini-fab
+      class="add-btn"
+      color="success"
+      (click)="addedToWorkout(exercise)"
+    >
       <mat-icon>add</mat-icon>
     </button>
   </mat-card-actions>

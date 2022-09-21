@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { User } from '@fitness-tracker/create-user/models';
 
 @Component({
@@ -11,13 +11,13 @@ import { User } from '@fitness-tracker/create-user/models';
 export class CreateUserFormComponent {
   @Output() private readonly userCreated: EventEmitter<User> = new EventEmitter<User>();
 
-  public readonly createUserForm: FormGroup = this.fb.group({
+  public readonly createUserForm: UntypedFormGroup = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(5)]],
     admin: [false]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: UntypedFormBuilder) { }
 
   public onCreateUser(): void {
     this.userCreated.emit(this.createUserForm.value);

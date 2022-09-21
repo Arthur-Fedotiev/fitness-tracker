@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'workout-model',
+/* eslint-disable */
+export default {
+  displayName: 'exercises-model',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/workout/model',
+  coverageDirectory: '../../../coverage/libs/exercises/model',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

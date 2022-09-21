@@ -11,7 +11,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/auth/data"],
           "options": {
-            "jestConfig": "libs/auth/data/jest.config.js",
+            "jestConfig": "libs/auth/data/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -37,7 +37,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/auth/feature"],
           "options": {
-            "jestConfig": "libs/auth/feature/jest.config.js",
+            "jestConfig": "libs/auth/feature/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -63,7 +63,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/auth/model"],
           "options": {
-            "jestConfig": "libs/auth/model/jest.config.js",
+            "jestConfig": "libs/auth/model/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -89,7 +89,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/create-user/data"],
           "options": {
-            "jestConfig": "libs/create-user/data/jest.config.js",
+            "jestConfig": "libs/create-user/data/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -115,7 +115,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/create-user/feature"],
           "options": {
-            "jestConfig": "libs/create-user/feature/jest.config.js",
+            "jestConfig": "libs/create-user/feature/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -141,7 +141,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/create-user/models"],
           "options": {
-            "jestConfig": "libs/create-user/models/jest.config.js",
+            "jestConfig": "libs/create-user/models/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -167,7 +167,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/create-user/ui"],
           "options": {
-            "jestConfig": "libs/create-user/ui/jest.config.js",
+            "jestConfig": "libs/create-user/ui/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -193,7 +193,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/exercises/data"],
           "options": {
-            "jestConfig": "libs/exercises/data/jest.config.js",
+            "jestConfig": "libs/exercises/data/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -219,7 +219,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/exercises/feature"],
           "options": {
-            "jestConfig": "libs/exercises/feature/jest.config.js",
+            "jestConfig": "libs/exercises/feature/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -245,7 +245,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/exercises/model"],
           "options": {
-            "jestConfig": "libs/exercises/model/jest.config.js",
+            "jestConfig": "libs/exercises/model/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -271,7 +271,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/exercises/ui"],
           "options": {
-            "jestConfig": "libs/exercises/ui/jest.config.js",
+            "jestConfig": "libs/exercises/ui/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -425,7 +425,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/fitness-tracker"],
           "options": {
-            "jestConfig": "apps/fitness-tracker/jest.config.js",
+            "jestConfig": "apps/fitness-tracker/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -480,7 +480,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/layout/feature"],
           "options": {
-            "jestConfig": "libs/layout/feature/jest.config.js",
+            "jestConfig": "libs/layout/feature/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -506,7 +506,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/layout/ui"],
           "options": {
-            "jestConfig": "libs/layout/ui/jest.config.js",
+            "jestConfig": "libs/layout/ui/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -526,7 +526,7 @@
       "projectType": "library",
       "root": "libs/shared/assets",
       "sourceRoot": "libs/shared/assets/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {},
       "tags": ["scope:shared", "type:assets"]
     },
@@ -534,13 +534,13 @@
       "projectType": "library",
       "root": "libs/shared/data-access",
       "sourceRoot": "libs/shared/data-access/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/data-access"],
           "options": {
-            "jestConfig": "libs/shared/data-access/jest.config.js",
+            "jestConfig": "libs/shared/data-access/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -560,13 +560,13 @@
       "projectType": "library",
       "root": "libs/shared/dialogs",
       "sourceRoot": "libs/shared/dialogs/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/dialogs"],
           "options": {
-            "jestConfig": "libs/shared/dialogs/jest.config.js",
+            "jestConfig": "libs/shared/dialogs/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -586,13 +586,13 @@
       "projectType": "library",
       "root": "libs/shared/environments",
       "sourceRoot": "libs/shared/environments/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/environments"],
           "options": {
-            "jestConfig": "libs/shared/environments/jest.config.js",
+            "jestConfig": "libs/shared/environments/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -612,13 +612,13 @@
       "projectType": "library",
       "root": "libs/shared/i18n",
       "sourceRoot": "libs/shared/i18n/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/i18n"],
           "options": {
-            "jestConfig": "libs/shared/i18n/jest.config.js",
+            "jestConfig": "libs/shared/i18n/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -638,13 +638,13 @@
       "projectType": "library",
       "root": "libs/shared/pwa",
       "sourceRoot": "libs/shared/pwa/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/pwa"],
           "options": {
-            "jestConfig": "libs/shared/pwa/jest.config.js",
+            "jestConfig": "libs/shared/pwa/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -664,7 +664,7 @@
       "projectType": "library",
       "root": "libs/shared/styles",
       "sourceRoot": "libs/shared/styles/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {},
       "tags": ["scope:shared", "type:styles"]
     },
@@ -672,13 +672,13 @@
       "projectType": "library",
       "root": "libs/shared/ui/components",
       "sourceRoot": "libs/shared/ui/components/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/ui/components"],
           "options": {
-            "jestConfig": "libs/shared/ui/components/jest.config.js",
+            "jestConfig": "libs/shared/ui/components/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -704,7 +704,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/ui/material"],
           "options": {
-            "jestConfig": "libs/shared/ui/material/jest.config.js",
+            "jestConfig": "libs/shared/ui/material/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -730,7 +730,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared/utils"],
           "options": {
-            "jestConfig": "libs/shared/utils/jest.config.js",
+            "jestConfig": "libs/shared/utils/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -750,13 +750,13 @@
       "projectType": "library",
       "root": "libs/workout/data",
       "sourceRoot": "libs/workout/data/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/workout/data"],
           "options": {
-            "jestConfig": "libs/workout/data/jest.config.js",
+            "jestConfig": "libs/workout/data/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -776,13 +776,13 @@
       "projectType": "library",
       "root": "libs/workout/feature",
       "sourceRoot": "libs/workout/feature/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/workout/feature"],
           "options": {
-            "jestConfig": "libs/workout/feature/jest.config.js",
+            "jestConfig": "libs/workout/feature/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -802,13 +802,13 @@
       "projectType": "library",
       "root": "libs/workout/model",
       "sourceRoot": "libs/workout/model/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/workout/model"],
           "options": {
-            "jestConfig": "libs/workout/model/jest.config.js",
+            "jestConfig": "libs/workout/model/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -828,13 +828,13 @@
       "projectType": "library",
       "root": "libs/workout/ui",
       "sourceRoot": "libs/workout/ui/src",
-      "prefix": "fitness-tracker",
+      "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/workout/ui"],
           "options": {
-            "jestConfig": "libs/workout/ui/jest.config.js",
+            "jestConfig": "libs/workout/ui/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -850,8 +850,5 @@
       },
       "tags": ["scope:workout", "type:ui"]
     }
-  },
-  "cli": {
-    "analytics": "c396e8ba-5518-40b7-b083-4feb1ae2e570"
   }
 }

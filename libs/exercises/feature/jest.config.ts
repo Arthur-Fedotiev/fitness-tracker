@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'shared-dialogs',
+/* eslint-disable */
+export default {
+  displayName: 'exercises-feature',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/shared/dialogs',
+  coverageDirectory: '../../../coverage/libs/exercises/feature',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

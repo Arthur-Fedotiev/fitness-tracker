@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'create-user-data',
+/* eslint-disable */
+export default {
+  displayName: 'layout-feature',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/create-user/data',
+  coverageDirectory: '../../../coverage/libs/layout/feature',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

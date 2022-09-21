@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'shared-i18n',
+/* eslint-disable */
+export default {
+  displayName: 'workout-ui',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/shared/i18n',
+  coverageDirectory: '../../../coverage/libs/workout/ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

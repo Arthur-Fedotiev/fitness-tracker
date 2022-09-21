@@ -6,7 +6,7 @@ import {
   EventEmitter,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   MetaCollection,
   META_COLLECTIONS,
@@ -28,9 +28,9 @@ export class WorkoutBasicInfoComponent implements OnInit {
 
   public readonly workoutLevels = WorkoutLevel;
   public readonly metaCollections: MetaCollection = META_COLLECTIONS;
-  public workoutInfoForm!: FormGroup;
+  public workoutInfoForm!: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   public ngOnInit(): void {
     this.workoutInfoForm = this.setForm(this.basicInfo);
@@ -47,7 +47,7 @@ export class WorkoutBasicInfoComponent implements OnInit {
     return index;
   }
 
-  private setForm(workoutBasicInfo?: WorkoutBasicInfo | null): FormGroup {
+  private setForm(workoutBasicInfo?: WorkoutBasicInfo | null): UntypedFormGroup {
     const {
       name,
       description,

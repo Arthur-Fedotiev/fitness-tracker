@@ -4,7 +4,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder } from '@angular/forms';
 import {
   MetaCollection,
   META_COLLECTIONS,
@@ -20,7 +20,7 @@ import { WorkoutLevel } from '@fitness-tracker/workout/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutFiltersComponent {
-  public workoutFilters: FormGroup = this.getForm();
+  public workoutFilters: UntypedFormGroup = this.getForm();
   public readonly workoutLevels = WorkoutLevel;
   public readonly metaCollections: MetaCollection = META_COLLECTIONS;
 
@@ -35,13 +35,13 @@ export class WorkoutFiltersComponent {
     return this.workoutFilters.get('targetMuscles') as AbstractControl;
   }
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor(private readonly fb: UntypedFormBuilder) {}
 
   public trackByIndex(index: number): number {
     return index;
   }
 
-  private getForm(): FormGroup {
+  private getForm(): UntypedFormGroup {
     return this.fb.group({
       targetMuscles: [null],
     });

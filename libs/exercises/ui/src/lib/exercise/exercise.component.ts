@@ -5,11 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {
-  ExerciseVM,
-  MetaCollection,
-  META_COLLECTIONS,
-} from '@fitness-tracker/exercises/model';
+import { ExerciseVM } from '@fitness-tracker/exercises/model';
 import { ROLES } from 'shared-package';
 
 @Component({
