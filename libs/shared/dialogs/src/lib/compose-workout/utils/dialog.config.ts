@@ -10,6 +10,8 @@ export const getDialogConfig = (
   workoutContent: WorkoutItem[],
   workoutBasicInfo?: WorkoutBasicInfo,
 ) => {
+  console.log('getDialogConfig', workoutContent, workoutBasicInfo);
+
   const dialogConfig = new MatDialogConfig<ComposeWorkoutData>();
 
   dialogConfig.disableClose = true;

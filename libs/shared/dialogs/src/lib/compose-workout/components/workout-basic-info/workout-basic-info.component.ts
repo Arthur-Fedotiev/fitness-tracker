@@ -22,7 +22,7 @@ import { WorkoutLevel } from '@fitness-tracker/workout/model';
 })
 export class WorkoutBasicInfoComponent implements OnInit {
   @Input()
-  public basicInfo: WorkoutBasicInfo | undefined;
+  public basicInfo?: WorkoutBasicInfo | null;
   @Output()
   public readonly workoutBasicInfoSaved = new EventEmitter<WorkoutBasicInfo>();
 
@@ -47,15 +47,17 @@ export class WorkoutBasicInfoComponent implements OnInit {
     return index;
   }
 
-  private setForm({
-    name,
-    targetMuscles,
-    avatarUrl,
-    coverUrl,
-    description,
-    level,
-    importantNotes,
-  }: Partial<WorkoutBasicInfo> = {}): FormGroup {
+  private setForm(workoutBasicInfo?: WorkoutBasicInfo | null): FormGroup {
+    const {
+      name,
+      description,
+      level,
+      targetMuscles,
+      avatarUrl,
+      coverUrl,
+      importantNotes,
+    } = workoutBasicInfo || {};
+
     return this.fb.group({
       name: [name ?? '', Validators.required],
       targetMuscles: [targetMuscles, Validators.required],

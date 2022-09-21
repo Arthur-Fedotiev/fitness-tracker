@@ -6,12 +6,11 @@ import {
   Inject,
 } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { SnackBarData } from '../models/pwa.models';
 
 @Component({
   selector: 'ft-pwa-snackbar',
   templateUrl: './pwa-snackbar.component.html',
-  styleUrls: ['./pwa-snackbar.component.scss'],
+  styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PwaSnackbarComponent {
@@ -20,7 +19,7 @@ export class PwaSnackbarComponent {
 
   constructor(
     @Inject(MAT_SNACK_BAR_DATA)
-    public readonly data: SnackBarData,
+    public readonly data: any,
   ) {}
 
   public onConfirm(): void {

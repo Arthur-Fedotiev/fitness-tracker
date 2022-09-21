@@ -70,6 +70,7 @@ export class WorkoutsEffects {
       this.actions$.pipe(
         ofType(WorkoutActionNames.EDIT_WORKOUT),
         this.getWorkoutDetailsLocalized$(),
+        tap(console.log),
         map(({ content, ...basicInfo }: WorkoutDetails) =>
           this.dialog.open(
             ComposeWorkoutComponent,

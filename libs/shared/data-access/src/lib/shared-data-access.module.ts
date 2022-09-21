@@ -8,6 +8,7 @@ import { appReduceMap, FtState } from './+state/reducers/app.reduce-map';
 import { AngularFireModule } from '@angular/fire/compat';
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { firebaseUiAuthConfig } from './firebase/firebase-auth-ui-config';
+
 import {
   AngularFirestoreModule,
   USE_EMULATOR as USE_FIRESTORE_EMULATOR,

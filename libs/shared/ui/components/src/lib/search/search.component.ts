@@ -16,7 +16,7 @@ import { NgAisInstantSearch } from 'angular-instantsearch';
 @Component({
   selector: 'ft-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
+  styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements AfterViewInit {

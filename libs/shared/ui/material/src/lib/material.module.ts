@@ -15,6 +15,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { PortalModule } from '@angular/cdk/portal';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -34,6 +37,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTreeModule,
     MatExpansionModule,
     DragDropModule,
+    MatAutocompleteModule,
+    PortalModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatInputModule,
@@ -52,6 +58,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTreeModule,
     MatExpansionModule,
     DragDropModule,
+    MatAutocompleteModule,
+    PortalModule,
+    MatSnackBarModule,
   ],
 })
 export class MaterialModule {}

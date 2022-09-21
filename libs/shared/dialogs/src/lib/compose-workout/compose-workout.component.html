@@ -17,7 +17,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <ft-workout-basic-info
-            [basicInfo]="workoutBasicInfo"
+            [basicInfo]="workoutBasicInfo$ | async"
             (workoutBasicInfoSaved)="saveBasicInfo($event)"
           ></ft-workout-basic-info>
         </mat-expansion-panel>
@@ -34,7 +34,7 @@
       *matTreeNodeDef="let node"
       class="exercise"
       matTreeNodeToggle
-      matTreeNodePadding
+      [matTreeNodePadding]="40"
       cdkDrag
       [cdkDragData]="node"
     >
@@ -85,7 +85,7 @@
     <mat-tree-node
       class="superset"
       *matTreeNodeDef="let node; when: hasChild"
-      matTreeNodePadding
+      [matTreeNodePadding]="40"
       cdkDrag
       [cdkDragData]="node"
     >

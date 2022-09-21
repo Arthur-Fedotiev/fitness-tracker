@@ -347,9 +347,10 @@
                 "bundleName": "light-theme",
                 "inject": false
               },
-              "libs/shared/styles/src/index.scss"
+              "libs/shared/styles/src/index.scss",
+              "node_modules/instantsearch.css/themes/satellite.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {

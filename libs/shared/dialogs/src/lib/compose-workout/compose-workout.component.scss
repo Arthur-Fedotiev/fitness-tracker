@@ -16,26 +16,12 @@
 //   padding-left: 40px;
 // }
 
-/*
- * Padding for leaf nodes.
- * Leaf nodes need to have padding so as to align with other non-leaf nodes
- * under the same parent.
- */
-// .example-tree div[role='group'] > .mat-tree-node {
-//   padding-left: 40px;
-// }
-
-// :host ::ng-deep {
-//   mat-nested-tree-node {
-//     display: block;
-//   }
-// }
-
 mat-tree-node {
   // background-color: rgb(66, 157, 253);
   color: white;
   user-select: none;
   cursor: move;
+  padding-left: 0 !important;
 
   &.cdk-drag-preview {
     // while dragging

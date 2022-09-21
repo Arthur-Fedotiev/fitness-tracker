@@ -1,16 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { ComposeWorkoutData } from '@fitness-tracker/shared/dialogs';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Exercise } from 'shared-package';
 import {
   ConcreteSingleWorkoutItemInstruction,
   SingleWorkoutItem,
-  WithId,
   WorkoutItem,
   WorkoutItemFlatNode,
 } from '../..';
-
-export type Item = WithId<Exercise>;
 
 @Injectable()
 export class WorkoutDatabase {
@@ -22,16 +20,14 @@ export class WorkoutDatabase {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public initialData: Item[],
+    public dialogData: ComposeWorkoutData,
   ) {
-    this.initialize(initialData);
+    this.initialize(dialogData.workoutContent);
   }
 
-  private initialize(initialData: Item[]) {
-    this.dataChange.next(this.buildFileTree(initialData));
-  }
-
-  public buildFileTree(initialData: Item[]): WorkoutItem[] {
+  public buildFileTree(
+    initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
+  ): WorkoutItem[] {
     return initialData.map(
       ({ name, id }) =>
         new SingleWorkoutItem(
@@ -42,7 +38,7 @@ export class WorkoutDatabase {
     );
   }
 
-  insertItem(parent: WorkoutItem, child: WorkoutItem): WorkoutItem {
+  public insertItem(parent: WorkoutItem, child: WorkoutItem): WorkoutItem {
     if (!parent.children) {
       parent.children = [];
     }
@@ -52,7 +48,7 @@ export class WorkoutDatabase {
     return child;
   }
 
-  insertItemAbove(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
+  public insertItemAbove(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
     const parentNode = this.getParentFromNodes(node);
     if (parentNode?.children) {
       parentNode.children.splice(
@@ -67,7 +63,7 @@ export class WorkoutDatabase {
     return item;
   }
 
-  insertItemBelow(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
+  public insertItemBelow(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
     const parentNode = this.getParentFromNodes(node);
 
     if (parentNode?.children) {
@@ -87,7 +83,23 @@ export class WorkoutDatabase {
     return item;
   }
 
-  getParentFromNodes(node: WorkoutItem): WorkoutItem | null {
+  public addItem(node: WorkoutItem): WorkoutItem {
+    this.data.push(node.setParent(null));
+    this.dataChange.next(this.data);
+
+    return node;
+  }
+
+  public deleteItem(node: WorkoutItem): void {
+    this.deleteNode(this.data, node);
+    this.dataChange.next(this.data);
+  }
+
+  private initialize(initialData: WorkoutItem[]) {
+    this.dataChange.next(initialData);
+  }
+
+  private getParentFromNodes(node: WorkoutItem): WorkoutItem | null {
     for (let i = 0; i < this.data.length; ++i) {
       const currentRoot = this.data[i];
       const parent = this.getParent(currentRoot, node);
@@ -98,7 +110,10 @@ export class WorkoutDatabase {
     return null;
   }
 
-  getParent(currentRoot: WorkoutItem, node: WorkoutItem): WorkoutItem | null {
+  private getParent(
+    currentRoot: WorkoutItem,
+    node: WorkoutItem,
+  ): WorkoutItem | null {
     if (currentRoot.children && currentRoot.children.length > 0) {
       for (let i = 0; i < currentRoot.children.length; ++i) {
         const child = currentRoot.children[i];
@@ -113,18 +128,6 @@ export class WorkoutDatabase {
       }
     }
     return null;
-  }
-
-  public addItem(node: WorkoutItem): WorkoutItem {
-    this.data.push(node.setParent(null));
-    this.dataChange.next(this.data);
-
-    return node;
-  }
-
-  public deleteItem(node: WorkoutItem): void {
-    this.deleteNode(this.data, node);
-    this.dataChange.next(this.data);
   }
 
   private deleteNode(nodes: WorkoutItem[], nodeToDelete: WorkoutItem) {

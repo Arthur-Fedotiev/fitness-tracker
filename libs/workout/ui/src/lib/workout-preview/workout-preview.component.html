@@ -19,14 +19,14 @@
   </mat-card-header>
   <mat-card-content>
     <p *ngIf="workout.targetMuscles?.length; else emptyParagraph">
-      {{ "MUSCLES.name" | translate }}:
+      {{ 'MUSCLES.name' | translate }}:
       <span *ngFor="let muscle of workout.targetMuscles; last as last">
-        {{ "MUSCLES." + muscle | translate | lowercase }}{{ last ? "." : ", " }}
+        {{ 'MUSCLES.' + muscle | translate | lowercase }}{{ last ? '.' : ', ' }}
       </span>
     </p>
     <p *ngIf="workout.level as lvl; else emptyParagraph">
-      {{ "EXERCISES_META.lvl" | translate }}:
-      {{ "LEVELS." + lvl | translate | titlecase }}
+      {{ 'EXERCISES_META.lvl' | translate }}:
+      {{ 'LEVELS.' + lvl | translate | titlecase }}
     </p>
   </mat-card-content>
   <mat-card-actions fxLayout="row nowrap" fxLayoutAlign="space-evenly center">

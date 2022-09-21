@@ -122,6 +122,8 @@ export class ComposeWorkoutTreeService {
   }
 
   private rebuildTreeForData(data: WorkoutItem[]) {
+    console.log('rebuildTreeForData', data);
+
     this.dataSource.data = [];
     this.dataSource.data = data;
     this.expansionModel.selected.forEach((id) => {

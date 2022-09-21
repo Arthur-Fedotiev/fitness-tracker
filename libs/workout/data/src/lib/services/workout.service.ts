@@ -43,12 +43,7 @@ export class WorkoutService {
     return this.afs
       .doc<SerializedWorkout>(`workouts/${workoutId}`)
       .get()
-      .pipe(
-        map<
-          firebase.firestore.DocumentSnapshot<SerializedWorkout>,
-          WithId<SerializedWorkout>
-        >(convertOneSnap),
-      );
+      .pipe(map<any, WithId<SerializedWorkout>>(convertOneSnap));
   }
 
   public deleteWorkout(workoutId: string): Observable<void> {
@@ -69,7 +64,7 @@ export class WorkoutService {
             : ref.where('targetMuscles', 'array-contains-any', muscles),
       )
       .get()
-      .pipe(map(convertSnaps));
+      .pipe(map((a) => convertSnaps<any>(a)));
   }
 
   public getWorkoutPreviews(

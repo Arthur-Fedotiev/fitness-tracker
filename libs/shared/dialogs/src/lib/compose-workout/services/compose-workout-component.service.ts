@@ -29,6 +29,7 @@ import {
   withLatestFrom,
   map,
   tap,
+  BehaviorSubject,
 } from 'rxjs';
 import { ComposeWorkoutData } from '../utils/dialog.config';
 import { ComposeWorkoutDropService } from './compose-workout-drop.service';
@@ -45,8 +46,7 @@ export class ComposeWorkoutComponentService {
   > = this.treeService.dataSource;
   public readonly expansionModel: SelectionModel<string> =
     this.treeService.expansionModel;
-  public readonly workoutBasicInfo: WorkoutBasicInfo | undefined =
-    this.dialogData.workoutBasicInfo;
+
   public readonly instructionType = InstructionType;
   public readonly searchConfig: NgAisInstantSearch['config'] = {
     searchClient: algoliasearch(
@@ -60,7 +60,11 @@ export class ComposeWorkoutComponentService {
   public readonly reset = new Subject<void>();
   public readonly saveSupersetSubj = new Subject<void>();
   public readonly saveWorkoutSubj = new Subject<SerializedWorkout['content']>();
-  private readonly workoutBasicInfoSubj = new Subject<WorkoutBasicInfo>();
+  private readonly workoutBasicInfoSubj = new BehaviorSubject<
+    WorkoutBasicInfo | undefined
+  >(this.dialogData.workoutBasicInfo);
+
+  public readonly workoutBasicInfo$ = this.workoutBasicInfoSubj.asObservable();
 
   public readonly temporarySuperset$ = merge(
     this.addToComposableSuperset.asObservable(),
@@ -103,11 +107,16 @@ export class ComposeWorkoutComponentService {
   );
 
   private readonly saveWorkout$ = this.saveWorkoutSubj.asObservable().pipe(
+    tap(console.log),
+
     withLatestFrom(this.workoutBasicInfoSubj),
+    tap(console.log),
+
     map(([content, basicInfo]) => ({
       content,
       ...basicInfo,
     })),
+    tap(console.log),
     tap((serializedWorkout: SerializedWorkout) =>
       this.workoutFacade.createWorkout(serializedWorkout),
     ),
@@ -128,6 +137,8 @@ export class ComposeWorkoutComponentService {
   }
 
   public saveWorkout(): void {
+    console.log(this.dataSource.data);
+
     if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
       console.log('Data is not valid to be saved');
       return;

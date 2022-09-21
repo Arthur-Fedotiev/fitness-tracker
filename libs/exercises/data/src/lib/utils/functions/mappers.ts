@@ -20,12 +20,7 @@ export function toExerciseTranslation$(
       )
       .get()
       .pipe(
-        map<
-          firebase.firestore.DocumentSnapshot<
-            Translations<ExercisesEntity>[typeof lang]
-          >,
-          Translations<ExercisesEntity>[typeof lang]
-        >(convertOneSnap),
+        map<any, Translations<ExercisesEntity>[typeof lang]>(convertOneSnap),
         map(
           (
             translation: Translations<

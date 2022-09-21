@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { WorkoutPreviewComponent } from './workout-preview.component';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { RouterModule } from '@angular/router';
-import { ImgFallbackModule, LanguagesISO } from '@fitness-tracker/shared/utils';
+import { ImgFallbackModule } from '@fitness-tracker/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { RolesModule } from '@fitness-tracker/auth/feature';
 
 @NgModule({
   declarations: [WorkoutPreviewComponent],
@@ -14,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     ImgFallbackModule,
     TranslateModule,
+    RolesModule,
   ],
   exports: [WorkoutPreviewComponent],
 })

@@ -116,12 +116,11 @@ export class ExercisesService {
       .get()
       .pipe(
         tap(
-          (snaps: firebase.firestore.QuerySnapshot<ExerciseMetaDTO>) =>
+          (snaps: any) =>
             (this.exerciseDocCash =
               [...snaps.docs][snaps.docs.length - 1] ?? null),
         ),
-        map(convertSnaps),
-
+        map((a) => convertSnaps<any>(a)),
         map((exercises: WithId<ExerciseMetaDTO>[]) =>
           exercises.map(toBaseDataWithId),
         ),
@@ -134,7 +133,6 @@ export class ExercisesService {
             ? combineLatest(exercisesTranslationsObs)
             : of([]);
         }),
-
         first(),
       );
   }
@@ -155,10 +153,7 @@ export class ExercisesService {
       .doc<ExerciseMetaDTO>(`${COLLECTIONS.EXERCISES}/${exerciseId}`)
       .get()
       .pipe(
-        map<
-          firebase.firestore.DocumentSnapshot<ExerciseMetaDTO>,
-          WithId<ExerciseMetaDTO>
-        >(convertOneSnap),
+        map<any, WithId<ExerciseMetaDTO>>(convertOneSnap),
         map(toBaseDataWithId),
         switchMap(toExerciseTranslation$.call(this, lang)),
       );
@@ -223,8 +218,6 @@ export class ExercisesService {
     ref,
     ids,
   }: Partial<SearchOptions> & { ref: CollectionReference }) {
-    console.log();
-
     return ref.where(firebase.firestore.FieldPath.documentId(), 'in', ids);
   }
 }

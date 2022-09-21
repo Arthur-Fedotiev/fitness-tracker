@@ -7,9 +7,7 @@ export const convertOneSnap = <T>(snap: any): T =>
     ...snap.data(),
   };
 
-export function convertSnaps<T>(
-  snaps: firebase.firestore.QuerySnapshot<T>,
-): WithId<T>[] {
+export function convertSnaps<T>(snaps: any): WithId<T>[] {
   return <WithId<T>[]>snaps.docs.map(convertOneSnap);
 }
 
