@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   ExerciseRequestDTO,
   ExercisesEntity,
+  SearchOptions,
 } from '@fitness-tracker/exercises/model';
-import { SearchOptions } from '@fitness-tracker/shared/utils';
 import { Store } from '@ngrx/store';
 
 import * as ExercisesActions from './exercises.actions';

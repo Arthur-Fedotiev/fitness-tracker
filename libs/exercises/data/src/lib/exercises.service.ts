@@ -9,6 +9,7 @@ import {
   ExerciseRequestDTO,
   ExercisesEntity,
   EXERCISE_FIELD_NAMES,
+  SearchOptions,
 } from '@fitness-tracker/exercises/model';
 import {
   convertOneSnap,
@@ -16,7 +17,6 @@ import {
   DEFAULT_PAGINATION_STATE,
   LanguagesISO,
   ORDER_BY,
-  SearchOptions,
   WithId,
 } from '@fitness-tracker/shared/utils';
 import { FieldPath, documentId } from 'firebase/firestore';

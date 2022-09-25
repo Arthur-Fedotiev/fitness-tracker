@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import { WorkoutActionNames } from './workout-action-names';
-import {
-  SerializedWorkout,
-  WithPayload,
-  WorkoutDetails,
-} from '@fitness-tracker/shared/utils';
+import { WithPayload } from '@fitness-tracker/shared/utils';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import {
+  WorkoutDetails,
+  SerializedWorkout,
+} from '../../classes/workout-serializer';
 
 export const loadWorkoutPreviews = createAction(
   WorkoutActionNames.LOAD_WORKOUT_PREVIEWS,

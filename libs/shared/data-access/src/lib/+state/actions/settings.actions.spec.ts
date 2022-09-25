@@ -1,7 +1,7 @@
 import * as fromSettings from './settings.actions';
 
-describe('setSettingss', () => {
+describe('setSettings', () => {
   it('should return an action', () => {
-    expect(fromSettings.setSettingss().type).toBe('[Settings] Set Settingss');
+    expect(fromSettings.setSettings().type).toBe('[Settings] Set Settingss');
   });
 });

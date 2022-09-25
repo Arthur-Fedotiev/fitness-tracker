@@ -18,8 +18,9 @@ import {
   ExerciseMetaDTO,
   ExerciseRequestDTO,
   ExercisesEntity,
+  SearchOptions,
 } from '@fitness-tracker/exercises/model';
-import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
+import { WithPayload } from '@fitness-tracker/shared/utils';
 import { Action, Store } from '@ngrx/store';
 import { ExercisesService } from '../exercises.service';
 import { Router } from '@angular/router';
@@ -27,8 +28,8 @@ import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { LanguageCodes } from 'shared-package';
 import { TypedAction } from '@ngrx/store/src/models';
 import { MatDialog } from '@angular/material/dialog';
-import { ExerciseDetailsComponent } from '@fitness-tracker/shared/dialogs';
 import { first, switchMapTo } from 'rxjs/operators';
+import { ExerciseDetailsComponent } from '@fitness-tracker/exercises/ui';
 
 @Injectable()
 export class ExercisesEffects {
@@ -61,7 +62,7 @@ export class ExercisesEffects {
                       payload: exercises,
                     })
                   : ExercisesActions.findExercisesSuccess({
-                      payload: { exercises, firstPage: payload.firstPage! },
+                      payload: { exercises, firstPage: !!payload.firstPage },
                     }),
               ),
               catchError(() => of(ExercisesActions.findExercisesFailure())),
@@ -75,19 +76,7 @@ export class ExercisesEffects {
       this.actions$.pipe(
         ofType(EXERCISES_ACTION_NAMES.CREATE_EXERCISE),
         mergeMap(({ payload }: WithPayload<ExerciseMetaDTO>) =>
-          this.exercisesService
-            .createExercise(payload)
-            .pipe
-            // tap(() => this.redirectToExerciseList()),
-            // map(() => ExercisesActions.createExerciseSuccess()),
-            // catchError(() =>
-            //   of(
-            //     ExercisesActions.createExerciseFailure({
-            //       payload: payload.id as string,
-            //     }),
-            //   ),
-            // ),
-            (),
+          this.exercisesService.createExercise(payload),
         ),
       ),
     { dispatch: false },
@@ -98,33 +87,11 @@ export class ExercisesEffects {
       this.actions$.pipe(
         ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
         mergeMap(({ payload }: WithPayload<ExerciseRequestDTO>) =>
-          this.exercisesService
-            .updateExercise(payload)
-            .pipe
-            // tap(() => this.redirectToExerciseList()),
-            // map(() => ExercisesActions.updateExerciseSuccess()),
-            // catchError(() => of(ExercisesActions.updateExerciseFailure())),
-            (),
+          this.exercisesService.updateExercise(payload),
         ),
       ),
     { dispatch: false },
   );
-
-  // public updateExerciseOptimistically$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
-  //     mergeMap(
-  //       ({
-  //         payload,
-  //       }: WithPayload<Partial<ExercisesEntity>>): Observable<Action> =>
-  //         this.exercisesService.updateExercise(payload).pipe(
-  //           tap(() => this.redirectToExerciseList()),
-  //           map(() => ExercisesActions.updateExerciseSuccess()),
-  //           catchError(() => of(ExercisesActions.updateExerciseFailure())),
-  //         ),
-  //     ),
-  //   ),
-  // );
 
   public deleteExercise$ = createEffect(() =>
     this.actions$.pipe(
@@ -184,10 +151,6 @@ export class ExercisesEffects {
       ),
     { dispatch: false },
   );
-
-  private redirectToExerciseList(): void {
-    this.router.navigate(['exercises', 'all']);
-  }
 
   constructor(
     private readonly actions$: Actions,

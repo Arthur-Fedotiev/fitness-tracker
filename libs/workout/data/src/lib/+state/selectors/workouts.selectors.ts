@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromWorkouts from '../reducers/workouts.reducer';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
-import { SerializedWorkout } from '@fitness-tracker/shared/utils';
+import { SerializedWorkout } from '../../classes/workout-serializer';
 
 export const selectWorkoutsState =
   createFeatureSelector<fromWorkouts.WorkoutsState>(

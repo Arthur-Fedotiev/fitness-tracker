@@ -1,4 +1,4 @@
-export interface SerializerStrategy<T = any, I = any> {
-  serialize(unserialized: I): T;
-  deserialize?(serialized: T): I;
+export abstract class SerializerStrategy<T = any, I = any> {
+  abstract serialize(deserialized: I): T;
+  abstract deserialize(serialized: T): I;
 }

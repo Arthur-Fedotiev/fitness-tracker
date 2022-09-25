@@ -1,3 +1,5 @@
+import { Pagination } from '@fitness-tracker/shared/utils';
+
 export const MUSCLE_LIST_FULL = [
   'Neck',
   'Traps (trapezius)',
@@ -119,3 +121,11 @@ export const META_COLLECTIONS = {
   'exercise-types': EXERCISE_TYPE_KEYS,
   proficiencyLvl: PROFICIENCY_TYPE_KEYS,
 } as const;
+
+export interface SearchOptions extends Pagination {
+  sortOrder: 'desc' | 'asc';
+  ids: string[];
+  targetMuscles: TargetMuscles;
+}
+
+export type TargetMuscles = typeof MUSCLE_KEYS[number][];

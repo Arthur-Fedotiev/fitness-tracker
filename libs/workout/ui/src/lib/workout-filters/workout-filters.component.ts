@@ -4,13 +4,16 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { UntypedFormGroup, AbstractControl, UntypedFormBuilder } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  AbstractControl,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import {
   MetaCollection,
   META_COLLECTIONS,
-  MUSCLE_KEYS,
+  TargetMuscles,
 } from '@fitness-tracker/exercises/model';
-import { TargetMuscles } from '@fitness-tracker/shared/utils';
 import { WorkoutLevel } from '@fitness-tracker/workout/model';
 
 @Component({

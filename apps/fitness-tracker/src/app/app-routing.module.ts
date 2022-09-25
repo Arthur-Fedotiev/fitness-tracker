@@ -26,7 +26,7 @@ const appRoutes: Route[] = [
       {
         path: 'workouts',
         loadChildren: () =>
-          import('@fitness-tracker/workout/feature').then(
+          import('@fitness-tracker/workout-details-feature').then(
             (m) => m.WorkoutFeatureModule,
           ),
       },

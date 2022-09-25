@@ -1,10 +1,10 @@
-import { SearchOptions } from '@fitness-tracker/shared/utils';
 import { LOAD_EXERCISES_ACTIONS } from '..';
 import {
   ExerciseBaseData,
   Exercise,
   ExerciseTranslatableData,
 } from './exercise-model';
+import { SearchOptions } from './exercise-search.interface';
 
 export class ExerciseRequestDTO {
   public baseData!: ExerciseBaseData;

@@ -8,14 +8,16 @@ import {
   convertOneSnap,
   convertSnaps,
   LanguagesISO,
-  SerializedWorkout,
   WithId,
-  WorkoutBasicInfo,
 } from '@fitness-tracker/shared/utils';
 import { Observable, from, first, map } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { WorkoutPreview } from '@fitness-tracker/workout/model';
 import { LanguageCodes } from 'shared-package';
+import {
+  SerializedWorkout,
+  WorkoutBasicInfo,
+} from '../classes/workout-serializer';
 
 @Injectable({
   providedIn: 'root',

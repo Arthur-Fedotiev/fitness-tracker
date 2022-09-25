@@ -1,11 +1,10 @@
-import { SearchOptions, WithPayload } from '@fitness-tracker/shared/utils';
+import { WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
 import {
   ExerciseCollectionsMeta,
-  ExerciseCollectionsMetaArrays,
   ExerciseMetaDTO,
-  ExerciseRequestDTO,
   ExercisesEntity,
+  SearchOptions,
 } from '@fitness-tracker/exercises/model';
 import { EXERCISES_ACTION_NAMES } from './models/exercises.actions.enum';
 

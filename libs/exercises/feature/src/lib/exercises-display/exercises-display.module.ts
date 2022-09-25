@@ -14,9 +14,9 @@ import {
   MissingTranslationHandler,
 } from '@ngx-translate/core';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
-import { ComposeWorkoutModule } from '@fitness-tracker/shared/dialogs';
 import { RolesModule } from '@fitness-tracker/auth/feature';
 import { WorkoutFiltersModule } from '@fitness-tracker/workout/ui';
+import { ComposeWorkoutModule } from '@fitness-tracker/workout/public-api';
 
 const i18nAssetsPath = 'assets/i18n/exercises-display/';
 

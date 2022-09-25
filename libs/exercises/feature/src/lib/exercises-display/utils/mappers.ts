@@ -2,11 +2,9 @@ import {
   ExerciseListLoadAction,
   ExercisePagination,
   LOAD_EXERCISES_ACTIONS,
-} from '@fitness-tracker/exercises/model';
-import {
-  DEFAULT_PAGINATION_STATE,
   SearchOptions,
-} from '@fitness-tracker/shared/utils';
+} from '@fitness-tracker/exercises/model';
+import { DEFAULT_PAGINATION_STATE } from '@fitness-tracker/shared/utils';
 
 export const toExerciseLoadState = (
   acc: Pick<SearchOptions, 'pageSize' | 'firstPage' | 'targetMuscles'>,

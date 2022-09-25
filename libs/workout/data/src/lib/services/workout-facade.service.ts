@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  SerializedWorkout,
-  WorkoutBasicInfo,
-} from '@fitness-tracker/shared/utils';
+
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -16,6 +13,10 @@ import {
   workoutDetails,
   workoutPreviews,
 } from '../+state/selectors/workouts.selectors';
+import {
+  SerializedWorkout,
+  WorkoutBasicInfo,
+} from '../classes/workout-serializer';
 
 @Injectable({
   providedIn: 'root',

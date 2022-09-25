@@ -1,6 +1,5 @@
 import { map, Observable, pipe, pluck, UnaryFunction } from 'rxjs';
 import {
-  AngularFireAuthGuard,
   customClaims,
   redirectLoggedInTo,
   redirectUnauthorizedTo,

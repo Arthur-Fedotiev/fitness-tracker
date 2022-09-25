@@ -13,14 +13,14 @@ import {
   ExercisesEntity,
   ExerciseVM,
   EXERCISE_MODE,
+  SearchOptions,
+  TargetMuscles,
 } from '@fitness-tracker/exercises/model';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
   loadIsolatedLang,
-  SearchOptions,
-  TargetMuscles,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,10 +39,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { ComposeWorkoutComponent } from '@fitness-tracker/shared/dialogs';
 import { ROLES } from 'shared-package';
 import { isEqual } from 'lodash-es';
 import { toExerciseLoadState, toLoadMoreAction } from './utils/mappers';
+import { ComposeWorkoutComponent } from '@fitness-tracker/workout/public-api';
 
 @UntilDestroy()
 @Component({
@@ -154,14 +154,13 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public proceedComposing(
     workoutExercisesList: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
   ): void {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = '100vw';
-    dialogConfig.minHeight = '100vh';
-
-    dialogConfig.data = workoutExercisesList;
+    const dialogConfig = Object.assign(new MatDialogConfig(), {
+      disableClose: true,
+      autoFocus: true,
+      minWidth: '100vw',
+      minHeight: '100vh',
+      data: workoutExercisesList,
+    });
 
     this.dialog.open(ComposeWorkoutComponent, dialogConfig);
   }

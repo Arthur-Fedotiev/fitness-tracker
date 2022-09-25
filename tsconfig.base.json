@@ -55,9 +55,17 @@
         "libs/shared/ui/components/src/index.ts"
       ],
       "@fitness-tracker/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@fitness-tracker/workout-details-feature": [
+        "libs/workout/details/feature/src/index.ts"
+      ],
+      "@fitness-tracker/workout/compose-workout/feature": [
+        "libs/workout/compose-workout/feature/src/index.ts"
+      ],
       "@fitness-tracker/workout/data": ["libs/workout/data/src/index.ts"],
-      "@fitness-tracker/workout/feature": ["libs/workout/feature/src/index.ts"],
       "@fitness-tracker/workout/model": ["libs/workout/model/src/index.ts"],
+      "@fitness-tracker/workout/public-api": [
+        "libs/workout/public-api/src/index.ts"
+      ],
       "@fitness-tracker/workout/ui": ["libs/workout/ui/src/index.ts"]
     }
   },
