@@ -14,7 +14,7 @@ import {
   META_COLLECTIONS,
   TargetMuscles,
 } from '@fitness-tracker/exercises/model';
-import { WorkoutLevel } from '@fitness-tracker/workout/model';
+import { WorkoutLevel } from '@fitness-tracker/workout-domain';
 
 @Component({
   selector: 'ft-workout-filters',

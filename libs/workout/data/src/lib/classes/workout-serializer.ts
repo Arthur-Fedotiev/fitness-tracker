@@ -3,7 +3,7 @@ import {
   ExercisesEntity,
   TargetMuscles,
 } from '@fitness-tracker/exercises/model';
-import { WorkoutLevel } from '@fitness-tracker/workout/model';
+import { WorkoutLevel } from '@fitness-tracker/workout-domain';
 import { SerializerStrategy } from '../../../../../shared/utils/src/lib/interfaces/serializer.interface';
 import {
   ConcreteCompositeWorkoutItemInstruction,

@@ -8,8 +8,7 @@ import {
 import { WorkoutDisplayRoutingModule } from './workout-display-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
-import { SerializerStrategy } from '@fitness-tracker/shared/utils';
-import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/data';
+import { WorkoutComposeWorkoutUtilsModule } from '@fitness-tracker/workout-compose-workout-utils';
 
 @NgModule({
   declarations: [WorkoutsDisplayComponent],
@@ -20,13 +19,8 @@ import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/data';
     WorkoutFiltersModule,
     RouterModule,
     TranslateModule,
+    WorkoutComposeWorkoutUtilsModule,
   ],
   exports: [WorkoutsDisplayComponent],
-  providers: [
-    {
-      provide: SerializerStrategy,
-      useExisting: ConcreteWorkoutItemSerializer,
-    },
-  ],
 })
 export class WorkoutsDisplayModule {}

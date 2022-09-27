@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { WorkoutActionNames } from './workout-action-names';
 import { WithPayload } from '@fitness-tracker/shared/utils';
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import {
   WorkoutDetails,
   SerializedWorkout,

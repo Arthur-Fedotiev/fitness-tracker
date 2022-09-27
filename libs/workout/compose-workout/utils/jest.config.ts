@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'workout-model',
-  preset: '../../../jest.preset.js',
+  displayName: 'workout-compose-workout-utils',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/workout/model',
+  coverageDirectory: '../../../../coverage/libs/workout/compose-workout/utils',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

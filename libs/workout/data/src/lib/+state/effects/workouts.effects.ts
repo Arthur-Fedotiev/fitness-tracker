@@ -12,7 +12,7 @@ import {
   loadWorkoutPreviewsSuccess,
 } from '../actions/workouts.actions';
 import { WorkoutService } from '../../services/workout.service';
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 
 import { Store } from '@ngrx/store';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';

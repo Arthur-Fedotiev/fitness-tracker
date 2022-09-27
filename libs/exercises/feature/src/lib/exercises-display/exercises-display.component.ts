@@ -3,8 +3,9 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
+  Inject,
 } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ExercisesFacade } from '@fitness-tracker/exercises/data';
 import {
@@ -39,10 +40,15 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
+
 import { ROLES } from 'shared-package';
 import { isEqual } from 'lodash-es';
 import { toExerciseLoadState, toLoadMoreAction } from './utils/mappers';
-import { ComposeWorkoutComponent } from '@fitness-tracker/workout/public-api';
+import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/data';
+import {
+  ComposeWorkoutDialogFactory,
+  COMPOSE_WORKOUT_DIALOG_FACTORY,
+} from '@fitness-tracker/workout-compose-workout-utils';
 
 @UntilDestroy()
 @Component({
@@ -53,7 +59,6 @@ import { ComposeWorkoutComponent } from '@fitness-tracker/workout/public-api';
 })
 export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public readonly roles = ROLES;
-
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly exercisesList$: Observable<ExerciseVM[]> =
     this.exerciseFacade.exercisesList$.pipe(
@@ -118,12 +123,15 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
     .pipe(filter(Boolean), skip(1), first());
 
   constructor(
+    @Inject(COMPOSE_WORKOUT_DIALOG_FACTORY)
+    private readonly composeWorkoutDialogFactory: ComposeWorkoutDialogFactory,
     private readonly exerciseFacade: ExercisesFacade,
     private readonly settingsFacade: SettingsFacadeService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly translateService: TranslateService,
     private readonly dialog: MatDialog,
+    private readonly workoutSerializer: ConcreteWorkoutItemSerializer,
   ) {}
 
   public ngOnInit(): void {
@@ -154,15 +162,10 @@ export class ExercisesDisplayComponent implements OnInit, OnDestroy {
   public proceedComposing(
     workoutExercisesList: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
   ): void {
-    const dialogConfig = Object.assign(new MatDialogConfig(), {
-      disableClose: true,
-      autoFocus: true,
-      minWidth: '100vw',
-      minHeight: '100vh',
-      data: workoutExercisesList,
-    });
+    const { component, config } =
+      this.composeWorkoutDialogFactory.createDialog(workoutExercisesList);
 
-    this.dialog.open(ComposeWorkoutComponent, dialogConfig);
+    this.dialog.open(component, config);
   }
 
   public showExerciseDetails(id: string): void {

@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
-  WorkoutBasicInfo,
-  WorkoutDetails,
-  WorkoutFacadeService,
-  WorkoutItem,
-} from '@fitness-tracker/workout/data';
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Inject,
+} from '@angular/core';
+import { WorkoutFacadeService } from '@fitness-tracker/workout/data';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import {
   Observable,
   filter,
@@ -21,10 +21,12 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isEqual } from 'lodash-es';
 
-import { ComposeWorkoutComponent } from '@fitness-tracker/workout/compose-workout/feature';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TargetMuscles } from '@fitness-tracker/exercises/model';
-import { SerializerStrategy } from '@fitness-tracker/shared/utils';
+import {
+  ComposeWorkoutDialogFactory,
+  COMPOSE_WORKOUT_DIALOG_FACTORY,
+} from '@fitness-tracker/workout-compose-workout-utils';
 
 @UntilDestroy()
 @Component({
@@ -56,24 +58,22 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   private readonly openEditWorkout$ = this.workoutFacade.workoutDetails$.pipe(
     filter(Boolean),
-    tap(({ content, ...basicInfo }: WorkoutDetails) =>
-      this.dialog.open(
-        ComposeWorkoutComponent,
-        this.getDialogConfig(
-          content.map((item) => this.workoutSerializer.deserialize(item)),
-          basicInfo,
-        ),
-      ),
-    ),
+    tap(({ content, ...basicInfo }) => {
+      const { component, config } =
+        this.composeWorkoutDialogFactory.createDialog(content, basicInfo);
+
+      this.dialog.open(component, config);
+    }),
     untilDestroyed(this),
   );
 
   constructor(
+    @Inject(COMPOSE_WORKOUT_DIALOG_FACTORY)
+    private readonly composeWorkoutDialogFactory: ComposeWorkoutDialogFactory,
     private readonly workoutFacade: WorkoutFacadeService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly dialog: MatDialog,
-    private readonly workoutSerializer: SerializerStrategy,
   ) {}
 
   public ngOnInit(): void {
@@ -99,21 +99,5 @@ export class WorkoutsDisplayComponent implements OnInit {
     this.router.navigate([currentRoute], {
       queryParams: { targetMuscles: JSON.stringify(targetMuscles) },
     });
-  }
-
-  private getDialogConfig(
-    workoutContent: WorkoutItem[],
-    workoutBasicInfo?: WorkoutBasicInfo,
-  ) {
-    const dialogConfig = Object.assign(new MatDialogConfig(), {
-      disableClose: true,
-      autoFocus: true,
-      minWidth: '100vw',
-      minHeight: '100vh',
-      height: '100%',
-      data: { workoutContent, workoutBasicInfo },
-    });
-
-    return dialogConfig;
   }
 }

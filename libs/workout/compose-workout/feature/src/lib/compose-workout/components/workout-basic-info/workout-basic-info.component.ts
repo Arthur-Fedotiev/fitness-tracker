@@ -16,7 +16,7 @@ import {
   META_COLLECTIONS,
 } from '@fitness-tracker/exercises/model';
 import { WorkoutBasicInfo } from '@fitness-tracker/workout/data';
-import { WorkoutLevel } from '@fitness-tracker/workout/model';
+import { WorkoutLevel } from '@fitness-tracker/workout-domain';
 
 @Component({
   selector: 'ft-workout-basic-info',

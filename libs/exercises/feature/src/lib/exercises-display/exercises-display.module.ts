@@ -13,10 +13,15 @@ import {
   TranslateLoader,
   MissingTranslationHandler,
 } from '@ngx-translate/core';
-import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
+import {
+  SerializerStrategy,
+  translationsLoaderFactory,
+} from '@fitness-tracker/shared/utils';
 import { RolesModule } from '@fitness-tracker/auth/feature';
 import { WorkoutFiltersModule } from '@fitness-tracker/workout/ui';
 import { ComposeWorkoutModule } from '@fitness-tracker/workout/public-api';
+import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/data';
+import { WorkoutComposeWorkoutUtilsModule } from '@fitness-tracker/workout-compose-workout-utils';
 
 const i18nAssetsPath = 'assets/i18n/exercises-display/';
 
@@ -31,6 +36,7 @@ const i18nAssetsPath = 'assets/i18n/exercises-display/';
     ComposeWorkoutModule,
     RolesModule,
     WorkoutFiltersModule,
+    WorkoutComposeWorkoutUtilsModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -44,6 +50,12 @@ const i18nAssetsPath = 'assets/i18n/exercises-display/';
       isolate: false,
       extend: true,
     }),
+  ],
+  providers: [
+    {
+      provide: SerializerStrategy,
+      useExisting: ConcreteWorkoutItemSerializer,
+    },
   ],
 })
 export class ExercisesDisplayModule {}

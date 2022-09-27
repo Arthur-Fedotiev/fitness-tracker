@@ -772,6 +772,32 @@
       },
       "tags": ["scope:workout", "type:feature"]
     },
+    "workout-compose-workout-utils": {
+      "projectType": "library",
+      "root": "libs/workout/compose-workout/utils",
+      "sourceRoot": "libs/workout/compose-workout/utils/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/workout/compose-workout/utils"],
+          "options": {
+            "jestConfig": "libs/workout/compose-workout/utils/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/workout/compose-workout/utils/**/*.ts",
+              "libs/workout/compose-workout/utils/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "workout-data": {
       "projectType": "library",
       "root": "libs/workout/data",
@@ -824,17 +850,17 @@
       },
       "tags": ["scope:workout", "type:feature"]
     },
-    "workout-model": {
+    "workout-domain": {
       "projectType": "library",
-      "root": "libs/workout/model",
-      "sourceRoot": "libs/workout/model/src",
+      "root": "libs/workout/domain",
+      "sourceRoot": "libs/workout/domain/src",
       "prefix": "ft",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/workout/model"],
+          "outputs": ["coverage/libs/workout/domain"],
           "options": {
-            "jestConfig": "libs/workout/model/jest.config.ts",
+            "jestConfig": "libs/workout/domain/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -842,8 +868,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/workout/model/src/**/*.ts",
-              "libs/workout/model/src/**/*.html"
+              "libs/workout/domain/src/**/*.ts",
+              "libs/workout/domain/src/**/*.html"
             ]
           }
         }

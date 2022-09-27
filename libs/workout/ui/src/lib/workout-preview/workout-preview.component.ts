@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import { ROLES } from 'shared-package';
 
 @Component({

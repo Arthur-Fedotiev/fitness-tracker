@@ -8,7 +8,7 @@ import {
   loadWorkoutDetails,
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import {
   workoutDetails,
   workoutPreviews,

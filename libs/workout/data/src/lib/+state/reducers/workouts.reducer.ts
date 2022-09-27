@@ -1,4 +1,4 @@
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import { createReducer, on } from '@ngrx/store';
 import { WorkoutDetails } from '../../classes/workout-serializer';
 import * as WorkoutsActions from '../actions/workouts.actions';

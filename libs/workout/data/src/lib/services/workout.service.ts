@@ -12,7 +12,7 @@ import {
 } from '@fitness-tracker/shared/utils';
 import { Observable, from, first, map } from 'rxjs';
 import firebase from 'firebase/compat/app';
-import { WorkoutPreview } from '@fitness-tracker/workout/model';
+import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import { LanguageCodes } from 'shared-package';
 import {
   SerializedWorkout,

@@ -23,6 +23,8 @@ export class WorkoutDatabase {
     @Inject(MAT_DIALOG_DATA)
     public dialogData: ComposeWorkoutData,
   ) {
+    console.log('dialogData', dialogData);
+
     this.initialize(dialogData.workoutContent);
   }
 

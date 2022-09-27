@@ -12,6 +12,7 @@ import {
 } from '@fitness-tracker/workout/data';
 
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { filter } from 'rxjs';
 import {
   WorkoutDatabase,
   getLevel,
@@ -118,9 +119,9 @@ export class ComposeWorkoutTreeService {
       this.treeFlattener,
     );
 
-    this.workoutDB.dataChange
-      .pipe(untilDestroyed(this))
-      .subscribe(this.rebuildTreeForData.bind(this));
+    this.workoutDB.dataChange.pipe(untilDestroyed(this)).subscribe((data) => {
+      this.rebuildTreeForData(data);
+    });
   }
 
   private rebuildTreeForData(data: WorkoutItem[]) {
