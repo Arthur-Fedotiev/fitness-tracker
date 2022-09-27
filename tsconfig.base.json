@@ -29,6 +29,19 @@
         "libs/create-user/models/src/index.ts"
       ],
       "@fitness-tracker/create-user/ui": ["libs/create-user/ui/src/index.ts"],
+      "@fitness-tracker/exercise/api-public": [
+        "libs/exercise/api-public/src/index.ts"
+      ],
+      "@fitness-tracker/exercise/domain": ["libs/exercise/domain/src/index.ts"],
+      "@fitness-tracker/exercise/feature-create-and-edit": [
+        "libs/exercise/feature-create-and-edit/src/index.ts"
+      ],
+      "@fitness-tracker/exercise/feature-display": [
+        "libs/exercise/feature-display/src/index.ts"
+      ],
+      "@fitness-tracker/exercise/ui-components": [
+        "libs/exercise/ui-components/src/index.ts"
+      ],
       "@fitness-tracker/exercises/data": ["libs/exercises/data/src/index.ts"],
       "@fitness-tracker/exercises/feature": [
         "libs/exercises/feature/src/index.ts"

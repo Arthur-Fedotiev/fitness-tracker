@@ -137,6 +137,13 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@angular-architects/ddd@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@angular-architects/ddd/-/ddd-2.1.2.tgz#c3f6d143e6a407119b4eeb948bcf10d61ffc586f"
+  integrity sha512-lauLASwE+UIeIIsCzHkiv2v3m5+HxOw6MCTTM1jP/QCJkwASAK4qJ9EhCRVCTO6KPJzcGbtMvN/0R7FLXdpdZQ==
+  dependencies:
+    "@ngrx/schematics" "^13.0.0"
+
 "@angular-devkit/architect@0.1402.3":
   version "0.1402.3"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1402.3.tgz#2a0e5eec86167ab768164a5c9211fa3f0c102273"
@@ -2507,6 +2514,11 @@
   version "14.0.2"
   resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-14.0.2.tgz#a4f04aa0c16164ef8e80859856ae93d0fc323daf"
   integrity sha512-j1Jb0/aSmtgknJjPsR9LC33IlOaQ5lwWGWhG4ganYz68BkfakaLJ2jLesXl8IRQOYdJGrLUyXnyEFN8mbiWN9g==
+
+"@ngrx/schematics@^13.0.0":
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-13.2.0.tgz#c2edba689b8e134877cb1db2f8bde974ea095c8c"
+  integrity sha512-MpSJFWF+Pppwv2C+0NNw8RPZmgbhaiEMCiF8VUkAJkXki9CV9Da6cTOa+v1nIrrfUpm/L+jD8DL9CPJTPccRZg==
 
 "@ngrx/store-devtools@14.0.2":
   version "14.0.2"

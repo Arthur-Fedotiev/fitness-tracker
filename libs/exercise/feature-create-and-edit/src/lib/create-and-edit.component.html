@@ -1,0 +1,9 @@
+<h1>exercise-create-and-edit</h1>
+
+<table class="table">
+  <tr *ngFor="let exercise of exerciseList$ | async">
+    <td>{{ exercise.id }}</td>
+    <td>{{ exercise.name }}</td>
+    <td>{{ exercise.description }}</td>
+  </tr>
+</table>

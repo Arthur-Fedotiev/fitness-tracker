@@ -183,6 +183,136 @@
       },
       "tags": []
     },
+    "exercise-api-public": {
+      "projectType": "library",
+      "root": "libs/exercise/api-public",
+      "sourceRoot": "libs/exercise/api-public/src",
+      "prefix": "public",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/exercise/api-public"],
+          "options": {
+            "jestConfig": "libs/exercise/api-public/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/exercise/api-public/**/*.ts",
+              "libs/exercise/api-public/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:exercise", "domain:exercise/api-public", "type:api"]
+    },
+    "exercise-domain": {
+      "projectType": "library",
+      "root": "libs/exercise/domain",
+      "sourceRoot": "libs/exercise/domain/src",
+      "prefix": "exercise",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/exercise/domain"],
+          "options": {
+            "jestConfig": "libs/exercise/domain/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/exercise/domain/**/*.ts",
+              "libs/exercise/domain/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:exercise", "type:domain-logic"]
+    },
+    "exercise-feature-create-and-edit": {
+      "projectType": "library",
+      "root": "libs/exercise/feature-create-and-edit",
+      "sourceRoot": "libs/exercise/feature-create-and-edit/src",
+      "prefix": "exercise",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/exercise/feature-create-and-edit"],
+          "options": {
+            "jestConfig": "libs/exercise/feature-create-and-edit/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/exercise/feature-create-and-edit/**/*.ts",
+              "libs/exercise/feature-create-and-edit/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:exercise", "type:feature"]
+    },
+    "exercise-feature-display": {
+      "projectType": "library",
+      "root": "libs/exercise/feature-display",
+      "sourceRoot": "libs/exercise/feature-display/src",
+      "prefix": "exercise",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/exercise/feature-display"],
+          "options": {
+            "jestConfig": "libs/exercise/feature-display/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/exercise/feature-display/**/*.ts",
+              "libs/exercise/feature-display/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:exercise", "type:feature"]
+    },
+    "exercise-ui-components": {
+      "projectType": "library",
+      "root": "libs/exercise/ui-components",
+      "sourceRoot": "libs/exercise/ui-components/src",
+      "prefix": "components",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/exercise/ui-components"],
+          "options": {
+            "jestConfig": "libs/exercise/ui-components/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/exercise/ui-components/**/*.ts",
+              "libs/exercise/ui-components/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:exercise", "type:ui"]
+    },
     "exercises-data": {
       "projectType": "library",
       "root": "libs/exercises/data",
