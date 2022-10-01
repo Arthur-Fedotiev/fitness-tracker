@@ -65,8 +65,6 @@ export class DisplayComponent implements OnInit, OnDestroy {
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly exercisesList$: Observable<ExerciseResponseDto[]> =
     this.exerciseFacade.exercisesList$.pipe(
-      tap((exercises) => console.log('exercises', exercises)),
-
       tap(() => this.isLoadingProhibited.next(false)),
     );
 

@@ -3,7 +3,7 @@ import { SearchOptions } from '../get/get-exercise-request.dto';
 import { BaseDataRequest } from './base-data-request';
 import { TranslatableExerciseDataRequest } from './translatable-data-request';
 
-export class UpdateExerciseRequestDTO {
+export class CreateUpdateExerciseRequestDTO {
   public baseData!: BaseDataRequest;
   public translatableData!: TranslatableExerciseDataRequest;
 
@@ -39,21 +39,16 @@ export class UpdateExerciseRequestDTO {
     this.translatableData = translatableData;
   }
 
-  public setId(id: string): UpdateExerciseRequestDTO {
+  public setId(id: string): CreateUpdateExerciseRequestDTO {
     this.baseData.id = id;
 
     return this;
   }
 
-  public serialize(): ExerciseMetaDTO {
+  public serialize(): CreateUpdateExerciseRequestDTO {
     return { ...this };
   }
 }
-
-export type ExerciseMetaDTO = Pick<
-  UpdateExerciseRequestDTO,
-  'baseData' | 'translatableData'
->;
 
 export class ExercisePagination {
   public readonly type = LOAD_EXERCISES_ACTIONS.EXERCISE_PAGINATION;

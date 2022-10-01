@@ -32,8 +32,7 @@ import {
   WithId,
 } from '@fitness-tracker/shared/utils';
 import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.dto';
-import { UpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-update-request.dto';
-import { CreateExerciseRequestDto } from '../entities/dto/request/create/create-exercise-request.dto';
+import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { EXERCISE_FIELD_NAMES } from '../entities/exercise.enums';
 import { GetExerciseRequestDto } from '../entities/dto/request/get/get-exercise-request.dto';
 
@@ -46,29 +45,21 @@ export class FirebaseExerciseDataService {
 
   constructor(public readonly afs: AngularFirestore) {}
 
-  public createExercise(
-    exercise: CreateExerciseRequestDto,
-  ): Observable<void | DocumentReference<CreateExerciseRequestDto>> {
+  public createOrUpdateExercise(
+    exercise: CreateUpdateExerciseRequestDTO,
+  ): Observable<void | DocumentReference<CreateUpdateExerciseRequestDTO>> {
     const id = exercise.baseData.id;
-    return id
-      ? from(
-          this.afs
-            .doc<CreateExerciseRequestDto>(`${COLLECTIONS.EXERCISES}/${id}`)
-            .set(exercise),
-        ).pipe(first())
-      : from(
-          this.afs
-            .collection<CreateExerciseRequestDto>(`${COLLECTIONS.EXERCISES}`)
-            .add(exercise),
-        ).pipe(first());
-  }
+    const handler = id
+      ? this.afs
+          .doc<CreateUpdateExerciseRequestDTO>(`${COLLECTIONS.EXERCISES}/${id}`)
+          .set(exercise)
+      : this.afs
+          .collection<CreateUpdateExerciseRequestDTO>(
+            `${COLLECTIONS.EXERCISES}`,
+          )
+          .add(exercise);
 
-  public updateExercise(exercise: UpdateExerciseRequestDTO) {
-    return from(
-      this.afs
-        .doc(`${COLLECTIONS.EXERCISES}/${exercise?.baseData?.id}`)
-        .update(exercise),
-    );
+    return from(handler).pipe(first());
   }
 
   public findExercisesForWorkout({

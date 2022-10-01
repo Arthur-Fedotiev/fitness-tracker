@@ -1,7 +1,7 @@
 import { WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
-import { CreateExerciseRequestDto } from '../../entities/dto/request/create/create-exercise-request.dto';
 import { GetExerciseRequestDto } from '../../entities/dto/request/get/get-exercise-request.dto';
+import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
 import { EXERCISES_ACTION_NAMES } from './exercise.actions.enum';
 
@@ -55,36 +55,49 @@ export const emptyExercisesList = createAction(
   EXERCISES_ACTION_NAMES.REFRESH_EXERCISES_FAILURE,
 );
 
-export const createExercise = createAction(
-  EXERCISES_ACTION_NAMES.CREATE_EXERCISE,
-  props<WithPayload<ExerciseResponseDto>>(),
+// export const createExercise = createAction(
+//   EXERCISES_ACTION_NAMES.CREATE_EXERCISE,
+//   props<WithPayload<ExerciseResponseDto>>(),
+// );
+
+// export const createExerciseMeta = createAction(
+//   EXERCISES_ACTION_NAMES.CREATE_EXERCISE,
+//   props<WithPayload<CreateUpdateExerciseRequestDTO>>(),
+// );
+
+// export const createExerciseSuccess = createAction(
+//   EXERCISES_ACTION_NAMES.CREATE_EXERCISE_SUCCESS,
+// );
+
+// export const createExerciseFailure = createAction(
+//   EXERCISES_ACTION_NAMES.CREATE_EXERCISE_FAILURE,
+//   props<WithPayload<string>>(),
+// );
+
+// export const updateExercise = createAction(
+//   EXERCISES_ACTION_NAMES.UPDATE_EXERCISE,
+//   props<WithPayload<CreateUpdateExerciseRequestDTO>>(),
+// );
+
+// export const updateExerciseSuccess = createAction(
+//   EXERCISES_ACTION_NAMES.UPDATE_EXERCISE_SUCCESS,
+// );
+
+// export const updateExerciseFailure = createAction(
+//   EXERCISES_ACTION_NAMES.LOAD_EXERCISES,
+// );
+
+export const exerciseSaved = createAction(
+  EXERCISES_ACTION_NAMES.EXERCISE_SAVED,
+  props<WithPayload<CreateUpdateExerciseRequestDTO>>(),
 );
 
-export const createExerciseMeta = createAction(
-  EXERCISES_ACTION_NAMES.CREATE_EXERCISE,
-  props<WithPayload<CreateExerciseRequestDto>>(),
+export const exerciseSavedSuccess = createAction(
+  EXERCISES_ACTION_NAMES.EXERCISE_SAVED_SUCCESS,
 );
 
-export const createExerciseSuccess = createAction(
-  EXERCISES_ACTION_NAMES.CREATE_EXERCISE_SUCCESS,
-);
-
-export const createExerciseFailure = createAction(
-  EXERCISES_ACTION_NAMES.CREATE_EXERCISE_FAILURE,
-  props<WithPayload<string>>(),
-);
-
-export const updateExercise = createAction(
-  EXERCISES_ACTION_NAMES.UPDATE_EXERCISE,
-  props<WithPayload<CreateExerciseRequestDto>>(),
-);
-
-export const updateExerciseSuccess = createAction(
-  EXERCISES_ACTION_NAMES.UPDATE_EXERCISE_SUCCESS,
-);
-
-export const updateExerciseFailure = createAction(
-  EXERCISES_ACTION_NAMES.LOAD_EXERCISES,
+export const exerciseSavedFailure = createAction(
+  EXERCISES_ACTION_NAMES.EXERCISE_SAVED_FAILURE,
 );
 
 export const deleteExercise = createAction(

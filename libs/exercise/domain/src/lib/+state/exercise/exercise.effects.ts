@@ -28,13 +28,12 @@ import {
   SearchOptions,
 } from '../../entities/dto/request/get/get-exercise-request.dto';
 import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
-import { CreateExerciseRequestDto } from '../../entities/dto/request/create/create-exercise-request.dto';
-import { UpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-update-request.dto';
+import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseDetailsComponent } from '@fitness-tracker/exercise/ui-components';
 
 @Injectable()
 export class ExerciseEffects {
-  public findExercises$ = createEffect(() =>
+  public readonly findExercises$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
         EXERCISES_ACTION_NAMES.FIND_EXERCISES,
@@ -77,29 +76,19 @@ export class ExerciseEffects {
     ),
   );
 
-  public createExerciseMeta$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(EXERCISES_ACTION_NAMES.CREATE_EXERCISE),
-        mergeMap(({ payload }: WithPayload<CreateExerciseRequestDto>) =>
-          this.exercisesService.createExercise(payload),
+  public readonly saveExercise$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.EXERCISE_SAVED),
+      mergeMap(({ payload }: WithPayload<CreateUpdateExerciseRequestDTO>) =>
+        this.exercisesService.createOrUpdateExercise(payload).pipe(
+          map(() => ExercisesActions.exerciseSavedSuccess()),
+          catchError(() => [ExercisesActions.exerciseSavedFailure()]),
         ),
       ),
-    { dispatch: false },
+    ),
   );
 
-  public updateExercise$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(EXERCISES_ACTION_NAMES.UPDATE_EXERCISE),
-        mergeMap(({ payload }: WithPayload<UpdateExerciseRequestDTO>) =>
-          this.exercisesService.updateExercise(payload),
-        ),
-      ),
-    { dispatch: false },
-  );
-
-  public deleteExercise$ = createEffect(() =>
+  public readonly deleteExercise$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.DELETE_EXERCISE),
       mergeMap(
@@ -112,7 +101,7 @@ export class ExerciseEffects {
     ),
   );
 
-  public loadExerciseDetails$ = createEffect(() =>
+  public readonly loadExerciseDetails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS),
       withLatestFrom(this.store.select(selectLanguage)),

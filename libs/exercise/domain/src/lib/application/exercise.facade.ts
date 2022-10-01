@@ -7,12 +7,24 @@ import * as ExercisesActions from '../+state/exercise/exercise.actions';
 import * as ExercisesSelectors from '../+state/exercise/exercise.selectors';
 import { Observable } from 'rxjs';
 import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.dto';
-import { UpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-update-request.dto';
+import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { SearchOptions } from '../entities/response/exercise-search.interface';
+import { IsLoadingQuery } from '../entities/queries/is-loading.query';
+import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query';
+import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-details.command';
+import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
+import { ExerciseSavedCommand } from '../entities/commands';
 
 @Injectable({ providedIn: 'root' })
-export class ExerciseFacade {
-  public readonly loading$ = this.store.select(ExercisesSelectors.getLoading);
+export class ExerciseFacade
+  implements
+    IsLoadingQuery,
+    ExerciseDetailsQuery,
+    LoadExerciseDetailsCommand,
+    ReleaseExerciseDetailsCommand,
+    ExerciseSavedCommand
+{
+  public readonly isLoading$ = this.store.select(ExercisesSelectors.getLoading);
   public readonly exercisesList$ = this.store.select(
     ExercisesSelectors.getAllExercises,
   );
@@ -35,19 +47,13 @@ export class ExerciseFacade {
     this.store.dispatch(ExercisesActions.loadExercises());
   }
 
-  public createExercise(exercise: UpdateExerciseRequestDTO): void {
-    const id: string = this.afs.createId();
+  public exerciseSaved(exercise: CreateUpdateExerciseRequestDTO): void {
+    const id: string = exercise.baseData?.id ?? this.afs.createId();
 
     this.store.dispatch(
-      ExercisesActions.createExerciseMeta({
+      ExercisesActions.exerciseSaved({
         payload: exercise.setId(id).serialize(),
       }),
-    );
-  }
-
-  public updateExercise(exercise: UpdateExerciseRequestDTO): void {
-    this.store.dispatch(
-      ExercisesActions.updateExercise({ payload: exercise.serialize() }),
     );
   }
 

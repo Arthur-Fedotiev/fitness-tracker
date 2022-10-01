@@ -11,16 +11,20 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import {
   ExerciseDescriptors,
-  ExerciseFacade,
+  ExerciseDetailsQuery,
   ExerciseResponseDto,
   EXERCISE_DESCRIPTORS_TOKEN,
-  UpdateExerciseRequestDTO,
+  EXERCISE_DETAILS_QUERY,
+  ReleaseExerciseDetailsCommand,
+  RELEASE_EXERCISE_DETAILS_COMMAND,
+  CreateUpdateExerciseRequestDTO,
+  EXERCISE_SAVED_COMMAND,
+  ExerciseSavedCommand,
 } from '@fitness-tracker/exercise/domain';
 
-import { filter, ReplaySubject, Subject, tap } from 'rxjs';
+import { map, Subject, tap, withLatestFrom } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -33,15 +37,10 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class CreateAndEditComponent implements OnInit, OnDestroy {
   public readonly exerciseForm: UntypedFormGroup = this.getForm();
 
-  private readonly patchExerciseFormValue: ReplaySubject<ExerciseResponseDto | null> =
-    new ReplaySubject<ExerciseResponseDto | null>(1);
-  private readonly pathExerciseFormValue$ = this.patchExerciseFormValue
-    .asObservable()
-    .pipe(
-      filter(Boolean),
-      tap((exercise: ExerciseResponseDto) =>
-        this.exerciseForm.patchValue(exercise),
-      ),
+  private readonly pathExerciseFormValue$ =
+    this.exerciseQuery.selectedExerciseDetails$.pipe(
+      map((exercise) => exercise ?? ({} as ExerciseResponseDto)),
+      tap(this.exerciseForm.patchValue.bind(this.exerciseForm)),
       untilDestroyed(this),
     );
 
@@ -50,17 +49,14 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
   private readonly save: Subject<void> = new Subject<void>();
 
   public readonly onSave$ = this.save.asObservable().pipe(
-    tap(() =>
-      this.resolvedExercise
-        ? this.exercisesFacade.updateExercise(
-            new UpdateExerciseRequestDTO(
-              this.exerciseForm.value,
-              this.resolvedExercise.id,
-            ),
-          )
-        : this.exercisesFacade.createExercise(
-            new UpdateExerciseRequestDTO(this.exerciseForm.value),
-          ),
+    withLatestFrom(this.pathExerciseFormValue$),
+    tap(([, exercise]) =>
+      this.exerciseSavedCommand.exerciseSaved(
+        new CreateUpdateExerciseRequestDTO(
+          this.exerciseForm.value,
+          exercise.id,
+        ),
+      ),
     ),
     untilDestroyed(this),
   );
@@ -71,18 +67,21 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
+    @Inject(EXERCISE_DETAILS_QUERY)
+    private readonly exerciseQuery: ExerciseDetailsQuery,
+    @Inject(RELEASE_EXERCISE_DETAILS_COMMAND)
+    private readonly releaseExerciseDetailsCommand: ReleaseExerciseDetailsCommand,
+    @Inject(EXERCISE_SAVED_COMMAND)
+    private readonly exerciseSavedCommand: ExerciseSavedCommand,
     private fb: UntypedFormBuilder,
-    private route: ActivatedRoute,
-    private exercisesFacade: ExerciseFacade,
   ) {}
 
   ngOnInit(): void {
-    this.initData();
     this.initListeners();
   }
 
   ngOnDestroy(): void {
-    this.exercisesFacade.releaseExerciseDetails();
+    this.releaseExerciseDetailsCommand.releaseExerciseDetails();
   }
 
   public onSave(): void {
@@ -117,13 +116,7 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  private initData(): void {
-    this.resolvedExercise = this.route.snapshot.data['exercise'] ?? null;
-    this.patchExerciseFormValue.next(this.resolvedExercise);
-  }
-
   private initListeners(): void {
     this.onSave$.subscribe();
-    this.pathExerciseFormValue$.subscribe();
   }
 }
