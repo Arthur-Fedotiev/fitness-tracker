@@ -1,9 +1,17 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Inject,
+} from '@angular/core';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+import {
+  ExerciseDescriptors,
+  EXERCISE_DESCRIPTORS_TOKEN,
+} from '@fitness-tracker/exercise/api-public';
 import {
   WorkoutItemFlatNode,
   WorkoutItem,
@@ -48,6 +56,8 @@ export class ComposeWorkoutComponent implements OnInit {
   public isSupersetComposeUnderway = false;
 
   constructor(
+    @Inject(EXERCISE_DESCRIPTORS_TOKEN)
+    public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly composeWorkoutPresenter: ComposeWorkoutComponentService,
   ) {}
 
@@ -95,11 +105,15 @@ export class ComposeWorkoutComponent implements OnInit {
     this.composeWorkoutPresenter.addToSuperset(node);
   }
 
-  public exerciseHitSelected(hit: any): void {
-    const exercise: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'> = {
-      avatarUrl: hit['baseData.avatarUrl'],
+  public exerciseHitSelected(hit: {
+    baseData: { avatarUrl: string };
+    objectID: string;
+    translatableData: { name: string };
+  }): void {
+    const exercise = {
+      avatarUrl: hit.baseData.avatarUrl,
       id: hit.objectID,
-      name: hit['translatableData.name'],
+      name: hit.translatableData.name,
     };
 
     this.composeWorkoutPresenter.addToWorkout(exercise);

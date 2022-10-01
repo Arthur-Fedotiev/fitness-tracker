@@ -1,9 +1,174 @@
-<h1>exercise-create-and-edit</h1>
+<main fxLayout="row nowrap" fxLayoutAlign="center">
+  <section
+    class="create-exercise"
+    fxFlex="50%"
+    fxFlex.xs="90%"
+    fxFlex.sm="60%"
+    fxFlex.md="75"
+  >
+    <h3>Create New Exercise</h3>
 
-<table class="table">
-  <tr *ngFor="let exercise of exerciseList$ | async">
-    <td>{{ exercise.id }}</td>
-    <td>{{ exercise.name }}</td>
-    <td>{{ exercise.description }}</td>
-  </tr>
-</table>
+    <form [formGroup]="exerciseForm">
+      <mat-form-field appearance="outline">
+        <input placeholder="Exercise name" matInput formControlName="name" />
+      </mat-form-field>
+
+      <div class="exercise-image-upload">
+        <span>exercise thumbnail:</span>
+
+        <img class="exercise-thumbnail mat-elevation-z3" />
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          placeholder="Select Exercise Type"
+          formControlName="exerciseType"
+        >
+          <mat-option
+            *ngFor="
+              let exerciseType of exerciseDescriptors.exerciseTypes;
+              trackBy: trackByIndex
+            "
+            [value]="exerciseType"
+            >{{
+              'EXERCISE-TYPES.' + exerciseType | translate | titlecase
+            }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          placeholder="Select target muscle"
+          formControlName="targetMuscle"
+        >
+          <mat-option
+            *ngFor="
+              let muscle of exerciseDescriptors.muscles;
+              trackBy: trackByIndex
+            "
+            [value]="muscle"
+            >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select Equipment" formControlName="equipment">
+          <mat-option
+            *ngFor="
+              let equipmentItem of exerciseDescriptors.equipment;
+              trackBy: trackByIndex
+            "
+            [value]="equipmentItem"
+            >{{
+              'EQUIPMENT.' + equipmentItem | translate | titlecase
+            }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input
+          placeholder="Cover image url"
+          matInput
+          formControlName="coverUrl"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input
+          placeholder="Cover secondary url"
+          matInput
+          formControlName="coverSecondaryUrl"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input placeholder="Avatar url" matInput formControlName="avatarUrl" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input
+          placeholder="Avatar secondary url"
+          matInput
+          formControlName="avatarSecondaryUrl"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Rating</mat-label>
+        <input
+          #rating
+          type="number"
+          step="0.1"
+          formControlName="rating"
+          matInput
+          required
+        />
+      </mat-form-field>
+      <mat-slider
+        thumbLabel
+        [min]="0"
+        [max]="10"
+        [step]="0.1"
+        [value]="ratingControl?.value"
+        (change)="ratingChange($event.value)"
+      ></mat-slider>
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          placeholder="Exercise short description"
+          formControlName="shortDescription"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          placeholder="Exercise long description"
+          formControlName="longDescription"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          placeholder="Benefits"
+          formControlName="benefits"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          placeholder="Exercise instructions"
+          formControlName="instructions"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input
+          placeholder="Instructions video"
+          matInput
+          formControlName="instructionVideo"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input
+          placeholder="Muscle diagram video"
+          matInput
+          formControlName="muscleDiagramUrl"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="warn"
+        [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
+        (click)="onSave()"
+      >
+        SAVE
+      </button>
+    </form>
+  </section>
+</main>

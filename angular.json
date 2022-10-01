@@ -25,7 +25,7 @@
           }
         }
       },
-      "tags": []
+      "tags": ["domain:shared", "domain:auth", "type:domain-logic"]
     },
     "auth-feature": {
       "projectType": "library",
@@ -287,6 +287,32 @@
       },
       "tags": ["domain:exercise", "type:feature"]
     },
+    "exercise-shell": {
+      "projectType": "library",
+      "root": "libs/exercise/shell",
+      "sourceRoot": "libs/exercise/shell/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/exercise/shell"],
+          "options": {
+            "jestConfig": "libs/exercise/shell/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/exercise/shell/**/*.ts",
+              "libs/exercise/shell/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:exercise", "type:shell"]
+    },
     "exercise-ui-components": {
       "projectType": "library",
       "root": "libs/exercise/ui-components",
@@ -445,9 +471,9 @@
                 "output": "assets"
               },
               {
-                "input": "libs/exercises/feature/src/assets/i18n/exercises-display",
+                "input": "libs/exercise/feature-display/src/i18n/exercise-display",
                 "glob": "*.json",
-                "output": "assets/i18n/exercises-display"
+                "output": "assets/i18n/exercise-display"
               },
               {
                 "input": "libs/workout/feature/src/assets/i18n/workout-details",
@@ -570,7 +596,7 @@
           }
         }
       },
-      "tags": []
+      "tags": ["type:app"]
     },
     "fitness-tracker-e2e": {
       "root": "apps/fitness-tracker-e2e",
@@ -684,7 +710,7 @@
           }
         }
       },
-      "tags": ["scope:shared", "type:data-access"]
+      "tags": ["domain:shared", "type:util"]
     },
     "shared-dialogs": {
       "projectType": "library",
@@ -762,7 +788,7 @@
           }
         }
       },
-      "tags": ["scope:shared", "type:i18n"]
+      "tags": ["domain:shared", "type:util"]
     },
     "shared-pwa": {
       "projectType": "library",
@@ -848,7 +874,7 @@
           }
         }
       },
-      "tags": []
+      "tags": ["domain:shared", "type:ui"]
     },
     "shared-utils": {
       "projectType": "library",
@@ -874,7 +900,7 @@
           }
         }
       },
-      "tags": []
+      "tags": ["domain:shared", "type:util"]
     },
     "workout-compose-workout-feature": {
       "projectType": "library",

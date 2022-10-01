@@ -1,45 +1,96 @@
-import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-
+import { createReducer, on, Action } from '@ngrx/store';
 import * as ExerciseActions from './exercise.actions';
-import { Exercise } from '../../entities/exercise';
 
-export const EXERCISE_FEATURE_KEY = 'exercise-exercise';
+import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
 
-export interface State extends EntityState<Exercise> {
-  selectedId?: string | number; // which Exercise record has been selected
-  loaded: boolean; // has the Exercise list been loaded
-  error?: string | null; // last known error (if any)
+export const EXERCISES_FEATURE_KEY = 'exercises';
+export const sortComparer = (a: ExerciseResponseDto, b: ExerciseResponseDto) =>
+  b.rating - a.rating > 0 ? 1 : -1;
+
+export interface State extends EntityState<ExerciseResponseDto> {
+  selectedId?: string | number;
+  selectedExercise: ExerciseResponseDto | null;
+  loading: boolean;
+  error?: string | null;
 }
 
-export interface ExercisePartialState {
-  readonly [EXERCISE_FEATURE_KEY]: State;
+export interface ExercisesPartialState {
+  readonly [EXERCISES_FEATURE_KEY]: State;
 }
 
-export const exerciseAdapter: EntityAdapter<Exercise> =
-  createEntityAdapter<Exercise>();
+export const exercisesAdapter: EntityAdapter<ExerciseResponseDto> =
+  createEntityAdapter<ExerciseResponseDto>({
+    sortComparer,
+  });
 
-export const initialState: State = exerciseAdapter.getInitialState({
-  // set initial required properties
-  loaded: false,
+export const initialState: State = exercisesAdapter.getInitialState({
+  loading: false,
+  selectedExercise: null,
+  collectionsMeta: null,
 });
 
-const exerciseReducer = createReducer(
+const exercisesReducer = createReducer(
   initialState,
-  on(ExerciseActions.loadExercise, (state) => ({
+  on(ExerciseActions.refreshExercises, (state) => ({
     ...state,
-    loaded: false,
+    loading: true,
     error: null,
   })),
-  on(ExerciseActions.loadExerciseSuccess, (state, { exercise }) =>
-    exerciseAdapter.upsertMany(exercise, { ...state, loaded: true }),
+  on(ExerciseActions.refreshExercisesSuccess, (state, { payload }) =>
+    exercisesAdapter.setAll(payload, { ...state, loading: false }),
   ),
-  on(ExerciseActions.loadExerciseFailure, (state, { error }) => ({
+  on(ExerciseActions.refreshExercisesFailure, (state) => ({
     ...state,
-    error,
+    loading: false,
+  })),
+  on(ExerciseActions.findExercises, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(ExerciseActions.findExercisesSuccess, (state, { payload }) => {
+    const adapterAction = payload.firstPage
+      ? exercisesAdapter.setAll
+      : exercisesAdapter.addMany;
+
+    return adapterAction(payload.exercises, {
+      ...state,
+      loading: false,
+    });
+  }),
+  on(ExerciseActions.findExercisesFailure, (state) => ({
+    ...state,
+    loading: false,
+  })),
+  on(ExerciseActions.emptyExercisesList, (state) =>
+    exercisesAdapter.removeAll(state),
+  ),
+  on(ExerciseActions.createExercise, (state, { payload }) =>
+    exercisesAdapter.addOne(payload, { ...state, loading: false }),
+  ),
+  on(ExerciseActions.deleteExerciseSuccess, (state, { payload }) =>
+    exercisesAdapter.removeOne(payload, state),
+  ),
+  on(ExerciseActions.loadExerciseDetails, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(ExerciseActions.loadExerciseDetailsSuccess, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    selectedExercise: payload,
+  })),
+  on(ExerciseActions.loadExerciseDetailsFailure, (state) => ({
+    ...state,
+    loading: false,
+  })),
+  on(ExerciseActions.releaseExerciseDetails, (state) => ({
+    ...state,
+    selectedExercise: null,
   })),
 );
 
 export function reducer(state: State | undefined, action: Action) {
-  return exerciseReducer(state, action);
+  return exercisesReducer(state, action);
 }

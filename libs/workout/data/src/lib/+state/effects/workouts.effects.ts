@@ -16,11 +16,7 @@ import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 
 import { Store } from '@ngrx/store';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
-import {
-  ExercisesService,
-  loadExerciseDetailsFailure,
-} from '@fitness-tracker/exercises/data';
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+
 import { LanguageCodes } from 'shared-package';
 import { WithPayload } from '@fitness-tracker/shared/utils';
 import {
@@ -32,6 +28,8 @@ import {
   toExercisesMap,
   toWorkoutDetails,
 } from '../../utils/mappers';
+import { FirebaseExerciseDataService } from '@fitness-tracker/exercise/domain';
+import { loadExerciseDetailsFailure } from 'libs/exercise/domain/src/lib/+state/exercise/exercise.actions';
 
 @Injectable()
 export class WorkoutsEffects {
@@ -74,7 +72,7 @@ export class WorkoutsEffects {
     private readonly actions$: Actions,
     private readonly store: Store,
     private readonly workoutAPI: WorkoutService,
-    private readonly exercisesService: ExercisesService,
+    private readonly exercisesService: FirebaseExerciseDataService,
   ) {}
 
   private getWorkoutDetailsLocalized$(): UnaryFunction<
@@ -97,15 +95,21 @@ export class WorkoutsEffects {
               ids: string[];
               serializedWorkout: SerializedWorkout;
             }) =>
-              this.exercisesService.findExercisesForWorkout({ ids }, lang).pipe(
-                map((exercises: ExercisesEntity[]) => ({
-                  exercises: exercises.reduce(
-                    toExercisesMap,
-                    new Map<string, ExercisesEntity>(),
-                  ),
-                  serializedWorkout,
-                })),
-              ),
+              this.exercisesService
+                .findExercisesForWorkout({
+                  searchOptions: { ids },
+                  lang,
+                  refresh: false,
+                })
+                .pipe(
+                  map((exercises: any[]) => ({
+                    exercises: exercises.reduce(
+                      toExercisesMap,
+                      new Map<string, any>(),
+                    ),
+                    serializedWorkout,
+                  })),
+                ),
           ),
           map(toWorkoutDetails),
         ),

@@ -11,12 +11,10 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import {
-  MetaCollection,
-  META_COLLECTIONS,
-} from '@fitness-tracker/exercises/model';
+
 import { WorkoutBasicInfo } from '@fitness-tracker/workout/data';
 import { WorkoutLevel } from '@fitness-tracker/workout-domain';
+import { ExerciseDescriptors } from '@fitness-tracker/exercise/api-public';
 
 @Component({
   selector: 'ft-workout-basic-info',
@@ -27,11 +25,13 @@ import { WorkoutLevel } from '@fitness-tracker/workout-domain';
 export class WorkoutBasicInfoComponent implements OnInit {
   @Input()
   public basicInfo?: WorkoutBasicInfo | null;
+  @Input()
+  public exerciseDescriptors!: ExerciseDescriptors;
   @Output()
   public readonly workoutBasicInfoSaved = new EventEmitter<WorkoutBasicInfo>();
 
   public readonly workoutLevels = WorkoutLevel;
-  public readonly metaCollections: MetaCollection = META_COLLECTIONS;
+
   public workoutInfoForm!: UntypedFormGroup;
 
   constructor(private fb: UntypedFormBuilder) {}

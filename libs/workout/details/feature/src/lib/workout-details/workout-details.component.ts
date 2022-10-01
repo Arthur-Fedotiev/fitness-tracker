@@ -1,15 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { loadIsolatedLang } from '@fitness-tracker/shared/utils';
+
+import { filter, Observable, skip, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
+import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
+import { TranslateService } from '@ngx-translate/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
 import {
   SerializedWorkout,
   WorkoutFacadeService,
 } from '@fitness-tracker/workout/data';
-import { filter, Observable, skip, tap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { ExercisesFacade } from '@fitness-tracker/exercises/data';
-import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
-import { TranslateService } from '@ngx-translate/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
@@ -37,7 +39,7 @@ export class WorkoutDetailsComponent implements OnInit {
   constructor(
     private readonly workoutFacade: WorkoutFacadeService,
     private readonly settingsFacade: SettingsFacadeService,
-    private readonly exercisesFacade: ExercisesFacade,
+    private readonly exercisesFacade: ExerciseFacade,
     private readonly route: ActivatedRoute,
     private readonly translateService: TranslateService,
   ) {}

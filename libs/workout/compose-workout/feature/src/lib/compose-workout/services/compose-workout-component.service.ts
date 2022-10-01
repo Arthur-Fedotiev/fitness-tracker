@@ -4,7 +4,6 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 import { environment } from '@fitness-tracker/shared/environments';
 
 import {
@@ -109,8 +108,6 @@ export class ComposeWorkoutComponentService {
 
   private readonly saveWorkout$ = this.saveWorkoutSubj.asObservable().pipe(
     withLatestFrom(this.workoutBasicInfoSubj),
-    tap(console.log),
-
     map(([content, basicInfo]) => ({
       content,
       ...basicInfo,
@@ -136,8 +133,6 @@ export class ComposeWorkoutComponentService {
   }
 
   public saveWorkout(): void {
-    console.log(this.dataSource.data);
-
     if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
       console.log('Data is not valid to be saved');
       return;
@@ -182,9 +177,11 @@ export class ComposeWorkoutComponentService {
     this.dropService.drop(event);
   }
 
-  public addToWorkout(
-    exercise: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>,
-  ): void {
+  public addToWorkout(exercise: {
+    avatarUrl: string;
+    id: string;
+    name: string;
+  }): void {
     this.treeService.addItem(
       this.workoutItemSerializeStrategy.deserialize({
         ...exercise,

@@ -25,8 +25,11 @@ export class SearchComponent implements AfterViewInit {
 
   @Input() public searchConfig: NgAisInstantSearch['config'] | null = null;
 
-  @Output() public readonly hitSelected: EventEmitter<unknown> =
-    new EventEmitter();
+  @Output() public readonly hitSelected: EventEmitter<{
+    baseData: { avatarUrl: string };
+    objectID: string;
+    translatableData: { name: string };
+  }> = new EventEmitter();
 
   public portalContent!: TemplatePortal<any>;
 
@@ -39,7 +42,11 @@ export class SearchComponent implements AfterViewInit {
     );
   }
 
-  public selected($event: unknown): void {
+  public selected($event: {
+    baseData: { avatarUrl: string };
+    objectID: string;
+    translatableData: { name: string };
+  }): void {
     this.hitSelected.emit($event);
   }
 }

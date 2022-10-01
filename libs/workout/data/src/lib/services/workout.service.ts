@@ -55,7 +55,7 @@ export class WorkoutService {
   }
 
   public findWorkouts(
-    muscles?: WorkoutBasicInfo['targetMuscles'],
+    muscles?: string[],
   ): Observable<Required<SerializedWorkout>[]> {
     return this.afs
       .collection<Required<SerializedWorkout>>(
@@ -69,9 +69,7 @@ export class WorkoutService {
       .pipe(map((a) => convertSnaps<any>(a)));
   }
 
-  public getWorkoutPreviews(
-    muscles?: WorkoutBasicInfo['targetMuscles'],
-  ): Observable<WorkoutPreview[]> {
+  public getWorkoutPreviews(muscles?: string[]): Observable<WorkoutPreview[]> {
     return this.findWorkouts(muscles).pipe(
       map((workouts: Required<SerializedWorkout>[]) =>
         workouts.map(

@@ -39,15 +39,10 @@
       "@fitness-tracker/exercise/feature-display": [
         "libs/exercise/feature-display/src/index.ts"
       ],
+      "@fitness-tracker/exercise/shell": ["libs/exercise/shell/src/index.ts"],
       "@fitness-tracker/exercise/ui-components": [
         "libs/exercise/ui-components/src/index.ts"
       ],
-      "@fitness-tracker/exercises/data": ["libs/exercises/data/src/index.ts"],
-      "@fitness-tracker/exercises/feature": [
-        "libs/exercises/feature/src/index.ts"
-      ],
-      "@fitness-tracker/exercises/model": ["libs/exercises/model/src/index.ts"],
-      "@fitness-tracker/exercises/ui": ["libs/exercises/ui/src/index.ts"],
       "@fitness-tracker/layout/feature": ["libs/layout/feature/src/index.ts"],
       "@fitness-tracker/layout/ui": ["libs/layout/ui/src/index.ts"],
       "@fitness-tracker/shared-ui-material": [

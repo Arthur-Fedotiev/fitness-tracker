@@ -1,0 +1,19 @@
+<div
+  class="exercises-panel"
+  fxLayout="row wrap"
+  fxLayoutGap="1rem"
+  fxLayoutAlign="center"
+>
+  <components-exercise
+    *ngFor="let exercise of exerciseList; trackBy: trackById"
+    class="exercises-panel__item"
+    fxFlex="90%"
+    fxFlex.gt-sm="45%"
+    fxFlex.gt-lg="33%"
+    [exercise]="exercise"
+    (exerciseEdited)="editExercise($event)"
+    (exerciseViewed)="viewExercise($event)"
+    (exerciseDeleted)="deleteExercise($event)"
+    (exerciseAddedToWorkout)="addedToWorkout($event)"
+  ></components-exercise>
+</div>

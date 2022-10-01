@@ -1,14 +1,19 @@
-<form class="filters"
-      fxLayoutAlign.gt-sm="flex-start"
-      [formGroup]="workoutFilters">
-  <mat-form-field class="filters__item"
-                  fxFlex.gt-sm="25%"
-                  appearance="outline">
-    <mat-select [placeholder]="'CONTROL_PLACEHOLDERS.selectMuscles' | translate"
-                formControlName="targetMuscles"
-                multiple>
-      <mat-option *ngFor="let muscle of metaCollections.muscles; trackBy: trackByIndex"
-                  [value]="muscle">{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option>
+<form
+  class="filters"
+  fxLayoutAlign.gt-sm="flex-start"
+  [formGroup]="workoutFilters"
+>
+  <mat-form-field class="filters__item" fxFlex.gt-sm="25%" appearance="outline">
+    <mat-select
+      [placeholder]="'CONTROL_PLACEHOLDERS.selectMuscles' | translate"
+      formControlName="targetMuscles"
+      multiple
+    >
+      <mat-option
+        *ngFor="let muscle of muscleList; trackBy: trackByIndex"
+        [value]="muscle"
+        >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+      >
     </mat-select>
   </mat-form-field>
 </form>

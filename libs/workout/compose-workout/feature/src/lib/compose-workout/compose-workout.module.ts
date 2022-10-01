@@ -8,6 +8,7 @@ import { WorkoutItemRestModule } from './components/workout-item-rest/workout-it
 import { WorkoutBasicInfoModule } from './components/workout-basic-info/workout-basic-info.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedUiComponentsModule } from '@fitness-tracker/shared/ui/components';
+import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/api-public';
 
 @NgModule({
   declarations: [ComposeWorkoutComponent],
@@ -21,6 +22,7 @@ import { SharedUiComponentsModule } from '@fitness-tracker/shared/ui/components'
     WorkoutBasicInfoModule,
     SharedUiComponentsModule,
   ],
+  providers: [EXERCISE_DESCRIPTORS_PROVIDER],
   exports: [ComposeWorkoutComponent],
 })
 export class ComposeWorkoutModule {}

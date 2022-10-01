@@ -1,4 +1,49 @@
-.table td {
-  border: 1px solid;
-  padding: 10px;
+:host {
+  .exercises-list {
+    height: 100%;
+    .workout-btn {
+      flex: 1 0 auto;
+      align-self: flex-start;
+    }
+    &__list {
+      width: 90%;
+      height: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 1rem;
+      margin: auto;
+
+      footer {
+        align-self: center;
+      }
+    }
+    &__filters {
+      width: 200px;
+      background-color: lightsalmon;
+    }
+  }
+}
+.composed-workout {
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+  width: 80%;
+  height: fit-content;
+  background-color: rgb(223, 181, 15);
+  margin: 2rem auto;
+
+  &__item {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 0.25rem;
+  }
+}
+
+.filters {
+  padding-right: 1rem;
+  &-large {
+    padding: 0 5%;
+    width: 150%;
+  }
 }

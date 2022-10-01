@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  ExercisesEntity,
-  TargetMuscles,
-} from '@fitness-tracker/exercises/model';
-import { WorkoutLevel } from '@fitness-tracker/workout-domain';
-import { SerializerStrategy } from '../../../../../shared/utils/src/lib/interfaces/serializer.interface';
+
+import { SerializerStrategy, WithId } from '@fitness-tracker/shared/utils';
 import {
   ConcreteCompositeWorkoutItemInstruction,
   ConcreteSingleWorkoutItemInstruction,
@@ -17,12 +13,12 @@ import {
 export interface WorkoutBasicInfo {
   name: string;
   id?: string;
-  targetMuscles: TargetMuscles;
+  targetMuscles: string[];
   importantNotes: string;
   description: string;
   coverUrl: string;
   avatarUrl: string;
-  level: WorkoutLevel;
+  level: string;
 }
 
 export interface SerializedWorkout extends WorkoutBasicInfo {
@@ -42,7 +38,7 @@ export interface SerializeWorkoutItem {
 }
 
 export interface WorkoutDetails extends WorkoutBasicInfo {
-  content: (SerializeWorkoutItem | (SerializeWorkoutItem & ExercisesEntity))[];
+  content: (SerializeWorkoutItem | (SerializeWorkoutItem & WithId<unknown>))[];
 }
 
 @Injectable({ providedIn: 'root' })

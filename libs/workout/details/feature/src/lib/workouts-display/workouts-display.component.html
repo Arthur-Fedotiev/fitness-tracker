@@ -1,5 +1,6 @@
 <ft-workout-filters
   [initialTargetMuscles]="(targetMuscles$ | async)!"
+  [muscleList]="exerciseDescriptors.muscles"
   (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
 ></ft-workout-filters>
 

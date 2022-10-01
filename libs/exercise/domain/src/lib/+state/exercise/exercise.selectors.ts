@@ -1,45 +1,61 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
 import {
-  EXERCISE_FEATURE_KEY,
+  exercisesAdapter,
+  EXERCISES_FEATURE_KEY,
   State,
-  ExercisePartialState,
-  exerciseAdapter,
 } from './exercise.reducer';
 
-// Lookup the 'Exercise' feature state managed by NgRx
-export const getExerciseState = createFeatureSelector<
-  ExercisePartialState,
-  State
->(EXERCISE_FEATURE_KEY);
-
-const { selectAll, selectEntities } = exerciseAdapter.getSelectors();
-
-export const getExerciseLoaded = createSelector(
-  getExerciseState,
-  (state: State) => state.loaded,
+export const getExercisesState = createFeatureSelector<State>(
+  EXERCISES_FEATURE_KEY,
 );
 
-export const getExerciseError = createSelector(
-  getExerciseState,
+const { selectAll, selectEntities } = exercisesAdapter.getSelectors();
+
+export const getLoading = createSelector(
+  getExercisesState,
+  (state: State) => state.loading,
+);
+
+export const getExercisesError = createSelector(
+  getExercisesState,
   (state: State) => state.error,
 );
 
-export const getAllExercise = createSelector(getExerciseState, (state: State) =>
-  selectAll(state),
+export const getAllExercises = createSelector(
+  getExercisesState,
+  (state: State): ExerciseResponseDto[] => selectAll(state),
 );
 
-export const getExerciseEntities = createSelector(
-  getExerciseState,
+export const getExercisesEntities = createSelector(
+  getExercisesState,
   (state: State) => selectEntities(state),
 );
 
+export const selectExercisePreview = (exerciseIds: Set<string>) =>
+  createSelector(
+    getExercisesEntities,
+    (entities): Pick<ExerciseResponseDto, 'avatarUrl' | 'id' | 'name'>[] =>
+      [...exerciseIds].map((exerciseId) => {
+        const { id, name, avatarUrl } = entities[
+          exerciseId
+        ] as ExerciseResponseDto;
+        return { id, name, avatarUrl };
+      }),
+  );
+
 export const getSelectedId = createSelector(
-  getExerciseState,
+  getExercisesState,
   (state: State) => state.selectedId,
 );
 
 export const getSelected = createSelector(
-  getExerciseEntities,
+  getExercisesEntities,
   getSelectedId,
-  (entities, selectedId) => selectedId && entities[selectedId],
+  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined),
+);
+
+export const getSelectedExerciseDetails = createSelector(
+  getExercisesState,
+  (state: State) => state.selectedExercise,
 );

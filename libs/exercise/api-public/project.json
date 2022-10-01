@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/exercise/api-public/src",
+  "prefix": "public",
+  "architect": {
+    "test": {
+      "builder": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/exercise/api-public"],
+      "options": {
+        "jestConfig": "libs/exercise/api-public/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "builder": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exercise/api-public/**/*.ts",
+          "libs/exercise/api-public/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:exercise", "domain:exercise/api-public", "type:api"]
+}

@@ -18,6 +18,7 @@
           </mat-expansion-panel-header>
           <ft-workout-basic-info
             [basicInfo]="workoutBasicInfo$ | async"
+            [exerciseDescriptors]="exerciseDescriptors"
             (workoutBasicInfoSaved)="saveBasicInfo($event)"
           ></ft-workout-basic-info>
         </mat-expansion-panel>

@@ -22,11 +22,16 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isEqual } from 'lodash-es';
 
 import { MatDialog } from '@angular/material/dialog';
-import { TargetMuscles } from '@fitness-tracker/exercises/model';
 import {
   ComposeWorkoutDialogFactory,
   COMPOSE_WORKOUT_DIALOG_FACTORY,
 } from '@fitness-tracker/workout-compose-workout-utils';
+import {
+  ExerciseDescriptors,
+  EXERCISE_DESCRIPTORS_TOKEN,
+} from '@fitness-tracker/exercise/api-public';
+
+type TargetMuscles = ExerciseDescriptors['muscles'];
 
 @UntilDestroy()
 @Component({
@@ -68,6 +73,8 @@ export class WorkoutsDisplayComponent implements OnInit {
   );
 
   constructor(
+    @Inject(EXERCISE_DESCRIPTORS_TOKEN)
+    public readonly exerciseDescriptors: ExerciseDescriptors,
     @Inject(COMPOSE_WORKOUT_DIALOG_FACTORY)
     private readonly composeWorkoutDialogFactory: ComposeWorkoutDialogFactory,
     private readonly workoutFacade: WorkoutFacadeService,

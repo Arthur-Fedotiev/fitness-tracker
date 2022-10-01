@@ -8,7 +8,6 @@ import {
   translationsLoaderFactory,
 } from '@fitness-tracker/shared/utils';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ExercisesDataModule } from '@fitness-tracker/exercises/data';
 import { HttpClient } from '@angular/common/http';
 import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
 import {
@@ -16,7 +15,6 @@ import {
   TranslateLoader,
   MissingTranslationHandler,
 } from '@ngx-translate/core';
-import { ExerciseDetailsModule } from '@fitness-tracker/exercises/ui';
 
 const i18nAssetsPath = 'assets/i18n/workout-details/';
 
@@ -28,8 +26,6 @@ const i18nAssetsPath = 'assets/i18n/workout-details/';
     MaterialModule,
     ImgFallbackModule,
     FlexLayoutModule,
-    ExerciseDetailsModule,
-    ExercisesDataModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

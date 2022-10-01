@@ -5,6 +5,7 @@
     "firebaseui",
     "Firestore",
     "KETTLEBELLS",
+    "Lvls",
     "ngneat",
     "PLYO",
     "Plyometrics",
@@ -29,5 +30,6 @@
     "titleBar.activeForeground": "#15202b",
     "titleBar.inactiveBackground": "#e3d0b999",
     "titleBar.inactiveForeground": "#15202b99"
-  }
+  },
+  "angular.enable-strict-mode-prompt": false
 }

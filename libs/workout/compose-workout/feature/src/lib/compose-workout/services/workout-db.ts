@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
 import {
   WorkoutItem,
   SingleWorkoutItem,
@@ -23,13 +22,11 @@ export class WorkoutDatabase {
     @Inject(MAT_DIALOG_DATA)
     public dialogData: ComposeWorkoutData,
   ) {
-    console.log('dialogData', dialogData);
-
     this.initialize(dialogData.workoutContent);
   }
 
   public buildFileTree(
-    initialData: Pick<ExercisesEntity, 'avatarUrl' | 'id' | 'name'>[],
+    initialData: Pick<any, 'avatarUrl' | 'id' | 'name'>[],
   ): WorkoutItem[] {
     return initialData.map(
       ({ name, id }) =>

@@ -1,4 +1,4 @@
-import { ExercisesEntity } from '@fitness-tracker/exercises/model';
+import { WithId } from '@fitness-tracker/shared/utils';
 import {
   SerializeWorkoutItem,
   SerializedWorkout,
@@ -13,13 +13,13 @@ export const toIdsFromSerializedWorkout = (workout: SerializedWorkout) => {
 };
 
 export const toExercisesMap = (
-  map: Map<string, ExercisesEntity>,
-  exercise: ExercisesEntity,
-): Map<string, ExercisesEntity> => map.set(exercise.id, exercise);
+  map: Map<string, WithId<unknown>>,
+  exercise: WithId<unknown>,
+): Map<string, WithId<unknown>> => map.set(exercise.id, exercise);
 
 export const toWorkoutDetailsItem = (
   workoutItem: SerializeWorkoutItem,
-  exercisesMap: Map<string, ExercisesEntity>,
+  exercisesMap: Map<string, WithId<unknown>>,
 ): WorkoutDetails['content'][number] =>
   !workoutItem.children?.length
     ? { ...workoutItem, ...exercisesMap.get(workoutItem.id) }
@@ -34,7 +34,7 @@ export const toWorkoutDetails = ({
   exercises,
   serializedWorkout,
 }: {
-  exercises: Map<string, ExercisesEntity>;
+  exercises: Map<string, WithId<unknown>>;
   serializedWorkout: SerializedWorkout;
 }) => ({
   ...serializedWorkout,
