@@ -4,7 +4,7 @@ import {
   ExerciseDomainModule,
   EXERCISE_DESCRIPTORS_PROVIDER,
 } from '@fitness-tracker/exercise/domain';
-import { DisplayComponent } from './display.component';
+import { DisplayPageComponent } from './display.component';
 import { ExerciseFeatureDisplayRoutingModule } from './exercise-feature-display-routing.module';
 import { ExerciseUiComponentsModule } from '@fitness-tracker/exercise/ui-components';
 import { HttpClient } from '@angular/common/http';
@@ -29,7 +29,7 @@ import {
 const i18nAssetsPath = 'assets/i18n/exercise-display/';
 
 @NgModule({
-  declarations: [DisplayComponent],
+  declarations: [DisplayPageComponent],
   imports: [
     CommonModule,
     ExerciseFeatureDisplayRoutingModule,

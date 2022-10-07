@@ -58,7 +58,11 @@
               },
               {
                 "sourceTag": "domain:exercise",
-                "onlyDependOnLibsWithTags": ["domain:exercise", "domain:shared"]
+                "onlyDependOnLibsWithTags": [
+                  "domain:exercise",
+                  "domain:shared",
+                  "domain:workout/api-public"
+                ]
               }
             ]
           }

@@ -47,7 +47,7 @@ import {
 import {
   ComposeWorkoutDialogFactory,
   COMPOSE_WORKOUT_DIALOG_FACTORY,
-} from '@fitness-tracker/workout-compose-workout-utils';
+} from '@fitness-tracker/workout/public-api';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -60,7 +60,7 @@ enum EXERCISE_MODE {
   styleUrls: ['./display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisplayComponent implements OnInit, OnDestroy {
+export class DisplayPageComponent implements OnInit, OnDestroy {
   public readonly roles = ROLES;
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly exercisesList$: Observable<ExerciseResponseDto[]> =
@@ -90,6 +90,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
     map((targetMuscles) => new ExerciseListQueryChange({ targetMuscles })),
     untilDestroyed(this),
   );
+
   private readonly loadExercises$: Observable<Partial<SearchOptions>> = merge(
     this.loadMoreExercises$,
     this.targetMusclesFromQueries$,

@@ -1056,7 +1056,7 @@
           }
         }
       },
-      "tags": []
+      "tags": ["domain:workout", "domain:workout/api-public", "type:api"]
     },
     "workout-ui": {
       "projectType": "library",

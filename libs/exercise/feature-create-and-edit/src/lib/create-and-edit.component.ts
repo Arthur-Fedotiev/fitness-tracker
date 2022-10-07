@@ -14,7 +14,6 @@ import {
 import {
   ExerciseDescriptors,
   ExerciseDetailsQuery,
-  ExerciseResponseDto,
   EXERCISE_DESCRIPTORS_TOKEN,
   EXERCISE_DETAILS_QUERY,
   ReleaseExerciseDetailsCommand,
@@ -22,9 +21,10 @@ import {
   CreateUpdateExerciseRequestDTO,
   EXERCISE_SAVED_COMMAND,
   ExerciseSavedCommand,
+  ExerciseResponseDto,
 } from '@fitness-tracker/exercise/domain';
 
-import { map, Subject, tap, withLatestFrom } from 'rxjs';
+import { filter, startWith, Subject, take, tap, withLatestFrom } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -39,17 +39,18 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
 
   private readonly pathExerciseFormValue$ =
     this.exerciseQuery.selectedExerciseDetails$.pipe(
-      map((exercise) => exercise ?? ({} as ExerciseResponseDto)),
+      filter(Boolean),
       tap(this.exerciseForm.patchValue.bind(this.exerciseForm)),
+      take(1),
       untilDestroyed(this),
     );
-
-  public resolvedExercise: ExerciseResponseDto | null = null;
 
   private readonly save: Subject<void> = new Subject<void>();
 
   public readonly onSave$ = this.save.asObservable().pipe(
-    withLatestFrom(this.pathExerciseFormValue$),
+    withLatestFrom(
+      this.pathExerciseFormValue$.pipe(startWith({} as ExerciseResponseDto)),
+    ),
     tap(([, exercise]) =>
       this.exerciseSavedCommand.exerciseSaved(
         new CreateUpdateExerciseRequestDTO(
@@ -60,8 +61,9 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     ),
     untilDestroyed(this),
   );
-  public get ratingControl(): AbstractControl | null {
-    return this.exerciseForm.get('rating');
+
+  public get ratingControl(): AbstractControl<number, number> {
+    return this.exerciseForm.get('rating' as const);
   }
 
   constructor(
@@ -73,14 +75,14 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     private readonly releaseExerciseDetailsCommand: ReleaseExerciseDetailsCommand,
     @Inject(EXERCISE_SAVED_COMMAND)
     private readonly exerciseSavedCommand: ExerciseSavedCommand,
-    private fb: UntypedFormBuilder,
+    private readonly fb: UntypedFormBuilder,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.initListeners();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.releaseExerciseDetailsCommand.releaseExerciseDetails();
   }
 
@@ -88,8 +90,8 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     this.save.next();
   }
 
-  public ratingChange(rating: number | null): void {
-    this.ratingControl?.setValue(rating, { emitEvent: false });
+  public ratingChange(rating: number): void {
+    this.ratingControl.setValue(rating, { emitEvent: false });
   }
 
   public trackByIndex(index: number): number {
