@@ -19,7 +19,8 @@
                   "type:feature",
                   "type:ui",
                   "type:domain-logic",
-                  "type:util"
+                  "type:util",
+                  "type:shell"
                 ]
               },
               {

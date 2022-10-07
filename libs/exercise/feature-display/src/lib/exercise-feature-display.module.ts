@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  ExerciseDetailsDialogComponent,
   ExerciseDomainModule,
   EXERCISE_DESCRIPTORS_PROVIDER,
 } from '@fitness-tracker/exercise/domain';
@@ -25,6 +26,7 @@ import {
   TranslateLoader,
   MissingTranslationHandler,
 } from '@ngx-translate/core';
+import { from, map, tap } from 'rxjs';
 
 const i18nAssetsPath = 'assets/i18n/exercise-display/';
 
@@ -60,6 +62,13 @@ const i18nAssetsPath = 'assets/i18n/exercise-display/';
     {
       provide: SerializerStrategy,
       useExisting: ConcreteWorkoutItemSerializer,
+    },
+    {
+      provide: ExerciseDetailsDialogComponent,
+      useFactory: () =>
+        from(import('@fitness-tracker/exercise/ui-components')).pipe(
+          map((module) => module.ExerciseDetailsComponent),
+        ),
     },
   ],
 })

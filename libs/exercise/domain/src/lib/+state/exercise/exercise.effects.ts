@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, Type } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import * as ExercisesActions from './exercise.actions';
@@ -6,6 +6,7 @@ import { EXERCISES_ACTION_NAMES } from './exercise.actions.enum';
 import {
   catchError,
   concatMap,
+  forkJoin,
   map,
   mergeMap,
   Observable,
@@ -29,7 +30,7 @@ import {
 } from '../../entities/dto/request/get/get-exercise-request.dto';
 import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
 import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
-import { ExerciseDetailsComponent } from '@fitness-tracker/exercise/ui-components';
+import { ExerciseDetailsDialogComponent } from '../../application/providers/exercise-details-dialog.provider';
 
 @Injectable()
 export class ExerciseEffects {
@@ -140,14 +141,19 @@ export class ExerciseEffects {
             first(),
           ),
         ),
-        tap(({ payload: exercise }) => {
-          this.dialog.open(ExerciseDetailsComponent, { data: { exercise } });
-        }),
+        switchMap(({ payload }: WithPayload<ExerciseResponseDto>) =>
+          forkJoin([of(payload), this.detailsDialogFactory]),
+        ),
+        tap(([exercise, component]) =>
+          this.dialog.open(component, { data: { exercise } }),
+        ),
       ),
     { dispatch: false },
   );
 
   constructor(
+    @Inject(ExerciseDetailsDialogComponent)
+    private readonly detailsDialogFactory: Observable<Type<unknown>>,
     private readonly actions$: Actions,
     private readonly exercisesService: FirebaseExerciseDataService,
     private readonly store: Store,

@@ -1,10 +1,14 @@
+import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
   ChangeDetectionStrategy,
   Inject,
   Optional,
 } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface ExerciseDetailsVM {
   readonly name: string;
@@ -16,6 +20,8 @@ interface ExerciseDetailsVM {
   selector: 'components-exercise-details',
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgFor, MaterialModule, FlexLayoutModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {

@@ -10,7 +10,6 @@ import {
 } from '@ngx-translate/core';
 import { NgAisModule } from 'angular-instantsearch';
 import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
-import { ExerciseShellModule } from '@fitness-tracker/exercise/shell';
 import { HttpClient } from '@angular/common/http';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
 const i18nGlobalPath = 'assets/i18n/';
@@ -43,7 +42,6 @@ export abstract class EnsureImportedOnceModule<T extends NgModule> {
     SharedRootPwaModule.forRoot(),
     NgAisModule.forRoot(),
     SharedDataAccessModule.forRoot(),
-    ExerciseShellModule.forRoot(),
     LayoutFeatureModule.forRoot(),
     AuthFeatureModule.forRoot(),
   ],

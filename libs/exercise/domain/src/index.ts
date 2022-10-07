@@ -13,3 +13,4 @@ export * from './lib/entities/exercise-descriptors/exercise-descriptors.token';
 export { FirebaseExerciseDataService } from './lib/infrastructure/exercise.data.service';
 export * from './lib/entities/queries';
 export * from './lib/entities/commands';
+export { ExerciseDetailsDialogComponent } from './lib/application/providers/exercise-details-dialog.provider';

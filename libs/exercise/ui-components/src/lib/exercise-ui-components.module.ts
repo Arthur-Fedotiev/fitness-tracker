@@ -8,7 +8,6 @@ import { ImgFallbackModule } from '@fitness-tracker/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExerciseComponent } from './exercise/exercise.component';
-import { ExerciseDetailsModule } from './exercise-details/exercise-details.module';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { ExerciseDetailsModule } from './exercise-details/exercise-details.modul
     ImgFallbackModule,
     TranslateModule,
     RolesModule,
-    ExerciseDetailsModule,
   ],
   declarations: [ExerciseComponent, ExerciseListComponent],
   exports: [ExerciseComponent, ExerciseListComponent],

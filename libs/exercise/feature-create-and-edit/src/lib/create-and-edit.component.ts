@@ -62,8 +62,11 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     untilDestroyed(this),
   );
 
-  public get ratingControl(): AbstractControl<number, number> {
-    return this.exerciseForm.get('rating' as const);
+  public get ratingControl(): AbstractControl<number | null, number | null> {
+    return this.exerciseForm.get('rating' as const) as AbstractControl<
+      number | null,
+      number | null
+    >;
   }
 
   constructor(
@@ -90,7 +93,7 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     this.save.next();
   }
 
-  public ratingChange(rating: number): void {
+  public ratingChange(rating: number | null): void {
     this.ratingControl.setValue(rating, { emitEvent: false });
   }
 
