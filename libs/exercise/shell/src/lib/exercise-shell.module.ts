@@ -6,16 +6,16 @@ import { adminOnly } from '@fitness-tracker/shared/utils';
 export const EXERCISE_ROUTES: Routes = [
   {
     path: 'all',
-    loadChildren: () =>
+    loadComponent: () =>
       import('@fitness-tracker/exercise/feature-display').then(
-        (m) => m.ExerciseFeatureDisplayModule,
+        (m) => m.DisplayPageComponent,
       ),
   },
   {
     path: 'create',
-    loadChildren: () =>
+    loadComponent: () =>
       import('@fitness-tracker/exercise/feature-create-and-edit').then(
-        (m) => m.ExerciseFeatureCreateAndEditModule,
+        (m) => m.CreateAndEditComponent,
       ),
     ...canActivate(adminOnly),
   },
@@ -24,13 +24,14 @@ export const EXERCISE_ROUTES: Routes = [
     resolve: {
       exercise: ExerciseResolver,
     },
+    providers: [ExerciseResolver],
     children: [
       { path: 'view', redirectTo: '/exercises/all' },
       {
         path: 'edit',
-        loadChildren: () =>
+        loadComponent: () =>
           import('@fitness-tracker/exercise/feature-create-and-edit').then(
-            (m) => m.ExerciseFeatureCreateAndEditModule,
+            (m) => m.CreateAndEditComponent,
           ),
         ...canActivate(adminOnly),
       },

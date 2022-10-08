@@ -1,4 +1,4 @@
-export * from './lib/exercise-domain.module';
+export * from './lib/exercise-domain.providers';
 export { ExerciseFacade } from './lib/application/exercise.facade';
 export {
   SearchOptions,

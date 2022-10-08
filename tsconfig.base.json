@@ -59,6 +59,7 @@
       "@fitness-tracker/shared/i18n": ["libs/shared/i18n/src/index.ts"],
       "@fitness-tracker/shared/pwa": ["libs/shared/pwa/src/index.ts"],
       "@fitness-tracker/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@fitness-tracker/shared/testing": ["libs/shared/testing/src/index.ts"],
       "@fitness-tracker/shared/ui/components": [
         "libs/shared/ui/components/src/index.ts"
       ],

@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExerciseComponent should render correct markup 1`] = `
+<div
+  id="root1"
+>
+  <mat-card
+    class="mat-card mat-focus-indicator card mat-elevation-z8"
+    tabindex="0"
+  >
+    <mat-card-title-group
+      class="mat-card-title-group"
+    >
+      <div>
+        <mat-card-title
+          class="mat-card-title card__title"
+        >
+          <span
+            ngclass.lg="ft-lg"
+            ngclass.md="ft-md"
+            ngclass.sm="ft-sm"
+            ngclass.xl="ft-xl"
+          >
+            name
+          </span>
+        </mat-card-title>
+      </div>
+      <img
+        class="mat-card-sm-image card__avatar"
+        ftwithfallback=""
+        mat-card-sm-image=""
+        src="avatarUrl"
+      />
+      <img
+        class="mat-card-sm-image card__avatar"
+        ftwithfallback=""
+        fxhide.lt-sm=""
+        mat-card-sm-image=""
+        src="avatarSecondaryUrl"
+      />
+    </mat-card-title-group>
+    <mat-card-content
+      class="mat-card-content"
+    >
+      <div
+        class="subtitle-item"
+      >
+        <p
+          translate=""
+        >
+          EXERCISE.targetMuscle
+        </p>
+        <p>
+          MUSCLES.targetMuscle
+        </p>
+      </div>
+      <div
+        class="subtitle-item"
+      >
+        <p
+          translate=""
+        >
+          EXERCISE.equipment
+        </p>
+        <p>
+          EQUIPMENT.equipment
+        </p>
+      </div>
+      <div
+        class="subtitle-item"
+      >
+        <p
+          translate=""
+        >
+          EXERCISE.exerciseType
+        </p>
+        <p>
+          EXERCISE-TYPES.exerciseType
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions
+      class="mat-card-actions exercise-actions"
+    >
+      <button
+        class="mat-focus-indicator mat-raised-button mat-primary mat-button mat-button-base"
+        mat-button=""
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+           EXERCISE.viewBtn 
+        </span>
+        <span
+          class="mat-ripple mat-button-ripple"
+          matripple=""
+        />
+        <span
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      <button
+        class="mat-focus-indicator mat-raised-button mat-accent mat-button mat-button-base"
+        mat-button=""
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+           EXERCISE.editBtn 
+        </span>
+        <span
+          class="mat-ripple mat-button-ripple"
+          matripple=""
+        />
+        <span
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      
+      <button
+        class="mat-focus-indicator mat-mini-fab mat-button-base mat-warn"
+        color="warn"
+        mat-mini-fab=""
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          <mat-icon
+            aria-hidden="true"
+            class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+            data-mat-icon-type="font"
+            role="img"
+          >
+            delete
+          </mat-icon>
+        </span>
+        <span
+          class="mat-ripple mat-button-ripple mat-button-ripple-round"
+          matripple=""
+        />
+        <span
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      
+      <button
+        class="mat-focus-indicator add-btn mat-mini-fab mat-button-base mat-success"
+        color="success"
+        mat-mini-fab=""
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          <mat-icon
+            aria-hidden="true"
+            class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+            data-mat-icon-type="font"
+            role="img"
+          >
+            add
+          </mat-icon>
+        </span>
+        <span
+          class="mat-ripple mat-button-ripple mat-button-ripple-round"
+          matripple=""
+        />
+        <span
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      
+    </mat-card-actions>
+  </mat-card>
+</div>
+`;

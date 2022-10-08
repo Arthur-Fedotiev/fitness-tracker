@@ -15,7 +15,7 @@ import {
   loadIsolatedLang,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   debounceTime,
@@ -46,8 +46,16 @@ import {
 } from '@fitness-tracker/exercise/domain';
 import {
   ComposeWorkoutDialogFactory,
+  ComposeWorkoutModule,
   COMPOSE_WORKOUT_DIALOG_FACTORY,
 } from '@fitness-tracker/workout/public-api';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RolesModule } from '@fitness-tracker/auth/feature';
+import { ExerciseUiComponentsModule } from '@fitness-tracker/exercise/ui-components';
+import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+import { WorkoutComposeWorkoutUtilsModule } from '@fitness-tracker/workout-compose-workout-utils';
+import { WorkoutFiltersModule } from '@fitness-tracker/workout/ui';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -58,6 +66,19 @@ enum EXERCISE_MODE {
 @Component({
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ExerciseUiComponentsModule,
+    FlexLayoutModule,
+    MaterialModule,
+    ComposeWorkoutModule,
+    RolesModule,
+    WorkoutFiltersModule,
+    WorkoutComposeWorkoutUtilsModule,
+    TranslateModule,
+  ],
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisplayPageComponent implements OnInit, OnDestroy {

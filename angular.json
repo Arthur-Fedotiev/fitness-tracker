@@ -824,6 +824,32 @@
       "architect": {},
       "tags": ["scope:shared", "type:styles"]
     },
+    "shared-testing": {
+      "projectType": "library",
+      "root": "libs/shared/testing",
+      "sourceRoot": "libs/shared/testing/src",
+      "prefix": "fitness-tracker",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/testing"],
+          "options": {
+            "jestConfig": "libs/shared/testing/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/testing/**/*.ts",
+              "libs/shared/testing/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["domain:shared", "type:util"]
+    },
     "shared-ui-components": {
       "projectType": "library",
       "root": "libs/shared/ui/components",

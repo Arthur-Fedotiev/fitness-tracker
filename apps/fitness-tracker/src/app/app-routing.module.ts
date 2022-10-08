@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { canActivate } from '@angular/fire/compat/auth-guard';
 import { Route, RouterModule } from '@angular/router';
+import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/feature-display';
 import { LayoutComponent } from '@fitness-tracker/layout/feature';
 
 import {
@@ -22,6 +23,7 @@ const appRoutes: Route[] = [
           import('@fitness-tracker/exercise/shell').then(
             (m) => m.EXERCISE_ROUTES,
           ),
+        providers: DISPLAY_PAGE_PROVIDERS,
       },
       {
         path: 'workouts',

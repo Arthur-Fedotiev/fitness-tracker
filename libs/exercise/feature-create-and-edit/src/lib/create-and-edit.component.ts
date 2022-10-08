@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -26,12 +28,25 @@ import {
 
 import { filter, startWith, Subject, take, tap, withLatestFrom } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+import { TranslateModule } from '@ngx-translate/core';
 
 @UntilDestroy()
 @Component({
   selector: 'exercise-create-and-edit',
   templateUrl: './create-and-edit.component.html',
   styleUrls: ['./create-and-edit.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TranslateModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAndEditComponent implements OnInit, OnDestroy {
