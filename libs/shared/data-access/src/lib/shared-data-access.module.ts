@@ -33,6 +33,7 @@ import { darkMode } from './+state/meta-reducers/dark-mode.reducer';
     EffectsModule.forRoot([SettingsEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFirestoreModule,
   ],

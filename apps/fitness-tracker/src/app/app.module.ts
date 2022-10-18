@@ -12,6 +12,8 @@ import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { CoreModule } from './core.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '@fitness-tracker/shared/environments';
 
 @NgModule({
   declarations: [AppComponent],
