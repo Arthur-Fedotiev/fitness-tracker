@@ -131,14 +131,17 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     untilDestroyed(this),
   );
 
-  private readonly composeWorkout = new Subject<{ id: string; add: boolean }>();
+  private readonly composeWorkout = new Subject<
+    (set: Set<string>) => Set<string>
+  >();
   public readonly composeWorkout$: Observable<
     Pick<ExerciseResponseDto, 'avatarUrl' | 'id' | 'name'>[]
   > = this.composeWorkout.asObservable().pipe(
-    scan((exercisesSet, { id, add }) => {
-      add ? exercisesSet.add(id) : exercisesSet.delete(id);
-      return exercisesSet;
-    }, new Set<string>()),
+    scan(
+      (exercisesSet: Set<string>, action: (set: Set<string>) => Set<string>) =>
+        action(exercisesSet),
+      new Set<string>(),
+    ),
     switchMap((idsSet) => this.exerciseFacade.exercisePreviews$(idsSet)),
   );
 
@@ -184,7 +187,22 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   }
 
   public addToComposedWorkout(id: string): void {
-    this.composeWorkout.next({ id, add: true });
+    this.composeWorkout.next((exercisesSet) => exercisesSet.add(id));
+  }
+
+  public removeFromComposedWorkout(id: string): void {
+    this.composeWorkout.next(
+      (exercisesSet) => (exercisesSet.delete(id), exercisesSet),
+    );
+  }
+  public cancelComposing(): void {
+    this.composeWorkout.next(
+      (exercisesSet) => (exercisesSet.clear(), exercisesSet),
+    );
+  }
+
+  public showExerciseDetails(id: string): void {
+    this.exerciseFacade.openExerciseDetailsDialog(id);
   }
 
   public proceedComposing(
@@ -197,14 +215,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
       this.composeWorkoutDialogFactory.createDialog(workoutExercisesList);
 
     this.dialog.open(component, config);
-  }
-
-  public showExerciseDetails(id: string): void {
-    this.exerciseFacade.openExerciseDetailsDialog(id);
-  }
-
-  public removeFromComposedWorkout(id: string): void {
-    this.composeWorkout.next({ id, add: false });
   }
 
   public targetMusclesChanges($event: SearchOptions['targetMuscles']): void {
