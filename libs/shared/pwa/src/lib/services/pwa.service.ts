@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SwUpdate } from '@angular/service-worker';
-import { PlatformType } from '@fitness-tracker/shared/utils';
 
 import { LOCAL_STORAGE, LOCATION } from '@ng-web-apis/common';
 import {
@@ -16,7 +15,9 @@ import {
   tap,
 } from 'rxjs';
 import { PwaSnackbarComponent } from '../components/pwa-snackbar.component';
-import { LoadPwaPayload, AddToHomeScreenStrategy } from '../models/pwa.models';
+import { PlatformType } from '../constants/platform-type.enum';
+import { AddToHomeScreenStrategy } from '../models/add-to-home-screen.strategy';
+import { LoadPwaPayload } from '../models/load-pwa-payload.interface';
 
 import {
   dismissSnackBar,
@@ -35,14 +36,14 @@ export class PwaService {
   private readonly loadPwa$: Observable<void> =
     this.addToHomeScreenStrategy.loadPwa$.pipe(
       filter(
-        (payload: LoadPwaPayload | null): payload is Required<LoadPwaPayload> =>
+        (payload: LoadPwaPayload | null): payload is LoadPwaPayload =>
           payload?.pwaPlatform === PlatformType.Android,
       ),
       // filter(() => !this.localStorage.getItem(IS_PROMPTED_KEY)),
       tap(() =>
         this.localStorage.setItem(IS_PROMPTED_KEY, JSON.stringify(true)),
       ),
-      map(({ snackBarData, pwaEvent }: LoadPwaPayload) => ({
+      map(({ snackBarData, pwaEvent }: Required<LoadPwaPayload>) => ({
         pwaEvent: pwaEvent as Event,
         snackbarRef: this.openSnackbar({
           ...snackBarData,

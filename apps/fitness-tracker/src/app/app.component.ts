@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { IconService } from '@fitness-tracker/shared-ui-material';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
+import { PwaService } from '@fitness-tracker/shared/pwa';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs';
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
     untilDestroyed(this),
   );
   constructor(
+    private readonly pwa: PwaService,
     private readonly iconService: IconService,
     private readonly settingsFacade: SettingsFacadeService,
     private readonly translateService: TranslateService,
@@ -25,5 +27,6 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     this.iconService.registerIcons();
     this.refreshLang$.subscribe();
+    this.pwa.initListeners();
   }
 }

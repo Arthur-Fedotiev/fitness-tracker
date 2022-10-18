@@ -1,8 +1,8 @@
 import { fromEvent, map, of } from 'rxjs';
-import { PlatformType } from '@fitness-tracker/shared/utils';
 import { Inject, Injectable } from '@angular/core';
 import { WINDOW } from '@ng-web-apis/common';
-import { AddToHomeScreenStrategy } from '../models/pwa.models';
+import { PlatformType } from '../constants/platform-type.enum';
+import { AddToHomeScreenStrategy } from '../models/add-to-home-screen.strategy';
 
 @Injectable()
 export class AndroidAddToHomeScreenStrategy implements AddToHomeScreenStrategy {
