@@ -13,6 +13,7 @@ import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
   loadIsolatedLang,
+  WithId,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -208,6 +209,10 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   public targetMusclesChanges($event: SearchOptions['targetMuscles']): void {
     this.setMusclesQueryParams($event);
+  }
+
+  public trackById(_: number, item: WithId<unknown>): string {
+    return item.id;
   }
 
   private initListeners(): void {

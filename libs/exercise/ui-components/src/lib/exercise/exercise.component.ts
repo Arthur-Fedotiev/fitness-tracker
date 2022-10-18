@@ -19,7 +19,8 @@ export class ExerciseComponent {
 
   @Input()
   public exercise!: ExerciseVM;
-
+  @Input()
+  public readonly idx!: number;
   @Output()
   public readonly exerciseEdited = new EventEmitter<string>();
   @Output()

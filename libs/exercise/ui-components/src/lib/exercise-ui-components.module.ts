@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { RolesModule } from '@fitness-tracker/auth/feature';
@@ -18,6 +18,7 @@ import { ExerciseComponent } from './exercise/exercise.component';
     ImgFallbackModule,
     TranslateModule,
     RolesModule,
+    NgOptimizedImage,
   ],
   declarations: [ExerciseComponent, ExerciseListComponent],
   exports: [ExerciseComponent, ExerciseListComponent],

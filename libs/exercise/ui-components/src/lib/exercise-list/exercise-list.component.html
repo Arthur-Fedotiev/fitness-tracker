@@ -5,12 +5,13 @@
   fxLayoutAlign="center"
 >
   <components-exercise
-    *ngFor="let exercise of exerciseList; trackBy: trackById"
+    *ngFor="let exercise of exerciseList; trackBy: trackById; let i = index"
     class="exercises-panel__item"
     fxFlex="90%"
     fxFlex.gt-sm="45%"
     fxFlex.gt-lg="33%"
     [exercise]="exercise"
+    [idx]="i"
     (exerciseEdited)="editExercise($event)"
     (exerciseViewed)="viewExercise($event)"
     (exerciseDeleted)="deleteExercise($event)"

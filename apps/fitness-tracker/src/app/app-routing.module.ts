@@ -55,6 +55,7 @@ const appRoutes: Route[] = [
   imports: [
     RouterModule.forRoot(appRoutes, {
       enableTracing: false,
+      initialNavigation: 'enabledNonBlocking',
     }),
   ],
   exports: [RouterModule],

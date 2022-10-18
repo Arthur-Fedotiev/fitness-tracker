@@ -3,14 +3,20 @@
     <img
       class="card__avatar"
       mat-card-sm-image
-      [src]="exercise.avatarUrl"
+      [ngSrc]="exercise.avatarUrl"
+      width="80"
+      height="80"
+      [priority]="idx <= 5 ? 'priority' : false"
       ftWithFallback
     />
     <img
       fxHide.lt-sm
       class="card__avatar"
       mat-card-sm-image
-      [src]="exercise.avatarSecondaryUrl"
+      [ngSrc]="exercise.avatarSecondaryUrl"
+      [priority]="idx <= 5 ? 'priority' : false"
+      width="80"
+      height="80"
       ftWithFallback
     />
     <mat-card-title class="card__title">

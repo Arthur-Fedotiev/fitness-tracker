@@ -57,7 +57,7 @@
     <ng-container *ngIf="workoutExercisesList.length">
       <article fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
         <img
-          *ngFor="let exercise of workoutExercisesList"
+          *ngFor="let exercise of workoutExercisesList; trackBy: trackById"
           class="composed-workout__item"
           [src]="exercise.avatarUrl"
           [attr.alt]="exercise.name"

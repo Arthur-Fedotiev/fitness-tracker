@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     untilDestroyed(this),
   );
   constructor(
-    private iconService: IconService,
+    private readonly iconService: IconService,
     private readonly settingsFacade: SettingsFacadeService,
     private readonly translateService: TranslateService,
   ) {}
