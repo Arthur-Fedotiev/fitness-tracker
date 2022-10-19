@@ -6,7 +6,7 @@
       [ngSrc]="exercise.avatarUrl"
       width="80"
       height="80"
-      [priority]="idx <= 5 ? 'priority' : false"
+      [priority]="idx <= 5 ? 'priority' : ''"
       ftWithFallback
     />
     <img
@@ -14,7 +14,7 @@
       class="card__avatar"
       mat-card-sm-image
       [ngSrc]="exercise.avatarSecondaryUrl"
-      [priority]="idx <= 5 ? 'priority' : false"
+      [priority]="idx <= 5 ? 'priority' : ''"
       width="80"
       height="80"
       ftWithFallback

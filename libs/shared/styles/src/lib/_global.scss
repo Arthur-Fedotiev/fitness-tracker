@@ -1,6 +1,6 @@
 @use 'themes';
 @use 'responsive' as responsive;
-
+@use 'components/spinner/bootstrap-spinner';
 @include responsive.title();
 
 html,
