@@ -8,6 +8,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 interface ExerciseDetailsVM {
@@ -21,7 +22,14 @@ interface ExerciseDetailsVM {
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
   standalone: true,
-  imports: [NgIf, NgFor, MaterialModule, FlexLayoutModule, TranslateModule],
+  imports: [
+    NgIf,
+    NgFor,
+    MaterialModule,
+    FlexLayoutModule,
+    TranslateModule,
+    E2eDirectiveModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {

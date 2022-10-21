@@ -44,3 +44,10 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+emulated-*
+
+
+#cypress
+serviceAccount.json
+cypress.env.json
+*.mp4

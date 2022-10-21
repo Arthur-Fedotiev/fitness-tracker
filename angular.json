@@ -339,110 +339,6 @@
       },
       "tags": ["domain:exercise", "type:ui"]
     },
-    "exercises-data": {
-      "projectType": "library",
-      "root": "libs/exercises/data",
-      "sourceRoot": "libs/exercises/data/src",
-      "selector": "ft",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/exercises/data"],
-          "options": {
-            "jestConfig": "libs/exercises/data/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/exercises/data/src/**/*.ts",
-              "libs/exercises/data/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "exercises-feature": {
-      "projectType": "library",
-      "root": "libs/exercises/feature",
-      "sourceRoot": "libs/exercises/feature/src",
-      "selector": "ft",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/exercises/feature"],
-          "options": {
-            "jestConfig": "libs/exercises/feature/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/exercises/feature/src/**/*.ts",
-              "libs/exercises/feature/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "exercises-model": {
-      "projectType": "library",
-      "root": "libs/exercises/model",
-      "sourceRoot": "libs/exercises/model/src",
-      "selector": "ft",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/exercises/model"],
-          "options": {
-            "jestConfig": "libs/exercises/model/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/exercises/model/src/**/*.ts",
-              "libs/exercises/model/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "exercises-ui": {
-      "projectType": "library",
-      "root": "libs/exercises/ui",
-      "sourceRoot": "libs/exercises/ui/src",
-      "selector": "ft",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/exercises/ui"],
-          "options": {
-            "jestConfig": "libs/exercises/ui/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/exercises/ui/src/**/*.ts",
-              "libs/exercises/ui/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "fitness-tracker": {
       "projectType": "application",
       "root": "apps/fitness-tracker",
@@ -817,7 +713,7 @@
           }
         }
       },
-      "tags": ["scope:shared", "type:infrastructure"]
+      "tags": ["domain:shared", "type:util"]
     },
     "shared-styles": {
       "projectType": "library",

@@ -14,6 +14,8 @@ import {
   USE_EMULATOR as USE_FIRESTORE_EMULATOR,
 } from '@angular/fire/compat/firestore';
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+
 import {
   ScreenTrackingService,
   UserTrackingService,
@@ -42,11 +44,21 @@ import { darkMode } from './+state/meta-reducers/dark-mode.reducer';
     UserTrackingService,
     {
       provide: USE_FIRESTORE_EMULATOR,
-      useValue: environment.useEmulators ? ['localhost', 8080] : undefined,
+      useValue: environment.useEmulators
+        ? ['http://localhost:8080']
+        : undefined,
     },
     {
       provide: USE_FUNCTIONS_EMULATOR,
-      useValue: environment.useEmulators ? ['localhost', 5001] : undefined,
+      useValue: environment.useEmulators
+        ? ['http://localhost:5001']
+        : undefined,
+    },
+    {
+      provide: USE_AUTH_EMULATOR,
+      useValue: environment.useEmulators
+        ? ['http://127.0.0.1:9099']
+        : undefined,
     },
   ],
 })

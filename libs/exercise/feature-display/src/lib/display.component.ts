@@ -14,6 +14,7 @@ import {
   DEFAULT_PAGINATION_STATE,
   loadIsolatedLang,
   WithId,
+  E2eDirectiveModule,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -78,6 +79,7 @@ enum EXERCISE_MODE {
     WorkoutFiltersModule,
     WorkoutComposeWorkoutUtilsModule,
     TranslateModule,
+    E2eDirectiveModule,
   ],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -87,7 +89,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   public readonly exerciseMode = EXERCISE_MODE;
   public readonly exercisesList$: Observable<ExerciseResponseDto[]> =
     this.exerciseFacade.exercisesList$.pipe(
-      tap(() => this.isLoadingProhibited.next(false)),
+      tap(({ length }) => length && this.isLoadingProhibited.next(false)),
     );
 
   private readonly isLoadingProhibited = new BehaviorSubject(false);

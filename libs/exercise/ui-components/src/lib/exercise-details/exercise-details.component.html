@@ -3,6 +3,7 @@
   <video
     *ngIf="exercise?.instructionVideo as videoUrl"
     class="video-instructions"
+    ftE2e="exerciseInstructionsVideo"
     muted
     controls
     loop
@@ -17,7 +18,12 @@
   </section>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+  <button
+    [mat-dialog-close]="true"
+    mat-button
+    cdkFocusInitial
+    ftE2e="closeExerciseDetailsDialog"
+  >
     {{ 'BTN.close' | translate }}
   </button>
 </mat-dialog-actions>

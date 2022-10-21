@@ -10,7 +10,12 @@
 
     <form [formGroup]="exerciseForm">
       <mat-form-field appearance="outline">
-        <input placeholder="Exercise name" matInput formControlName="name" />
+        <input
+          ftE2e="exerciseNameInput"
+          placeholder="Exercise name"
+          matInput
+          formControlName="name"
+        />
       </mat-form-field>
 
       <div class="exercise-image-upload">

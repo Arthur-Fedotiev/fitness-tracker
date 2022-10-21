@@ -4,7 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { RolesModule } from '@fitness-tracker/auth/feature';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
-import { ImgFallbackModule } from '@fitness-tracker/shared/utils';
+import {
+  E2eDirectiveModule,
+  ImgFallbackModule,
+} from '@fitness-tracker/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExerciseComponent } from './exercise/exercise.component';
@@ -19,6 +22,7 @@ import { ExerciseComponent } from './exercise/exercise.component';
     TranslateModule,
     RolesModule,
     NgOptimizedImage,
+    E2eDirectiveModule,
   ],
   declarations: [ExerciseComponent, ExerciseListComponent],
   exports: [ExerciseComponent, ExerciseListComponent],

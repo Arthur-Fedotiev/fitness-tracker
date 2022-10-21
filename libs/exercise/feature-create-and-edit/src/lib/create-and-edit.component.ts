@@ -32,6 +32,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { TranslateModule } from '@ngx-translate/core';
+import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
 
 @UntilDestroy()
 @Component({
@@ -46,6 +47,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
+    E2eDirectiveModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

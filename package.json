@@ -1,3 +1,4 @@
+
 {
   "name": "fitness-tracker",
   "version": "0.0.0",
@@ -15,10 +16,12 @@
     "local-dev": "firebase emulators:start --only firestore,functions --import sample-exercises",
     "empty-emulator": "firebase-emulators:start",
     "export-emulator": "firebase emulators:export sample-exercises",
-    "emulator": "firebase emulators:start --import sample-exercises",
+    "emulator": "firebase emulators:start --only=firestore,functions,auth --import=emulated-samples --export-on-exit",
     "analyze:fitness-tracker": "webpack-bundle-analyzer dist/apps/fitness-tracker/stats.json",
     "update-locale": "ngx-translate-extract -i ./src -o src/assets/locale/*.json --sort --format namespaced-json",
-    "test": "nx test"
+    "serve:prod": "nx build && firebase serve --only hosting -p 3000",
+    "cypress:run": "cd apps/fitness-tracker-e2e/ && cypress run",
+    "cypress:open": "cd apps/fitness-tracker-e2e/ && cypress open"
   },
   "private": true,
   "dependencies": {
@@ -83,10 +86,12 @@
     "@types/node": "14.14.33",
     "@typescript-eslint/eslint-plugin": "5.33.1",
     "@typescript-eslint/parser": "5.33.1",
-    "cypress": "^8.3.0",
+    "cypress": "^10.10.0",
+    "cypress-firebase": "^2.2.2",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
+    "firebase-admin": "^11.2.0",
     "jasmine-marbles": "~0.9.1",
     "jest": "28.1.3",
     "jest-environment-jsdom": "28.1.1",

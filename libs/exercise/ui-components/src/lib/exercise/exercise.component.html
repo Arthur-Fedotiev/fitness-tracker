@@ -25,6 +25,7 @@
         ngClass.md="ft-md"
         ngClass.lg="ft-lg"
         ngClass.xl="ft-xl"
+        ftE2e="exerciseName"
         >{{ exercise.name }}</span
       >
     </mat-card-title>
@@ -32,7 +33,9 @@
   <mat-card-content>
     <div class="subtitle-item">
       <p translate>EXERCISE.targetMuscle</p>
-      <p>{{ 'MUSCLES.' + exercise.targetMuscle | translate }}</p>
+      <p ftE2e="exerciseTargetMuscle">
+        {{ 'MUSCLES.' + exercise.targetMuscle | translate | titlecase }}
+      </p>
     </div>
     <div class="subtitle-item">
       <p translate>EXERCISE.equipment</p>
@@ -47,6 +50,7 @@
     <button
       mat-button
       class="mat-raised-button mat-primary"
+      ftE2e="exerciseViewBtn"
       (click)="viewExercise(exercise)"
     >
       {{ 'EXERCISE.viewBtn' | translate }}
@@ -56,6 +60,7 @@
       *ftRoles="roles.ADMIN"
       mat-button
       class="mat-raised-button mat-accent"
+      ftE2e="editExerciseBtn"
       (click)="editExercise(exercise)"
     >
       {{ 'EXERCISE.editBtn' | translate }}
@@ -64,6 +69,7 @@
       *ftRoles="roles.ADMIN"
       mat-mini-fab
       color="warn"
+      ftE2e="deleteExerciseBtn"
       (click)="deleteExercise(exercise)"
     >
       <mat-icon>delete</mat-icon>
@@ -73,6 +79,7 @@
       mat-mini-fab
       class="add-btn"
       color="success"
+      ftE2e="addExerciseBtn"
       (click)="addedToWorkout(exercise)"
     >
       <mat-icon>add</mat-icon>
