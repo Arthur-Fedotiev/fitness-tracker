@@ -25,3 +25,6 @@ export const selectLanguage = (language: Language) =>
     .click();
 
 export const clickOutside = () => cy.get('body').click(0, 0);
+
+export const selectMatOption = (selector: string, optionIdx = 0) =>
+  cy.dataCy(selector).click().get('mat-option').eq(optionIdx).click();

@@ -49,6 +49,7 @@ export class FirebaseExerciseDataService {
     exercise: CreateUpdateExerciseRequestDTO,
   ): Observable<void | DocumentReference<CreateUpdateExerciseRequestDTO>> {
     const id = exercise.baseData.id;
+
     const handler = id
       ? this.afs
           .doc<CreateUpdateExerciseRequestDTO>(`${COLLECTIONS.EXERCISES}/${id}`)

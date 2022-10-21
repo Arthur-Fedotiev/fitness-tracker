@@ -14,6 +14,7 @@ import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query
 import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-details.command';
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
 import { ExerciseSavedCommand } from '../entities/commands';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseFacade
@@ -35,6 +36,7 @@ export class ExerciseFacade
   constructor(
     private readonly store: Store,
     private readonly afs: AngularFirestore,
+    private readonly router: Router,
   ) {}
 
   public exercisePreviews$(
@@ -55,6 +57,8 @@ export class ExerciseFacade
         payload: exercise.setId(id).serialize(),
       }),
     );
+
+    this.router.navigate(['exercises', 'all']);
   }
 
   public loadExerciseDetails(payload: string): void {

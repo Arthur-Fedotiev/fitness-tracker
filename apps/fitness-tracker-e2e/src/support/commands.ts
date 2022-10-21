@@ -4,7 +4,7 @@ import 'firebase/compat/database';
 import 'firebase/compat/firestore';
 import { attachCustomCommands } from 'cypress-firebase';
 import { environment } from '@fitness-tracker/shared/environments';
-import { clickOutside, dataCy, selectLanguage } from './utils';
+import { clickOutside, dataCy, selectLanguage, selectMatOption } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare global {
@@ -14,13 +14,17 @@ declare global {
       dataCy: typeof dataCy;
       selectLanguage: typeof selectLanguage;
       clickOutside: typeof clickOutside;
+      selectMatOption: typeof selectMatOption;
     }
   }
 }
 
-Cypress.Commands.add('dataCy', dataCy);
-Cypress.Commands.add('selectLanguage', selectLanguage);
-Cypress.Commands.add('clickOutside', clickOutside);
+Cypress.Commands.addAll({
+  dataCy,
+  selectLanguage,
+  clickOutside,
+  selectMatOption,
+});
 
 firebase.initializeApp(environment.firebase);
 

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { RolesModule } from '@fitness-tracker/auth/feature';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
+import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
 
 @NgModule({
   declarations: [NavigationBarComponent],
@@ -16,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
     RolesModule,
     FlexLayoutModule,
     TranslateModule,
+    E2eDirectiveModule,
   ],
   exports: [NavigationBarComponent],
 })

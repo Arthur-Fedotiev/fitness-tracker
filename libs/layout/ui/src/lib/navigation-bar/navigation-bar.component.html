@@ -1,33 +1,35 @@
-<mat-nav-list [fxLayout]="layout"
-              [fxHide.lt-md]="layout === 'row'"
-              [class]="{ horizontal: layout === 'row' }">
-  <a mat-list-item
-     [routerLink]="['exercises', 'all']">
-    <mat-icon class="nav-icon"
-              svgIcon="exercises"></mat-icon>
+<mat-nav-list
+  [fxLayout]="layout"
+  [fxHide.lt-md]="layout === 'row'"
+  [class]="{ horizontal: layout === 'row' }"
+>
+  <a mat-list-item ftE2e="navLinkExercises" [routerLink]="['exercises', 'all']">
+    <mat-icon class="nav-icon" svgIcon="exercises"></mat-icon>
     <span translate>NAVIGATION_BAR.exercisesLink</span>
   </a>
 
-  <a mat-list-item
-     [routerLink]="['workouts', 'all']">
-    <mat-icon class="nav-icon black-icon"
-              svgIcon="workouts"></mat-icon>
+  <a mat-list-item ftE2e="navLinkWorkouts" [routerLink]="['workouts', 'all']">
+    <mat-icon class="nav-icon black-icon" svgIcon="workouts"></mat-icon>
     <span translate>NAVIGATION_BAR.workoutsLink</span>
   </a>
 
-  <a *ftRoles="roles.ADMIN"
-     mat-list-item
-     [routerLink]="['exercises', 'create']">
-    <mat-icon class="nav-icon"
-              svgIcon="blacksmith"></mat-icon>
+  <a
+    *ftRoles="roles.ADMIN"
+    mat-list-item
+    ftE2e="navLinkCreateExercise"
+    [routerLink]="['exercises', 'create']"
+  >
+    <mat-icon class="nav-icon" svgIcon="blacksmith"></mat-icon>
     <span translate>NAVIGATION_BAR.createExerciseLink</span>
   </a>
 
-  <a *ftRoles="roles.ADMIN"
-     mat-list-item
-     [routerLink]="['create-user']">
-    <mat-icon class="nav-icon black-icon"
-              svgIcon="stud"></mat-icon>
+  <a
+    *ftRoles="roles.ADMIN"
+    mat-list-item
+    ftE2e="navLinkCreateUser"
+    [routerLink]="['create-user']"
+  >
+    <mat-icon class="nav-icon black-icon" svgIcon="stud"></mat-icon>
     <span translate>NAVIGATION_BAR.createUserLink</span>
   </a>
 </mat-nav-list>

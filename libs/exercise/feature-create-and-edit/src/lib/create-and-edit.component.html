@@ -8,26 +8,21 @@
   >
     <h3>Create New Exercise</h3>
 
-    <form [formGroup]="exerciseForm">
+    <form [formGroup]="exerciseForm" ftE2e="exerciseCreateAndEditForm">
       <mat-form-field appearance="outline">
         <input
-          ftE2e="exerciseNameInput"
           placeholder="Exercise name"
           matInput
           formControlName="name"
+          ftE2e="exerciseNameInput"
         />
       </mat-form-field>
-
-      <div class="exercise-image-upload">
-        <span>exercise thumbnail:</span>
-
-        <img class="exercise-thumbnail mat-elevation-z3" />
-      </div>
 
       <mat-form-field appearance="outline">
         <mat-select
           placeholder="Select Exercise Type"
           formControlName="exerciseType"
+          ftE2e="exerciseTypeSelect"
         >
           <mat-option
             *ngFor="
@@ -46,6 +41,7 @@
         <mat-select
           placeholder="Select target muscle"
           formControlName="targetMuscle"
+          ftE2e="exerciseTargetMuscleSelect"
         >
           <mat-option
             *ngFor="
@@ -59,7 +55,12 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-select placeholder="Select Equipment" formControlName="equipment">
+        <mat-select
+          placeholder="Select Equipment"
+          formControlName="equipment"
+          ftE2e="exerciseEquipmentSelect"
+        >
+          >
           <mat-option
             *ngFor="
               let equipmentItem of exerciseDescriptors.equipment;
@@ -78,6 +79,7 @@
           placeholder="Cover image url"
           matInput
           formControlName="coverUrl"
+          ftE2e="exerciseCoverUrlInput"
         />
       </mat-form-field>
 
@@ -86,11 +88,17 @@
           placeholder="Cover secondary url"
           matInput
           formControlName="coverSecondaryUrl"
+          ftE2e="exerciseCoverSecondaryUrlInput"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <input placeholder="Avatar url" matInput formControlName="avatarUrl" />
+        <input
+          placeholder="Avatar url"
+          matInput
+          formControlName="avatarUrl"
+          ftE2e="exerciseAvatarUrlInput"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -98,6 +106,7 @@
           placeholder="Avatar secondary url"
           matInput
           formControlName="avatarSecondaryUrl"
+          ftE2e="exerciseAvatarSecondaryUrlInput"
         />
       </mat-form-field>
 
@@ -110,10 +119,12 @@
           formControlName="rating"
           matInput
           required
+          ftE2e="exerciseRatingInput"
         />
       </mat-form-field>
       <mat-slider
         thumbLabel
+        ftE2e="exerciseRatingSlider"
         [min]="0"
         [max]="10"
         [step]="0.1"
@@ -125,6 +136,7 @@
           matInput
           placeholder="Exercise short description"
           formControlName="shortDescription"
+          ftE2e="exerciseShortDescriptionInput"
         ></textarea>
       </mat-form-field>
 
@@ -133,6 +145,7 @@
           matInput
           placeholder="Exercise long description"
           formControlName="longDescription"
+          ftE2e="exerciseLongDescriptionInput"
         ></textarea>
       </mat-form-field>
 
@@ -149,6 +162,7 @@
           matInput
           placeholder="Exercise instructions"
           formControlName="instructions"
+          ftE2e="exerciseInstructionsInput"
         ></textarea>
       </mat-form-field>
 
@@ -157,6 +171,7 @@
           placeholder="Instructions video"
           matInput
           formControlName="instructionVideo"
+          ftE2e="exerciseInstructionVideoInput"
         />
       </mat-form-field>
       <mat-form-field appearance="outline">
@@ -164,11 +179,13 @@
           placeholder="Muscle diagram video"
           matInput
           formControlName="muscleDiagramUrl"
+          ftE2e="exerciseMuscleDiagramUrlInput"
         />
       </mat-form-field>
       <button
         mat-raised-button
         color="warn"
+        ftE2e="saveExerciseBtn"
         [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
         (click)="onSave()"
       >
