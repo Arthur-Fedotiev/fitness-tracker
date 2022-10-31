@@ -24,6 +24,17 @@
                 ]
               },
               {
+                "sourceTag": "type:e2e",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:feature",
+                  "type:ui",
+                  "type:domain-logic",
+                  "type:util",
+                  "type:shell"
+                ]
+              },
+              {
                 "sourceTag": "type:api",
                 "onlyDependOnLibsWithTags": [
                   "type:ui",

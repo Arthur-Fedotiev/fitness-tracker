@@ -1,4 +1,9 @@
 {
+  "projects": {
+    "default": "fitness-tracker-ui-dev",
+    "prod": "fitness-tracker-de06b",
+    "staging": "fitness-tracker-ui-dev"
+  },
   "targets": {
     "fitness-tracker-de06b": {
       "hosting": {
@@ -8,7 +13,5 @@
       }
     }
   },
-  "projects": {
-    "default": "fitness-tracker-de06b"
-  }
+  "etags": {}
 }

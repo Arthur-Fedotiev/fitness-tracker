@@ -30,7 +30,7 @@ describe('Exercise Edit', () => {
   });
   afterEach(() => cy.logout());
 
-  it('should create exercise filling in only necessary (required) fields and redirect to exercises display page', () => {
+  xit('should create exercise filling in only necessary (required) fields and redirect to exercises display page', () => {
     cy.visit('/');
     cy.dataCy('navLinkCreateExercise', {
       timeout: 3_000,
@@ -75,22 +75,27 @@ describe('Exercise Edit', () => {
     cy.url().should('include', '/exercises/all');
   });
 
-  // should test error path as well
-
-  it('should edit exercise', () => {
+  it.only('should edit exercise', () => {
     cy.callFirestore('set', `exercises/${TEST_ID}`, exerciseStub);
     const editedName = 'Edited Exercise Name';
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(10_000);
+    // cy.wait(10_000);
 
-    cy.visit(`/exercises/${TEST_ID}/edit`);
+    cy.visit(`/exercises/${TEST_ID}/edit`).contains(
+      exerciseStub.translatableData.name,
+      {
+        timeout: 10_000,
+      },
+    );
 
-    cy.dataCy('exerciseCreateAndEditForm').should('be.visible');
+    cy.dataCy('exerciseCreateAndEditForm')
+      .should('be.visible')
+      .dataCy('saveExerciseBtn')
+      .as('saveBtn')
+      .should('be.disabled');
 
-    cy.dataCy('saveExerciseBtn').as('saveBtn').should('be.disabled');
-
-    cy.dataCy('exerciseNameInput').clear().type(editedName);
+    cy.dataCy('exerciseNameInput').type(editedName);
     cy.get('@saveBtn').should('be.enabled').click();
 
     cy.callFirestore('delete', `exercises/${TEST_ID}`);

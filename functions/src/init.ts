@@ -1,6 +1,6 @@
-import { firestore, auth as adminAuth, initializeApp } from 'firebase-admin/lib/';
+import * as admin from 'firebase-admin';
 
-initializeApp();
+admin.initializeApp();
 
-export const db = firestore();
-export const auth = adminAuth();
+export const db = admin.firestore();
+export const auth = admin.auth();

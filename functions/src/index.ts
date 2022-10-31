@@ -1,28 +1,28 @@
-import * as functions from 'firebase-functions';
+import { HttpsFunction, https, auth, firestore, Change, EventContext } from 'firebase-functions';
 import { createUserApp } from './create-user-app';
 import { COLLECTIONS } from 'shared-package';
 
-export const createUser: functions.HttpsFunction =
-  functions.https.onRequest(createUserApp);
+export const createUser: HttpsFunction =
+  https.onRequest(createUserApp);
 
-export const onSignUpCreateUserDocAndSetCredentials = functions.auth
+export const onSignUpCreateUserDocAndSetCredentials = auth
     .user()
     .onCreate(async (user: any) => {
       await (await import('./auth/on-sign-up')).default(user);
     });
 
-export const onDeleteRemoveUserDoc = functions.auth
+export const onDeleteRemoveUserDoc = auth
     .user()
     .onDelete(async (user: any) => {
       await (await import('./auth/on-delete')).default(user);
     });
 
-export const onExerciseTranslatableDataUpdate = functions.firestore
+export const onExerciseTranslatableDataUpdate = firestore
     .document(`${COLLECTIONS.EXERCISES}/{exerciseId}`)
     .onUpdate(
         async (
-            change: functions.Change<functions.firestore.QueryDocumentSnapshot>,
-            context: functions.EventContext,
+            change: Change<firestore.QueryDocumentSnapshot>,
+            context: EventContext,
         ) => {
           await (
             await import('./exercises-translation/on-update-translated-data')
@@ -30,12 +30,12 @@ export const onExerciseTranslatableDataUpdate = functions.firestore
         },
     );
 
-export const onExerciseDeleteTranslationsDelete = functions.firestore
+export const onExerciseDeleteTranslationsDelete = firestore
     .document(`${COLLECTIONS.EXERCISES}/{exerciseId}`)
     .onDelete(
         async (
-            _: functions.firestore.QueryDocumentSnapshot,
-            context: functions.EventContext,
+            _: firestore.QueryDocumentSnapshot,
+            context: EventContext,
         ) => {
           await (
             await import(

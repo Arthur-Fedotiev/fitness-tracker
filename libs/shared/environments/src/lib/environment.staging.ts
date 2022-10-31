@@ -24,7 +24,7 @@ export const environment = {
     createUser:
       'https://us-central1-fitness-tracker-ui-dev.cloudfunctions.net/createUser',
   },
-  production: false,
+  production: true,
 } as const;
 
 export type Environment = typeof environment;

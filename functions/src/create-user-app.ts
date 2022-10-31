@@ -1,5 +1,4 @@
 import { auth, db } from './init';
-import { auth as Auth } from 'firebase-admin/lib/auth';
 import { ROLES } from 'shared-package';
 
 import express from 'express';
@@ -29,7 +28,7 @@ createUserApp.post('/', async (req: express.Request, res: express.Response) => {
     }
 
     const { email, password, admin, role }: CreateUserRequestBody = req.body;
-    const user: Auth.UserRecord = await auth.createUser({
+    const user = await auth.createUser({
       email,
       password,
     });
@@ -38,7 +37,11 @@ createUserApp.post('/', async (req: express.Request, res: express.Response) => {
 
     db.doc(`users/${user.uid}`).set({});
 
-    res.status(200).json({ uid: user.uid, user: user, message: CREATE_USER_APP_MESSAGES.CREATE_SUCCESS });
+    res.status(200).json({
+      uid: user.uid,
+      user: user,
+      message: CREATE_USER_APP_MESSAGES.CREATE_SUCCESS,
+    });
   } catch (err) {
     const message = CREATE_USER_APP_MESSAGES.CREATE_FAILURE;
 
@@ -46,4 +49,3 @@ createUserApp.post('/', async (req: express.Request, res: express.Response) => {
     res.status(500).json({ message });
   }
 });
-

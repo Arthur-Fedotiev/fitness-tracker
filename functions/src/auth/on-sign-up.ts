@@ -1,9 +1,8 @@
-import * as functions from 'firebase-functions';
-import { auth as Auth } from 'firebase-admin/lib/auth';
+import { logger } from 'firebase-functions';
 import { auth, db } from '../init';
 import { ROLES } from 'shared-package';
 
-export default async (user: Auth.UserRecord): Promise<void> => {
+export default async (user: { uid: string }): Promise<void> => {
   try {
     await auth.setCustomUserClaims(user.uid, {
       admin: false,
@@ -12,8 +11,8 @@ export default async (user: Auth.UserRecord): Promise<void> => {
 
     db.doc(`users/${user.uid}`).set({});
 
-    functions.logger.log(`User signed-up as TRAINEE has uid: ${user.uid}`);
+    logger.log(`User signed-up as TRAINEE has uid: ${user.uid}`);
   } catch (err) {
-    functions.logger.error(`User sign-up errored with the following: ${err}`);
+    logger.error(`User sign-up errored with the following: ${err}`);
   }
 };

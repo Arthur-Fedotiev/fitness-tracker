@@ -1,20 +1,18 @@
-import * as functions from 'firebase-functions';
+import {EventContext, logger} from 'firebase-functions';
 import { db } from '../init';
 
-import { firestore } from 'firebase-admin/lib/firestore';
+import * as admin from 'firebase-admin';
 import { COLLECTIONS, LanguageCodes, LANG_CODES } from 'shared-package';
 
 export default async (
-    context: functions.EventContext,
-): Promise<
-  firestore.WriteResult | firestore.WriteResult[] | undefined | void
-> => {
+    context: EventContext,
+): Promise<admin.firestore.WriteResult | admin.firestore.WriteResult[] | undefined | void> => {
   const exerciseId: string = context.params.exerciseId;
 
   try {
     const batch = db.batch();
 
-    functions.logger.log(
+    logger.log(
         `Run function for translation collection deletion
         after exercise document with id: ${context.params.exerciseId} was deleted`,
     );
@@ -29,7 +27,7 @@ export default async (
 
     return batch.commit();
   } catch (error) {
-    functions.logger.debug(
+    logger.debug(
         `Removal of translations failed with error: ${error}`,
     );
   }

@@ -1,6 +1,6 @@
 import { logger } from 'firebase-functions';
 import { auth } from './init';
-import { auth as Auth } from 'firebase-admin/lib/auth';
+import * as admin from 'firebase-admin';
 import { CREATE_USER_MIDDLEWARE_MESSAGES } from './utils/models/constants/messages.consts';
 import { WithHEaders } from './utils/models/create-user.models';
 
@@ -16,7 +16,7 @@ export function getUserCredentialsMiddleware(
   if (jwt) {
     auth
         .verifyIdToken(jwt)
-        .then(({ uid, admin, role }: Auth.DecodedIdToken) => {
+        .then(({ uid, admin, role }: admin.auth.DecodedIdToken) => {
           req.uid = uid;
           req.admin = admin;
           req.role = role;

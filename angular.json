@@ -438,6 +438,36 @@
               },
               "sourceMap": true
             },
+            "staging": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "libs/shared/environments/src/lib/environment.ts",
+                  "with": "libs/shared/environments/src/lib/environment.staging.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
+              "sourceMap": true
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -457,6 +487,9 @@
             },
             "development": {
               "browserTarget": "fitness-tracker:build:development"
+            },
+            "staging": {
+              "browserTarget": "fitness-tracker:build:staging"
             }
           },
           "defaultConfiguration": "development"
@@ -522,7 +555,7 @@
           }
         }
       },
-      "tags": [],
+      "tags": ["type:e2e"],
       "implicitDependencies": ["fitness-tracker"]
     },
     "layout-feature": {
@@ -661,7 +694,7 @@
           }
         }
       },
-      "tags": ["scope:shared", "type:environments"]
+      "tags": ["domain:shared", "type:util"]
     },
     "shared-i18n": {
       "projectType": "library",

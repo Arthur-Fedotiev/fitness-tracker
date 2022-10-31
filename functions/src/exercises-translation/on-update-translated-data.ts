@@ -1,7 +1,7 @@
-import * as functions from 'firebase-functions';
+import { logger, Change, firestore, EventContext } from 'firebase-functions';
 import { db } from '../init';
 
-import { firestore } from 'firebase-admin/lib/firestore';
+import * as admin from 'firebase-admin';
 import {
   COLLECTIONS,
   TranslatedData,
@@ -13,12 +13,12 @@ import {
 } from 'shared-package';
 
 export default async (
-    change: functions.Change<functions.firestore.QueryDocumentSnapshot>,
-    context: functions.EventContext,
+    change: Change<firestore.QueryDocumentSnapshot>,
+    context: EventContext,
 ): Promise<
-  firestore.WriteResult | firestore.WriteResult[] | undefined | void
+  admin.firestore.WriteResult | admin.firestore.WriteResult[] | undefined | void
 > => {
-  functions.logger.log(
+  logger.log(
       `Running update exercise trigger for exerciseId ${context.params.exerciseId}`,
   );
 
@@ -29,18 +29,21 @@ export default async (
   if (!newTranslatedData) return;
 
   try {
-    functions.logger.log(
+    logger.log(
         ` Run translation collection updates for exercise with id ${context.params.exerciseId}`,
     );
     const translations: Translations<Exercise> =
       mapTranslatedData<Exercise>(newTranslatedData);
     const exerciseRef = db.doc(`${COLLECTIONS.EXERCISES}/${exerciseId}`);
 
-    functions.logger.log(`translations ${JSON.stringify(translations)}`);
+    logger.log(`translations ${JSON.stringify(translations)}`);
 
-    const batch: firestore.WriteBatch = db.batch();
+    const batch: admin.firestore.WriteBatch = db.batch();
     const langRefs: ReadonlyArray<
-      [firestore.DocumentReference<firestore.DocumentData>, LanguageCodes]
+      [
+        admin.firestore.DocumentReference<admin.firestore.DocumentData>,
+        LanguageCodes,
+      ]
     > = LANG_CODES.map((langKey: LanguageCodes) => [
       db.doc(
           `${COLLECTIONS.EXERCISES}/${exerciseId}/${COLLECTIONS.TRANSLATIONS}/${langKey}`,
@@ -50,7 +53,7 @@ export default async (
 
     langRefs.forEach(
         ([langRef, langKey]: [
-        firestore.DocumentReference<firestore.DocumentData>,
+        admin.firestore.DocumentReference<admin.firestore.DocumentData>,
         LanguageCodes,
       ]) =>
           batch.set(langRef, translations[langKey], {
@@ -60,12 +63,12 @@ export default async (
 
     batch.update(exerciseRef, { translatedData: null });
 
-    functions.logger.log(
+    logger.log(
         `Updated translation is ${translations}. Intermediary translated data removed.`,
     );
 
     return batch.commit();
   } catch (error) {
-    functions.logger.debug(`Updated translations failed with error: ${error}`);
+    logger.debug(`Updated translations failed with error: ${error}`);
   }
 };

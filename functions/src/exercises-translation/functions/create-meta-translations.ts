@@ -1,19 +1,18 @@
-import { firestore } from 'firebase-admin/lib/firestore';
+import * as admin from 'firebase-admin';
 import { LanguageCodes, LANG_CODES, Translations } from 'shared-package';
 import { db } from '../../init';
 
 export const setMetaTranslationsBatch = (
     translations: Translations<any>,
-    batch: firestore.WriteBatch,
+    batch: admin.firestore.WriteBatch,
     collectionName: string,
-    nameList: ReadonlyArray<string>
+    nameList: ReadonlyArray<string>,
 ): void => {
-  const refs: ReadonlyArray<
-    [firestore.DocumentReference<firestore.DocumentData>, LanguageCodes]
-  > = LANG_CODES.map((langKey: LanguageCodes) => [
-    db.doc(`${collectionName}/${langKey}`),
-    langKey,
-  ]);
+  const refs: ReadonlyArray<[admin.firestore.DocumentReference<admin.firestore.DocumentData>, LanguageCodes]> =
+    LANG_CODES.map((langKey: LanguageCodes) => [
+      db.doc(`${collectionName}/${langKey}`),
+      langKey,
+    ]);
 
   const metaTranslations = LANG_CODES.reduce(
       (acc: any, lang: LanguageCodes) => {
