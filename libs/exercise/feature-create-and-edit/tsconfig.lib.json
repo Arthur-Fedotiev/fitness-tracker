@@ -13,5 +13,8 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "../../shared/utils/src/lib/async-state/async-state.service.spec.ts"
+  ]
 }

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import * as ExercisesActions from '../+state/exercise/exercise.actions';
 import * as ExercisesSelectors from '../+state/exercise/exercise.selectors';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, throwError, timer } from 'rxjs';
 import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.dto';
 import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { SearchOptions } from '../entities/response/exercise-search.interface';
@@ -15,6 +15,7 @@ import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-d
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
 import { ExerciseSavedCommand } from '../entities/commands';
 import { Router } from '@angular/router';
+import { FirebaseExerciseDataService } from '../infrastructure/exercise.data.service';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseFacade
@@ -36,6 +37,7 @@ export class ExerciseFacade
   constructor(
     private readonly store: Store,
     private readonly afs: AngularFirestore,
+    private readonly exercisesService: FirebaseExerciseDataService,
     private readonly router: Router,
   ) {}
 
@@ -49,16 +51,26 @@ export class ExerciseFacade
     this.store.dispatch(ExercisesActions.loadExercises());
   }
 
-  public exerciseSaved(exercise: CreateUpdateExerciseRequestDTO): void {
+  public exerciseSaved(
+    exercise: CreateUpdateExerciseRequestDTO,
+  ): Observable<any> {
     const id: string = exercise.baseData?.id ?? this.afs.createId();
 
-    this.store.dispatch(
-      ExercisesActions.exerciseSaved({
-        payload: exercise.setId(id).serialize(),
-      }),
-    );
+    return /error/i.test(exercise.translatableData.name)
+      ? timer(1_500).pipe(
+          switchMap(() => throwError(() => 'Opps! Exercise name was "Error"')),
+        )
+      : this.exercisesService.createOrUpdateExercise(
+          exercise.setId(id).serialize(),
+        );
 
-    this.router.navigate(['exercises', 'all']);
+    // this.store.dispatch(
+    //   ExercisesActions.exerciseSaved({
+    //     payload: exercise.setId(id).serialize(),
+    //   }),
+    // );
+
+    // this.router.navigate(['exercises', 'all']);
   }
 
   public loadExerciseDetails(payload: string): void {

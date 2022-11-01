@@ -12,5 +12,5 @@ export * from './lib/operators/loadIsolatedLang';
 export { SerializerStrategy } from './lib/interfaces/serializer.interface';
 export { ImgFallbackModule } from './lib/directives/img-fallback/img-fallback.module';
 export { E2eDirectiveModule } from './lib/directives/e2e.directive';
-
+export * from './lib/async-state';
 export * from './lib/directives/e2e.directive';

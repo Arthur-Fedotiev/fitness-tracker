@@ -182,15 +182,53 @@
           ftE2e="exerciseMuscleDiagramUrlInput"
         />
       </mat-form-field>
+    </form>
+    <ng-container *ngIf="localState$ | async as localState">
+      <ng-container *ngIf="!localState.error; else resetBtnTpl"></ng-container>
       <button
         mat-raised-button
-        color="warn"
+        color="accent"
         ftE2e="saveExerciseBtn"
-        [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
+        [disabled]="
+          !exerciseForm.valid ||
+          !exerciseForm.dirty ||
+          localState.status === statusEnum.PENDING
+        "
         (click)="onSave()"
       >
-        SAVE
+        <div [ngSwitch]="localState.status">
+          <div *ngSwitchCase="statusEnum.INITIAL">SAVE</div>
+          <div *ngSwitchCase="statusEnum.ERROR">TRY AGAIN</div>
+          <div *ngSwitchCase="statusEnum.PENDING">
+            Saving...<mat-spinner
+              style="display: inline-block; vertical-align: center"
+              diameter="16"
+            ></mat-spinner>
+          </div>
+          <div *ngSwitchDefault>SAVE</div>
+        </div>
       </button>
-    </form>
+      <span>
+        <div [ngSwitch]="localState.status">
+          <div *ngSwitchCase="statusEnum.ERROR" style="color: red">
+            {{ localState.error }}
+          </div>
+          <div *ngSwitchCase="statusEnum.SUCCESS">Successfully Saved</div>
+          <div *ngSwitchDefault></div>
+        </div>
+      </span>
+      <ng-template #resetBtnTpl>
+        <button
+          mat-raised-button
+          color="warn"
+          ftE2e="saveExerciseBtn"
+          (click)="resetEditedFieldsSubj$.next()"
+        >
+          Reset
+        </button></ng-template
+      >
+
+      <pre>{{ localState | json }}</pre>
+    </ng-container>
   </section>
 </main>

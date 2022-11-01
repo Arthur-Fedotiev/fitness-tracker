@@ -13,6 +13,8 @@ import {
   of,
   switchMap,
   tap,
+  throwError,
+  timer,
   withLatestFrom,
 } from 'rxjs';
 
@@ -81,10 +83,12 @@ export class ExerciseEffects {
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.EXERCISE_SAVED),
       mergeMap(({ payload }: WithPayload<CreateUpdateExerciseRequestDTO>) =>
-        this.exercisesService.createOrUpdateExercise(payload).pipe(
-          map(() => ExercisesActions.exerciseSavedSuccess()),
-          catchError(() => [ExercisesActions.exerciseSavedFailure()]),
-        ),
+        /error/i.test(payload.translatableData.name)
+          ? timer(1_500).pipe(switchMap(() => throwError(() => 'error')))
+          : this.exercisesService.createOrUpdateExercise(payload).pipe(
+              map(() => ExercisesActions.exerciseSavedSuccess()),
+              catchError(() => [ExercisesActions.exerciseSavedFailure()]),
+            ),
       ),
     ),
   );
