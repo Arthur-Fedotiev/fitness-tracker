@@ -265,7 +265,7 @@
     rxjs "7.8.1"
     source-map "0.7.4"
 
-"@angular-devkit/schematics@^12.0.0 || ^13.0.0 || ^14.0.0", "@angular-devkit/schematics@14.2.12":
+"@angular-devkit/schematics@^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0":
   version "14.2.12"
   resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-14.2.12.tgz"
   integrity sha512-MN5yGR+SSSPPBBVMf4cifDJn9u0IYvxiHst+HWokH2AkBYy+vB1x8jYES2l1wkiISD7nvjTixfqX+Y95oMBoLg==
@@ -414,14 +414,13 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/fire@^7.4.0":
-  version "7.4.1"
-  resolved "https://registry.npmjs.org/@angular/fire/-/fire-7.4.1.tgz"
-  integrity sha512-wKSiK1g9cJRi1EVvs5a0vtCHPQQNKFIZS4F/smXUA123lDFrvn09PcETt3rVzfVWb3Hcu5Jf4DDlFIVJHUZjNg==
+"@angular/fire@7.6.1":
+  version "7.6.1"
+  resolved "https://registry.npmjs.org/@angular/fire/-/fire-7.6.1.tgz"
+  integrity sha512-ThNdY6gHprBRkuBDRt9zrYd/Ybl01NWb52GaKCQDmJZhklxelyRskhFhYWeZ0WRD5yhA0WBbRBbpDdfAnMEqgA==
   dependencies:
-    "@angular-devkit/schematics" "^12.0.0 || ^13.0.0 || ^14.0.0"
-    "@schematics/angular" "^12.0.0 || ^13.0.0 || ^14.0.0"
-    file-loader "^6.2.0"
+    "@angular-devkit/schematics" "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+    "@schematics/angular" "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
     firebase "^9.8.0"
     fs-extra "^8.0.1"
     fuzzy "^0.1.3"
@@ -3744,14 +3743,14 @@
   resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@schematics/angular@^12.0.0 || ^13.0.0 || ^14.0.0":
-  version "14.2.12"
-  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-14.2.12.tgz"
-  integrity sha512-nCxoFzH/uh5vqhaAjAfQIBgGuCdV3RMjdSwD0VQ+GFiFvTe8rqFyDl+qpNCgETz4LwmGHb5HNjDH9+VyVLgfZQ==
+"@schematics/angular@^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "@schematics/angular@16.1.3":
+  version "16.1.3"
+  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-16.1.3.tgz"
+  integrity sha512-bNSxCLf6f+/dsQ1k3PhcZhrC/qgJSCpM6h3m6ATpjR+tYW/v7WR1OyE5r3DQmDe7NJSazBvpbrRtg8xjRsMzvw==
   dependencies:
-    "@angular-devkit/core" "14.2.12"
-    "@angular-devkit/schematics" "14.2.12"
-    jsonc-parser "3.1.0"
+    "@angular-devkit/core" "16.1.3"
+    "@angular-devkit/schematics" "16.1.3"
+    jsonc-parser "3.2.0"
 
 "@schematics/angular@14.2.6":
   version "14.2.6"
@@ -3761,15 +3760,6 @@
     "@angular-devkit/core" "14.2.6"
     "@angular-devkit/schematics" "14.2.6"
     jsonc-parser "3.1.0"
-
-"@schematics/angular@16.1.3":
-  version "16.1.3"
-  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-16.1.3.tgz"
-  integrity sha512-bNSxCLf6f+/dsQ1k3PhcZhrC/qgJSCpM6h3m6ATpjR+tYW/v7WR1OyE5r3DQmDe7NJSazBvpbrRtg8xjRsMzvw==
-  dependencies:
-    "@angular-devkit/core" "16.1.3"
-    "@angular-devkit/schematics" "16.1.3"
-    jsonc-parser "3.2.0"
 
 "@sigstore/protobuf-specs@^0.1.0":
   version "0.1.0"
@@ -5911,7 +5901,7 @@ cypress-firebase@^2.2.2:
   resolved "https://registry.npmjs.org/cypress-firebase/-/cypress-firebase-2.2.2.tgz"
   integrity sha512-EfpSJ8z8WXnIM1ezbxFUk51Kt6jaFFnEZp6uOoSgb9DF58hwxJ+MoSw1rpyX8Kwuiv/14pFpDiI1U+ZvSTK5fg==
 
-cypress@^12.11.0:
+cypress@^12.2.0:
   version "12.16.0"
   resolved "https://registry.npmjs.org/cypress/-/cypress-12.16.0.tgz"
   integrity sha512-mwv1YNe48hm0LVaPgofEhGCtLwNIQEjmj2dJXnAkY1b4n/NE9OtgPph4TyS+tOtYp5CKtRmDvBzWseUXQTjbTg==
@@ -6853,14 +6843,6 @@ file-entry-cache@^6.0.1:
   integrity sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
   dependencies:
     flat-cache "^3.0.4"
-
-file-loader@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.npmjs.org/file-loader/-/file-loader-6.2.0.tgz"
-  integrity sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==
-  dependencies:
-    loader-utils "^2.0.0"
-    schema-utils "^3.0.0"
 
 filelist@^1.0.4:
   version "1.0.4"
@@ -11217,15 +11199,6 @@ saxes@^6.0.0:
   integrity sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==
   dependencies:
     xmlchars "^2.2.0"
-
-schema-utils@^3.0.0:
-  version "3.1.1"
-  resolved "https://registry.npmjs.org/schema-utils/-/schema-utils-3.1.1.tgz"
-  integrity sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw==
-  dependencies:
-    "@types/json-schema" "^7.0.8"
-    ajv "^6.12.5"
-    ajv-keywords "^3.5.2"
 
 schema-utils@^3.1.1:
   version "3.3.0"
