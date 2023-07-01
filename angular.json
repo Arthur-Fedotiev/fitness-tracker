@@ -372,7 +372,7 @@
                 "output": "assets/i18n/exercise-display"
               },
               {
-                "input": "libs/workout/feature/src/assets/i18n/workout-details",
+                "input": "libs/workout/details/feature/src/assets/i18n/workout-details",
                 "glob": "*.json",
                 "output": "assets/i18n/workout-details"
               },
@@ -936,7 +936,7 @@
           }
         }
       },
-      "tags": ["scope:workout", "type:data"]
+      "tags": ["scope:workout", "type:domain-logic"]
     },
     "workout-details-feature": {
       "projectType": "library",

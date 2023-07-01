@@ -26,29 +26,13 @@ import {
   ExerciseResponseDto,
 } from '@fitness-tracker/exercise/domain';
 
-import { filter, Subject, take, tap, withLatestFrom } from 'rxjs';
+import { filter, startWith, Subject, take, tap, withLatestFrom } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Action,
-  AsyncState,
-  AsyncStateService,
-  E2eDirectiveModule,
-  reset,
-  Status,
-} from '@fitness-tracker/shared/utils';
-
-enum CreateAndEditFormActions {
-  INITIAL_FORM_DATA_LOADED = 'INITIAL_FORM_DATA_LOADED',
-}
-
-class InitialFormDataLoadedAction {
-  public readonly type = CreateAndEditFormActions.INITIAL_FORM_DATA_LOADED;
-  constructor(public readonly payload: ExerciseResponseDto) {}
-}
+import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
 
 @UntilDestroy()
 @Component({
@@ -65,39 +49,15 @@ class InitialFormDataLoadedAction {
     TranslateModule,
     E2eDirectiveModule,
   ],
-  providers: [AsyncStateService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAndEditComponent implements OnInit, OnDestroy {
   public readonly exerciseForm: UntypedFormGroup = this.getForm();
-  public readonly localState$ = this.localStateAdapter.localState$;
-  public readonly statusEnum = Status;
 
-  public readonly resetEditedFieldsSubj$ = new Subject<void>();
-  private readonly resetEditedFields = this.resetEditedFieldsSubj$.pipe(
-    withLatestFrom(this.localStateAdapter.localState$),
-    tap(([, { initialFormData }]) => {
-      initialFormData
-        ? this.exerciseForm.patchValue(initialFormData)
-        : this.exerciseForm.reset();
-      this.exerciseForm.markAsPristine();
-    }),
-    tap(() => reset(this.localStateAdapter.dispatch)),
-  );
-
-  private readonly formInitialized$ =
+  private readonly pathExerciseFormValue$ =
     this.exerciseQuery.selectedExerciseDetails$.pipe(
       filter(Boolean),
-      tap((exercise) =>
-        this.exerciseForm.patchValue(exercise, {
-          emitEvent: false,
-        }),
-      ),
-      tap((exercise) =>
-        this.localStateAdapter.dispatch(
-          new InitialFormDataLoadedAction(exercise) as any,
-        ),
-      ),
+      tap(this.exerciseForm.patchValue.bind(this.exerciseForm)),
       take(1),
       untilDestroyed(this),
     );
@@ -105,11 +65,14 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
   private readonly save: Subject<void> = new Subject<void>();
 
   public readonly onSave$ = this.save.asObservable().pipe(
-    this.localStateAdapter.handleAsync(({ initialFormData }) =>
+    withLatestFrom(
+      this.pathExerciseFormValue$.pipe(startWith({} as ExerciseResponseDto)),
+    ),
+    tap(([, exercise]) =>
       this.exerciseSavedCommand.exerciseSaved(
         new CreateUpdateExerciseRequestDTO(
           this.exerciseForm.value,
-          initialFormData?.id,
+          exercise.id,
         ),
       ),
     ),
@@ -132,14 +95,8 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     private readonly releaseExerciseDetailsCommand: ReleaseExerciseDetailsCommand,
     @Inject(EXERCISE_SAVED_COMMAND)
     private readonly exerciseSavedCommand: ExerciseSavedCommand,
-    private readonly localStateAdapter: AsyncStateService<{
-      initialFormData: null | ExerciseResponseDto;
-    }>,
     private readonly fb: UntypedFormBuilder,
-  ) {
-    this.localStateAdapter.enrichState({ initialFormData: null });
-    this.localStateAdapter.setCustomUpdaterFn(createAndEditFormReducer as any);
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.initListeners();
@@ -183,21 +140,5 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
 
   private initListeners(): void {
     this.onSave$.subscribe();
-    this.resetEditedFields.subscribe();
-    this.formInitialized$.subscribe();
-  }
-}
-
-function createAndEditFormReducer<
-  T = { initialFormData: ExerciseResponseDto } & AsyncState,
->(state: T, action: Action<ExerciseResponseDto>): T {
-  switch (action.type) {
-    case CreateAndEditFormActions.INITIAL_FORM_DATA_LOADED:
-      return {
-        ...state,
-        initialFormData: action.payload,
-      };
-    default:
-      return state;
   }
 }

@@ -125,9 +125,10 @@ export class ExerciseEffects {
     ),
   );
 
-  public readonly showExerciseDetails$ = createEffect(() =>
+  public readonly loadExerciseDetailsBeforeOpen$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
+      tap((a) => console.log('dsfs')),
       map(({ payload }) => ExercisesActions.loadExerciseDetails({ payload })),
     ),
   );
@@ -136,7 +137,7 @@ export class ExerciseEffects {
     () =>
       this.actions$.pipe(
         ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
-        switchMapTo(
+        switchMap(() =>
           this.actions$.pipe(
             ofType(
               EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
@@ -162,5 +163,7 @@ export class ExerciseEffects {
     private readonly exercisesService: FirebaseExerciseDataService,
     private readonly store: Store,
     private readonly dialog: MatDialog,
-  ) {}
+  ) {
+    console.log('created');
+  }
 }
