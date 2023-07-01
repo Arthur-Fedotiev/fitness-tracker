@@ -1,10 +1,12 @@
 {
+  "name": "api-public",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/exercise/api-public/src",
   "prefix": "public",
   "architect": {
     "test": {
-      "builder": "@nrwl/jest:jest",
+      "builder": "@nx/jest:jest",
       "outputs": ["coverage/libs/exercise/api-public"],
       "options": {
         "jestConfig": "libs/exercise/api-public/jest.config.ts",
@@ -12,7 +14,7 @@
       }
     },
     "lint": {
-      "builder": "@nrwl/linter:eslint",
+      "builder": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/exercise/api-public/**/*.ts",

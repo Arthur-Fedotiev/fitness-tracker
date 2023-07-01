@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import {
   LOAD_EXERCISE_DETAILS_COMMAND,
   LoadExerciseDetailsCommand,
@@ -8,7 +8,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class ExerciseResolver implements Resolve<void> {
+export class ExerciseResolver  {
   constructor(
     @Inject(LOAD_EXERCISE_DETAILS_COMMAND)
     private readonly exerciseCommand: LoadExerciseDetailsCommand,

@@ -1,0 +1,27 @@
+{
+  "name": "exercise-domain",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/exercise/domain/src",
+  "prefix": "exercise",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/exercise/domain"],
+      "options": {
+        "jestConfig": "libs/exercise/domain/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exercise/domain/**/*.ts",
+          "libs/exercise/domain/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:exercise", "type:domain-logic"]
+}

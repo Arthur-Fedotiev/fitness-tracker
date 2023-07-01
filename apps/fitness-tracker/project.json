@@ -1,0 +1,192 @@
+{
+  "name": "fitness-tracker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/fitness-tracker/src",
+  "selector": "ft",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/fitness-tracker",
+        "index": "apps/fitness-tracker/src/index.html",
+        "main": "apps/fitness-tracker/src/main.ts",
+        "polyfills": "apps/fitness-tracker/src/polyfills.ts",
+        "tsConfig": "apps/fitness-tracker/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared/assets/src",
+            "output": "./"
+          },
+          {
+            "input": "libs/shared/assets/src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          },
+          {
+            "input": "libs/exercise/feature-display/src/i18n/exercise-display",
+            "glob": "*.json",
+            "output": "assets/i18n/exercise-display"
+          },
+          {
+            "input": "libs/workout/details/feature/src/assets/i18n/workout-details",
+            "glob": "*.json",
+            "output": "assets/i18n/workout-details"
+          },
+          "apps/fitness-tracker/src/manifest.webmanifest"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/styles/src/lib",
+            "libs/shared/styles/src/lib/mixins"
+          ]
+        },
+        "styles": [
+          {
+            "input": "node_modules/firebaseui/dist/firebaseui.css",
+            "bundleName": "firebase-ui",
+            "inject": false
+          },
+          {
+            "input": "libs/shared/styles/src/lib/themes/_dark.scss",
+            "bundleName": "dark-theme",
+            "inject": false
+          },
+          {
+            "input": "libs/shared/styles/src/lib/themes/_light.scss",
+            "bundleName": "light-theme",
+            "inject": false
+          },
+          "libs/shared/styles/src/index.scss",
+          "node_modules/instantsearch.css/themes/satellite.css"
+        ],
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/fitness-tracker/ngsw-config.json"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "3mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": true
+            },
+            "fonts": true
+          },
+          "sourceMap": true
+        },
+        "staging": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "3mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.staging.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": true
+            },
+            "fonts": true
+          },
+          "sourceMap": true
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "fitness-tracker:build:production"
+        },
+        "development": {
+          "browserTarget": "fitness-tracker:build:development"
+        },
+        "staging": {
+          "browserTarget": "fitness-tracker:build:staging"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "fitness-tracker:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/fitness-tracker/src/**/*.ts",
+          "apps/fitness-tracker/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/fitness-tracker"],
+      "options": {
+        "jestConfig": "apps/fitness-tracker/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {
+        "prerender": false,
+        "ssr": false,
+        "browserTarget": "fitness-tracker:build:production",
+        "firebaseProject": "fitness-tracker-de06b",
+        "firebaseHostingSite": "fitness-tracker-de06b"
+      }
+    }
+  },
+  "tags": ["type:app"]
+}

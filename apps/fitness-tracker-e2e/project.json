@@ -1,0 +1,29 @@
+{
+  "name": "fitness-tracker-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fitness-tracker-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/fitness-tracker-e2e/cypress.json",
+        "devServerTarget": "fitness-tracker:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "fitness-tracker:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fitness-tracker-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": ["type:e2e"],
+  "implicitDependencies": ["fitness-tracker"]
+}

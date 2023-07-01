@@ -1,0 +1,27 @@
+{
+  "name": "workout-domain",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/workout/domain/src",
+  "prefix": "ft",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/workout/domain"],
+      "options": {
+        "jestConfig": "libs/workout/domain/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/workout/domain/src/**/*.ts",
+          "libs/workout/domain/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:workout", "type:model"]
+}

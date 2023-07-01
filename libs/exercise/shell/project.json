@@ -1,0 +1,27 @@
+{
+  "name": "exercise-shell",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/exercise/shell/src",
+  "prefix": "fitness-tracker",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/exercise/shell"],
+      "options": {
+        "jestConfig": "libs/exercise/shell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exercise/shell/**/*.ts",
+          "libs/exercise/shell/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:exercise", "type:shell"]
+}

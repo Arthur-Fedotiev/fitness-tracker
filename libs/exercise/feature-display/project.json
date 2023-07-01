@@ -1,0 +1,27 @@
+{
+  "name": "exercise-feature-display",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/exercise/feature-display/src",
+  "prefix": "exercise",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/exercise/feature-display"],
+      "options": {
+        "jestConfig": "libs/exercise/feature-display/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exercise/feature-display/**/*.ts",
+          "libs/exercise/feature-display/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:exercise", "type:feature"]
+}

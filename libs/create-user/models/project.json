@@ -1,0 +1,27 @@
+{
+  "name": "create-user-models",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/create-user/models/src",
+  "selector": "ft",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/create-user/models"],
+      "options": {
+        "jestConfig": "libs/create-user/models/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/create-user/models/src/**/*.ts",
+          "libs/create-user/models/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

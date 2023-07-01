@@ -1,0 +1,29 @@
+{
+  "name": "exercise-feature-create-and-edit",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/exercise/feature-create-and-edit/src",
+  "prefix": "exercise",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/exercise/feature-create-and-edit"
+      ],
+      "options": {
+        "jestConfig": "libs/exercise/feature-create-and-edit/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exercise/feature-create-and-edit/**/*.ts",
+          "libs/exercise/feature-create-and-edit/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:exercise", "type:feature"]
+}
