@@ -20,7 +20,6 @@ import {
 } from '@fitness-tracker/workout/data';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import algoliasearch from 'algoliasearch';
-import { NgAisInstantSearch } from 'angular-instantsearch';
 import {
   Subject,
   merge,
@@ -48,14 +47,7 @@ export class ComposeWorkoutComponentService {
     this.treeService.expansionModel;
 
   public readonly instructionType = InstructionType;
-  public readonly searchConfig: NgAisInstantSearch['config'] = {
-    searchClient: algoliasearch(
-      environment.algolia.appId,
-      environment.algolia.appKey,
-    ),
-    indexName: 'exercises_search',
-    // routing: true,
-  };
+
   public readonly addToComposableSuperset = new Subject<WorkoutItemFlatNode>();
   public readonly reset = new Subject<void>();
   public readonly saveSupersetSubj = new Subject<void>();

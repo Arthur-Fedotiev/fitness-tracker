@@ -19,7 +19,6 @@ import {
 } from '@fitness-tracker/workout/data';
 
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { NgAisInstantSearch } from 'angular-instantsearch';
 import { Observable } from 'rxjs';
 import { ComposeWorkoutComponentService } from './services/compose-workout-component.service';
 import { ComposeWorkoutDropService } from './services/compose-workout-drop.service';
@@ -50,8 +49,7 @@ export class ComposeWorkoutComponent implements OnInit {
     this.composeWorkoutPresenter.expansionModel;
   public readonly workoutBasicInfo$: Observable<WorkoutBasicInfo | undefined> =
     this.composeWorkoutPresenter.workoutBasicInfo$;
-  public readonly searchConfig: NgAisInstantSearch['config'] =
-    this.composeWorkoutPresenter.searchConfig;
+
   public readonly hasChild = hasChild;
   public isSupersetComposeUnderway = false;
 

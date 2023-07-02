@@ -60,8 +60,7 @@
             "bundleName": "light-theme",
             "inject": false
           },
-          "libs/shared/styles/src/index.scss",
-          "node_modules/instantsearch.css/themes/satellite.css"
+          "libs/shared/styles/src/index.scss"
         ],
         "scripts": [],
         "serviceWorker": true,

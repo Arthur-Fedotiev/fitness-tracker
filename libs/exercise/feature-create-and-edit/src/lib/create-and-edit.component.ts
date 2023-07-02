@@ -33,6 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@fitness-tracker/shared-ui-material';
 import { TranslateModule } from '@ngx-translate/core';
 import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
+import { MatSliderModule } from '@angular/material/slider';
 
 @UntilDestroy()
 @Component({
@@ -48,6 +49,7 @@ import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
     FormsModule,
     TranslateModule,
     E2eDirectiveModule,
+    MatSliderModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

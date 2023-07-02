@@ -1,12 +1,5 @@
 <h2 mat-dialog-title [align]="'center'">Compose Workout</h2>
 <mat-dialog-content fxLayout="column nowrap" class="mat-typography content">
-  <ft-search
-    class="search"
-    ngClass.gt-sm="search-not-mobile"
-    fxFlex.gt-md="65%"
-    [searchConfig]="searchConfig"
-    (hitSelected)="exerciseHitSelected($event)"
-  ></ft-search>
   <article fxLayout="row nowrap" fxLayoutAlign="center">
     <section fxFlex="80%">
       <mat-accordion>

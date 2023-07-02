@@ -8,7 +8,6 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { NgAisInstantSearchModule } from 'angular-instantsearch';
 import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
 import { HttpClient } from '@angular/common/http';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
@@ -40,7 +39,6 @@ export abstract class EnsureImportedOnceModule<T extends NgModule> {
       extend: true,
     }),
     SharedRootPwaModule.forRoot(),
-    NgAisInstantSearchModule.forRoot(),
     SharedDataAccessModule.forRoot(),
     LayoutFeatureModule.forRoot(),
     AuthFeatureModule.forRoot(),
