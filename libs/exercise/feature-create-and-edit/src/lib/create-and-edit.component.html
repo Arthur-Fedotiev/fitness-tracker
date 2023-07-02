@@ -122,15 +122,20 @@
           ftE2e="exerciseRatingInput"
         />
       </mat-form-field>
-      <input
-        matSliderThumb
+      <mat-slider
+        discrete
         ftE2e="exerciseRatingSlider"
         [min]="0"
         [max]="10"
         [step]="0.1"
-        [value]="ratingControl.value"
-        (change)="ratingChange($any($event).value)"
-      />
+        [showTickMarks]="true"
+      >
+        <input
+          matSliderThumb
+          [value]="ratingControl.value"
+          (change)="ratingChange($any($event.target).value)"
+        />
+      </mat-slider>
       <mat-form-field appearance="outline">
         <textarea
           matInput

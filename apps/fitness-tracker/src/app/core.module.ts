@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { importProvidersFrom } from '@angular/core';
 import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { SharedDataAccessModule } from '@fitness-tracker/shared/data-access';
@@ -11,42 +11,36 @@ import {
 import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
 import { HttpClient } from '@angular/common/http';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
+
 const i18nGlobalPath = 'assets/i18n/';
+let isCoreDependenciesRegistered = false;
 
-export abstract class EnsureImportedOnceModule<T extends NgModule> {
-  protected constructor(targetModule: T) {
-    if (targetModule) {
-      throw new Error(
-        `${targetModule.constructor.name} has already been loaded.`,
-      );
-    }
+export const provideCoreDependencies = () => {
+  if (isCoreDependenciesRegistered) {
+    throw new Error('Core dependencies have already been registered.');
   }
-}
 
-@NgModule({
-  imports: [
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: translationsLoaderFactory(i18nGlobalPath),
-        deps: [HttpClient],
-      },
-      missingTranslationHandler: {
-        provide: MissingTranslationHandler,
-        useClass: MissingTranslationService,
-      },
-      isolate: false,
-      extend: true,
-    }),
-    SharedRootPwaModule.forRoot(),
-    SharedDataAccessModule.forRoot(),
-    LayoutFeatureModule.forRoot(),
-    AuthFeatureModule.forRoot(),
-  ],
-  exports: [TranslateModule],
-})
-export class CoreModule extends EnsureImportedOnceModule<CoreModule> {
-  public constructor(@SkipSelf() @Optional() parent: CoreModule) {
-    super(parent);
-  }
-}
+  isCoreDependenciesRegistered = true;
+
+  return [
+    importProvidersFrom(
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: translationsLoaderFactory(i18nGlobalPath),
+          deps: [HttpClient],
+        },
+        missingTranslationHandler: {
+          provide: MissingTranslationHandler,
+          useClass: MissingTranslationService,
+        },
+        isolate: false,
+        extend: true,
+      }),
+    ),
+    importProvidersFrom(SharedRootPwaModule.forRoot()),
+    importProvidersFrom(SharedDataAccessModule.forRoot()),
+    importProvidersFrom(LayoutFeatureModule.forRoot()),
+    importProvidersFrom(AuthFeatureModule.forRoot()),
+  ];
+};

@@ -1,9 +1,8 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { environment } from '@fitness-tracker/shared/environments';
 
 import { AppComponent } from './app/app.component';
-import { CoreModule } from './app/core.module';
+import { provideCoreDependencies } from './app/core.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
@@ -17,6 +16,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { MatSliderModule } from '@angular/material/slider';
 
 if (environment.production) {
   enableProdMode();
@@ -34,8 +34,8 @@ setTimeout(function scheduleAppBootstrap() {
         AuthFeatureModule,
         LayoutFeatureModule,
         MatDialogModule,
-        CoreModule,
       ),
+      provideCoreDependencies(),
       provideAnimations(),
       provideHttpClient(withInterceptorsFromDi()),
     ],

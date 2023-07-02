@@ -48,7 +48,7 @@
   </mat-card-content>
   <mat-card-actions class="exercise-actions">
     <button
-      mat-button
+      mat-flat-button
       class="mat-raised-button mat-primary"
       ftE2e="exerciseViewBtn"
       (click)="viewExercise(exercise)"
@@ -58,7 +58,7 @@
 
     <button
       *ftRoles="roles.ADMIN"
-      mat-button
+      mat-flat-button
       class="mat-raised-button mat-accent"
       ftE2e="editExerciseBtn"
       (click)="editExercise(exercise)"

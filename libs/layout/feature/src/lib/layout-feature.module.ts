@@ -7,8 +7,8 @@ import { ICON_PROVIDER } from '@fitness-tracker/shared-ui-material';
 import { LANG_CODES } from 'shared-package';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, LayoutComponent],
-    exports: [LayoutComponent],
+  imports: [CommonModule, RouterModule, LayoutComponent],
+  exports: [LayoutComponent],
 })
 export class LayoutFeatureModule {
   static forRoot(): ModuleWithProviders<LayoutFeatureModule> {

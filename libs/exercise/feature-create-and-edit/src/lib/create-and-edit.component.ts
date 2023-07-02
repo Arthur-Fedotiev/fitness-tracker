@@ -36,6 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @UntilDestroy()
 @Component({
@@ -46,13 +47,15 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     CommonModule,
     FlexLayoutModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     TranslateModule,
     MatSliderModule,
+    MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
   ],
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAndEditComponent implements OnInit, OnDestroy {

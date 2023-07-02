@@ -1,17 +1,23 @@
 <aside class="pwa-snackbar-container" [style]="data.styles ?? {}">
-    <p [innerHTML]="data.message" class="pwa-snackbar-container__message"></p>
-    <div>
-        <button *ngIf="data.actions.confirm" mat-button class="
-        mat-raised-button
-        pwa-snackbar-container__btn pwa-snackbar-container__btn-confirm
-      " color="success" (click)="onConfirm()">
+  <p [innerHTML]="data.message" class="pwa-snackbar-container__message"></p>
+  <div>
+    <button
+      *ngIf="data.actions.confirm"
+      mat-button
+      class="mat-raised-button pwa-snackbar-container__btn pwa-snackbar-container__btn-confirm"
+      color="success"
+      (click)="onConfirm()"
+    >
       Confirm
     </button>
-        <button *ngIf="data.actions.cancel" mat-button class="
-        mat-raised-button
-        pwa-snackbar-container__btn pwa-snackbar-container__btn-cancel
-      " color="primary" (click)="onCancel()">
+    <button
+      *ngIf="data.actions.cancel"
+      mat-button
+      class="mat-raised-button pwa-snackbar-container__btn pwa-snackbar-container__btn-cancel"
+      color="primary"
+      (click)="onCancel()"
+    >
       Cancel
     </button>
-    </div>
+  </div>
 </aside>

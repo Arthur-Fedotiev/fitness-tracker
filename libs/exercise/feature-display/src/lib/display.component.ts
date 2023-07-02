@@ -56,6 +56,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { WorkoutComposeWorkoutUtilsModule } from '@fitness-tracker/workout-compose-workout-utils';
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { WorkoutFiltersComponent } from '@fitness-tracker/workout/ui';
+import { MatButtonModule } from '@angular/material/button';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -74,6 +75,7 @@ enum EXERCISE_MODE {
     WorkoutComposeWorkoutUtilsModule,
     ExerciseListComponent,
     TranslateModule,
+    MatButtonModule,
     WorkoutFiltersComponent,
   ],
 

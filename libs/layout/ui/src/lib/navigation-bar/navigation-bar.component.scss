@@ -1,8 +1,26 @@
-mat-nav-list.horizontal {
-  width: 100%;
-  & > a {
-    flex: 0 1;
+.nav-list {
+  gap: 0.5rem;
+
+  &.horizontal {
+    width: 100%;
+    gap: 3.5rem;
+
+    & > a {
+      flex: 0 1;
+    }
   }
+}
+
+.nav-icon {
+  transform: scale(1.75);
+}
+
+.nav-link {
+  display: flex;
+  justify-content: start;
+  gap: 2rem;
+  padding: 0 2rem;
+  text-decoration: none;
 }
 
 .black-icon {

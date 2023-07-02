@@ -9,12 +9,12 @@ import { RouterOutlet } from '@angular/router';
 
 @UntilDestroy()
 @Component({
-    selector: 'ft-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [RouterOutlet],
+  selector: 'ft-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [RouterOutlet],
 })
 export class AppComponent implements OnInit {
   private readonly refreshLang$ = this.settingsFacade.language$.pipe(
