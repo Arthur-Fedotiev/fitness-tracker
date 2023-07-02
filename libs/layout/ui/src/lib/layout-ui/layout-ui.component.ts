@@ -7,12 +7,33 @@ import {
 } from '@angular/core';
 import { Language } from '@fitness-tracker/shared/utils';
 import { LanguageCodes } from 'shared-package';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { SettingsBarComponent } from '../settings/settings-bar.component';
+import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgTemplateOutlet } from '@angular/common';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'ft-layout-ui',
-  templateUrl: './layout-ui.component.html',
-  styleUrls: ['./layout-ui.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ft-layout-ui',
+    templateUrl: './layout-ui.component.html',
+    styleUrls: ['./layout-ui.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatSidenavModule,
+        NgTemplateOutlet,
+        MatToolbarModule,
+        ExtendedModule,
+        MatButtonModule,
+        MatIconModule,
+        NavigationBarComponent,
+        SettingsBarComponent,
+        FlexModule,
+    ],
 })
 export class LayoutUiComponent {
   @Input() public isLoggedIn: boolean | null = false;

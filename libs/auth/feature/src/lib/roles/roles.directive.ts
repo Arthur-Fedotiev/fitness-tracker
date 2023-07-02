@@ -12,7 +12,8 @@ import { AuthFacadeService } from '@fitness-tracker/auth/data';
 
 @UntilDestroy()
 @Directive({
-  selector: '[ftRoles]',
+    selector: '[ftRoles]',
+    standalone: true,
 })
 export class RolesDirective implements OnInit {
   @Input('ftRoles') set allowedRole(role: ROLES) {

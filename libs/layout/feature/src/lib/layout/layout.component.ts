@@ -8,13 +8,22 @@ import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import { Language, LANGUAGES_LABELS_LIST } from '@fitness-tracker/shared/utils';
 import { filter, map, Observable } from 'rxjs';
 import { LanguageCodes } from 'shared-package';
+import { AsyncPipe } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { LayoutUiComponent } from '../../../../ui/src/lib/layout-ui/layout-ui.component';
 
 @Component({
-  selector: 'ft-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ft-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    encapsulation: ViewEncapsulation.Emulated,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        LayoutUiComponent,
+        RouterOutlet,
+        AsyncPipe,
+    ],
 })
 export class LayoutComponent {
   public readonly isLoggedIn$: Observable<boolean> =

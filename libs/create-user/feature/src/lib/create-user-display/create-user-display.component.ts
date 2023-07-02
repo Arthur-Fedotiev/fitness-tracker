@@ -1,12 +1,15 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '@fitness-tracker/create-user/models';
 import { UsersFacadeService } from '@fitness-tracker/create-user/data';
+import { CreateUserFormComponent } from '../../../../ui/src/lib/create-user-form/create-user-form.component';
 
 @Component({
-  selector: 'ft-create-user-display',
-  templateUrl: './create-user-display.component.html',
-  styleUrls: ['./create-user-display.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ft-create-user-display',
+    templateUrl: './create-user-display.component.html',
+    styleUrls: ['./create-user-display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [CreateUserFormComponent]
 })
 export class CreateUserDisplayComponent {
   constructor(private readonly usersFacade: UsersFacadeService) { }

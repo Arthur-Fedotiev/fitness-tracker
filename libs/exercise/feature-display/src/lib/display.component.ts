@@ -14,7 +14,6 @@ import {
   DEFAULT_PAGINATION_STATE,
   loadIsolatedLang,
   WithId,
-  E2eDirectiveModule,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -53,11 +52,10 @@ import {
 } from '@fitness-tracker/workout/public-api';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RolesModule } from '@fitness-tracker/auth/feature';
-import { ExerciseUiComponentsModule } from '@fitness-tracker/exercise/ui-components';
-import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+
 import { WorkoutComposeWorkoutUtilsModule } from '@fitness-tracker/workout-compose-workout-utils';
-import { WorkoutFiltersModule } from '@fitness-tracker/workout/ui';
+import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
+import { WorkoutFiltersComponent } from '@fitness-tracker/workout/ui';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -71,15 +69,12 @@ enum EXERCISE_MODE {
   standalone: true,
   imports: [
     CommonModule,
-    ExerciseUiComponentsModule,
     FlexLayoutModule,
-    MaterialModule,
     ComposeWorkoutModule,
-    RolesModule,
-    WorkoutFiltersModule,
     WorkoutComposeWorkoutUtilsModule,
+    ExerciseListComponent,
     TranslateModule,
-    E2eDirectiveModule,
+    WorkoutFiltersComponent,
   ],
 
   changeDetection: ChangeDetectionStrategy.OnPush,

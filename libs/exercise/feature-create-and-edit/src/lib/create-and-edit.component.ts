@@ -30,10 +30,12 @@ import { filter, startWith, Subject, take, tap, withLatestFrom } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+
 import { TranslateModule } from '@ngx-translate/core';
-import { E2eDirectiveModule } from '@fitness-tracker/shared/utils';
+
 import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @UntilDestroy()
 @Component({
@@ -43,13 +45,13 @@ import { MatSliderModule } from '@angular/material/slider';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
-    E2eDirectiveModule,
     MatSliderModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

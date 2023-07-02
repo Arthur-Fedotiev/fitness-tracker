@@ -2,11 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkoutDetailsComponent } from './workout-details.component';
 import { WorkoutDetailsRoutingModule } from './workout-details-routing.module';
-import { MaterialModule } from '@fitness-tracker/shared-ui-material';
-import {
-  ImgFallbackModule,
-  translationsLoaderFactory,
-} from '@fitness-tracker/shared/utils';
+
+import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClient } from '@angular/common/http';
 import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
@@ -19,26 +16,24 @@ import {
 const i18nAssetsPath = 'assets/i18n/workout-details/';
 
 @NgModule({
-  declarations: [WorkoutDetailsComponent],
-  imports: [
+    imports: [
     CommonModule,
     WorkoutDetailsRoutingModule,
-    MaterialModule,
-    ImgFallbackModule,
     FlexLayoutModule,
     TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: translationsLoaderFactory(i18nAssetsPath),
-        deps: [HttpClient],
-      },
-      missingTranslationHandler: {
-        provide: MissingTranslationHandler,
-        useClass: MissingTranslationService,
-      },
-      isolate: false,
-      extend: true,
+        loader: {
+            provide: TranslateLoader,
+            useFactory: translationsLoaderFactory(i18nAssetsPath),
+            deps: [HttpClient],
+        },
+        missingTranslationHandler: {
+            provide: MissingTranslationHandler,
+            useClass: MissingTranslationService,
+        },
+        isolate: false,
+        extend: true,
     }),
-  ],
+    WorkoutDetailsComponent,
+],
 })
 export class WorkoutDetailsModule {}

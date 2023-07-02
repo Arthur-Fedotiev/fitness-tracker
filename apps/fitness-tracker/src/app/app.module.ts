@@ -14,6 +14,7 @@ import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { CoreModule } from './core.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@fitness-tracker/shared/environments';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { environment } from '@fitness-tracker/shared/environments';
     AuthModule,
     AuthFeatureModule,
     LayoutFeatureModule,
+    MatDialogModule,
     CoreModule,
   ],
   bootstrap: [AppComponent],

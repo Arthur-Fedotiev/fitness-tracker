@@ -5,20 +5,43 @@ import { filter, Observable, skip, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
 import {
   SerializedWorkout,
   WorkoutFacadeService,
 } from '@fitness-tracker/workout/data';
+import { MatButtonModule } from '@angular/material/button';
+import { ImgFallbackDirective } from '../../../../../../shared/utils/src/lib/directives/img-fallback/img-fallback.directive';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NgIf, NgFor, NgTemplateOutlet, AsyncPipe, UpperCasePipe, TitleCasePipe } from '@angular/common';
 
 @UntilDestroy()
 @Component({
-  selector: 'ft-workout-details',
-  templateUrl: './workout-details.component.html',
-  styleUrls: ['./workout-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ft-workout-details',
+    templateUrl: './workout-details.component.html',
+    styleUrls: ['./workout-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        ExtendedModule,
+        NgFor,
+        NgTemplateOutlet,
+        MatDividerModule,
+        TranslateModule,
+        MatCardModule,
+        ImgFallbackDirective,
+        MatButtonModule,
+        AsyncPipe,
+        UpperCasePipe,
+        TitleCasePipe,
+    ],
 })
 export class WorkoutDetailsComponent implements OnInit {
   private workoutId!: string;

@@ -3,17 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { AuthComponent } from './auth.component';
-import { MaterialModule } from '@fitness-tracker/shared-ui-material';
+
 import { FirebaseUIModule } from 'firebaseui-angular';
 
 
 @NgModule({
-  declarations: [AuthComponent],
-  imports: [
+    imports: [
     CommonModule,
     LoginRoutingModule,
     FirebaseUIModule,
-    MaterialModule
-  ]
+    AuthComponent
+]
 })
 export class LoginModule { }

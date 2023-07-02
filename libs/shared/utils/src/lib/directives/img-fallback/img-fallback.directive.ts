@@ -8,7 +8,8 @@ import {
 import { DEFAULT_FALLBACK_IMG } from './default-image';
 
 @Directive({
-  selector: 'img[ftWithFallback]',
+    selector: 'img[ftWithFallback]',
+    standalone: true,
 })
 export class ImgFallbackDirective {
   // eslint-disable-next-line @angular-eslint/no-input-rename

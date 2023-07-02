@@ -1,12 +1,18 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Validators, UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '@fitness-tracker/create-user/models';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'ft-create-user-form',
-  templateUrl: './create-user-form.component.html',
-  styleUrls: ['./create-user-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ft-create-user-form',
+    templateUrl: './create-user-form.component.html',
+    styleUrls: ['./create-user-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatButtonModule]
 })
 export class CreateUserFormComponent {
   @Output() private readonly userCreated: EventEmitter<User> = new EventEmitter<User>();

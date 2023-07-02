@@ -1,15 +1,14 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
-import { LayoutUiModule } from '@fitness-tracker/layout/ui';
+
 import { RouterModule } from '@angular/router';
 import { ICON_PROVIDER } from '@fitness-tracker/shared-ui-material';
 import { LANG_CODES } from 'shared-package';
 
 @NgModule({
-  imports: [CommonModule, LayoutUiModule, RouterModule],
-  declarations: [LayoutComponent],
-  exports: [LayoutComponent],
+    imports: [CommonModule, RouterModule, LayoutComponent],
+    exports: [LayoutComponent],
 })
 export class LayoutFeatureModule {
   static forRoot(): ModuleWithProviders<LayoutFeatureModule> {
