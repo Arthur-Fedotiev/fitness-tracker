@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-
 import { environment } from '@fitness-tracker/shared/environments';
 import { PwaSnackbarComponent } from './components/pwa-snackbar.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -13,12 +12,12 @@ const SW_CONFIG = {
 };
 
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
     ServiceWorkerModule.register(SW_SOURCE, SW_CONFIG),
     PwaSnackbarComponent,
-],
-    exports: [PwaSnackbarComponent],
+  ],
+  exports: [PwaSnackbarComponent],
 })
 export class SharedPwaModule {}
 

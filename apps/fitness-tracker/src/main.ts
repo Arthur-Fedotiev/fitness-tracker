@@ -1,15 +1,43 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { environment } from '@fitness-tracker/shared/environments';
 
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
+import { CoreModule } from './app/core.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
+import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
+import { AuthModule } from '@angular/fire/auth';
+import { AppRoutingModule } from './app/app-routing.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {
+  withInterceptorsFromDi,
+  provideHttpClient,
+} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
 if (environment.production) {
   enableProdMode();
 }
 
 setTimeout(function scheduleAppBootstrap() {
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule)
-    .catch((err) => console.error(err));
+  bootstrapApplication(AppComponent, {
+    providers: [
+      importProvidersFrom(
+        BrowserModule,
+        RouterModule,
+        FlexLayoutModule,
+        AppRoutingModule,
+        AuthModule,
+        AuthFeatureModule,
+        LayoutFeatureModule,
+        MatDialogModule,
+        CoreModule,
+      ),
+      provideAnimations(),
+      provideHttpClient(withInterceptorsFromDi()),
+    ],
+  }).catch((err) => console.error(err));
 });

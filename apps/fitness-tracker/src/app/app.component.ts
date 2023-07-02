@@ -5,13 +5,16 @@ import { PwaService } from '@fitness-tracker/shared/pwa';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 
 @UntilDestroy()
 @Component({
-  selector: 'ft-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ft-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [RouterOutlet],
 })
 export class AppComponent implements OnInit {
   private readonly refreshLang$ = this.settingsFacade.language$.pipe(

@@ -5,17 +5,20 @@ import {
   EventEmitter,
   Inject,
 } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import {
+  MAT_SNACK_BAR_DATA,
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'ft-pwa-snackbar',
-    templateUrl: './pwa-snackbar.component.html',
-    styleUrls: [],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgIf, MatButtonModule],
+  selector: 'ft-pwa-snackbar',
+  templateUrl: './pwa-snackbar.component.html',
+  styleUrls: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, MatButtonModule, MatSnackBarModule],
 })
 export class PwaSnackbarComponent {
   @Output() confirm = new EventEmitter<void>();
