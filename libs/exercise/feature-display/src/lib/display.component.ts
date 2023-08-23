@@ -47,16 +47,16 @@ import {
 } from '@fitness-tracker/exercise/domain';
 import {
   ComposeWorkoutDialogFactory,
-  ComposeWorkoutModule,
   COMPOSE_WORKOUT_DIALOG_FACTORY,
 } from '@fitness-tracker/workout/public-api';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { WorkoutComposeWorkoutUtilsModule } from '@fitness-tracker/workout-compose-workout-utils';
+import { COMPOSE_WORKOUT_PROVIDERS } from '@fitness-tracker/workout-compose-workout-utils';
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { WorkoutFiltersComponent } from '@fitness-tracker/workout/ui';
 import { MatButtonModule } from '@angular/material/button';
+import { ComposeWorkoutComponent } from '@fitness-tracker/workout/compose-workout/feature';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -71,14 +71,13 @@ enum EXERCISE_MODE {
   imports: [
     CommonModule,
     FlexLayoutModule,
-    ComposeWorkoutModule,
-    WorkoutComposeWorkoutUtilsModule,
+    ComposeWorkoutComponent,
     ExerciseListComponent,
     TranslateModule,
     MatButtonModule,
     WorkoutFiltersComponent,
   ],
-
+  providers: [COMPOSE_WORKOUT_PROVIDERS],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisplayPageComponent implements OnInit, OnDestroy {

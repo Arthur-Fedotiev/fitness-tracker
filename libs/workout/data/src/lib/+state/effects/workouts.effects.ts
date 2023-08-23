@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, withLatestFrom } from 'rxjs/operators';
-import { Observable, of, pipe, switchMap, UnaryFunction } from 'rxjs';
+import { Observable, of, pipe, switchMap, UnaryFunction, tap } from 'rxjs';
 
 import { WorkoutActionNames } from '../actions/workout-action-names';
 import {
   createWorkoutFailure,
   createWorkoutSuccess,
+  deleteWorkoutSuccess,
   loadWorkoutDetailsFailure,
   loadWorkoutDetailsSuccess,
   loadWorkoutPreviewsSuccess,
@@ -30,12 +31,19 @@ import {
 } from '../../utils/mappers';
 import { FirebaseExerciseDataService } from '@fitness-tracker/exercise/domain';
 import { loadExerciseDetailsFailure } from 'libs/exercise/domain/src/lib/+state/exercise/exercise.actions';
+import {
+  deleteWorkout,
+  deleteWorkoutFailure,
+} from '../actions/workouts.actions';
 
 @Injectable()
 export class WorkoutsEffects {
   public readonly createWorkout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActionNames.CREATE_WORKOUT),
+      tap((f) => {
+        console.log('WorkoutsEffects[createWorkout$]', f);
+      }),
       switchMap(({ payload }: WithPayload<SerializedWorkout>) =>
         this.workoutAPI.createWorkout(payload).pipe(
           map(() => createWorkoutSuccess()),
@@ -65,6 +73,18 @@ export class WorkoutsEffects {
       this.getWorkoutDetailsLocalized$(),
       map((payload: WorkoutDetails) => loadWorkoutDetailsSuccess({ payload })),
       catchError(() => [loadWorkoutDetailsFailure()]),
+    ),
+  );
+
+  public readonly deleteWorkout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WorkoutActionNames.DELETE_WORKOUT),
+      switchMap(({ payload }: { payload: string }) =>
+        this.workoutAPI.deleteWorkout(payload).pipe(
+          map(() => deleteWorkoutSuccess({ payload })),
+          catchError(() => of(deleteWorkoutFailure())),
+        ),
+      ),
     ),
   );
 

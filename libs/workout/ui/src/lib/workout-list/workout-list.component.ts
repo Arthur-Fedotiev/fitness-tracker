@@ -11,17 +11,12 @@ import { NgFor, NgTemplateOutlet } from '@angular/common';
 import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'ft-workout-list',
-    templateUrl: './workout-list.component.html',
-    styleUrls: ['./workout-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        FlexModule,
-        NgFor,
-        NgTemplateOutlet,
-    ],
+  selector: 'ft-workout-list',
+  templateUrl: './workout-list.component.html',
+  styleUrls: ['./workout-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [FlexModule, NgFor, NgTemplateOutlet],
 })
 export class WorkoutListComponent {
   @Input() listData: WithId<unknown>[] = [];

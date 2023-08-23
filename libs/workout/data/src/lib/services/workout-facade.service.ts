@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   createWorkout,
+  deleteWorkout,
   editWorkout,
   loadWorkoutDetails,
   loadWorkoutPreviews,
@@ -45,5 +46,9 @@ export class WorkoutFacadeService {
 
   public editWorkout(payload: string): void {
     this.store.dispatch(editWorkout({ payload }));
+  }
+
+  public deleteWorkout(payload: string): void {
+    this.store.dispatch(deleteWorkout({ payload }));
   }
 }

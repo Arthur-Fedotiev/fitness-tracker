@@ -5,5 +5,5 @@
   "sourceRoot": "libs/shared/assets/src",
   "prefix": "ft",
   "targets": {},
-  "tags": ["scope:shared", "type:assets"]
+  "tags": ["domain:shared", "type:assets"]
 }

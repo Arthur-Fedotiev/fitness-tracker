@@ -27,4 +27,11 @@ export const reducer = createReducer(
     ...state,
     workoutDetails: payload,
   })),
+
+  on(WorkoutsActions.deleteWorkoutSuccess, (state, { payload }) => ({
+    ...state,
+    workoutPreviews: state.workoutPreviews.filter(
+      (workout) => workout.id !== payload,
+    ),
+  })),
 );

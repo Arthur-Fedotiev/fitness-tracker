@@ -39,13 +39,13 @@ export class CreateComposeWorkoutDialog implements ComposeWorkoutDialogFactory {
     workoutContent: WorkoutItem[],
     workoutBasicInfo?: WorkoutBasicInfo,
   ) {
-    return Object.assign(new MatDialogConfig(), {
+    return {
       disableClose: true,
       autoFocus: true,
       minWidth: '100vw',
       minHeight: '100vh',
       height: '100%',
       data: { workoutContent, workoutBasicInfo },
-    });
+    } satisfies MatDialogConfig;
   }
 }

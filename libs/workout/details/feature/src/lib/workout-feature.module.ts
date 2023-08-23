@@ -11,6 +11,6 @@ import { WorkoutDataModule } from '@fitness-tracker/workout/data';
     WorkoutRoutingModule,
     WorkoutsDisplayModule,
     WorkoutDataModule,
-],
+  ],
 })
 export class WorkoutFeatureModule {}

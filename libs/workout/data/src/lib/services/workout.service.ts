@@ -11,13 +11,9 @@ import {
   WithId,
 } from '@fitness-tracker/shared/utils';
 import { Observable, from, first, map } from 'rxjs';
-import firebase from 'firebase/compat/app';
 import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import { LanguageCodes } from 'shared-package';
-import {
-  SerializedWorkout,
-  WorkoutBasicInfo,
-} from '../classes/workout-serializer';
+import { SerializedWorkout } from '../classes/workout-serializer';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +46,7 @@ export class WorkoutService {
 
   public deleteWorkout(workoutId: string): Observable<void> {
     return from(
-      this.afs.doc<SerializedWorkout>(`$workouts/${workoutId}`).delete(),
+      this.afs.doc<SerializedWorkout>(`workouts/${workoutId}`).delete(),
     );
   }
 

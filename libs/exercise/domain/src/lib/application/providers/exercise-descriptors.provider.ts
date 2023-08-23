@@ -49,7 +49,7 @@ const exerciseDescriptors: ExerciseDescriptors = {
   proficiencyLvls: ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'],
 };
 
-export const EXERCISE_DESCRIPTORS_PROVIDER: Provider = {
+export const EXERCISE_DESCRIPTORS_PROVIDER = {
   provide: EXERCISE_DESCRIPTORS_TOKEN,
   useValue: exerciseDescriptors,
-};
+} satisfies Provider;

@@ -17,24 +17,24 @@ import { ImgFallbackDirective } from '../../../../../shared/utils/src/lib/direct
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'ft-workout-preview',
-    templateUrl: './workout-preview.component.html',
-    styleUrls: ['./workout-preview.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        MatCardModule,
-        ImgFallbackDirective,
-        RouterLink,
-        NgIf,
-        NgFor,
-        RolesDirective,
-        MatButtonModule,
-        MatIconModule,
-        LowerCasePipe,
-        TitleCasePipe,
-        TranslateModule,
-    ],
+  selector: 'ft-workout-preview',
+  templateUrl: './workout-preview.component.html',
+  styleUrls: ['./workout-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatCardModule,
+    ImgFallbackDirective,
+    RouterLink,
+    NgIf,
+    NgFor,
+    RolesDirective,
+    MatButtonModule,
+    MatIconModule,
+    LowerCasePipe,
+    TitleCasePipe,
+    TranslateModule,
+  ],
 })
 export class WorkoutPreviewComponent {
   @Input() workout!: WorkoutPreview;

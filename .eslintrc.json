@@ -35,6 +35,16 @@
                 ]
               },
               {
+                "sourceTag": "public-api",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:feature",
+                  "type:ui",
+                  "type:domain-logic",
+                  "type:util"
+                ]
+              },
+              {
                 "sourceTag": "type:api",
                 "onlyDependOnLibsWithTags": [
                   "type:ui",
@@ -74,6 +84,10 @@
                   "domain:shared",
                   "domain:workout/api-public"
                 ]
+              },
+              {
+                "sourceTag": "domain:workout/api-public",
+                "onlyDependOnLibsWithTags": ["domain:workout", "domain:shared"]
               }
             ]
           }

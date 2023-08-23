@@ -32,27 +32,27 @@ import {
 } from '@fitness-tracker/exercise/api-public';
 import { TranslateModule } from '@ngx-translate/core';
 import { WorkoutPreviewComponent } from '../../../../../ui/src/lib/workout-preview/workout-preview.component';
-import { WorkoutListComponent } from '../../../../../ui/src/lib/workout-list/workout-list.component';
+import { WorkoutListComponent } from '@fitness-tracker/workout/ui';
 import { NgIf, AsyncPipe } from '@angular/common';
-import { WorkoutFiltersComponent } from '../../../../../ui/src/lib/workout-filters/workout-filters.component';
+import { WorkoutFiltersComponent } from '@fitness-tracker/workout/ui';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
 @UntilDestroy()
 @Component({
-    selector: 'ft-workouts-display',
-    templateUrl: './workouts-display.component.html',
-    styleUrls: ['./workouts-display.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        WorkoutFiltersComponent,
-        NgIf,
-        WorkoutListComponent,
-        WorkoutPreviewComponent,
-        TranslateModule,
-        AsyncPipe,
-    ],
+  selector: 'ft-workouts-display',
+  templateUrl: './workouts-display.component.html',
+  styleUrls: ['./workouts-display.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    WorkoutFiltersComponent,
+    NgIf,
+    WorkoutListComponent,
+    WorkoutPreviewComponent,
+    TranslateModule,
+    AsyncPipe,
+  ],
 })
 export class WorkoutsDisplayComponent implements OnInit {
   public readonly workoutPreviews$: Observable<WorkoutPreview[]> =
@@ -107,6 +107,10 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   public editWorkout(id: string): void {
     this.workoutFacade.loadWorkoutDetails(id);
+  }
+
+  public deleteWorkout(id: string): void {
+    this.workoutFacade.deleteWorkout(id);
   }
 
   private initListeners(): void {

@@ -4,7 +4,6 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
-import { environment } from '@fitness-tracker/shared/environments';
 
 import {
   ConcreteCompositeWorkoutItemInstruction,
@@ -19,7 +18,6 @@ import {
   WorkoutItemFlatNode,
 } from '@fitness-tracker/workout/data';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import algoliasearch from 'algoliasearch';
 import {
   Subject,
   merge,
@@ -125,14 +123,23 @@ export class ComposeWorkoutComponentService {
   }
 
   public saveWorkout(): void {
-    if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
-      console.log('Data is not valid to be saved');
-      return;
-    }
+    // if (
+    //   !this.dataSource.data.every((workoutItem) => {
+    //     console.log('workoutItem', workoutItem);
+    //     console.log('workoutItem.isValid()=', workoutItem.isValid());
+    //     return workoutItem.isValid();
+    //   })
+    // ) {
+    //   console.log('Data is not valid to be saved');
+
+    //   return;
+    // }
 
     const serializedWorkoutContent = this.dataSource.data.map((workoutItem) =>
       this.workoutItemSerializeStrategy.serialize(workoutItem),
     );
+
+    console.log(serializedWorkoutContent);
 
     this.saveWorkoutSubj.next(serializedWorkoutContent);
   }

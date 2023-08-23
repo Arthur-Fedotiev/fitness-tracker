@@ -51,26 +51,24 @@ export class ExerciseFacade
     this.store.dispatch(ExercisesActions.loadExercises());
   }
 
-  public exerciseSaved(
-    exercise: CreateUpdateExerciseRequestDTO,
-  ): Observable<any> {
-    const id: string = exercise.baseData?.id ?? this.afs.createId();
+  public exerciseSaved(exercise: CreateUpdateExerciseRequestDTO) {
+    const id = exercise.baseData?.id ?? this.afs.createId();
 
-    return /error/i.test(exercise.translatableData.name)
-      ? timer(1_500).pipe(
-          switchMap(() => throwError(() => 'Opps! Exercise name was "Error"')),
-        )
-      : this.exercisesService.createOrUpdateExercise(
-          exercise.setId(id).serialize(),
-        );
+    // return /error/i.test(exercise.translatableData.name)
+    //   ? timer(1_500).pipe(
+    //       switchMap(() => throwError(() => 'Opps! Exercise name was "Error"')),
+    //     )
+    //   : this.exercisesService.createOrUpdateExercise(
+    //       exercise.setId(id).serialize(),
+    //     );
 
-    // this.store.dispatch(
-    //   ExercisesActions.exerciseSaved({
-    //     payload: exercise.setId(id).serialize(),
-    //   }),
-    // );
+    this.store.dispatch(
+      ExercisesActions.exerciseSaved({
+        payload: exercise.setId(id).serialize(),
+      }),
+    );
 
-    // this.router.navigate(['exercises', 'all']);
+    this.router.navigate(['exercises', 'all']);
   }
 
   public loadExerciseDetails(payload: string): void {

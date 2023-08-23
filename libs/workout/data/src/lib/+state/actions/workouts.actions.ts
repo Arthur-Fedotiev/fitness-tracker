@@ -60,3 +60,17 @@ export const editWorkoutSuccess = createAction(
 export const editWorkouttFailure = createAction(
   WorkoutActionNames.EDIT_WORKOUT_FAILURE,
 );
+
+export const deleteWorkout = createAction(
+  WorkoutActionNames.DELETE_WORKOUT,
+  props<WithPayload<string>>(),
+);
+
+export const deleteWorkoutSuccess = createAction(
+  WorkoutActionNames.DELETE_WORKOUT_SUCCESS,
+  props<WithPayload<string>>(),
+);
+
+export const deleteWorkoutFailure = createAction(
+  WorkoutActionNames.DELETE_WORKOUT_FAILURE,
+);

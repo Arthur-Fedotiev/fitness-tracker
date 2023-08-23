@@ -5,5 +5,5 @@
   "sourceRoot": "libs/shared/styles/src",
   "prefix": "ft",
   "targets": {},
-  "tags": ["scope:shared", "type:styles"]
+  "tags": ["domain:shared", "type:styles"]
 }

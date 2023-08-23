@@ -16,6 +16,7 @@ import {
   WorkoutItemFlatNode,
   WorkoutItem,
   WorkoutBasicInfo,
+  WorkoutDataModule,
 } from '@fitness-tracker/workout/data';
 
 import { UntilDestroy } from '@ngneat/until-destroy';
@@ -29,43 +30,46 @@ import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-
 import { FormsModule } from '@angular/forms';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
 
 @UntilDestroy()
 @Component({
-    selector: 'ft-compose-workout',
-    templateUrl: './compose-workout.component.html',
-    styleUrls: ['./compose-workout.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        WorkoutDatabase,
-        ComposeWorkoutTreeService,
-        ComposeWorkoutDropService,
-        ComposeWorkoutComponentService,
-    ],
-    standalone: true,
-    imports: [
-        MatDialogModule,
-        FlexModule,
-        MatExpansionModule,
-        WorkoutBasicInfoComponent,
-        MatTreeModule,
-        CdkDropList,
-        CdkDrag,
-        MatButtonModule,
-        NgIf,
-        MatIconModule,
-        ExtendedModule,
-        FormsModule,
-        WorkoutItemLoadSubformComponent,
-        WorkoutItemRestComponent,
-        AsyncPipe,
-    ],
+  selector: 'ft-compose-workout',
+  templateUrl: './compose-workout.component.html',
+  styleUrls: ['./compose-workout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    WorkoutDatabase,
+    ComposeWorkoutTreeService,
+    ComposeWorkoutDropService,
+    ComposeWorkoutComponentService,
+    EXERCISE_DESCRIPTORS_PROVIDER,
+  ],
+  standalone: true,
+  imports: [
+    MatDialogModule,
+    FlexModule,
+    MatExpansionModule,
+    WorkoutBasicInfoComponent,
+    WorkoutDataModule,
+    MatTreeModule,
+    CdkDropList,
+    CdkDrag,
+    MatButtonModule,
+    NgIf,
+    MatIconModule,
+    ExtendedModule,
+    FormsModule,
+    WorkoutItemLoadSubformComponent,
+    WorkoutItemRestComponent,
+    AsyncPipe,
+  ],
 })
 export class ComposeWorkoutComponent implements OnInit {
   public readonly treeControl: FlatTreeControl<WorkoutItemFlatNode> =
