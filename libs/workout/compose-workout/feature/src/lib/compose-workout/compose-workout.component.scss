@@ -1,28 +1,39 @@
+@use '@angular/material' as mat;
+
 .superset__accordion,
 .exercise__accordion {
   flex: 1 1 auto;
 }
 
-/*
- * This padding sets alignment of the nested nodes.
- */
-// .example-tree .mat-nested-tree-node div[role='group'] {
-//   padding-left: 40px;
-// }
+.node-header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.superset-form {
+  width: 90%;
+  margin: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .superset-form {
+    width: 50%;
+  }
+}
 
 mat-tree-node {
-  // background-color: rgb(66, 157, 253);
   color: white;
   user-select: none;
   cursor: move;
-  padding-left: 0 !important;
+  margin-top: 1rem;
 
   &.cdk-drag-preview {
-    // while dragging
-    // @include mat-elevation(12);
+    @include mat.elevation(12);
   }
   &.cdk-drag-placeholder {
-    // potential drop area
     opacity: 0;
   }
 }

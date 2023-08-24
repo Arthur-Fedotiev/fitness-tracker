@@ -15,31 +15,30 @@ export class ComposeWorkoutDropService {
 
     const visibleNodes: WorkoutItem[] = this.visibleNodes();
 
-    const isDroppedToBottomOfLevel = (
-      nodeAtDest: WorkoutItem,
-      siblings: WorkoutItem[],
-    ): boolean => {
-      return nodeAtDest.id === siblings[siblings.length - 1].id;
-    };
-
     const isDraggedAcrossLevels = (
       previousLevel: number,
       currentLevel: number,
-    ) => previousLevel !== currentLevel;
+    ) =>
+      previousLevel !== currentLevel ||
+      !!(
+        nodeAtDest.parent &&
+        visibleNodes[event.currentIndex].parent &&
+        nodeAtDest.parent.id !== visibleNodes[event.currentIndex].id
+      );
 
     // recursive find function to find siblings of node
     function findNodeSiblings(
-      arr: WorkoutItem[],
-      id: string,
+      currentFlatData: WorkoutItem[],
+      destNodeId: string,
     ): WorkoutItem[] | null {
       let result = null;
       let subResult;
 
-      arr.forEach((item, i) => {
-        if (item.id === id) {
-          result = arr;
+      currentFlatData.forEach((item, i) => {
+        if (item.id === destNodeId) {
+          result = currentFlatData;
         } else if (item.children) {
-          subResult = findNodeSiblings(item.children, id);
+          subResult = findNodeSiblings(item.children, destNodeId);
           if (subResult) result = subResult;
         }
       });
@@ -76,8 +75,22 @@ export class ComposeWorkoutDropService {
 
     if (nodeAtDest.id === nodeDragged?.id) return;
 
-    isDroppedToBottomOfLevel(nodeAtDest, newSiblings) &&
-    !isDraggedAcrossLevels(flatNodeAtDest.level, nodeDragged.level)
+    if (isDraggedAcrossLevels(flatNodeAtDest.level, nodeDragged.level)) {
+      const isDroppedInto = nodeDragged.level < flatNodeAtDest.level;
+
+      if (isDroppedInto) {
+        nodeAtDest.children
+          ? this.treeService.insertItemAbove(
+              nodeAtDest.children[0],
+              nodeToInsert,
+            )
+          : this.treeService.insertItemAbove(nodeAtDest, nodeToInsert);
+
+        return;
+      }
+    }
+
+    event.currentIndex > event.previousIndex
       ? this.treeService.insertItemBelow(nodeAtDest, nodeToInsert)
       : this.treeService.insertItemAbove(nodeAtDest, nodeToInsert);
   }

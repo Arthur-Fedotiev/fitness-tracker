@@ -29,7 +29,7 @@
       *matTreeNodeDef="let node"
       class="exercise"
       matTreeNodeToggle
-      [matTreeNodePadding]="40"
+      [style.padding-left]="node.level * 60 + 24 + 'px'"
       cdkDrag
       [cdkDragData]="node"
     >
@@ -80,19 +80,15 @@
     <mat-tree-node
       class="superset"
       *matTreeNodeDef="let node; when: hasChild"
-      [matTreeNodePadding]="40"
+      [style.padding-left]="node.level * 40 + 'px'"
       cdkDrag
       [cdkDragData]="node"
     >
       <mat-accordion class="superset__accordion">
         <mat-expansion-panel>
-          <mat-expansion-panel-header class="superset__header">
+          <mat-expansion-panel-header>
             <mat-panel-title>
-              <div
-                fxLayout="row nowrap"
-                fxLayoutAlign="start baseline"
-                class="node-header"
-              >
+              <div class="node-header">
                 <button
                   mat-icon-button
                   matTreeNodeToggle
@@ -120,7 +116,7 @@
           <form
             fxLayout="column nowrap"
             fxLayout.gt-lg="row nowrap"
-            class="superset__form"
+            class="superset-form"
             #setInstructionsForm="ngForm"
           >
             <ft-workout-item-load
