@@ -31,19 +31,13 @@ import {
 } from '../../utils/mappers';
 import { FirebaseExerciseDataService } from '@fitness-tracker/exercise/domain';
 import { loadExerciseDetailsFailure } from 'libs/exercise/domain/src/lib/+state/exercise/exercise.actions';
-import {
-  deleteWorkout,
-  deleteWorkoutFailure,
-} from '../actions/workouts.actions';
+import { deleteWorkoutFailure } from '../actions/workouts.actions';
 
 @Injectable()
 export class WorkoutsEffects {
   public readonly createWorkout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActionNames.CREATE_WORKOUT),
-      tap((f) => {
-        console.log('WorkoutsEffects[createWorkout$]', f);
-      }),
       switchMap(({ payload }: WithPayload<SerializedWorkout>) =>
         this.workoutAPI.createWorkout(payload).pipe(
           map(() => createWorkoutSuccess()),

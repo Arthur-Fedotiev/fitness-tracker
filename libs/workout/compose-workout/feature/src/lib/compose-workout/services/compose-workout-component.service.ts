@@ -98,11 +98,13 @@ export class ComposeWorkoutComponentService {
 
   private readonly saveWorkout$ = this.saveWorkoutSubj.asObservable().pipe(
     withLatestFrom(this.workoutBasicInfoSubj),
-    map(([content, basicInfo]) => ({
-      content,
-      ...basicInfo,
-    })),
-    tap(console.log),
+    map(
+      ([content, basicInfo]) =>
+        ({
+          content,
+          ...basicInfo,
+        } as SerializedWorkout),
+    ),
     tap((serializedWorkout: SerializedWorkout) =>
       this.workoutFacade.createWorkout(serializedWorkout),
     ),
@@ -123,23 +125,15 @@ export class ComposeWorkoutComponentService {
   }
 
   public saveWorkout(): void {
-    // if (
-    //   !this.dataSource.data.every((workoutItem) => {
-    //     console.log('workoutItem', workoutItem);
-    //     console.log('workoutItem.isValid()=', workoutItem.isValid());
-    //     return workoutItem.isValid();
-    //   })
-    // ) {
-    //   console.log('Data is not valid to be saved');
+    if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
+      console.log('Data is not valid to be saved');
 
-    //   return;
-    // }
+      return;
+    }
 
     const serializedWorkoutContent = this.dataSource.data.map((workoutItem) =>
       this.workoutItemSerializeStrategy.serialize(workoutItem),
     );
-
-    console.log(serializedWorkoutContent);
 
     this.saveWorkoutSubj.next(serializedWorkoutContent);
   }
