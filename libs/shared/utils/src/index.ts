@@ -10,6 +10,4 @@ export * from './lib/i18n/functions/getTranslationsLoader';
 export * from './lib/providers/form-view.provider';
 export * from './lib/operators/loadIsolatedLang';
 export { SerializerStrategy } from './lib/interfaces/serializer.interface';
-
-
-export * from './lib/directives/e2e.directive';
+export * from './lib/directives';

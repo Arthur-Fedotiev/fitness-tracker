@@ -5,7 +5,7 @@ import {
   ConcreteSingleWorkoutItemInstruction,
   WorkoutItem,
   WorkoutBasicInfo,
-} from '@fitness-tracker/workout/data';
+} from '@fitness-tracker/workout-domain';
 import { ComposeWorkoutComponent } from '@fitness-tracker/workout/public-api';
 import {
   ComposeWorkoutDialogFactory,

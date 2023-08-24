@@ -11,13 +11,12 @@ import { MatTreeFlatDataSource, MatTreeModule } from '@angular/material/tree';
 import {
   ExerciseDescriptors,
   EXERCISE_DESCRIPTORS_TOKEN,
-} from '@fitness-tracker/exercise/api-public';
+} from '@fitness-tracker/exercise/public-api';
 import {
   WorkoutItemFlatNode,
   WorkoutItem,
   WorkoutBasicInfo,
-  WorkoutDataModule,
-} from '@fitness-tracker/workout/data';
+} from '@fitness-tracker/workout-domain';
 
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
@@ -30,7 +29,7 @@ import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-
 import { FormsModule } from '@angular/forms';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf, AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { NgIf, AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -57,7 +56,6 @@ import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain'
     FlexModule,
     MatExpansionModule,
     WorkoutBasicInfoComponent,
-    WorkoutDataModule,
     MatTreeModule,
     CdkDropList,
     CdkDrag,

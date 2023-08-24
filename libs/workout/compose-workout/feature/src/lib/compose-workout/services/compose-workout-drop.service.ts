@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   WorkoutItemFlatNode,
   WorkoutItem,
-} from '@fitness-tracker/workout/data';
+} from '@fitness-tracker/workout-domain';
 
 import { ComposeWorkoutTreeService } from './compose-wrkout-tree.service';
 

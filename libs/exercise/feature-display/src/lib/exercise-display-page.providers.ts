@@ -10,7 +10,7 @@ import {
   SerializerStrategy,
   translationsLoaderFactory,
 } from '@fitness-tracker/shared/utils';
-import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/data';
+import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/public-api';
 import {
   TranslateModule,
   TranslateLoader,

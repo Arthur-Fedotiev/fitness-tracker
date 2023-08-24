@@ -3,9 +3,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Store } from '@ngrx/store';
 
-import * as ExercisesActions from '../+state/exercise/exercise.actions';
-import * as ExercisesSelectors from '../+state/exercise/exercise.selectors';
-import { Observable, switchMap, throwError, timer } from 'rxjs';
+import * as ExercisesActions from '../application/+state/exercise.actions';
+import * as ExercisesSelectors from '../application/+state/exercise.selectors';
+import { Observable } from 'rxjs';
 import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.dto';
 import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { SearchOptions } from '../entities/response/exercise-search.interface';
@@ -15,7 +15,6 @@ import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-d
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
 import { ExerciseSavedCommand } from '../entities/commands';
 import { Router } from '@angular/router';
-import { FirebaseExerciseDataService } from '../infrastructure/exercise.data.service';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseFacade
@@ -37,7 +36,6 @@ export class ExerciseFacade
   constructor(
     private readonly store: Store,
     private readonly afs: AngularFirestore,
-    private readonly exercisesService: FirebaseExerciseDataService,
     private readonly router: Router,
   ) {}
 

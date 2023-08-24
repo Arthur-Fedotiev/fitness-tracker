@@ -1,6 +1,6 @@
-import * as fromExercise from './+state/exercise/exercise.reducer';
+import * as fromExercise from './application/+state/exercise.reducer';
 import { importProvidersFrom } from '@angular/core';
-import { ExerciseEffects } from './+state/exercise/exercise.effects';
+import { ExerciseEffects } from './application/+state/exercise.effects';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { EXERCISE_DETAILS_QUERY } from './entities/queries/exercise-details.query';

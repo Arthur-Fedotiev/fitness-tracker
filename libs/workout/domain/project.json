@@ -23,5 +23,5 @@
       }
     }
   },
-  "tags": ["domain:workout", "type:model"]
+  "tags": ["domain:workout", "type:domain-logic"]
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { canActivate } from '@angular/fire/compat/auth-guard';
 import { Route, RouterModule } from '@angular/router';
-import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/feature-display';
+import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/public-api';
 import { LayoutComponent } from '@fitness-tracker/layout/feature';
 
 import {
@@ -9,6 +9,7 @@ import {
   redirectLoggedInToExercises,
   redirectUnauthorizedToLogin,
 } from '@fitness-tracker/shared/utils';
+import { workoutDataProviders } from '@fitness-tracker/workout-domain';
 
 const appRoutes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'exercises/all' },
@@ -23,13 +24,13 @@ const appRoutes: Route[] = [
           import('@fitness-tracker/exercise/shell').then(
             (m) => m.EXERCISE_ROUTES,
           ),
-        providers: DISPLAY_PAGE_PROVIDERS,
+        providers: [DISPLAY_PAGE_PROVIDERS, workoutDataProviders],
       },
       {
         path: 'workouts',
         loadChildren: () =>
-          import('@fitness-tracker/workout-details-feature').then(
-            (m) => m.WorkoutFeatureModule,
+          import('@fitness-tracker/workout/feature-details').then(
+            (m) => m.WORKOUT_ROUTES,
           ),
       },
       {
@@ -46,7 +47,7 @@ const appRoutes: Route[] = [
     path: 'auth',
     ...canActivate(redirectLoggedInToExercises),
     loadChildren: () =>
-      import('@fitness-tracker/auth/feature').then((m) => m.AuthFeatureModule),
+      import('@fitness-tracker/auth/shell').then((m) => m.authFeatureRoutes),
   },
   { path: '**', redirectTo: 'exercises/all' },
 ];

@@ -23,5 +23,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:auth", "type:feature"]
 }

@@ -9,7 +9,7 @@ import {
 import {
   WorkoutItemFlatNode,
   WorkoutItem,
-} from '@fitness-tracker/workout/data';
+} from '@fitness-tracker/workout-domain';
 
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { filter } from 'rxjs';

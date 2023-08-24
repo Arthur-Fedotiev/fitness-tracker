@@ -1,0 +1,27 @@
+{
+  "name": "exercise-public-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/exercise/public-api/src",
+  "prefix": "public",
+  "architect": {
+    "test": {
+      "builder": "@nx/jest:jest",
+      "outputs": ["coverage/libs/exercise/public-api"],
+      "options": {
+        "jestConfig": "libs/exercise/public-api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "builder": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exercise/public-api/**/*.ts",
+          "libs/exercise/public-api/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:exercise", "domain:exercise/api-public", "type:api"]
+}

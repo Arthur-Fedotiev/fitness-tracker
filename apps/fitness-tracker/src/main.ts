@@ -16,7 +16,6 @@ import {
 import { RouterModule } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { MatSliderModule } from '@angular/material/slider';
 
 if (environment.production) {
   enableProdMode();

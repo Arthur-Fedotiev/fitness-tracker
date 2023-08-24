@@ -45,18 +45,18 @@ import {
   EXERCISE_DESCRIPTORS_TOKEN,
   SearchOptions,
 } from '@fitness-tracker/exercise/domain';
-import {
-  ComposeWorkoutDialogFactory,
-  COMPOSE_WORKOUT_DIALOG_FACTORY,
-} from '@fitness-tracker/workout/public-api';
+
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-import { COMPOSE_WORKOUT_PROVIDERS } from '@fitness-tracker/workout-compose-workout-utils';
+import {
+  COMPOSE_WORKOUT_DIALOG_FACTORY,
+  ComposeWorkoutComponent,
+  ComposeWorkoutDialogFactory,
+  WorkoutFiltersComponent,
+  COMPOSE_WORKOUT_PROVIDERS,
+} from '@fitness-tracker/workout/public-api';
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
-import { WorkoutFiltersComponent } from '@fitness-tracker/workout/ui';
 import { MatButtonModule } from '@angular/material/button';
-import { ComposeWorkoutComponent } from '@fitness-tracker/workout/compose-workout/feature';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',

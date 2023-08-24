@@ -5,7 +5,7 @@ import {
   SingleWorkoutItem,
   ConcreteSingleWorkoutItemInstruction,
   WorkoutItemFlatNode,
-} from '@fitness-tracker/workout/data';
+} from '@fitness-tracker/workout-domain';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ComposeWorkoutData } from '../models/compose-workout-data.interface';

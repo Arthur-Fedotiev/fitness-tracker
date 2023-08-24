@@ -6,11 +6,17 @@ import {
   EventEmitter,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
-import { WorkoutBasicInfo } from '@fitness-tracker/workout/data';
+import { WorkoutBasicInfo } from '@fitness-tracker/workout-domain';
 import { WorkoutLevel } from '@fitness-tracker/workout-domain';
-import { ExerciseDescriptors } from '@fitness-tracker/exercise/api-public';
+import { ExerciseDescriptors } from '@fitness-tracker/exercise/public-api';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -22,25 +28,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
-    selector: 'ft-workout-basic-info',
-    templateUrl: './workout-basic-info.component.html',
-    styleUrls: ['./workout-basic-info.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        FormsModule,
-        FlexModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        TextFieldModule,
-        MatButtonModule,
-        TitleCasePipe,
-        TranslateModule,
-    ],
+  selector: 'ft-workout-basic-info',
+  templateUrl: './workout-basic-info.component.html',
+  styleUrls: ['./workout-basic-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    FormsModule,
+    FlexModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    NgFor,
+    MatOptionModule,
+    TextFieldModule,
+    MatButtonModule,
+    TitleCasePipe,
+    TranslateModule,
+  ],
 })
 export class WorkoutBasicInfoComponent implements OnInit {
   @Input()
