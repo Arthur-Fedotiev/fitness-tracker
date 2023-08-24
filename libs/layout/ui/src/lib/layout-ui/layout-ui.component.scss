@@ -1,16 +1,30 @@
+:host {
+  --sections-gap: 2rem;
+}
+
+.sidenav {
+  padding-top: var(--sections-gap);
+}
+
 .toolbar-tools {
   display: flex;
   width: 100%;
 }
 
+.nav-bar {
+  height: 90%;
+}
+
 .settings {
   .toolbar {
     margin-left: auto;
+    width: 25vw;
     --settings-layout: flex;
     --settings-flag-width: 3rem;
   }
   &:not(.toolbar) {
-    padding: 0 0.25rem;
+    padding: 0 0.75rem;
+    margin-top: var(--sections-gap);
     --settings-layout: block;
     --settings-flag-width: 10rem;
   }

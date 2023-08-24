@@ -1,5 +1,5 @@
 <mat-sidenav-container fullscreen>
-  <mat-sidenav #sideNav (click)="sideNav.close()">
+  <mat-sidenav class="sidenav" #sideNav (click)="sideNav.close()">
     <ng-container
       *ngTemplateOutlet="navList; context: { $implicit: 'column' }"
     ></ng-container>
@@ -19,13 +19,12 @@
   <ng-content></ng-content>
 </mat-sidenav-container>
 
-<ng-template #navList let-layout let-isDesktop>
-  <ft-navigation-bar [layout]="layout"></ft-navigation-bar>
-  <section class="settings" [fxHide.lt-md]="layout === 'row'">
+<ng-template #navList let-layout>
+  <ft-navigation-bar class="nav-bar" [layout]="layout"></ft-navigation-bar>
+  <section [fxHide.lt-md]="layout === 'row'">
     <ft-settings-bar
       [class.toolbar]="layout === 'row'"
       class="settings"
-      fxLayoutGap="1rem"
       [isLoggedIn]="isLoggedIn"
       [isLoggedOut]="isLoggedOut"
       [isDarkMode]="isDarkMode"

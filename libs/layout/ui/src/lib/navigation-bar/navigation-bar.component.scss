@@ -1,9 +1,29 @@
+:host::ng-deep {
+  .mdc-list-item__content,
+  .mdc-list-item__primary-text {
+    overflow: visible;
+  }
+}
+
 .nav-list {
-  gap: 0.5rem;
+  .mdc-list-item {
+    padding: 0;
+    overflow: visible;
+  }
+
+  &--toolbar-view {
+    height: 100%;
+    padding: 0;
+
+    .mdc-list-item {
+      width: fit-content;
+    }
+  }
+
+  gap: 0;
 
   &.horizontal {
     width: 100%;
-    gap: 3.5rem;
 
     & > a {
       flex: 0 1;
@@ -12,6 +32,9 @@
 }
 
 .nav-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
   transform: scale(1.75);
 }
 
@@ -25,4 +48,18 @@
 
 .black-icon {
   color: #000;
+}
+
+@media screen and (max-width: 1280px) {
+  .nav-list {
+    gap: 1.5rem;
+
+    &--toolbar-view {
+      gap: 3.5rem;
+
+      .mdc-list-item {
+        padding: 1rem;
+      }
+    }
+  }
 }

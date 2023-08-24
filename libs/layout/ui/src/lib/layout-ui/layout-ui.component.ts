@@ -18,22 +18,22 @@ import { NgTemplateOutlet } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
-    selector: 'ft-layout-ui',
-    templateUrl: './layout-ui.component.html',
-    styleUrls: ['./layout-ui.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        MatSidenavModule,
-        NgTemplateOutlet,
-        MatToolbarModule,
-        ExtendedModule,
-        MatButtonModule,
-        MatIconModule,
-        NavigationBarComponent,
-        SettingsBarComponent,
-        FlexModule,
-    ],
+  selector: 'ft-layout-ui',
+  templateUrl: './layout-ui.component.html',
+  styleUrls: ['./layout-ui.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    NgTemplateOutlet,
+    MatToolbarModule,
+    ExtendedModule,
+    MatButtonModule,
+    MatIconModule,
+    NavigationBarComponent,
+    SettingsBarComponent,
+    FlexModule,
+  ],
 })
 export class LayoutUiComponent {
   @Input() public isLoggedIn: boolean | null = false;

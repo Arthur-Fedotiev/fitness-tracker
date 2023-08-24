@@ -22,7 +22,7 @@ import { FlexModule } from '@angular/flex-layout/flex';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
-
+import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'ft-settings-bar',
   templateUrl: './settings-bar.component.html',
@@ -32,6 +32,7 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     MatListModule,
     MatFormFieldModule,
+    MatMenuModule,
     MatSelectModule,
     E2eDirective,
     FlexModule,
