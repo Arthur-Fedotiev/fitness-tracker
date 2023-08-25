@@ -2,15 +2,17 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FirebaseUISignInFailure, FirebaseUIModule } from 'firebaseui-angular';
 import { AuthFacadeService } from '@fitness-tracker/auth/data';
 import { StyleManagerService } from '@fitness-tracker/shared/data-access';
-import { FIREBASE_UI_STYLESHEET } from '@fitness-tracker/auth/model';
 import { MatIconModule } from '@angular/material/icon';
+
+const FIREBASE_UI_STYLESHEET = 'firebase-ui.css';
+
 @Component({
-    selector: 'ft-auth',
-    templateUrl: './auth.component.html',
-    styleUrls: ['./auth.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [MatIconModule, FirebaseUIModule],
+  selector: 'ft-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatIconModule, FirebaseUIModule],
 })
 export class AuthComponent implements OnInit {
   constructor(

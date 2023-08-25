@@ -8,7 +8,7 @@ import {
 import { combineLatest, map, Observable, ReplaySubject, tap } from 'rxjs';
 import { ROLES } from 'shared-package';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { AuthFacadeService } from '@fitness-tracker/auth/data';
+import { AuthFacadeService } from '../../services/auth-facade.service';
 
 @UntilDestroy()
 @Directive({

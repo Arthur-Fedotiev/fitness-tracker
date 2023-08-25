@@ -18,7 +18,6 @@
     "paths": {
       "@fitness-tracker/auth/data": ["libs/auth/data/src/index.ts"],
       "@fitness-tracker/auth/feature": ["libs/auth/feature/src/index.ts"],
-      "@fitness-tracker/auth/model": ["libs/auth/model/src/index.ts"],
       "@fitness-tracker/auth/shell": ["libs/auth/shell/src/index.ts"],
       "@fitness-tracker/create-user/data": [
         "libs/create-user/data/src/index.ts"

@@ -1,8 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
 import { GLOBAL_PATHS, WithPayload } from '@fitness-tracker/shared/utils';
-import { UserInfo } from '@fitness-tracker/auth/model';
-
+import { UserInfo } from '../../models';
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
@@ -21,14 +20,25 @@ export const initialState: AuthState = {
 
 export const reducer = createReducer(
   initialState,
-  on(AuthActions.login, state => state),
-  on(AuthActions.loginSuccess,
+  on(AuthActions.login, (state) => state),
+  on(
+    AuthActions.loginSuccess,
     (state, { payload: user }: WithPayload<UserInfo | null>) => ({
       ...state,
       user,
-    })),
+    }),
+  ),
   on(AuthActions.logoutSuccess, (state) => ({ ...state, user: null })),
-  on(AuthActions.setDestinationURL, (state, { payload: destinationURL }) => ({ ...state, destinationURL })),
-  on(AuthActions.setAuthJwtToken, (state, { payload: authJwtToken }) => ({ ...state, authJwtToken })),
-  on(AuthActions.setAdmin, (state, { payload: admin }) => ({ ...state, admin })),
+  on(AuthActions.setDestinationURL, (state, { payload: destinationURL }) => ({
+    ...state,
+    destinationURL,
+  })),
+  on(AuthActions.setAuthJwtToken, (state, { payload: authJwtToken }) => ({
+    ...state,
+    authJwtToken,
+  })),
+  on(AuthActions.setAdmin, (state, { payload: admin }) => ({
+    ...state,
+    admin,
+  })),
 );

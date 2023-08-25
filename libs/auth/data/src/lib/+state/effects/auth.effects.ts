@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, tap } from 'rxjs/operators';
-import { TokenResult, UserInfo } from '@fitness-tracker/auth/model';
-
+import { UserInfo, TokenResult } from '../../models';
 import * as AuthActions from '../actions/auth.actions';
 import { AUTH_ACTION_NAMES } from '../models/action-name.enum';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { toUserInfo } from '../../../utils/functions';
+import { toUserInfo } from '../../functions';
 import { GLOBAL_PATHS } from '@fitness-tracker/shared/utils';
 import { Store } from '@ngrx/store';
 
