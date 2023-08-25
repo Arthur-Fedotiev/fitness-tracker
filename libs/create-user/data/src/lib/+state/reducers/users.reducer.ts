@@ -1,16 +1,14 @@
 import { createReducer } from '@ngrx/store';
-import { User } from '@fitness-tracker/create-user/models';
+import { User } from '../../user.model';
 
 export const usersFeatureKey = 'users';
 
 export interface State {
-  users: ReadonlyArray<User>
+  users: ReadonlyArray<User>;
 }
 
 export const initialState: State = {
   users: [],
 };
 
-export const reducer = createReducer(
-  initialState,
-);
+export const reducer = createReducer(initialState);

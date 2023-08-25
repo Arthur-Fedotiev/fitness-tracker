@@ -1,7 +1,7 @@
-import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import { createReducer, on } from '@ngrx/store';
 import { WorkoutDetails } from '../../classes/workout-serializer';
 import * as WorkoutsActions from '../actions/workouts.actions';
+import { WorkoutPreview } from '../../../workout-preview';
 
 export const workoutsFeatureKey = 'workouts';
 

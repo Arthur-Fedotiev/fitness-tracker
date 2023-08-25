@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthComponent } from '../../../feature/src/lib/login/auth.component';
+import { AuthComponent } from '@fitness-tracker/auth/feature';
 
 export const authFeatureRoutes: Routes = [
   {

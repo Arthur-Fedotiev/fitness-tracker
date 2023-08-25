@@ -1,0 +1,29 @@
+{
+  "name": "workout-feature-compose-workout",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/workout/feature-compose-workout/src",
+  "prefix": "fitness-tracker",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/workout/feature-compose-workout"
+      ],
+      "options": {
+        "jestConfig": "libs/workout/feature-compose-workout/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/workout/feature-compose-workout/**/*.ts",
+          "libs/workout/feature-compose-workout/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:workout", "type:feature"]
+}

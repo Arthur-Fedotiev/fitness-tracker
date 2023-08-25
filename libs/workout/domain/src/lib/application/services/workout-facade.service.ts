@@ -9,7 +9,7 @@ import {
   loadWorkoutDetails,
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
-import { WorkoutPreview } from '@fitness-tracker/workout-domain';
+import { WorkoutPreview } from '../../workout-preview';
 import {
   workoutDetails,
   workoutPreviews,

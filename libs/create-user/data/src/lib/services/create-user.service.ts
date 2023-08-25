@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '@fitness-tracker/create-user/models';
 import { Observable } from 'rxjs';
 import { environment } from '@fitness-tracker/shared/environments';
+import { User } from '../user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {

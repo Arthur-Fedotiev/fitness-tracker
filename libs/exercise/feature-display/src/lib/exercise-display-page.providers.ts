@@ -6,11 +6,7 @@ import {
   EXERCISE_DOMAIN_PROVIDERS,
 } from '@fitness-tracker/exercise/domain';
 import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
-import {
-  SerializerStrategy,
-  translationsLoaderFactory,
-} from '@fitness-tracker/shared/utils';
-import { ConcreteWorkoutItemSerializer } from '@fitness-tracker/workout/public-api';
+import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
 import {
   TranslateModule,
   TranslateLoader,
@@ -23,10 +19,7 @@ const i18nAssetsPath = 'assets/i18n/exercise-display/';
 export const DISPLAY_PAGE_PROVIDERS = [
   EXERCISE_DESCRIPTORS_PROVIDER,
   EXERCISE_DOMAIN_PROVIDERS,
-  {
-    provide: SerializerStrategy,
-    useExisting: ConcreteWorkoutItemSerializer,
-  },
+
   {
     provide: ExerciseDetailsDialogComponent,
     useFactory: () =>

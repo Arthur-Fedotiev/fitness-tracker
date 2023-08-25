@@ -11,7 +11,7 @@ import {
   WithId,
 } from '@fitness-tracker/shared/utils';
 import { Observable, from, first, map } from 'rxjs';
-import { WorkoutPreview } from '@fitness-tracker/workout-domain';
+import { WorkoutPreview } from '../../workout-preview';
 import { LanguageCodes } from 'shared-package';
 import { SerializedWorkout } from '../classes/workout-serializer';
 

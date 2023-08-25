@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ROLES } from 'shared-package';
-import { RolesDirective } from '../../../../../auth/feature/src/lib/roles/roles.directive';
+import { RolesDirective } from '../../../../../auth/data/src/lib/application/roles/roles.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';

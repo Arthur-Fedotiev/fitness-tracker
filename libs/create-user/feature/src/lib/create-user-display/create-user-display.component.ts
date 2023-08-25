@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { User } from '@fitness-tracker/create-user/models';
 import { UsersFacadeService } from '@fitness-tracker/create-user/data';
 import { CreateUserFormComponent } from '../../../../ui/src/lib/create-user-form/create-user-form.component';
 

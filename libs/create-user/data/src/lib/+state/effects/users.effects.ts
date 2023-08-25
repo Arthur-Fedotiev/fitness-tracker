@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import * as UsersActions from '../actions/users.actions';
 import { USERS_ACTION_NAMES } from '../models/action-names.enums';
-import { User } from '@fitness-tracker/create-user/models';
 import { UsersService } from '../../services/create-user.service';
 import { WithPayload } from '@fitness-tracker/shared/utils';
+import { User } from '../../user.model';
 
 @Injectable()
 export class UsersEffects {

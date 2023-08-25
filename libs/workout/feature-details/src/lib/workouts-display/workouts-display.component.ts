@@ -21,12 +21,6 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isEqual } from 'lodash-es';
 
-import { MatDialog } from '@angular/material/dialog';
-import {
-  ComposeWorkoutDialogFactory,
-  COMPOSE_WORKOUT_DIALOG_FACTORY,
-  COMPOSE_WORKOUT_PROVIDERS,
-} from '@fitness-tracker/workout-compose-workout-utils';
 import {
   ExerciseDescriptors,
   EXERCISE_DESCRIPTORS_TOKEN,
@@ -37,7 +31,7 @@ import {
   WorkoutPreviewComponent,
 } from '@fitness-tracker/workout/ui';
 import { NgIf, AsyncPipe } from '@angular/common';
-import { WorkoutFiltersComponent } from '@fitness-tracker/workout/ui';
+import { WorkoutFiltersComponent } from '@fitness-tracker/shared/ui/components';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
@@ -56,7 +50,6 @@ type TargetMuscles = ExerciseDescriptors['muscles'];
     TranslateModule,
     AsyncPipe,
   ],
-  providers: [COMPOSE_WORKOUT_PROVIDERS],
 })
 export class WorkoutsDisplayComponent implements OnInit {
   public readonly workoutPreviews$: Observable<WorkoutPreview[]> =
@@ -82,10 +75,9 @@ export class WorkoutsDisplayComponent implements OnInit {
   private readonly openEditWorkout$ = this.workoutFacade.workoutDetails$.pipe(
     filter(Boolean),
     tap(({ content, ...basicInfo }) => {
-      const { component, config } =
-        this.composeWorkoutDialogFactory.createDialog(content, basicInfo);
-
-      this.dialog.open(component, config);
+      this.router.navigate(['workouts', 'compose'], {
+        state: { workoutExercisesList: content, workoutBasicInfo: basicInfo },
+      });
     }),
     untilDestroyed(this),
   );
@@ -93,12 +85,9 @@ export class WorkoutsDisplayComponent implements OnInit {
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
-    @Inject(COMPOSE_WORKOUT_DIALOG_FACTORY)
-    private readonly composeWorkoutDialogFactory: ComposeWorkoutDialogFactory,
     private readonly workoutFacade: WorkoutFacadeService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly dialog: MatDialog,
   ) {}
 
   public ngOnInit(): void {

@@ -5,7 +5,6 @@ import {
   OnDestroy,
   Inject,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
@@ -48,15 +47,10 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  COMPOSE_WORKOUT_DIALOG_FACTORY,
-  ComposeWorkoutComponent,
-  ComposeWorkoutDialogFactory,
-  WorkoutFiltersComponent,
-  COMPOSE_WORKOUT_PROVIDERS,
-} from '@fitness-tracker/workout/public-api';
+
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
+import { WorkoutFiltersComponent } from '@fitness-tracker/shared/ui/components';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -71,13 +65,11 @@ enum EXERCISE_MODE {
   imports: [
     CommonModule,
     FlexLayoutModule,
-    ComposeWorkoutComponent,
     ExerciseListComponent,
     TranslateModule,
     MatButtonModule,
     WorkoutFiltersComponent,
   ],
-  providers: [COMPOSE_WORKOUT_PROVIDERS],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisplayPageComponent implements OnInit, OnDestroy {
@@ -151,8 +143,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     .pipe(filter(Boolean), skip(1), first());
 
   constructor(
-    @Inject(COMPOSE_WORKOUT_DIALOG_FACTORY)
-    private readonly composeWorkoutDialogFactory: ComposeWorkoutDialogFactory,
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly exerciseFacade: ExerciseFacade,
@@ -160,7 +150,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly translateService: TranslateService,
-    private readonly dialog: MatDialog,
   ) {}
 
   public ngOnInit(): void {
@@ -209,10 +198,11 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
       'avatarUrl' | 'id' | 'name'
     >[],
   ): void {
-    const { component, config } =
-      this.composeWorkoutDialogFactory.createDialog(workoutExercisesList);
+    console.log('workoutExercisesList', workoutExercisesList);
 
-    this.dialog.open(component, config);
+    this.router.navigate(['workouts', 'compose'], {
+      state: { workoutExercisesList },
+    });
   }
 
   public targetMusclesChanges($event: SearchOptions['targetMuscles']): void {

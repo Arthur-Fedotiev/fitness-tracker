@@ -29,9 +29,7 @@ const appRoutes: Route[] = [
       {
         path: 'workouts',
         loadChildren: () =>
-          import('@fitness-tracker/workout/feature-details').then(
-            (m) => m.WORKOUT_ROUTES,
-          ),
+          import('@fitness-tracker/workout/shell').then((m) => m.workoutRoutes),
       },
       {
         path: 'create-user',
@@ -57,6 +55,7 @@ const appRoutes: Route[] = [
     RouterModule.forRoot(appRoutes, {
       enableTracing: false,
       initialNavigation: 'enabledNonBlocking',
+      bindToComponentInputs: true,
     }),
   ],
   exports: [RouterModule],
