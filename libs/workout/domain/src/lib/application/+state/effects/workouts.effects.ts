@@ -12,6 +12,7 @@ import {
   loadWorkoutDetailsSuccess,
   loadWorkoutPreviewsFailure,
   loadWorkoutPreviewsSuccess,
+  deleteWorkoutFailure,
 } from '../actions/workouts.actions';
 import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '../../../workout-preview';
@@ -31,7 +32,6 @@ import {
   toWorkoutDetails,
 } from '../../utils/mappers';
 import { FirebaseExerciseDataService } from '@fitness-tracker/exercise/public-api';
-import { deleteWorkoutFailure } from '../actions/workouts.actions';
 
 @Injectable()
 export class WorkoutsEffects {

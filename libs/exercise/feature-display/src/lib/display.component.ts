@@ -50,7 +50,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
-import { WorkoutFiltersComponent } from '@fitness-tracker/shared/ui/components';
+import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -68,7 +68,7 @@ enum EXERCISE_MODE {
     ExerciseListComponent,
     TranslateModule,
     MatButtonModule,
-    WorkoutFiltersComponent,
+    MuscleMultiSelectComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

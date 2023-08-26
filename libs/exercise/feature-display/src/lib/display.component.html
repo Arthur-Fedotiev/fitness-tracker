@@ -20,14 +20,14 @@
     </button>
 
     <article class="exercises-list__list">
-      <ft-workout-filters
+      <ft-muscle-multi-select
         class="filters"
         ngClass.gt-sm="filters-large"
         fxLayout
         [initialTargetMuscles]="(targetMuscles$ | async)!"
         [muscleList]="exerciseDescriptors.muscles"
         (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
-      ></ft-workout-filters>
+      ></ft-muscle-multi-select>
 
       <components-exercise-list
         [exerciseList]="exercisesList$ | async"

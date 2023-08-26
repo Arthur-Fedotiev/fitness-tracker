@@ -31,7 +31,7 @@ import {
   WorkoutPreviewComponent,
 } from '@fitness-tracker/workout/ui';
 import { NgIf, AsyncPipe } from '@angular/common';
-import { WorkoutFiltersComponent } from '@fitness-tracker/shared/ui/components';
+import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
@@ -43,7 +43,7 @@ type TargetMuscles = ExerciseDescriptors['muscles'];
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    WorkoutFiltersComponent,
+    MuscleMultiSelectComponent,
     NgIf,
     WorkoutListComponent,
     WorkoutPreviewComponent,

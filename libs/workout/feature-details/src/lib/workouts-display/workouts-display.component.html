@@ -1,8 +1,8 @@
-<ft-workout-filters
+<ft-muscle-multi-select
   [initialTargetMuscles]="(targetMuscles$ | async)!"
   [muscleList]="exerciseDescriptors.muscles"
   (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
-></ft-workout-filters>
+></ft-muscle-multi-select>
 
 <ng-container *ngIf="(workoutPreviews$ | async)! as workoutPreviews">
   <ng-container *ngIf="workoutPreviews.length; else noWorkouts">

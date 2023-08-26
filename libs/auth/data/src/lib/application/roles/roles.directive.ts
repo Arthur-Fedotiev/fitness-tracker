@@ -28,7 +28,7 @@ export class RolesDirective implements OnInit {
     this.isAdmin$,
     this.allowedRole$$.asObservable(),
   ]).pipe(
-    map(([isAdmin, allowedRole]: [boolean, ROLES]) =>
+    map(([isAdmin, allowedRole]) =>
       allowedRole === ROLES.TRAINEE ? true : isAdmin,
     ),
     tap((isRender: boolean) => {

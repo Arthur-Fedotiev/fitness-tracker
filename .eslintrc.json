@@ -68,7 +68,7 @@
               },
               {
                 "sourceTag": "type:domain-logic",
-                "onlyDependOnLibsWithTags": ["type:util"]
+                "onlyDependOnLibsWithTags": ["type:util", "type:api"]
               },
               {
                 "sourceTag": "type:shell",
