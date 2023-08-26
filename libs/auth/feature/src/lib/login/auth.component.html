@@ -1,6 +1,10 @@
-<mat-icon class="welcome-icon"
-          width="50%"
-          svgIcon="sign-up"
-          [color]="'accent'"></mat-icon>
-<firebase-ui class="auth-container"
-             (signInFailure)="errorCallback($event)"></firebase-ui>
+<mat-icon
+  class="welcome-icon"
+  width="50%"
+  svgIcon="sign-up"
+  [color]="'accent'"
+></mat-icon>
+<firebase-ui
+  class="auth-container"
+  (signInFailure)="errorCallback()"
+></firebase-ui>

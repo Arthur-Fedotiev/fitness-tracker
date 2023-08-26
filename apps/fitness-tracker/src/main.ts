@@ -5,7 +5,6 @@ import { AppComponent } from './app/app.component';
 import { provideCoreDependencies } from './app/core.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
-import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 import { AuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app/app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -30,7 +29,6 @@ setTimeout(function scheduleAppBootstrap() {
         FlexLayoutModule,
         AppRoutingModule,
         AuthModule,
-        AuthFeatureModule,
         LayoutFeatureModule,
         MatDialogModule,
       ),

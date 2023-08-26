@@ -1,5 +1,4 @@
 import { importProvidersFrom } from '@angular/core';
-import { AuthFeatureModule } from '@fitness-tracker/auth/feature';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { SharedDataAccessModule } from '@fitness-tracker/shared/data-access';
 import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
@@ -11,6 +10,7 @@ import {
 import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
 import { HttpClient } from '@angular/common/http';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
+import { authProviders } from '@fitness-tracker/auth/shell';
 
 const i18nGlobalPath = 'assets/i18n/';
 let isCoreDependenciesRegistered = false;
@@ -41,6 +41,6 @@ export const provideCoreDependencies = () => {
     importProvidersFrom(SharedRootPwaModule.forRoot()),
     importProvidersFrom(SharedDataAccessModule.forRoot()),
     importProvidersFrom(LayoutFeatureModule.forRoot()),
-    importProvidersFrom(AuthFeatureModule.forRoot()),
+    authProviders,
   ];
 };

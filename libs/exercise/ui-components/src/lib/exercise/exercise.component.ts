@@ -13,11 +13,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { RolesDirective } from '@fitness-tracker/auth/data';
 import {
   ImgFallbackDirective,
   E2eDirective,
 } from '@fitness-tracker/shared/utils';
+import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 
 @Component({
   selector: 'components-exercise',

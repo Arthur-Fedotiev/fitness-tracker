@@ -1,0 +1,27 @@
+{
+  "name": "auth-domain",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/auth/domain/src",
+  "selector": "ft",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/auth/domain"],
+      "options": {
+        "jestConfig": "libs/auth/domain/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/auth/domain/src/**/*.ts",
+          "libs/auth/domain/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:shared", "domain:auth", "type:domain-logic"]
+}

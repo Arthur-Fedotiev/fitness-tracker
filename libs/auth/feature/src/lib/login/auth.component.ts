@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { FirebaseUISignInFailure, FirebaseUIModule } from 'firebaseui-angular';
-import { AuthFacadeService } from '@fitness-tracker/auth/data';
+import { FirebaseUIModule } from 'firebaseui-angular';
+import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 import { StyleManagerService } from '@fitness-tracker/shared/data-access';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit {
     this.styleManager.loadStylesheet(FIREBASE_UI_STYLESHEET);
   }
 
-  errorCallback(_: FirebaseUISignInFailure): void {
+  errorCallback(): void {
     this.authFacade.loginErrored();
   }
 }

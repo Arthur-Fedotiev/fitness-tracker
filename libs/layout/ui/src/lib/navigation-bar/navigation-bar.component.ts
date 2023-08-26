@@ -9,7 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { E2eDirective } from '@fitness-tracker/shared/utils';
-import { RolesDirective } from '@fitness-tracker/auth/data';
+import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 
 @Component({
   selector: 'ft-navigation-bar',

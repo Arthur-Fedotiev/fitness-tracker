@@ -14,7 +14,7 @@ import { NgIf, NgFor, LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ImgFallbackDirective } from '@fitness-tracker/shared/utils';
-import { RolesDirective } from '@fitness-tracker/auth/data';
+import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 
 @Component({
   selector: 'ft-workout-preview',
