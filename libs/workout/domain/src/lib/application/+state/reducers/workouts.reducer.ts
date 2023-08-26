@@ -34,4 +34,9 @@ export const reducer = createReducer(
       (workout) => workout.id !== payload,
     ),
   })),
+
+  on(WorkoutsActions.navigatedFromWorkoutCompose, (state) => ({
+    ...state,
+    workoutDetails: null,
+  })),
 );

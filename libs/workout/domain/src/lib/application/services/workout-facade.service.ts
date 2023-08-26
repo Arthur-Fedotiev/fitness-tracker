@@ -10,6 +10,7 @@ import {
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
 import { WorkoutPreview } from '../../workout-preview';
+import { navigatedFromWorkoutCompose } from '../+state/actions/workouts.actions';
 import {
   workoutDetails,
   workoutPreviews,
@@ -50,5 +51,9 @@ export class WorkoutFacadeService {
 
   public deleteWorkout(payload: string): void {
     this.store.dispatch(deleteWorkout({ payload }));
+  }
+
+  public onNavigatedFromWorkoutCompose(): void {
+    this.store.dispatch(navigatedFromWorkoutCompose());
   }
 }

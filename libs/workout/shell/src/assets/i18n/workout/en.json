@@ -7,6 +7,10 @@
       "DURATION": "sec."
     }
   },
+  "loadLabel": {
+    "REPS": "Amount of reps",
+    "DURATION": "Amount of seconds"
+  },
   "compoundTypes": {
     "superset": "Superset"
   },

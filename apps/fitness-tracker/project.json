@@ -32,9 +32,9 @@
             "output": "assets/i18n/exercise-display"
           },
           {
-            "input": "libs/workout/feature-details/src/assets/i18n/workout-details",
+            "input": "libs/workout/shell/src/assets/i18n/workout",
             "glob": "*.json",
-            "output": "assets/i18n/workout-details"
+            "output": "assets/i18n/workout"
           },
           "apps/fitness-tracker/src/manifest.webmanifest"
         ],

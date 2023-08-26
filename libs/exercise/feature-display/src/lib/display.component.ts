@@ -48,6 +48,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
@@ -198,8 +199,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
       'avatarUrl' | 'id' | 'name'
     >[],
   ): void {
-    console.log('workoutExercisesList', workoutExercisesList);
-
     this.router.navigate(['workouts', 'compose'], {
       state: { workoutExercisesList },
     });

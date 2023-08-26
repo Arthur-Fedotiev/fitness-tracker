@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeModule } from '@angular/material/tree';
 import {
@@ -17,6 +18,7 @@ import {
   WorkoutItemFlatNode,
   WorkoutItem,
   WorkoutBasicInfo,
+  ComposeWorkoutData,
 } from '@fitness-tracker/workout-domain';
 
 import { UntilDestroy } from '@ngneat/until-destroy';
@@ -36,7 +38,6 @@ import { WorkoutBasicInfoComponent } from './components/workout-basic-info/worko
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
-import { ComposeWorkoutData } from './models/compose-workout-data.interface';
 
 @UntilDestroy()
 @Component({
@@ -69,7 +70,7 @@ import { ComposeWorkoutData } from './models/compose-workout-data.interface';
     AsyncPipe,
   ],
 })
-export class ComposeWorkoutComponent implements OnInit {
+export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   @Input({ required: true }) resolvedComposedWorkoutData!: ComposeWorkoutData;
 
   public treeControl: FlatTreeControl<WorkoutItemFlatNode> =
@@ -97,6 +98,10 @@ export class ComposeWorkoutComponent implements OnInit {
     this.treeControl = treeControl;
     this.dataSource = dataSource;
     this.expansionModel = expansionModel;
+  }
+
+  public ngOnDestroy(): void {
+    this.releaseResources();
   }
 
   public toggleComposeSuperset() {
@@ -137,5 +142,9 @@ export class ComposeWorkoutComponent implements OnInit {
 
   public addToSuperset(node: WorkoutItemFlatNode): void {
     this.composeWorkoutPresenter.addToSuperset(node);
+  }
+
+  private releaseResources(): void {
+    this.composeWorkoutPresenter.releaseResources();
   }
 }

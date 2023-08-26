@@ -4,10 +4,10 @@ import {
   SingleWorkoutItem,
   ConcreteSingleWorkoutItemInstruction,
   WorkoutItemFlatNode,
+  ComposeWorkoutData,
 } from '@fitness-tracker/workout-domain';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { ComposeWorkoutData } from '../models/compose-workout-data.interface';
 
 @Injectable()
 export class WorkoutDatabase {

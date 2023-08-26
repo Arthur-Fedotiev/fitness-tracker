@@ -72,16 +72,6 @@ export class WorkoutsDisplayComponent implements OnInit {
     .asObservable()
     .pipe(skip(1), first());
 
-  private readonly openEditWorkout$ = this.workoutFacade.workoutDetails$.pipe(
-    filter(Boolean),
-    tap(({ content, ...basicInfo }) => {
-      this.router.navigate(['workouts', 'compose'], {
-        state: { workoutExercisesList: content, workoutBasicInfo: basicInfo },
-      });
-    }),
-    untilDestroyed(this),
-  );
-
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
@@ -99,7 +89,9 @@ export class WorkoutsDisplayComponent implements OnInit {
   }
 
   public editWorkout(id: string): void {
-    this.workoutFacade.loadWorkoutDetails(id);
+    this.router.navigate(['workouts', 'compose'], {
+      queryParams: { workoutId: id },
+    });
   }
 
   public deleteWorkout(id: string): void {
@@ -108,7 +100,6 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   private initListeners(): void {
     this.queryParams$.subscribe();
-    this.openEditWorkout$.subscribe();
   }
 
   private setMusclesQueryParams(targetMuscles: TargetMuscles): void {

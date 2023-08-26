@@ -9,8 +9,8 @@
     <mat-option [value]="instructionType.DURATION">Seconds</mat-option>
   </mat-select>
 </mat-form-field>
-<mat-form-field>
-  <mat-label>Load</mat-label>
+<mat-form-field appearance="outline">
+  <mat-label> {{ 'loadLabel.REPS' | translate }} - </mat-label>
   <input
     type="number"
     step="1"

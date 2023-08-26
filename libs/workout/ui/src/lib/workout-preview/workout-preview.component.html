@@ -11,8 +11,7 @@
     <mat-card-title
       ><a
         class="title-link"
-        [routerLink]="['../', workout.id]"
-        [queryParamsHandling]="'preserve'"
+        [routerLink]="['/workouts', 'details', workout.id]"
         >{{ workout.name }}</a
       ></mat-card-title
     >

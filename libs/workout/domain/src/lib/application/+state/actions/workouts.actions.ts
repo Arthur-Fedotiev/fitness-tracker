@@ -74,3 +74,7 @@ export const deleteWorkoutSuccess = createAction(
 export const deleteWorkoutFailure = createAction(
   WorkoutActionNames.DELETE_WORKOUT_FAILURE,
 );
+
+export const navigatedFromWorkoutCompose = createAction(
+  WorkoutActionNames.NAVIGATED_FROM_WORKOUT_COMPOSE,
+);

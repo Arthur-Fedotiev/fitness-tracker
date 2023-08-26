@@ -2,7 +2,7 @@
   <article fxLayout="row nowrap" fxLayoutAlign="center">
     <section fxFlex="80%">
       <mat-accordion>
-        <mat-expansion-panel class="form-panel">
+        <mat-expansion-panel #matExpansionPanel class="form-panel">
           <mat-expansion-panel-header>
             <mat-panel-title fxLayoutAlign="center">
               <h3 class="panel-title">Workout basic information</h3>
@@ -11,7 +11,9 @@
           <ft-workout-basic-info
             [basicInfo]="workoutBasicInfo$ | async"
             [exerciseDescriptors]="exerciseDescriptors"
-            (workoutBasicInfoSaved)="saveBasicInfo($event)"
+            (workoutBasicInfoSaved)="
+              matExpansionPanel.expanded = false; saveBasicInfo($event)
+            "
           ></ft-workout-basic-info>
         </mat-expansion-panel>
       </mat-accordion>

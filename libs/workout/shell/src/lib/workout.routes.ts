@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { importProvidersFrom, inject } from '@angular/core';
-import { Router, Routes } from '@angular/router';
+import { importProvidersFrom } from '@angular/core';
+import { Routes } from '@angular/router';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
 import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
-import { Store, StoreModule } from '@ngrx/store';
 import {
   SerializerStrategy,
   translationsLoaderFactory,
@@ -11,9 +10,8 @@ import {
 
 import {
   ConcreteWorkoutItemSerializer,
-  WorkoutExercise,
-  ConcreteSingleWorkoutItemInstruction,
   workoutDataProviders,
+  composedWorkoutDataResolver,
 } from '@fitness-tracker/workout-domain';
 
 import {
@@ -22,7 +20,7 @@ import {
   MissingTranslationHandler,
 } from '@ngx-translate/core';
 
-const i18nAssetsPath = 'assets/i18n/workout-details/';
+const i18nAssetsPath = 'assets/i18n/workout/';
 
 export const workoutRoutes = [
   {
@@ -63,21 +61,7 @@ export const workoutRoutes = [
           },
         ],
         resolve: {
-          resolvedComposedWorkoutData: () => {
-            const { workoutExercisesList, workoutBasicInfo } =
-              inject(Router).getCurrentNavigation()?.extras?.state ?? {};
-
-            return {
-              workoutContent: workoutExercisesList.map(
-                (exercise: WorkoutExercise) =>
-                  inject(SerializerStrategy).deserialize({
-                    ...exercise,
-                    ...new ConcreteSingleWorkoutItemInstruction(),
-                  }),
-              ),
-              workoutBasicInfo,
-            };
-          },
+          resolvedComposedWorkoutData: composedWorkoutDataResolver,
         },
         loadComponent: () =>
           import('@fitness-tracker/workout/feature-compose-workout').then(
@@ -86,7 +70,7 @@ export const workoutRoutes = [
       },
 
       {
-        path: ':id',
+        path: 'details/:id',
         loadComponent: () =>
           import('@fitness-tracker/workout/feature-details').then(
             (m) => m.WorkoutDetailsComponent,

@@ -9,6 +9,7 @@ import {
 import {
   WorkoutItemFlatNode,
   WorkoutItem,
+  ComposeWorkoutData,
 } from '@fitness-tracker/workout-domain';
 
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
@@ -18,7 +19,6 @@ import {
   isExpandable,
   getChildren,
 } from './workout-db';
-import { ComposeWorkoutData } from '../models/compose-workout-data.interface';
 
 @UntilDestroy()
 @Injectable()

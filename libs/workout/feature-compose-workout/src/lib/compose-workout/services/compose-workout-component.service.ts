@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 
 import {
+  ComposeWorkoutData,
   ConcreteCompositeWorkoutItemInstruction,
   ConcreteSingleWorkoutItemInstruction,
   ConcreteWorkoutItemSerializer,
@@ -26,7 +27,6 @@ import {
   map,
   tap,
 } from 'rxjs';
-import { ComposeWorkoutData } from '../models/compose-workout-data.interface';
 import { ComposeWorkoutDropService } from './compose-workout-drop.service';
 import { ComposeWorkoutTreeService } from './compose-workout-tree.service';
 
@@ -186,5 +186,9 @@ export class ComposeWorkoutComponentService {
         ...new ConcreteSingleWorkoutItemInstruction(),
       }),
     );
+  }
+
+  public releaseResources(): void {
+    this.workoutFacade.onNavigatedFromWorkoutCompose();
   }
 }
