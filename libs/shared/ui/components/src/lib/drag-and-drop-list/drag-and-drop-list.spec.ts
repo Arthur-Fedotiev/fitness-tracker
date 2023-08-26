@@ -85,7 +85,7 @@ describe('DragAndDropListComponent', () => {
         { id: 'field3', name: 'col3', isChecked: false },
       ];
 
-      const listChangeSpyEmit = spyOn(
+      const listChangeSpyEmit = jest.spyOn(
         dragAndDropListComponent.listChange,
         'emit',
       );
