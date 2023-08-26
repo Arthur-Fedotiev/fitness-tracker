@@ -58,9 +58,15 @@ describe('Exercise Edit', () => {
     cy.dataCy('exerciseAvatarUrlInput').type(exerciseStub.baseData.avatarUrl);
     cy.get('@saveBtn').should('be.disabled');
 
+    cy.dataCy('exerciseCoverUrlInput')
+      .as('coverUrlInput')
+      .type(exerciseStub.baseData.coverUrl);
+    cy.get('@coverUrlInput').trigger('change');
+
     cy.dataCy('exerciseRatingInput')
-      .type(String(exerciseStub.baseData.rating))
-      .trigger('change');
+      .as('ratingInput')
+      .type(String(exerciseStub.baseData.rating));
+    cy.get('@ratingInput').trigger('change');
 
     cy.get('@saveBtn').should('be.enabled').click();
 

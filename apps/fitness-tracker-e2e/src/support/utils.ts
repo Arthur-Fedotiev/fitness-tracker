@@ -1,3 +1,4 @@
+/* eslint-disable cypress/unsafe-to-chain-command */
 export const dataCy = (selector: string, ...args: any[]): Cypress.Chainable =>
   cy.get(`[data-cy="${selector}"]`, ...args);
 

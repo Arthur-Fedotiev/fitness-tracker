@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import { ROLES } from 'shared-package';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +14,14 @@ import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ImgFallbackDirective } from '@fitness-tracker/shared/utils';
 import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
+
+interface WorkoutPreview {
+  id: string;
+  name: string;
+  img: string;
+  level: string;
+  targetMuscles: string[];
+}
 
 @Component({
   selector: 'ft-workout-preview',

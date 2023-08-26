@@ -10,7 +10,7 @@ import { filter, map, Observable } from 'rxjs';
 import { LanguageCodes } from 'shared-package';
 import { AsyncPipe } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { LayoutUiComponent } from '../../../../ui/src/lib/layout-ui/layout-ui.component';
+import { LayoutUiComponent } from '@fitness-tracker/layout/ui';
 
 @Component({
   selector: 'ft-layout',
