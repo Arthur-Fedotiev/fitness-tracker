@@ -1,4 +1,13 @@
 {
+  "basicInformation": {
+    "title": "Workout basic information",
+    "name": "Workout name",
+    "targetMuscles": "Target muscles",
+    "level": "Level",
+    "coverUrl": "Cover image URL",
+    "description": "Description",
+    "importantNotes": "Important notes"
+  },
   "instructions": {
     "REPS": "repetitions",
     "DURATION": "duration",
@@ -8,8 +17,14 @@
     }
   },
   "loadLabel": {
+    "selectLoad": "Load type",
     "REPS": "Amount of reps",
     "DURATION": "Amount of seconds"
+  },
+  "restLabel": {
+    "restPauseBetween": "Rest between sets",
+    "restPauseAfterComplete": "Rest after exercise done",
+    "totalSets": "Total sets"
   },
   "compoundTypes": {
     "superset": "Superset"

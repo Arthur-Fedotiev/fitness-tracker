@@ -1,4 +1,5 @@
 {
+  "basicInformation": {},
   "instructions": {
     "REPS": "повторень",
     "DURATION": "тривалість",
@@ -8,8 +9,14 @@
     }
   },
   "loadLabel": {
-    "REPS": "Amount of reps",
-    "DURATION": "Amount of seconds"
+    "selectLoad": "Тип навантаження",
+    "REPS": "Кількість повторень",
+    "DURATION": "Секунд"
+  },
+  "restLabel": {
+    "restPauseBetween": "Відпочинок між підходами",
+    "restPauseAfterComplete": "Відпочинок після завершення вправи",
+    "totalSets": "Всього підходів"
   },
   "compoundTypes": {
     "superset": "Суперсет"
