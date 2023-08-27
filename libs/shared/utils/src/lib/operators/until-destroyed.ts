@@ -7,6 +7,8 @@ export function untilDestroyed() {
   inject(DestroyRef).onDestroy(() => {
     subject.next(true);
     subject.complete();
+
+    console.log('DESTROYED');
   });
 
   return <T>() => takeUntil<T>(subject.asObservable());

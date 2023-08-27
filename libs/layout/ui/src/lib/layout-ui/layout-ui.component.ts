@@ -5,7 +5,6 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { Language } from '@fitness-tracker/shared/utils';
 import { LanguageCodes } from 'shared-package';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { SettingsBarComponent } from '../settings/settings-bar.component';
@@ -16,6 +15,7 @@ import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { Language } from '@fitness-tracker/shared/i18n/utils';
 
 @Component({
   selector: 'ft-layout-ui',

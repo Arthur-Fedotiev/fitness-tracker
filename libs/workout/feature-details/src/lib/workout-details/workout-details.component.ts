@@ -4,11 +4,8 @@ import { ImgFallbackDirective } from '@fitness-tracker/shared/utils';
 import { filter, Observable, skip, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-import {
-  getLanguageRefresh$,
-  SettingsFacadeService,
-} from '@fitness-tracker/shared/data-access';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
+import { TranslateModule } from '@ngx-translate/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
 import {
@@ -28,6 +25,7 @@ import {
   UpperCasePipe,
   TitleCasePipe,
 } from '@angular/common';
+import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 
 @UntilDestroy()
 @Component({
@@ -72,7 +70,6 @@ export class WorkoutDetailsComponent implements OnInit {
     private readonly settingsFacade: SettingsFacadeService,
     private readonly exercisesFacade: ExerciseFacade,
     private readonly route: ActivatedRoute,
-    private readonly translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {

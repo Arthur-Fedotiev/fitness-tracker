@@ -1,4 +1,5 @@
-import { LanguagesISO, Pagination } from '@fitness-tracker/shared/utils';
+import { LanguagesISO } from '@fitness-tracker/shared/i18n/utils';
+import { Pagination } from '@fitness-tracker/shared/utils';
 import { LanguageCodes } from 'shared-package';
 
 export interface SearchOptions extends Partial<Pagination> {

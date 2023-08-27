@@ -5,8 +5,6 @@ export * from './lib/constants/common.constants';
 export * from './lib/constants/routing.consts';
 export * from './lib/interfaces/routing.interfaces';
 export * from './lib/functions';
-export * from './lib/i18n';
-export * from './lib/i18n/functions/getTranslationsLoader';
 export * from './lib/providers/form-view.provider';
 export { SerializerStrategy } from './lib/interfaces/serializer.interface';
 export * from './lib/directives';

@@ -7,12 +7,10 @@ import {
 import {
   convertOneSnap,
   convertSnaps,
-  LanguagesISO,
   WithId,
 } from '@fitness-tracker/shared/utils';
 import { Observable, from, first, map } from 'rxjs';
 import { WorkoutPreview } from '../../workout-preview';
-import { LanguageCodes } from 'shared-package';
 import { SerializedWorkout } from '../classes/workout-serializer';
 
 @Injectable({
@@ -34,10 +32,7 @@ export class WorkoutService {
         ).pipe(first());
   }
 
-  public getWorkout(
-    workoutId: string,
-    lang: LanguageCodes = LanguagesISO.ENGLISH,
-  ): Observable<SerializedWorkout> {
+  public getWorkout(workoutId: string): Observable<SerializedWorkout> {
     return this.afs
       .doc<SerializedWorkout>(`workouts/${workoutId}`)
       .get()

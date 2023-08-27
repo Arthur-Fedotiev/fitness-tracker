@@ -6,7 +6,7 @@ import {
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
 import { first, mapTo, switchMapTo, tap, withLatestFrom } from 'rxjs/operators';
-import { LANG_STORAGE_KEY, WithPayload } from '@fitness-tracker/shared/utils';
+import { WithPayload } from '@fitness-tracker/shared/utils';
 import { SETTINGS_ACTIONS_NAMES } from '../actions/action-names.enum';
 import { LanguageCodes } from 'shared-package';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,7 @@ import {
 import { getIsDarkMode } from '../../utils/functions';
 import { DARK_MODE_STORAGE_KEY } from '../../models/theme';
 import { TranslateService } from '@ngx-translate/core';
+import { LANG_STORAGE_KEY } from '@fitness-tracker/shared/i18n/utils';
 
 @Injectable()
 export class SettingsEffects {

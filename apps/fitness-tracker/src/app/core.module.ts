@@ -9,7 +9,7 @@ import {
 } from '@ngx-translate/core';
 import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
 import { HttpClient } from '@angular/common/http';
-import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
+import { translationsLoaderFactory } from '@fitness-tracker/shared/i18n/domain';
 import { authProviders } from '@fitness-tracker/auth/shell';
 
 const i18nGlobalPath = 'assets/i18n/';

@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { getLanguageRefresh$ } from '@fitness-tracker/shared/data-access';
 import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
@@ -51,6 +50,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
+import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',

@@ -27,7 +27,6 @@ import {
   convertOneSnap,
   convertSnaps,
   DEFAULT_PAGINATION_STATE,
-  LanguagesISO,
   ORDER_BY,
   WithId,
 } from '@fitness-tracker/shared/utils';
@@ -35,6 +34,7 @@ import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.
 import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { EXERCISE_FIELD_NAMES } from '../entities/exercise.enums';
 import { GetExerciseRequestDto } from '../entities/dto/request/get/get-exercise-request.dto';
+import { LanguagesISO } from '@fitness-tracker/shared/i18n/utils';
 
 @Injectable({
   providedIn: 'root',

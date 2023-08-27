@@ -5,12 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {
-  E2eDirective,
-  Language,
-  Languages,
-  LANGUAGES_LABELS_LIST,
-} from '@fitness-tracker/shared/utils';
+import { E2eDirective } from '@fitness-tracker/shared/utils';
 import { LanguageCodes } from 'shared-package';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +18,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import {
+  Language,
+  Languages,
+  LANGUAGES_LABELS_LIST,
+} from '@fitness-tracker/shared/i18n/utils';
 @Component({
   selector: 'ft-settings-bar',
   templateUrl: './settings-bar.component.html',

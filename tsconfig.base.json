@@ -53,6 +53,9 @@
       "@fitness-tracker/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],
+      "@fitness-tracker/shared/i18n/domain": [
+        "libs/shared/i18n/domain/src/index.ts"
+      ],
       "@fitness-tracker/shared/i18n/utils": [
         "libs/shared/i18n/utils/src/index.ts"
       ],

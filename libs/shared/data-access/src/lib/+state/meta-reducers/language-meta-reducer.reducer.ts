@@ -1,7 +1,10 @@
-import { LanguagesISO, LANG_STORAGE_KEY } from '@fitness-tracker/shared/utils';
 import { Action, ActionReducer, INIT } from '@ngrx/store';
 import { LanguageCodes } from 'shared-package';
 import { FtState } from '../reducers/app.reduce-map';
+import {
+  LanguagesISO,
+  LANG_STORAGE_KEY,
+} from '@fitness-tracker/shared/i18n/utils';
 
 export const languageMetaReducer = (
   reducer: ActionReducer<FtState>,

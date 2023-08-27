@@ -1,3 +1,4 @@
+import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -38,7 +39,6 @@ import { WorkoutBasicInfoComponent } from './components/workout-basic-info/worko
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
-import { getLanguageRefresh$ } from '@fitness-tracker/shared/data-access';
 import { TranslateModule } from '@ngx-translate/core';
 
 @UntilDestroy()
