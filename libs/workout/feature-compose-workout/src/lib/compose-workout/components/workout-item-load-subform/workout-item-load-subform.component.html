@@ -1,16 +1,21 @@
 <mat-form-field appearance="outline">
+  <mat-label> {{ 'loadLabel.selectLoad' | translate }} </mat-label>
   <mat-select
-    placeholder="Select Exercise Type"
+    placeholder="{{ 'loadLabel.selectLoad' | translate }}"
     [(ngModel)]="instruction.type"
     name="type"
     required
   >
-    <mat-option [value]="instructionType.REPS">Repetitions</mat-option>
-    <mat-option [value]="instructionType.DURATION">Seconds</mat-option>
+    <mat-option [value]="instructionType.REPS">{{
+      'instructions.' + instructionType.REPS | translate | titlecase
+    }}</mat-option>
+    <mat-option [value]="instructionType.DURATION">
+      {{ 'instructions.' + instructionType.DURATION | translate | titlecase }}
+    </mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field appearance="outline">
-  <mat-label> {{ 'loadLabel.REPS' | translate }} - </mat-label>
+  <mat-label> {{ 'loadLabel.' + instruction.type | translate }} </mat-label>
   <input
     type="number"
     step="1"

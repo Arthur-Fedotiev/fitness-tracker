@@ -21,7 +21,7 @@ import {
   ComposeWorkoutData,
 } from '@fitness-tracker/workout-domain';
 
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { ComposeWorkoutComponentService } from './services/compose-workout-component.service';
 import { ComposeWorkoutDropService } from './services/compose-workout-drop.service';
@@ -38,6 +38,8 @@ import { WorkoutBasicInfoComponent } from './components/workout-basic-info/worko
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
+import { getLanguageRefresh$ } from '@fitness-tracker/shared/data-access';
+import { TranslateModule } from '@ngx-translate/core';
 
 @UntilDestroy()
 @Component({
@@ -68,6 +70,7 @@ import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain'
     WorkoutItemLoadSubformComponent,
     WorkoutItemRestComponent,
     AsyncPipe,
+    TranslateModule,
   ],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {
@@ -89,7 +92,9 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly composeWorkoutPresenter: ComposeWorkoutComponentService,
-  ) {}
+  ) {
+    getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
+  }
 
   public ngOnInit(): void {
     const { treeControl, dataSource, expansionModel } =

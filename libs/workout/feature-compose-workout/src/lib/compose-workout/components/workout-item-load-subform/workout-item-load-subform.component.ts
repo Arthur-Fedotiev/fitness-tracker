@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'ft-workout-item-load',
@@ -25,13 +26,10 @@ import { TranslateModule } from '@ngx-translate/core';
     MatOptionModule,
     MatInputModule,
     TranslateModule,
+    TitleCasePipe,
   ],
 })
 export class WorkoutItemLoadSubformComponent {
   @Input() instruction!: WorkoutItemInstruction;
   protected readonly instructionType = InstructionType;
-  protected readonly loadTypeKeysMap = {
-    [InstructionType.REPS]: 'loadLabel.reps',
-    [InstructionType.DURATION]: 'loadLabel.duration',
-  };
 }

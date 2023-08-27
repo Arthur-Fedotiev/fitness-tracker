@@ -139,7 +139,6 @@ export class WorkoutDatabase {
 export const getLevel = (node: WorkoutItemFlatNode) => node.level;
 export const isExpandable = (node: WorkoutItemFlatNode) => node.expandable;
 export const getChildren = (node: WorkoutItem): Observable<WorkoutItem[]> =>
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   of(node.children!);
 export const hasChild = (_: number, nodeData: WorkoutItemFlatNode) =>
   nodeData.expandable;

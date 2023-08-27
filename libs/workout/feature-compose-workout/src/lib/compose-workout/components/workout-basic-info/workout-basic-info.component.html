@@ -1,11 +1,15 @@
 <form fxLayout="column nowrap" [formGroup]="workoutInfoForm">
   <mat-form-field appearance="outline">
-    <input placeholder="Workout name" matInput formControlName="name" />
+    <input
+      placeholder="{{ 'basicInformation.name' | translate }}"
+      matInput
+      formControlName="name"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-select
-      placeholder="Select target muscle"
+      placeholder="{{ 'basicInformation.targetMuscles' | translate }}"
       formControlName="targetMuscles"
       multiple
     >
@@ -21,7 +25,10 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-select placeholder="Select level" formControlName="level">
+    <mat-select
+      placeholder="{{ 'basicInformation.level' | translate }}"
+      formControlName="level"
+    >
       <mat-option
         *ngFor="
           let lvl of exerciseDescriptors.proficiencyLvls;
@@ -34,7 +41,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <input placeholder="Cover image url" matInput formControlName="coverUrl" />
+    <input
+      placeholder="{{ 'basicInformation.coverUrl' | translate }}"
+      matInput
+      formControlName="coverUrl"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -45,7 +56,7 @@
     <textarea
       matInput
       cdkTextareaAutosize
-      placeholder="Workout description"
+      placeholder="{{ 'basicInformation.description' | translate }}"
       formControlName="description"
     ></textarea>
   </mat-form-field>
@@ -54,7 +65,7 @@
     <textarea
       matInput
       cdkTextareaAutosize
-      placeholder="Important Notes"
+      placeholder="{{ 'basicInformation.importantNotes' | translate }}"
       formControlName="importantNotes"
     ></textarea>
   </mat-form-field>

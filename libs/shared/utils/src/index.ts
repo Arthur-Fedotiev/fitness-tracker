@@ -8,6 +8,5 @@ export * from './lib/functions';
 export * from './lib/i18n';
 export * from './lib/i18n/functions/getTranslationsLoader';
 export * from './lib/providers/form-view.provider';
-export * from './lib/operators/loadIsolatedLang';
 export { SerializerStrategy } from './lib/interfaces/serializer.interface';
 export * from './lib/directives';

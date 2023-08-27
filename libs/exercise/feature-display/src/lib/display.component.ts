@@ -7,15 +7,14 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
+import { getLanguageRefresh$ } from '@fitness-tracker/shared/data-access';
 import {
   Pagination,
   DEFAULT_PAGINATION_STATE,
-  loadIsolatedLang,
   WithId,
 } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   debounceTime,
@@ -115,8 +114,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     untilDestroyed(this),
   );
 
-  private readonly refreshExercises$ = this.settingsFacade.language$.pipe(
-    loadIsolatedLang(this.translateService),
+  private readonly refreshExercises$ = getLanguageRefresh$().pipe(
     skip(1),
     tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
     untilDestroyed(this),
@@ -147,10 +145,8 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly exerciseFacade: ExerciseFacade,
-    private readonly settingsFacade: SettingsFacadeService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private readonly translateService: TranslateService,
   ) {}
 
   public ngOnInit(): void {

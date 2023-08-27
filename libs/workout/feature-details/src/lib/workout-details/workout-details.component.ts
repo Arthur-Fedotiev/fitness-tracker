@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  ImgFallbackDirective,
-  loadIsolatedLang,
-} from '@fitness-tracker/shared/utils';
+import { ImgFallbackDirective } from '@fitness-tracker/shared/utils';
 
 import { filter, Observable, skip, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
+import {
+  getLanguageRefresh$,
+  SettingsFacadeService,
+} from '@fitness-tracker/shared/data-access';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
@@ -63,8 +63,7 @@ export class WorkoutDetailsComponent implements OnInit {
     tap(() => this.workoutFacade.loadWorkoutDetails(this.workoutId)),
   );
 
-  private readonly refreshLang$ = this.settingsFacade.language$.pipe(
-    loadIsolatedLang(this.translateService),
+  private readonly refreshLang$ = getLanguageRefresh$().pipe(
     untilDestroyed(this),
   );
 
