@@ -1,7 +1,7 @@
 import { importProvidersFrom } from '@angular/core';
 import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
 import { SharedDataAccessModule } from '@fitness-tracker/shared/data-access';
-import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
+import { MissingTranslationService } from '@fitness-tracker/shared/i18n/utils';
 import {
   MissingTranslationHandler,
   TranslateLoader,

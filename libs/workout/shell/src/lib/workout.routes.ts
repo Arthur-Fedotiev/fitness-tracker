@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { Routes } from '@angular/router';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
-import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
+import { MissingTranslationService } from '@fitness-tracker/shared/i18n/utils';
 import {
   SerializerStrategy,
   translationsLoaderFactory,

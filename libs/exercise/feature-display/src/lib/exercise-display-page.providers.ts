@@ -5,7 +5,7 @@ import {
   EXERCISE_DESCRIPTORS_PROVIDER,
   EXERCISE_DOMAIN_PROVIDERS,
 } from '@fitness-tracker/exercise/domain';
-import { MissingTranslationService } from '@fitness-tracker/shared/i18n';
+import { MissingTranslationService } from '@fitness-tracker/shared/i18n/utils';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/utils';
 import {
   TranslateModule,
