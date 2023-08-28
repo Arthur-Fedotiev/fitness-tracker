@@ -129,27 +129,29 @@ export class ExerciseEffects {
     ),
   );
 
-  public readonly openExerciseDetailsDialog$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
-        switchMap(() =>
-          this.actions$.pipe(
-            ofType(
-              EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
-              EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
-            ),
-            first(),
+  public readonly openExerciseDetailsDialog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
+      switchMap(() =>
+        this.actions$.pipe(
+          ofType(
+            EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
+            EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
           ),
-        ),
-        switchMap(({ payload }: WithPayload<ExerciseResponseDto>) =>
-          forkJoin([of(payload), this.detailsDialogFactory]),
-        ),
-        tap(([exercise, component]) =>
-          this.dialog.open(component, { data: { exercise } }),
+          first(),
         ),
       ),
-    { dispatch: false },
+      switchMap(({ payload }: WithPayload<ExerciseResponseDto>) =>
+        forkJoin([of(payload), this.detailsDialogFactory]).pipe(
+          switchMap(([exercise, component]) =>
+            this.dialog
+              .open(component, { data: { exercise } })
+              .afterClosed()
+              .pipe(map(() => ExercisesActions.releaseExerciseDetails())),
+          ),
+        ),
+      ),
+    ),
   );
 
   constructor(
