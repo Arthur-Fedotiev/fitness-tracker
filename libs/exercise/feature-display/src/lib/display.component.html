@@ -9,74 +9,103 @@
       SHOW FILTERS
     </button>
   </section>
-  <section
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="1rem"
-    class="exercises-list"
-  >
-    <button *ngIf="false" mat-raised-button class="workout-btn" color="primary">
-      Compose workout
-    </button>
 
-    <article class="exercises-list__list">
-      <ft-muscle-multi-select
-        class="filters"
-        ngClass.gt-sm="filters-large"
-        fxLayout
-        [initialTargetMuscles]="(targetMuscles$ | async)!"
-        [muscleList]="exerciseDescriptors.muscles"
-        (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
-      ></ft-muscle-multi-select>
+  <article class="exercises-list">
+    <ft-muscle-multi-select
+      ngClass.gt-sm="filters-large"
+      fxLayout
+      [initialTargetMuscles]="(targetMuscles$ | async)!"
+      [muscleList]="exerciseDescriptors.muscles"
+      (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
+    ></ft-muscle-multi-select>
 
-      <components-exercise-list
-        [exerciseList]="exercisesList$ | async"
-        (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
-        (exerciseViewed)="showExerciseDetails($event)"
-        (exerciseDeleted)="deleteExercise($event)"
-        (exerciseAddedToWorkout)="addToComposedWorkout($event)"
-      ></components-exercise-list>
-      <footer>
+    <components-exercise-list
+      [exerciseList]="exercises()"
+      [selectedForWorkoutIds]="selectedForWorkoutIds.asReadonly()"
+      [isWorkoutCreationMode]="isWorkoutCreationMode"
+      (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
+      (exerciseViewed)="showExerciseDetails($event)"
+      (exerciseDeleted)="deleteExercise($event)"
+      (exerciseAddedToWorkout)="addToComposedWorkout($event)"
+      (exerciseRemovedFromWorkout)="removeFromComposedWorkout($event)"
+    ></components-exercise-list>
+  </article>
+
+  <mat-accordion *ngIf="exercises().length" class="composed-workout-section">
+    <mat-expansion-panel #panel class="mat-app-background" hideToggle disabled>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="actions">
+          <button
+            *ngIf="!isWorkoutCreationMode"
+            mat-stroked-button
+            class="action"
+            color="accent"
+            (click)="isWorkoutCreationMode = true"
+          >
+            Create workout
+          </button>
+          <ng-container *ngIf="isWorkoutCreationMode"
+            ><button
+              mat-stroked-button
+              class="action"
+              color="accent"
+              (click)="finishComposing()"
+            >
+              Proceed
+            </button>
+
+            <button
+              mat-stroked-button
+              class="action"
+              color="warn"
+              (click)="cancelComposing()"
+            >
+              Cancel
+            </button>
+          </ng-container>
+        </mat-panel-title>
         <button
-          mat-raised-button
-          color="accent"
-          ftE2e="loadMoreExercisesBtn"
-          [disabled]="isLoadingProhibited$ | async"
-          (click)="loadMoreExercises(true)"
+          *ngIf="selectedForWorkoutIds().size"
+          mat-icon-button
+          aria-label="Selected exercises"
+          color="primary"
+          (click)="panel.toggle()"
         >
-          <span translate>loadMore</span>
+          <mat-icon
+            [matBadge]="selectedForWorkoutIds().size"
+            matBadgeColor="accent"
+            matBadgeSize="small"
+            matBadgeOverlap
+            >search</mat-icon
+          >
         </button>
-      </footer>
-    </article>
-  </section>
-  <section
-    *ngIf="composeWorkout$ | async as workoutExercisesList"
-    fxLayout="column"
-    fxLayoutAlign="center center"
-    class="composed-workout"
-  >
-    <ng-container *ngIf="workoutExercisesList.length">
-      <article fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <img
-          *ngFor="let exercise of workoutExercisesList; trackBy: trackById"
-          class="composed-workout__item"
-          [src]="exercise.avatarUrl"
-          [attr.alt]="exercise.name"
-          (click)="removeFromComposedWorkout(exercise.id)"
-        />
-      </article>
-      <footer>
-        <button
-          mat-raised-button
-          (click)="proceedComposing(workoutExercisesList)"
-          color="success"
+      </mat-expansion-panel-header>
+      <div class="selected-exercises-section">
+        <mat-card
+          *ngFor="let exercise of selectedForWorkoutExercises()"
+          class="selected-exercise mat-elevation-z8"
+          tabindex="0"
         >
-          Proceed
-        </button>
-        <button mat-raised-button color="warn" (click)="cancelComposing()">
-          Cancel
-        </button>
-      </footer>
-    </ng-container>
-  </section>
+          <img
+            mat-card-sm-image
+            class="card__avatar"
+            alt="Exercise avatar"
+            [src]="exercise.avatarUrl"
+            ftWithFallback
+          />
+
+          <mat-card-title class="card__title">
+            {{ exercise.name }}
+          </mat-card-title>
+          <button
+            mat-icon-button
+            aria-label="Remove exercises"
+            (click)="removeFromComposedWorkout(exercise.id)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </main>

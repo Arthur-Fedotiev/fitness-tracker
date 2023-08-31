@@ -1,46 +1,57 @@
 :host {
+  display: block;
+  height: 100%;
+
   .main-page {
+    height: 100%;
     padding-top: 2rem;
   }
 
   .exercises-list {
-    height: 100%;
-    .workout-btn {
-      flex: 1 0 auto;
-      align-self: flex-start;
-    }
-    &__list {
-      width: 90%;
-      height: 100%;
-      display: flex;
-      flex-flow: column nowrap;
-      gap: 1rem;
-      margin: auto;
-
-      footer {
-        align-self: center;
-      }
-    }
-    &__filters {
-      width: 200px;
-      background-color: lightsalmon;
-    }
+    width: 90%;
+    margin: auto;
+    padding-bottom: 50px;
+    display: flex;
+    flex-flow: column nowrap;
   }
 }
-.composed-workout {
-  position: sticky;
+
+.composed-workout-section {
+  width: 100vw;
+  max-height: 45vh;
+  overflow-y: scroll;
+
+  position: fixed;
   left: 0;
   right: 0;
-  bottom: 2rem;
-  width: 80%;
-  height: fit-content;
-  background-color: rgb(223, 181, 15);
-  margin: 2rem auto;
+  bottom: 0;
+  z-index: 1;
 
-  &__item {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 0.25rem;
+  .actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    gap: 1rem;
+  }
+
+  .action {
+    padding: 0 2rem;
+    border-radius: 0.75rem;
+    border-width: 2px;
+    border-color: var(--mdc-outlined-button-label-text-color);
+  }
+
+  .selected-exercises-section {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+  }
+
+  .selected-exercise {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
@@ -49,5 +60,12 @@
   &-large {
     padding: 0 5%;
     width: 150%;
+  }
+}
+
+:host::ng-deep {
+  .mat-badge-content {
+    font-family: var(--ft-main-font-family);
+    font-size: 0.75rem;
   }
 }

@@ -1,10 +1,8 @@
-// src/styles/themes/dark.scss
-
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-// @use "../typography/config" as typography;
 @use '../components';
+@use '../mixins/contrast';
 
 $ft-app-dark-primary: mat.define-palette(mat.$deep-orange-palette);
 $ft-app-dark-accent: mat.define-palette(mat.$yellow-palette, A200, A100, A400);
@@ -17,19 +15,17 @@ $ft-app-dark-theme: mat.define-dark-theme(
       accent: $ft-app-dark-accent,
       warn: $ft-app-dark-warn,
     ),
+    // Define the default density level for our app.
+    density: -1,
   )
-);
-
-$ft-app-dark-success: mat.define-palette(mat.$light-green-palette);
-$ft-app-dark-info: mat.define-palette(mat.$light-blue-palette);
-$ft-app-dark-variants: (
-  success: $ft-app-dark-success,
-  info: $ft-app-dark-info,
 );
 
 body.dark-theme {
   @include mat.all-component-themes($ft-app-dark-theme);
 
-  // @include mat.all-component-colors($ft-app-dark-theme);
-  @include components.theme($ft-app-dark-theme, null, $ft-app-dark-variants);
+  @include contrast.contrast(
+    $ft-app-dark-primary,
+    $ft-app-dark-accent,
+    $ft-app-dark-warn
+  );
 }

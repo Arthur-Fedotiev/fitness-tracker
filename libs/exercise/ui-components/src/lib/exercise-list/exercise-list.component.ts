@@ -4,6 +4,7 @@ import {
   Input,
   EventEmitter,
   Output,
+  Signal,
 } from '@angular/core';
 import { ExerciseVM } from '../models/exercise-vm';
 import { ExerciseComponent } from '../exercise/exercise.component';
@@ -20,6 +21,8 @@ import { FlexModule } from '@angular/flex-layout/flex';
 })
 export class ExerciseListComponent {
   @Input() public exerciseList: ExerciseVM[] | null = null;
+  @Input() public isWorkoutCreationMode = false;
+  @Input({ required: true }) public selectedForWorkoutIds!: Signal<Set<string>>;
 
   @Output()
   public readonly exerciseEdited = new EventEmitter<string>();
@@ -29,6 +32,8 @@ export class ExerciseListComponent {
   public readonly exerciseDeleted = new EventEmitter<string>();
   @Output()
   public readonly exerciseAddedToWorkout = new EventEmitter<string>();
+  @Output()
+  public readonly exerciseRemovedFromWorkout = new EventEmitter<string>();
 
   public viewExercise(id: string): void {
     this.exerciseViewed.emit(id);
@@ -42,8 +47,12 @@ export class ExerciseListComponent {
     this.exerciseDeleted.emit(id);
   }
 
-  public addedToWorkout(id: string): void {
-    this.exerciseAddedToWorkout.emit(id);
+  public onExerciseClick(id: string): void {
+    if (!this.isWorkoutCreationMode) return;
+
+    this.selectedForWorkoutIds().has(id)
+      ? this.exerciseRemovedFromWorkout.emit(id)
+      : this.exerciseAddedToWorkout.emit(id);
   }
 
   public trackById(idx: number, item: ExerciseVM): string | number {

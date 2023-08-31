@@ -69,7 +69,7 @@ export class FirebaseExerciseDataService {
     refresh,
   }: GetExerciseRequestDto): Observable<ExerciseResponseDto[]> {
     if (ids && !this.shouldSplitToChunks(ids)) {
-      return this.findExercises(
+      return this.findExercisesPaginated(
         new GetExerciseRequestDto({ ids, ...restSearchOptions }, lang, refresh),
       );
     }
@@ -80,7 +80,7 @@ export class FirebaseExerciseDataService {
     const chunk = clonedIds?.splice(0, 10);
 
     const result$ = forkJoin([
-      this.findExercises(
+      this.findExercisesPaginated(
         new GetExerciseRequestDto(
           { ids: chunk, ...restSearchOptions },
           lang,
@@ -99,7 +99,7 @@ export class FirebaseExerciseDataService {
     return result$;
   }
 
-  public findExercises({
+  public findExercisesPaginated({
     searchOptions,
     lang,
     refresh,

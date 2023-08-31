@@ -12,7 +12,6 @@ import {
   Observable,
   of,
   switchMap,
-  tap,
   throwError,
   timer,
   withLatestFrom,
@@ -53,7 +52,7 @@ export class ExerciseEffects {
           LanguageCodes,
         ]) =>
           this.exercisesService
-            .findExercises(
+            .findExercisesPaginated(
               new GetExerciseRequestDto(
                 { ...payload },
                 language,

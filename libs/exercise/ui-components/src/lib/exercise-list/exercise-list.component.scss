@@ -1,8 +1,19 @@
+@use '@angular/material' as mat;
+
 :host {
   .exercises-panel {
     margin: 0 auto;
+
     &__item {
       margin-bottom: 1.5rem;
+    }
+
+    &--workout-creation {
+      .exercises-panel__item {
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 <div
   class="exercises-panel"
+  [class.exercises-panel--workout-creation]="isWorkoutCreationMode"
   fxLayout="row wrap"
   fxLayoutGap="1rem"
   fxLayoutAlign="center"
@@ -12,9 +13,10 @@
     fxFlex.gt-lg="33%"
     [exercise]="exercise"
     [idx]="i"
+    [isSelected]="selectedForWorkoutIds().has(exercise.id)"
     (exerciseEdited)="editExercise($event)"
     (exerciseViewed)="viewExercise($event)"
     (exerciseDeleted)="deleteExercise($event)"
-    (exerciseAddedToWorkout)="addedToWorkout($event)"
+    (click)="onExerciseClick(exercise.id)"
   ></components-exercise>
 </div>

@@ -26,7 +26,7 @@ export class ExerciseFacade
     ExerciseSavedCommand
 {
   public readonly isLoading$ = this.store.select(ExercisesSelectors.getLoading);
-  public readonly exercisesList$ = this.store.select(
+  public readonly exercisesList = this.store.selectSignal(
     ExercisesSelectors.getAllExercises,
   );
   public readonly selectedExerciseDetails$ = this.store.select(

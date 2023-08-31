@@ -1,7 +1,12 @@
 @use 'themes';
 @use 'responsive' as responsive;
-@use 'components/spinner/bootstrap-spinner';
+@use 'components/spinner';
+
 @include responsive.title();
+
+:root {
+  --ft-main-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
 
 html,
 body {
@@ -9,7 +14,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: var(--ft-main-font-family);
 }
 
 .title-link {

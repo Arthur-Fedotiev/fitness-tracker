@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 @use '../components';
+@use '../mixins/contrast';
 
 $ft-app-light-primary: mat.define-palette(mat.$amber-palette);
 $ft-app-light-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
@@ -14,18 +15,17 @@ $ft-app-light-theme: mat.define-light-theme(
       accent: $ft-app-light-accent,
       warn: $ft-app-light-warn,
     ),
+    // Define the default density level for our app.
+    density: 0,
   )
-);
-
-$ft-app-light-success: mat.define-palette(mat.$green-palette);
-$ft-app-light-info: mat.define-palette(mat.$blue-palette);
-
-$ft-app-light-variants: (
-  success: $ft-app-light-success,
-  info: $ft-app-light-info,
 );
 
 body:not(.dark-theme) {
   @include mat.all-component-themes($ft-app-light-theme);
-  @include components.theme($ft-app-light-theme, null, $ft-app-light-variants);
+
+  @include contrast.contrast(
+    $ft-app-light-primary,
+    $ft-app-light-accent,
+    $ft-app-light-warn
+  );
 }

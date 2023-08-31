@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+@mixin contrast($primary, $accent, $warn) {
+  $primary-color: mat.get-color-from-palette($primary);
+  $accent-color: mat.get-color-from-palette($accent);
+  $warn-color: mat.get-color-from-palette($warn);
+  $primary-contrast-color: mat.get-color-from-palette(
+    $primary,
+    default-contrast
+  );
+  $accent-contrast-color: mat.get-color-from-palette($accent, default-contrast);
+  $warn-contrast-color: mat.get-color-from-palette($warn, default-contrast);
+
+  .contrast.primary,
+  .contrast {
+    color: $primary-contrast-color;
+    background: $primary-color;
+  }
+
+  .contrast.accent {
+    color: $accent-contrast-color;
+    background: $accent-color;
+  }
+
+  .contrast.warn {
+    color: $warn-contrast-color;
+    background: $warn-color;
+  }
+}

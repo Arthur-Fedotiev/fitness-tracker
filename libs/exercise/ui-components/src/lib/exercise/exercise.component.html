@@ -1,4 +1,8 @@
-<mat-card class="card mat-elevation-z8" tabindex="0">
+<mat-card
+  class="card mat-elevation-z8"
+  tabindex="0"
+  [class.contrast]="isSelected"
+>
   <mat-card-title-group>
     <img
       class="card__avatar"
@@ -6,7 +10,8 @@
       [ngSrc]="exercise.avatarUrl"
       width="80"
       height="80"
-      [priority]="idx <= 5 ? 'priority' : ''"
+      priority="{{ idx <= 5 ? 'priority' : '' }}"
+      alt="primary image"
       ftWithFallback
     />
     <img
@@ -14,7 +19,8 @@
       class="card__avatar"
       mat-card-sm-image
       [ngSrc]="exercise.avatarSecondaryUrl"
-      [priority]="idx <= 5 ? 'priority' : ''"
+      priority="{{ idx <= 5 ? 'priority' : '' }}"
+      alt="secondary image"
       width="80"
       height="80"
       ftWithFallback
@@ -46,10 +52,10 @@
       <p>{{ 'EXERCISE-TYPES.' + exercise.exerciseType | translate }}</p>
     </div>
   </mat-card-content>
-  <mat-card-actions class="exercise-actions">
+  <mat-card-actions class="exercise-actions" (click)="$event.stopPropagation()">
     <button
-      mat-flat-button
-      class="mat-raised-button mat-primary"
+      mat-stroked-button
+      color="accent"
       ftE2e="exerciseViewBtn"
       (click)="viewExercise(exercise)"
     >
@@ -58,8 +64,8 @@
 
     <button
       *ftRoles="roles.ADMIN"
-      mat-flat-button
-      class="mat-raised-button mat-accent"
+      mat-stroked-button
+      color="primary"
       ftE2e="editExerciseBtn"
       (click)="editExercise(exercise)"
     >
@@ -73,16 +79,6 @@
       (click)="deleteExercise(exercise)"
     >
       <mat-icon>delete</mat-icon>
-    </button>
-    <button
-      *ftRoles="roles.ADMIN"
-      mat-mini-fab
-      class="add-btn"
-      color="success"
-      ftE2e="addExerciseBtn"
-      (click)="addedToWorkout(exercise)"
-    >
-      <mat-icon>add</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>
