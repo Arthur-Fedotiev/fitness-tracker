@@ -1,29 +1,26 @@
 @use '@angular/material' as mat;
 
 @mixin contrast($primary, $accent, $warn) {
-  $primary-color: mat.get-color-from-palette($primary);
-  $accent-color: mat.get-color-from-palette($accent);
-  $warn-color: mat.get-color-from-palette($warn);
-  $primary-contrast-color: mat.get-color-from-palette(
-    $primary,
-    default-contrast
-  );
-  $accent-contrast-color: mat.get-color-from-palette($accent, default-contrast);
-  $warn-contrast-color: mat.get-color-from-palette($warn, default-contrast);
+  $primary-bg-color: mat.get-color-from-palette($primary);
+  $accent-bg-color: mat.get-color-from-palette($accent, 800);
+  $warn-bg-color: mat.get-color-from-palette($warn);
+  $primary-text-color: mat.get-color-from-palette($primary, 'darker-contrast');
+  $accent-text-color: mat.get-color-from-palette($accent, 'darker-contrast');
+  $warn-text-color: mat.get-color-from-palette($warn, 'darker-contrast');
 
   .contrast.primary,
   .contrast {
-    color: $primary-contrast-color;
-    background: $primary-color;
+    color: $primary-text-color;
+    background: $primary-bg-color;
   }
 
   .contrast.accent {
-    color: $accent-contrast-color;
-    background: $accent-color;
+    color: $accent-text-color;
+    background: $accent-bg-color;
   }
 
   .contrast.warn {
-    color: $warn-contrast-color;
-    background: $warn-color;
+    color: $warn-text-color;
+    background: $warn-bg-color;
   }
 }

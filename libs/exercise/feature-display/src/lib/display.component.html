@@ -49,6 +49,7 @@
               mat-stroked-button
               class="action"
               color="accent"
+              [disabled]="!selectedForWorkoutIds().size"
               (click)="finishComposing()"
             >
               Proceed

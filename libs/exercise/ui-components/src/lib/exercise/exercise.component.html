@@ -1,7 +1,7 @@
 <mat-card
   class="card mat-elevation-z8"
   tabindex="0"
-  [class.contrast]="isSelected"
+  [class]="isSelected ? ['contrast', 'accent'] : []"
 >
   <mat-card-title-group>
     <img
