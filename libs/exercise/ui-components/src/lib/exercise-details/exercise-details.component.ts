@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 import { TranslateModule } from '@ngx-translate/core';
+import { MatButtonModule } from '@angular/material/button';
 
 interface ExerciseDetailsVM {
   readonly name: string;
@@ -21,7 +22,14 @@ interface ExerciseDetailsVM {
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
   standalone: true,
-  imports: [NgIf, NgFor, FlexLayoutModule, TranslateModule, MatDialogModule],
+  imports: [
+    NgIf,
+    NgFor,
+    FlexLayoutModule,
+    TranslateModule,
+    MatDialogModule,
+    MatButtonModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {

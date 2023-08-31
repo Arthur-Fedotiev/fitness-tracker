@@ -33,7 +33,7 @@ import {
 } from 'rxjs';
 
 import { ROLES } from 'shared-package';
-import { isEqual } from 'lodash-es';
+import { debounce, isEqual } from 'lodash-es';
 import { toExerciseLoadState, toLoadMoreAction } from './utils/mappers';
 import {
   ExerciseDescriptors,
@@ -58,6 +58,8 @@ import {
   MatExpansionPanel,
 } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 enum EXERCISE_MODE {
   'VIEW' = 'view',
   'EDIT' = 'edit',
@@ -71,6 +73,8 @@ enum EXERCISE_MODE {
   imports: [
     CommonModule,
     FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatExpansionModule,
     MatBadgeModule,
     MatCardModule,
@@ -88,8 +92,9 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   public readonly roles = ROLES;
   public readonly exerciseMode = EXERCISE_MODE;
-  public readonly exercises = this.exerciseFacade.exercisesList;
+  public readonly exercisesList = this.exerciseFacade.exercisesList;
   public readonly isLoadingProhibited = signal(false);
+  public readonly searchQuery = signal('');
 
   private readonly loadExercisesSubj: Subject<{ isLoadMore: boolean }> =
     new Subject<{ isLoadMore: boolean }>();
@@ -111,6 +116,11 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   );
 
   protected selectedForWorkoutIds = signal(new Set<string>());
+  protected exercises = computed(() =>
+    this.exercisesList().filter(({ name }) =>
+      name.toLowerCase().includes(this.searchQuery().toLowerCase()),
+    ),
+  );
 
   protected selectedForWorkoutExercises = computed(() =>
     this.exercises().filter((exercise) =>
@@ -163,6 +173,10 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
         this.selectedForWorkoutIds().size === 0 &&
         this.composedWorkoutPanel?.close(),
     );
+  }
+
+  hello($event: any) {
+    console.log($event);
   }
 
   public ngOnInit() {
@@ -238,4 +252,8 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   private releaseResources() {
     this.exerciseFacade.emptyExercisesList();
   }
+
+  protected onSearchChanges = debounce((searchQuery: string) => {
+    this.searchQuery.set(searchQuery);
+  }, 100);
 }

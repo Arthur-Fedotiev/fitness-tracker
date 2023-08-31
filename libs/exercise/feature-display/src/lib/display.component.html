@@ -11,13 +11,24 @@
   </section>
 
   <article class="exercises-list">
-    <ft-muscle-multi-select
-      ngClass.gt-sm="filters-large"
-      fxLayout
-      [initialTargetMuscles]="(targetMuscles$ | async)!"
-      [muscleList]="exerciseDescriptors.muscles"
-      (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
-    ></ft-muscle-multi-select>
+    <div class="filters">
+      <ft-muscle-multi-select
+        fxLayout
+        [initialTargetMuscles]="(targetMuscles$ | async)!"
+        [muscleList]="exerciseDescriptors.muscles"
+        (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
+      ></ft-muscle-multi-select>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Search exercise</mat-label>
+        <input
+          matInput
+          type="text"
+          [value]="searchQuery()"
+          (input)="onSearchChanges($any($event.target).value)"
+        />
+      </mat-form-field>
+    </div>
 
     <components-exercise-list
       [exerciseList]="exercises()"
@@ -89,8 +100,7 @@
         >
           <img
             mat-card-sm-image
-            class="card__avatar"
-            alt="Exercise avatar"
+            alt="{{ exercise.name }} image"
             [src]="exercise.avatarUrl"
             ftWithFallback
           />

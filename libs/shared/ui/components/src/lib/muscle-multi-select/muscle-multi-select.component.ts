@@ -4,7 +4,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { CommonModule, NgFor, TitleCasePipe } from '@angular/common';
+import { NgFor, TitleCasePipe } from '@angular/common';
 import { FlexModule } from '@angular/flex-layout';
 import {
   AbstractControl,
@@ -38,11 +38,7 @@ import { TranslateModule } from '@ngx-translate/core';
     fxLayoutAlign.gt-sm="flex-start"
     [formGroup]="workoutFilters"
   >
-    <mat-form-field
-      class="filters__item"
-      fxFlex.gt-sm="25%"
-      appearance="outline"
-    >
+    <mat-form-field class="filters__item" appearance="outline">
       <mat-select
         formControlName="targetMuscles"
         multiple
@@ -66,12 +62,6 @@ import { TranslateModule } from '@ngx-translate/core';
         flex: 1;
         &__item {
           flex: 1;
-        }
-      }
-
-      :host ::ng-deep {
-        .mat-form-field-wrapper {
-          padding: 1rem 1rem 0;
         }
       }
     `,
