@@ -23,6 +23,7 @@ export class WorkoutService {
     workout: SerializedWorkout,
   ): Observable<void | DocumentReference<SerializedWorkout>> {
     const id = workout.id;
+
     return id
       ? from(
           this.afs.doc<SerializedWorkout>(`workouts/${id}`).set(workout),

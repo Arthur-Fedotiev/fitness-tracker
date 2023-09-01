@@ -9,19 +9,19 @@ import { inject } from '@angular/core';
 import { SerializerStrategy } from '@fitness-tracker/shared/utils';
 import { filter, map } from 'rxjs';
 import {
-  SerializeWorkoutItem,
+  SerializedWorkoutItem,
   ConcreteSingleWorkoutItemInstruction,
 } from '../classes';
 import { WorkoutFacadeService } from '../services/workout-facade.service';
 
 const deserialize = (
-  items: SerializeWorkoutItem[],
+  items: SerializedWorkoutItem[],
   deserializer: SerializerStrategy,
 ) =>
   items.map((exercise: WorkoutExercise) =>
     deserializer.deserialize({
-      ...exercise,
       ...new ConcreteSingleWorkoutItemInstruction(),
+      ...exercise,
     }),
   );
 

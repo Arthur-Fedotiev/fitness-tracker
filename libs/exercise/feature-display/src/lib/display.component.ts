@@ -175,10 +175,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  hello($event: any) {
-    console.log($event);
-  }
-
   public ngOnInit() {
     this.initListeners();
     this.loadExercisesSubj.next({ isLoadMore: false });

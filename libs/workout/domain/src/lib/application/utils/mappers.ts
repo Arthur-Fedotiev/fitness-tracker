@@ -1,11 +1,11 @@
 import { WithId } from '@fitness-tracker/shared/utils';
 import {
-  SerializeWorkoutItem,
+  SerializedWorkoutItem,
   SerializedWorkout,
   WorkoutDetails,
 } from '../classes/workout-serializer';
 
-export const getIds = ({ id, children }: SerializeWorkoutItem): any[] =>
+export const getIds = ({ id, children }: SerializedWorkoutItem): any[] =>
   !children?.length ? [id] : children.map(getIds);
 
 export const toIdsFromSerializedWorkout = (workout: SerializedWorkout) => {
@@ -18,14 +18,14 @@ export const toExercisesMap = (
 ): Map<string, WithId<unknown>> => map.set(exercise.id, exercise);
 
 export const toWorkoutDetailsItem = (
-  workoutItem: SerializeWorkoutItem,
+  workoutItem: SerializedWorkoutItem,
   exercisesMap: Map<string, WithId<unknown>>,
 ): WorkoutDetails['content'][number] =>
   !workoutItem.children?.length
     ? { ...workoutItem, ...exercisesMap.get(workoutItem.id) }
     : {
         ...workoutItem,
-        children: workoutItem.children.map((item: SerializeWorkoutItem) =>
+        children: workoutItem.children.map((item: SerializedWorkoutItem) =>
           toWorkoutDetailsItem(item, exercisesMap),
         ),
       };
@@ -38,7 +38,7 @@ export const toWorkoutDetails = ({
   serializedWorkout: SerializedWorkout;
 }) => ({
   ...serializedWorkout,
-  content: serializedWorkout.content.map((workoutItem: SerializeWorkoutItem) =>
+  content: serializedWorkout.content.map((workoutItem: SerializedWorkoutItem) =>
     toWorkoutDetailsItem(workoutItem, exercises),
   ),
 });

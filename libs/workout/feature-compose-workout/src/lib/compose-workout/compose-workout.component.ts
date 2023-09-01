@@ -10,6 +10,7 @@ import {
   Input,
   OnDestroy,
   computed,
+  ViewChild,
 } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeModule } from '@angular/material/tree';
 import {
@@ -19,7 +20,6 @@ import {
 import {
   WorkoutItemFlatNode,
   WorkoutItem,
-  WorkoutBasicInfo,
   ComposeWorkoutData,
 } from '@fitness-tracker/workout-domain';
 
@@ -33,7 +33,7 @@ import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-
 import { FormsModule, NgForm } from '@angular/forms';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, JsonPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -72,9 +72,12 @@ import { merge, switchMap, tap } from 'rxjs';
     WorkoutItemRestComponent,
     AsyncPipe,
     TranslateModule,
+    JsonPipe,
   ],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {
+  @ViewChild('workoutForm') workoutForm!: NgForm;
+
   @Input({ required: true }) resolvedComposedWorkoutData!: ComposeWorkoutData;
 
   public treeControl: FlatTreeControl<WorkoutItemFlatNode> =
@@ -92,8 +95,6 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
         this.composeWorkoutPresenter.temporarySuperset().map((node) => node.id),
       ),
   );
-
-  protected isBasicInfoValid = false;
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
@@ -135,9 +136,10 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   }
 
   public saveWorkout(): void {
-    this.composeWorkoutPresenter.saveWorkout(
-      this.resolvedComposedWorkoutData.workoutBasicInfo!,
-    );
+    this.composeWorkoutPresenter.saveWorkout({
+      ...(this.resolvedComposedWorkoutData.workoutBasicInfo ?? {}),
+      ...this.workoutForm.value['workoutBasicInfo'],
+    });
   }
 
   public trackById(_: number, node: WorkoutItem): string | number {
@@ -154,16 +156,6 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
 
   public removeFromTemporarySuperset(node: WorkoutItemFlatNode): void {
     this.composeWorkoutPresenter.removeFromTemporarySuperset(node);
-  }
-
-  protected onBasicInfoChange($event: WorkoutBasicInfo) {
-    this.resolvedComposedWorkoutData = {
-      ...this.resolvedComposedWorkoutData,
-      workoutBasicInfo: {
-        ...(this.resolvedComposedWorkoutData.workoutBasicInfo ?? {}),
-        ...$event,
-      },
-    };
   }
 
   private releaseResources(): void {

@@ -22,11 +22,11 @@ export interface WorkoutBasicInfo {
 }
 
 export interface SerializedWorkout extends WorkoutBasicInfo {
-  content: SerializeWorkoutItem[];
+  content: SerializedWorkoutItem[];
 }
 
-export interface SerializeWorkoutItem {
-  children: SerializeWorkoutItem[] | null;
+export interface SerializedWorkoutItem {
+  children: SerializedWorkoutItem[] | null;
   id: string;
   name: string;
   parentId: string | null;
@@ -38,12 +38,15 @@ export interface SerializeWorkoutItem {
 }
 
 export interface WorkoutDetails extends WorkoutBasicInfo {
-  content: (SerializeWorkoutItem | (SerializeWorkoutItem & WithId<unknown>))[];
+  content: (
+    | SerializedWorkoutItem
+    | (SerializedWorkoutItem & WithId<unknown>)
+  )[];
 }
 
 @Injectable({ providedIn: 'root' })
 export class ConcreteWorkoutItemSerializer extends SerializerStrategy<
-  SerializeWorkoutItem,
+  SerializedWorkoutItem,
   WorkoutItem
 > {
   public serialize({
@@ -58,7 +61,7 @@ export class ConcreteWorkoutItemSerializer extends SerializerStrategy<
       restPauseBetween,
       totalSets,
     },
-  }: WorkoutItem): SerializeWorkoutItem {
+  }: WorkoutItem): SerializedWorkoutItem {
     const serializedChildren =
       children?.map((child: WorkoutItem) => this.serialize(child)) ?? null;
     return {
@@ -82,7 +85,7 @@ export class ConcreteWorkoutItemSerializer extends SerializerStrategy<
     restPauseAfterComplete,
     restPauseBetween,
     totalSets,
-  }: SerializeWorkoutItem): WorkoutItem {
+  }: SerializedWorkoutItem): WorkoutItem {
     const deserializedItem = children
       ? new WorkoutItemComposite(
           name,
@@ -123,7 +126,7 @@ export class ConcreteWorkoutItemSerializer extends SerializerStrategy<
     restPauseAfterComplete,
     restPauseBetween,
     totalSets,
-  }: Omit<SerializeWorkoutItem, 'children' | 'parentId'>): WorkoutItem {
+  }: Omit<SerializedWorkoutItem, 'children' | 'parentId'>): WorkoutItem {
     return new SingleWorkoutItem(
       name,
       id,

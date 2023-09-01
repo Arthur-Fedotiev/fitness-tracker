@@ -1,173 +1,183 @@
 <main class="page-content">
-  <article fxLayout="row nowrap" fxLayoutAlign="center">
-    <section fxFlex="80%">
-      <mat-accordion>
-        <mat-expansion-panel #matExpansionPanel class="form-panel">
-          <mat-expansion-panel-header>
-            <mat-panel-title class="title-panel">
-              <h3>
-                {{ 'basicInformation.title' | translate }}
-              </h3>
-              <mat-icon *ngIf="isBasicInfoValid" [style.color]="'green'">
-                done_outline
-              </mat-icon>
-              <mat-icon *ngIf="!isBasicInfoValid" [style.color]="'red'">
-                close
-              </mat-icon>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <ft-workout-basic-info
-            [basicInfo]="resolvedComposedWorkoutData.workoutBasicInfo"
-            [exerciseDescriptors]="exerciseDescriptors"
-            (basicInfoChange)="onBasicInfoChange($event)"
-            (basicInfoValidChange)="isBasicInfoValid = $event"
-          ></ft-workout-basic-info>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </section>
-  </article>
-
-  <section class="exercise-tree-section">
-    <mat-tree
-      class="exercise-tree"
-      [dataSource]="dataSource"
-      [treeControl]="treeControl"
-      cdkDropList
-      (cdkDropListDropped)="drop($event)"
-    >
-      <mat-tree-node
-        *matTreeNodeDef="let node"
-        matTreeNodeToggle
-        class="exercise"
-        [cdkDragData]="node"
-        [style.padding-left]="node.level * 60 + 24 + 'px'"
-        cdkDrag
-      >
-        <mat-accordion class="exercise__accordion">
-          <mat-expansion-panel
-            class="accent"
-            [class.contrast]="temporarySupersetNodeIds().has(node.id)"
-            [disabled]="isSupersetComposeUnderway"
-          >
+  <form #workoutForm="ngForm">
+    <article fxLayout="row nowrap" fxLayoutAlign="center">
+      <section fxFlex="80%">
+        <mat-accordion>
+          <mat-expansion-panel #matExpansionPanel class="form-panel">
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h4 class="panel-title">{{ node.workoutItem.name }}</h4>
-              </mat-panel-title>
-              <mat-panel-description fxLayoutAlign="end center">
-                <ng-container
-                  *ngIf="isSupersetComposeUnderway && !node.workoutItem.parent"
-                  ><button
-                    *ngIf="!temporarySupersetNodeIds().has(node.id)"
-                    mat-mini-fab
-                    class="add-btn"
-                    color="primary"
-                    (click)="addToSuperset(node); $event.stopPropagation()"
-                  >
-                    <mat-icon>add</mat-icon>
-                  </button>
-                  <button
-                    *ngIf="temporarySupersetNodeIds().has(node.id)"
-                    mat-mini-fab
-                    class="add-btn"
-                    color="primary"
-                    (click)="
-                      removeFromTemporarySuperset(node);
-                      $event.stopPropagation()
-                    "
-                  >
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </ng-container>
-
-                <button
-                  *ngIf="!isSupersetComposeUnderway"
-                  mat-mini-fab
-                  color="warn"
-                  (click)="remove(node); $event.stopPropagation()"
+              <mat-panel-title class="title-panel">
+                <h3>
+                  {{ 'basicInformation.title' | translate }}
+                </h3>
+                <mat-icon
+                  *ngIf="!workoutForm.form.get('workoutBasicInfo')?.invalid"
+                  [style.color]="'green'"
                 >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <form
-              fxLayout="column nowrap"
-              fxLayout.gt-lg="row nowrap"
-              class="exercise__form"
-              #instructionsForm="ngForm"
-            >
-              <ft-workout-item-load
-                fxLayout="column nowrap"
-                fxLayout.gt-lg="row nowrap"
-                [instruction]="node.workoutItem.instructionStrategy"
-              ></ft-workout-item-load>
-              <ft-workout-item-rest
-                fxLayout="column nowrap"
-                fxLayout.gt-lg="row nowrap"
-                *ngIf="!node.workoutItem.parent"
-                [instruction]="node.workoutItem.instructionStrategy"
-              ></ft-workout-item-rest>
-            </form>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </mat-tree-node>
-      <mat-tree-node
-        class="superset"
-        *matTreeNodeDef="let node; when: hasChild"
-        [style.padding-left]="node.level * 40 + 'px'"
-        cdkDrag
-        [cdkDragData]="node"
-      >
-        <mat-accordion class="superset__accordion">
-          <mat-expansion-panel [class.hidden]="isSupersetComposeUnderway">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <div class="node-header">
-                  <button
-                    mat-icon-button
-                    matTreeNodeToggle
-                    (click)="expansionModel.toggle(node.id)"
-                    [attr.aria-label]="'Toggle ' + node.workoutItem.name"
-                  >
-                    <mat-icon class="mat-icon-rtl-mirror">
-                      {{
-                        treeControl.isExpanded(node)
-                          ? 'expand_more'
-                          : 'chevron_right'
-                      }}
-                    </mat-icon>
-                  </button>
-
-                  <h4 class="superset__name">{{ node.workoutItem.name }}</h4>
-                </div>
+                  done_outline
+                </mat-icon>
+                <mat-icon
+                  *ngIf="workoutForm.form.get('workoutBasicInfo')?.invalid"
+                  [style.color]="'red'"
+                >
+                  close
+                </mat-icon>
               </mat-panel-title>
-              <mat-panel-description fxLayoutAlign="start center">
-                <button mat-mini-fab color="warn" (click)="decompose(node)">
-                  <mat-icon>unfold_more</mat-icon>
-                </button>
-              </mat-panel-description>
             </mat-expansion-panel-header>
-            <form
-              fxLayout="column nowrap"
-              fxLayout.gt-lg="row nowrap"
-              class="superset-form"
-              #setInstructionsForm="ngForm"
-            >
-              <ft-workout-item-load
-                fxLayout="column nowrap"
-                fxLayout.gt-lg="row nowrap"
-                [instruction]="node.workoutItem.instructionStrategy"
-              ></ft-workout-item-load>
-              <ft-workout-item-rest
-                fxLayout="column nowrap"
-                fxLayout.gt-lg="row nowrap"
-                [instruction]="node.workoutItem.instructionStrategy"
-              ></ft-workout-item-rest>
-            </form>
+            <ft-workout-basic-info
+              [basicInfo]="resolvedComposedWorkoutData.workoutBasicInfo"
+              [exerciseDescriptors]="exerciseDescriptors"
+            ></ft-workout-basic-info>
           </mat-expansion-panel>
         </mat-accordion>
-      </mat-tree-node>
-    </mat-tree>
-  </section>
+      </section>
+    </article>
+
+    <section class="exercise-tree-section">
+      <mat-tree
+        class="exercise-tree"
+        [dataSource]="dataSource"
+        [treeControl]="treeControl"
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+      >
+        <mat-tree-node
+          *matTreeNodeDef="let node"
+          matTreeNodeToggle
+          class="exercise"
+          [cdkDragData]="node"
+          [style.padding-left]="node.level * 60 + 24 + 'px'"
+          cdkDrag
+        >
+          <mat-accordion class="exercise__accordion">
+            <mat-expansion-panel
+              class="accent"
+              [class.contrast]="temporarySupersetNodeIds().has(node.id)"
+              [disabled]="isSupersetComposeUnderway"
+            >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h4 class="panel-title">{{ node.workoutItem.name }}</h4>
+                </mat-panel-title>
+                <mat-panel-description fxLayoutAlign="end center">
+                  <ng-container
+                    *ngIf="
+                      isSupersetComposeUnderway && !node.workoutItem.parent
+                    "
+                    ><button
+                      *ngIf="!temporarySupersetNodeIds().has(node.id)"
+                      mat-mini-fab
+                      class="add-btn"
+                      color="primary"
+                      (click)="addToSuperset(node); $event.stopPropagation()"
+                    >
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    <button
+                      *ngIf="temporarySupersetNodeIds().has(node.id)"
+                      mat-mini-fab
+                      class="add-btn"
+                      color="primary"
+                      (click)="
+                        removeFromTemporarySuperset(node);
+                        $event.stopPropagation()
+                      "
+                    >
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </ng-container>
+
+                  <button
+                    *ngIf="!isSupersetComposeUnderway"
+                    mat-mini-fab
+                    color="warn"
+                    (click)="remove(node); $event.stopPropagation()"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div
+                fxLayout="column nowrap"
+                fxLayout.gt-lg="row nowrap"
+                class="exercise__form"
+                ngModelGroup="{{ 'workoutItem-' + node.id }}"
+                #instructionsForm="ngModelGroup"
+              >
+                <ft-workout-item-load
+                  fxLayout="column nowrap"
+                  fxLayout.gt-lg="row nowrap"
+                  [instruction]="node.workoutItem.instructionStrategy"
+                ></ft-workout-item-load>
+                <ft-workout-item-rest
+                  fxLayout="column nowrap"
+                  fxLayout.gt-lg="row nowrap"
+                  *ngIf="!node.workoutItem.parent"
+                  [instruction]="node.workoutItem.instructionStrategy"
+                ></ft-workout-item-rest>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-tree-node>
+        <mat-tree-node
+          class="superset"
+          *matTreeNodeDef="let node; when: hasChild"
+          [style.padding-left]="node.level * 40 + 'px'"
+          cdkDrag
+          [cdkDragData]="node"
+        >
+          <mat-accordion class="superset__accordion">
+            <mat-expansion-panel [class.hidden]="isSupersetComposeUnderway">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="node-header">
+                    <button
+                      mat-icon-button
+                      matTreeNodeToggle
+                      (click)="expansionModel.toggle(node.id)"
+                      [attr.aria-label]="'Toggle ' + node.workoutItem.name"
+                    >
+                      <mat-icon class="mat-icon-rtl-mirror">
+                        {{
+                          treeControl.isExpanded(node)
+                            ? 'expand_more'
+                            : 'chevron_right'
+                        }}
+                      </mat-icon>
+                    </button>
+
+                    <h4 class="superset__name">{{ node.workoutItem.name }}</h4>
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description fxLayoutAlign="start center">
+                  <button mat-mini-fab color="warn" (click)="decompose(node)">
+                    <mat-icon>unfold_more</mat-icon>
+                  </button>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div
+                fxLayout="column nowrap"
+                fxLayout.gt-lg="row nowrap"
+                class="superset-form"
+                ngModelGroup="{{ 'supersetInstructionsForm-' + node.id }}"
+                #supersetInstructionsForm="ngModelGroup"
+              >
+                <ft-workout-item-load
+                  fxLayout="column nowrap"
+                  fxLayout.gt-lg="row nowrap"
+                  [instruction]="node.workoutItem.instructionStrategy"
+                ></ft-workout-item-load>
+                <ft-workout-item-rest
+                  fxLayout="column nowrap"
+                  fxLayout.gt-lg="row nowrap"
+                  [instruction]="node.workoutItem.instructionStrategy"
+                ></ft-workout-item-rest>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-tree-node>
+      </mat-tree>
+    </section>
+  </form>
 </main>
 
 <footer class="compose-workout-actions">
@@ -192,7 +202,7 @@
   <button
     mat-raised-button
     color="accent"
-    [disabled]="!isBasicInfoValid"
+    [disabled]="workoutForm.invalid"
     (click)="saveWorkout()"
   >
     Save Workout

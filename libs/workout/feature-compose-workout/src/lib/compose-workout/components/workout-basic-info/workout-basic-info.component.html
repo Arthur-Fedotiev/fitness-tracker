@@ -1,4 +1,8 @@
-<form #workoutBasicInfoForm fxLayout="column nowrap">
+<div
+  #workoutBasicInfoGroup="ngModelGroup"
+  ngModelGroup="workoutBasicInfo"
+  fxLayout="column nowrap"
+>
   <mat-form-field appearance="outline">
     <input
       placeholder="{{ 'basicInformation.name' | translate }}"
@@ -86,4 +90,4 @@
       (ngModelChange)="onBasicInfoChange()"
     ></textarea>
   </mat-form-field>
-</form>
+</div>

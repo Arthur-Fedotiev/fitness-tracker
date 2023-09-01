@@ -2,13 +2,11 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  OnInit,
   Output,
   EventEmitter,
-  ViewChild,
-  AfterViewInit,
+  inject,
 } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, ControlContainer, NgModelGroup } from '@angular/forms';
 
 import { WorkoutBasicInfo } from '@fitness-tracker/workout-domain';
 import { WorkoutLevel } from '@fitness-tracker/workout-domain';
@@ -22,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexModule } from '@angular/flex-layout/flex';
-import { distinctUntilChanged, map, startWith, tap } from 'rxjs';
+import { formViewProvider } from '@fitness-tracker/shared/utils';
 
 @Component({
   selector: 'ft-workout-basic-info',
@@ -44,9 +42,10 @@ import { distinctUntilChanged, map, startWith, tap } from 'rxjs';
     TitleCasePipe,
     TranslateModule,
   ],
+  viewProviders: [formViewProvider],
 })
-export class WorkoutBasicInfoComponent implements AfterViewInit {
-  @ViewChild('workoutBasicInfoForm', { read: NgForm }) public form!: NgForm;
+export class WorkoutBasicInfoComponent {
+  public form!: NgModelGroup;
   @Input()
   set basicInfo(basicInfo: WorkoutBasicInfo | null | undefined) {
     this.workoutBasicInfo = {
@@ -61,6 +60,8 @@ export class WorkoutBasicInfoComponent implements AfterViewInit {
   @Output()
   public readonly basicInfoValidChange = new EventEmitter<boolean>();
 
+  public readonly parentForm = inject(ControlContainer).control;
+
   public readonly workoutLevels = WorkoutLevel;
 
   public workoutBasicInfo: WorkoutBasicInfo = {
@@ -72,16 +73,6 @@ export class WorkoutBasicInfoComponent implements AfterViewInit {
     level: WorkoutLevel.BEGINNER,
     importantNotes: '',
   };
-
-  ngAfterViewInit(): void {
-    this.form
-      .statusChanges!.pipe(
-        distinctUntilChanged(),
-        map((status) => status === 'VALID'),
-        startWith(false),
-      )
-      .subscribe((isValid) => this.basicInfoValidChange.emit(isValid));
-  }
 
   protected onBasicInfoChange(): void {
     this.basicInfoChange.emit({ ...this.basicInfo, ...this.workoutBasicInfo });
