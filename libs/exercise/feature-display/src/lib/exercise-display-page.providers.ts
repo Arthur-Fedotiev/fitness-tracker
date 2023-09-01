@@ -16,16 +16,18 @@ import { from, map } from 'rxjs';
 
 const i18nAssetsPath = 'assets/i18n/exercise-display/';
 
+export const exerciseDetailsDialogProvider = {
+  provide: ExerciseDetailsDialogComponent,
+  useFactory: () =>
+    from(import('@fitness-tracker/exercise/ui-components')).pipe(
+      map((module) => module.ExerciseDetailsComponent),
+    ),
+};
+
 export const DISPLAY_PAGE_PROVIDERS = [
   EXERCISE_DESCRIPTORS_PROVIDER,
   EXERCISE_DOMAIN_PROVIDERS,
-  {
-    provide: ExerciseDetailsDialogComponent,
-    useFactory: () =>
-      from(import('@fitness-tracker/exercise/ui-components')).pipe(
-        map((module) => module.ExerciseDetailsComponent),
-      ),
-  },
+  exerciseDetailsDialogProvider,
   importProvidersFrom(
     TranslateModule.forChild({
       loader: {

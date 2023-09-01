@@ -76,14 +76,16 @@
         <img
           class="card__avatar"
           mat-card-sm-image
+          alt="{{ item.name }} avatar"
           [src]="item.avatarUrl"
           ftWithFallback
         />
         <img
-          class="card__avatar"
           mat-card-sm-image
-          [src]="item.avatarSecondaryUrl"
           ftWithFallback
+          class="card__avatar"
+          alt="{{ item.name }} avatar"
+          [src]="item.avatarSecondaryUrl"
         />
       </div>
 
@@ -110,7 +112,7 @@
     </mat-card-title-group>
     <mat-card-actions class="card__actions">
       <button
-        mat-button
+        mat-stroked-button
         class="mat-raised-button mat-primary"
         (click)="showExerciseDetails(item.id)"
       >

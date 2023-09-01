@@ -7,4 +7,9 @@ export {
   ExerciseDescriptors,
 } from '@fitness-tracker/exercise/domain';
 
-export { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/feature-display';
+export {
+  DISPLAY_PAGE_PROVIDERS,
+  exerciseDetailsDialogProvider,
+} from '@fitness-tracker/exercise/feature-display';
+
+export { EXERCISE_DOMAIN_PROVIDERS } from '@fitness-tracker/exercise/domain';

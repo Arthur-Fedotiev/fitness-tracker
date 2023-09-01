@@ -1,5 +1,5 @@
 <main class="page-content">
-  <form #workoutForm="ngForm">
+  <form #workoutForm="ngForm" class="workout-form">
     <article fxLayout="row nowrap" fxLayoutAlign="center">
       <section fxFlex="80%">
         <mat-accordion>
@@ -45,7 +45,7 @@
           matTreeNodeToggle
           class="exercise"
           [cdkDragData]="node"
-          [style.padding-left]="node.level * 60 + 24 + 'px'"
+          [style.padding-left]="node.level * 24 + 'px'"
           cdkDrag
         >
           <mat-accordion class="exercise__accordion">
@@ -55,8 +55,23 @@
               [disabled]="isSupersetComposeUnderway"
             >
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <h4 class="panel-title">{{ node.workoutItem.name }}</h4>
+                <mat-panel-title class="exercise-title-panel">
+                  <h4 class="exercise-node-name">
+                    <span class="name-text">{{ node.workoutItem.name }}</span>
+                    <mat-icon
+                      *ngIf="!instructionsForm.invalid"
+                      [style.color]="'green'"
+                    >
+                      done_outline
+                    </mat-icon>
+
+                    <mat-icon
+                      *ngIf="instructionsForm.invalid"
+                      [style.color]="'red'"
+                    >
+                      close
+                    </mat-icon>
+                  </h4>
                 </mat-panel-title>
                 <mat-panel-description fxLayoutAlign="end center">
                   <ng-container
@@ -100,7 +115,7 @@
                 fxLayout="column nowrap"
                 fxLayout.gt-lg="row nowrap"
                 class="exercise__form"
-                ngModelGroup="{{ 'workoutItem-' + node.id }}"
+                ngModelGroup="{{ node.id }}"
                 #instructionsForm="ngModelGroup"
               >
                 <ft-workout-item-load
@@ -119,37 +134,51 @@
           </mat-accordion>
         </mat-tree-node>
         <mat-tree-node
-          class="superset"
           *matTreeNodeDef="let node; when: hasChild"
+          class="superset"
+          [class.hidden]="isSupersetComposeUnderway"
           [style.padding-left]="node.level * 40 + 'px'"
           cdkDrag
           [cdkDragData]="node"
         >
           <mat-accordion class="superset__accordion">
-            <mat-expansion-panel [class.hidden]="isSupersetComposeUnderway">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div class="node-header">
-                    <button
-                      mat-icon-button
-                      matTreeNodeToggle
-                      (click)="expansionModel.toggle(node.id)"
-                      [attr.aria-label]="'Toggle ' + node.workoutItem.name"
-                    >
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{
-                          treeControl.isExpanded(node)
-                            ? 'expand_more'
-                            : 'chevron_right'
-                        }}
-                      </mat-icon>
-                    </button>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header class="superset-panel-header">
+                <mat-panel-title class="superset-title-panel">
+                  <button
+                    mat-icon-button
+                    matTreeNodeToggle
+                    color="accent"
+                    (click)="expansionModel.toggle(node.id)"
+                    [attr.aria-label]="
+                      'See details for ' + node.workoutItem.name
+                    "
+                  >
+                    <mat-icon class="mat-icon-rtl-mirror"> search </mat-icon>
+                  </button>
 
-                    <h4 class="superset__name">{{ node.workoutItem.name }}</h4>
-                  </div>
+                  <h4 class="superset__name">{{ node.workoutItem.name }}</h4>
+
+                  <mat-icon
+                    *ngIf="!supersetInstructionsForm.invalid"
+                    [style.color]="'green'"
+                  >
+                    done_outline
+                  </mat-icon>
+
+                  <mat-icon
+                    *ngIf="supersetInstructionsForm.invalid"
+                    [style.color]="'red'"
+                  >
+                    close
+                  </mat-icon>
                 </mat-panel-title>
-                <mat-panel-description fxLayoutAlign="start center">
-                  <button mat-mini-fab color="warn" (click)="decompose(node)">
+                <mat-panel-description class="superset-panel-description">
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    (click)="decompose(node)"
+                  >
                     <mat-icon>unfold_more</mat-icon>
                   </button>
                 </mat-panel-description>
@@ -158,7 +187,7 @@
                 fxLayout="column nowrap"
                 fxLayout.gt-lg="row nowrap"
                 class="superset-form"
-                ngModelGroup="{{ 'supersetInstructionsForm-' + node.id }}"
+                ngModelGroup="{{ node.id }}"
                 #supersetInstructionsForm="ngModelGroup"
               >
                 <ft-workout-item-load
@@ -198,7 +227,6 @@
   >
     Save superset
   </button>
-  <button mat-raised-button color="warn">Cancel Workout</button>
   <button
     mat-raised-button
     color="accent"

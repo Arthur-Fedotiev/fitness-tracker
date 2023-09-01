@@ -41,6 +41,7 @@ import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
 import { TranslateModule } from '@ngx-translate/core';
 import { merge, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -100,6 +101,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly composeWorkoutPresenter: ComposeWorkoutComponentService,
+    private readonly router: Router,
   ) {
     getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
@@ -140,6 +142,9 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
       ...(this.resolvedComposedWorkoutData.workoutBasicInfo ?? {}),
       ...this.workoutForm.value['workoutBasicInfo'],
     });
+
+    this.releaseResources();
+    this.router.navigate(['workouts', 'all']);
   }
 
   public trackById(_: number, node: WorkoutItem): string | number {
