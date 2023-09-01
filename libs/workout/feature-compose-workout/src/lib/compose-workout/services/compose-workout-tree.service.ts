@@ -124,6 +124,10 @@ export class ComposeWorkoutTreeService {
     this.workoutDB.deleteItem(item);
   }
 
+  public getSupersetsTotal() {
+    return this.dataSource.data.filter((item) => item.children?.length).length;
+  }
+
   private rebuildTreeForData(data: WorkoutItem[]) {
     this.dataSource.data = [];
     this.dataSource.data = data;

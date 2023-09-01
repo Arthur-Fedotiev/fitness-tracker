@@ -4,18 +4,23 @@
       <mat-accordion>
         <mat-expansion-panel #matExpansionPanel class="form-panel">
           <mat-expansion-panel-header>
-            <mat-panel-title fxLayoutAlign="center">
-              <h3 class="panel-title">
+            <mat-panel-title class="title-panel">
+              <h3>
                 {{ 'basicInformation.title' | translate }}
               </h3>
+              <mat-icon *ngIf="isBasicInfoValid" [style.color]="'green'">
+                done_outline
+              </mat-icon>
+              <mat-icon *ngIf="!isBasicInfoValid" [style.color]="'red'">
+                close
+              </mat-icon>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <ft-workout-basic-info
-            [basicInfo]="workoutBasicInfo$ | async"
+            [basicInfo]="resolvedComposedWorkoutData.workoutBasicInfo"
             [exerciseDescriptors]="exerciseDescriptors"
-            (workoutBasicInfoSaved)="
-              matExpansionPanel.expanded = false; saveBasicInfo($event)
-            "
+            (basicInfoChange)="onBasicInfoChange($event)"
+            (basicInfoValidChange)="isBasicInfoValid = $event"
           ></ft-workout-basic-info>
         </mat-expansion-panel>
       </mat-accordion>
@@ -32,33 +37,56 @@
     >
       <mat-tree-node
         *matTreeNodeDef="let node"
-        class="exercise"
         matTreeNodeToggle
+        class="exercise"
+        [cdkDragData]="node"
         [style.padding-left]="node.level * 60 + 24 + 'px'"
         cdkDrag
-        [cdkDragData]="node"
       >
-        <button mat-icon-button disabled></button
-        ><button
-          *ngIf="isSupersetComposeUnderway && !node.workoutItem.parent"
-          mat-mini-fab
-          class="add-btn"
-          color="success"
-          (click)="addToSuperset(node)"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
-        <button mat-mini-fab color="warn" (click)="remove(node)">
-          <mat-icon>delete</mat-icon>
-        </button>
         <mat-accordion class="exercise__accordion">
-          <mat-expansion-panel>
+          <mat-expansion-panel
+            class="accent"
+            [class.contrast]="temporarySupersetNodeIds().has(node.id)"
+            [disabled]="isSupersetComposeUnderway"
+          >
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <h4 class="panel-title">{{ node.workoutItem.name }}</h4>
               </mat-panel-title>
-              <mat-panel-description fxLayoutAlign="start center" fxHide.lt-md>
-                Provide exercise instructions
+              <mat-panel-description fxLayoutAlign="end center">
+                <ng-container
+                  *ngIf="isSupersetComposeUnderway && !node.workoutItem.parent"
+                  ><button
+                    *ngIf="!temporarySupersetNodeIds().has(node.id)"
+                    mat-mini-fab
+                    class="add-btn"
+                    color="primary"
+                    (click)="addToSuperset(node); $event.stopPropagation()"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button
+                    *ngIf="temporarySupersetNodeIds().has(node.id)"
+                    mat-mini-fab
+                    class="add-btn"
+                    color="primary"
+                    (click)="
+                      removeFromTemporarySuperset(node);
+                      $event.stopPropagation()
+                    "
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </ng-container>
+
+                <button
+                  *ngIf="!isSupersetComposeUnderway"
+                  mat-mini-fab
+                  color="warn"
+                  (click)="remove(node); $event.stopPropagation()"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <form
@@ -90,7 +118,7 @@
         [cdkDragData]="node"
       >
         <mat-accordion class="superset__accordion">
-          <mat-expansion-panel>
+          <mat-expansion-panel [class.hidden]="isSupersetComposeUnderway">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <div class="node-header">
@@ -108,14 +136,14 @@
                       }}
                     </mat-icon>
                   </button>
-                  <button mat-mini-fab color="warn" (click)="decompose(node)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
+
                   <h4 class="superset__name">{{ node.workoutItem.name }}</h4>
                 </div>
               </mat-panel-title>
-              <mat-panel-description fxLayoutAlign="start center" fxHide.lt-md>
-                Provide superset instructions
+              <mat-panel-description fxLayoutAlign="start center">
+                <button mat-mini-fab color="warn" (click)="decompose(node)">
+                  <mat-icon>unfold_more</mat-icon>
+                </button>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <form
@@ -144,24 +172,29 @@
 
 <footer class="compose-workout-actions">
   <button
-    mat-raised-button
+    mat-stroked-button
     class="workout-btn"
     color="primary"
     (click)="toggleComposeSuperset()"
   >
-    {{ isSupersetComposeUnderway ? 'Stop composing' : 'Compose' }} superset
+    {{ isSupersetComposeUnderway ? 'Discard' : 'Compose' }} superset
   </button>
   <button
     *ngIf="isSupersetComposeUnderway"
-    mat-raised-button
+    mat-stroked-button
     class="workout-btn"
     color="success"
     (click)="saveSuperset()"
   >
-    SAVE superset
+    Save superset
   </button>
   <button mat-raised-button color="warn">Cancel Workout</button>
-  <button mat-raised-button color="success" (click)="saveWorkout()">
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="!isBasicInfoValid"
+    (click)="saveWorkout()"
+  >
     Save Workout
   </button>
 </footer>

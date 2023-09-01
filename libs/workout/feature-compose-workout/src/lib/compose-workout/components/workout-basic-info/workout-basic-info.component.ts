@@ -2,17 +2,13 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
+  OnInit,
   Output,
   EventEmitter,
-  OnInit,
+  ViewChild,
+  AfterViewInit,
 } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { WorkoutBasicInfo } from '@fitness-tracker/workout-domain';
 import { WorkoutLevel } from '@fitness-tracker/workout-domain';
@@ -26,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexModule } from '@angular/flex-layout/flex';
+import { distinctUntilChanged, map, startWith, tap } from 'rxjs';
 
 @Component({
   selector: 'ft-workout-basic-info',
@@ -36,7 +33,7 @@ import { FlexModule } from '@angular/flex-layout/flex';
   imports: [
     FormsModule,
     FlexModule,
-    ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -48,56 +45,45 @@ import { FlexModule } from '@angular/flex-layout/flex';
     TranslateModule,
   ],
 })
-export class WorkoutBasicInfoComponent implements OnInit {
+export class WorkoutBasicInfoComponent implements AfterViewInit {
+  @ViewChild('workoutBasicInfoForm', { read: NgForm }) public form!: NgForm;
   @Input()
-  public basicInfo?: WorkoutBasicInfo | null;
+  set basicInfo(basicInfo: WorkoutBasicInfo | null | undefined) {
+    this.workoutBasicInfo = {
+      ...this.workoutBasicInfo,
+      ...(basicInfo ?? {}),
+    };
+  }
   @Input()
   public exerciseDescriptors!: ExerciseDescriptors;
   @Output()
-  public readonly workoutBasicInfoSaved = new EventEmitter<WorkoutBasicInfo>();
+  public readonly basicInfoChange = new EventEmitter<WorkoutBasicInfo>();
+  @Output()
+  public readonly basicInfoValidChange = new EventEmitter<boolean>();
 
   public readonly workoutLevels = WorkoutLevel;
 
-  public workoutInfoForm!: UntypedFormGroup;
+  public workoutBasicInfo: WorkoutBasicInfo = {
+    name: '',
+    targetMuscles: [],
+    avatarUrl: '',
+    coverUrl: '',
+    description: '',
+    level: WorkoutLevel.BEGINNER,
+    importantNotes: '',
+  };
 
-  constructor(private fb: UntypedFormBuilder) {}
-
-  public ngOnInit(): void {
-    this.workoutInfoForm = this.setForm(this.basicInfo);
+  ngAfterViewInit(): void {
+    this.form
+      .statusChanges!.pipe(
+        distinctUntilChanged(),
+        map((status) => status === 'VALID'),
+        startWith(false),
+      )
+      .subscribe((isValid) => this.basicInfoValidChange.emit(isValid));
   }
 
-  public onSave(): void {
-    this.workoutBasicInfoSaved.emit({
-      ...this.basicInfo,
-      ...this.workoutInfoForm.value,
-    });
-  }
-
-  public trackByIndex(index: number): number {
-    return index;
-  }
-
-  private setForm(
-    workoutBasicInfo?: WorkoutBasicInfo | null,
-  ): UntypedFormGroup {
-    const {
-      name,
-      description,
-      level,
-      targetMuscles,
-      avatarUrl,
-      coverUrl,
-      importantNotes,
-    } = workoutBasicInfo || {};
-
-    return this.fb.group({
-      name: [name ?? '', Validators.required],
-      targetMuscles: [targetMuscles, Validators.required],
-      avatarUrl: [avatarUrl, Validators.required],
-      coverUrl: [coverUrl],
-      description: [description],
-      level: [level, Validators.required],
-      importantNotes: [importantNotes],
-    });
+  protected onBasicInfoChange(): void {
+    this.basicInfoChange.emit({ ...this.basicInfo, ...this.workoutBasicInfo });
   }
 }

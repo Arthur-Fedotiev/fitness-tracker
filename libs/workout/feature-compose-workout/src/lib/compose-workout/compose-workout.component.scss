@@ -1,5 +1,10 @@
 @use '@angular/material' as mat;
 
+.title-panel {
+  justify-content: center;
+  gap: 1rem;
+}
+
 .superset__accordion,
 .exercise__accordion {
   flex: 1 1 auto;
@@ -42,6 +47,10 @@
   > * {
     width: 100%;
   }
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (min-width: 600px) {

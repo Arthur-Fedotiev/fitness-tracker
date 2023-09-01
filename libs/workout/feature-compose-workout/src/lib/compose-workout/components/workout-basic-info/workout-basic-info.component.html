@@ -1,23 +1,26 @@
-<form fxLayout="column nowrap" [formGroup]="workoutInfoForm">
+<form #workoutBasicInfoForm fxLayout="column nowrap">
   <mat-form-field appearance="outline">
     <input
       placeholder="{{ 'basicInformation.name' | translate }}"
       matInput
-      formControlName="name"
+      required
+      name="name"
+      [(ngModel)]="workoutBasicInfo.name"
+      (ngModelChange)="onBasicInfoChange()"
     />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-select
       placeholder="{{ 'basicInformation.targetMuscles' | translate }}"
-      formControlName="targetMuscles"
       multiple
+      name="targetMuscles"
+      required
+      [(ngModel)]="workoutBasicInfo.targetMuscles"
+      (ngModelChange)="onBasicInfoChange()"
     >
       <mat-option
-        *ngFor="
-          let muscle of exerciseDescriptors.muscles;
-          trackBy: trackByIndex
-        "
+        *ngFor="let muscle of exerciseDescriptors.muscles"
         [value]="muscle"
         >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
       >
@@ -27,13 +30,13 @@
   <mat-form-field appearance="outline">
     <mat-select
       placeholder="{{ 'basicInformation.level' | translate }}"
-      formControlName="level"
+      name="level"
+      required=""
+      [(ngModel)]="workoutBasicInfo.level"
+      (ngModelChange)="onBasicInfoChange()"
     >
       <mat-option
-        *ngFor="
-          let lvl of exerciseDescriptors.proficiencyLvls;
-          trackBy: trackByIndex
-        "
+        *ngFor="let lvl of exerciseDescriptors.proficiencyLvls"
         [value]="lvl"
         >{{ 'PROFICIENCY_LVL.' + lvl | translate | titlecase }}</mat-option
       >
@@ -44,12 +47,22 @@
     <input
       placeholder="{{ 'basicInformation.coverUrl' | translate }}"
       matInput
-      formControlName="coverUrl"
+      required
+      name="coverUrl"
+      [(ngModel)]="workoutBasicInfo.coverUrl"
+      (ngModelChange)="onBasicInfoChange()"
     />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <input placeholder="Avatar url" matInput formControlName="avatarUrl" />
+    <input
+      placeholder="Avatar url"
+      matInput
+      name="avatarUrl"
+      required
+      [(ngModel)]="workoutBasicInfo.avatarUrl"
+      (ngModelChange)="onBasicInfoChange()"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -57,7 +70,9 @@
       matInput
       cdkTextareaAutosize
       placeholder="{{ 'basicInformation.description' | translate }}"
-      formControlName="description"
+      name="description"
+      [(ngModel)]="workoutBasicInfo.description"
+      (ngModelChange)="onBasicInfoChange()"
     ></textarea>
   </mat-form-field>
 
@@ -66,16 +81,9 @@
       matInput
       cdkTextareaAutosize
       placeholder="{{ 'basicInformation.importantNotes' | translate }}"
-      formControlName="importantNotes"
+      name="importantNotes"
+      [(ngModel)]="workoutBasicInfo.importantNotes"
+      (ngModelChange)="onBasicInfoChange()"
     ></textarea>
   </mat-form-field>
-
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!workoutInfoForm.valid || !workoutInfoForm.dirty"
-    (click)="onSave()"
-  >
-    SAVE
-  </button>
 </form>

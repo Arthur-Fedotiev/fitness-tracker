@@ -9,6 +9,7 @@ import {
   Inject,
   Input,
   OnDestroy,
+  computed,
 } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeModule } from '@angular/material/tree';
 import {
@@ -23,14 +24,13 @@ import {
 } from '@fitness-tracker/workout-domain';
 
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
 import { ComposeWorkoutComponentService } from './services/compose-workout-component.service';
 import { ComposeWorkoutDropService } from './services/compose-workout-drop.service';
 import { ComposeWorkoutTreeService } from './services/compose-workout-tree.service';
 import { hasChild, WorkoutDatabase } from './services/workout-db';
 import { WorkoutItemRestComponent } from './components/workout-item-rest/workout-item-rest.component';
 import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-subform/workout-item-load-subform.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf, AsyncPipe } from '@angular/common';
@@ -40,6 +40,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
 import { TranslateModule } from '@ngx-translate/core';
+import { merge, switchMap, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -82,11 +83,17 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     this.composeWorkoutPresenter.dataSource;
   public expansionModel: SelectionModel<string> =
     this.composeWorkoutPresenter.expansionModel;
-  public readonly workoutBasicInfo$: Observable<WorkoutBasicInfo | undefined> =
-    this.composeWorkoutPresenter.workoutBasicInfo$;
 
   public readonly hasChild = hasChild;
   public isSupersetComposeUnderway = false;
+  public temporarySupersetNodeIds = computed(
+    () =>
+      new Set(
+        this.composeWorkoutPresenter.temporarySuperset().map((node) => node.id),
+      ),
+  );
+
+  protected isBasicInfoValid = false;
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
@@ -96,7 +103,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     const { treeControl, dataSource, expansionModel } =
       this.composeWorkoutPresenter.init(this.resolvedComposedWorkoutData);
 
@@ -105,7 +112,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     this.expansionModel = expansionModel;
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.releaseResources();
   }
 
@@ -124,13 +131,13 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   }
 
   public remove(node: WorkoutItemFlatNode): void {
-    node.level !== 0
-      ? this.composeWorkoutPresenter.removeFromSuperset(node)
-      : this.composeWorkoutPresenter.removeFromWorkout(node);
+    this.composeWorkoutPresenter.removeFromWorkout(node);
   }
 
   public saveWorkout(): void {
-    this.composeWorkoutPresenter.saveWorkout();
+    this.composeWorkoutPresenter.saveWorkout(
+      this.resolvedComposedWorkoutData.workoutBasicInfo!,
+    );
   }
 
   public trackById(_: number, node: WorkoutItem): string | number {
@@ -141,12 +148,22 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     this.composeWorkoutPresenter.drop(event);
   }
 
-  public saveBasicInfo($event: WorkoutBasicInfo): void {
-    this.composeWorkoutPresenter.saveBasicInfo($event);
-  }
-
   public addToSuperset(node: WorkoutItemFlatNode): void {
     this.composeWorkoutPresenter.addToSuperset(node);
+  }
+
+  public removeFromTemporarySuperset(node: WorkoutItemFlatNode): void {
+    this.composeWorkoutPresenter.removeFromTemporarySuperset(node);
+  }
+
+  protected onBasicInfoChange($event: WorkoutBasicInfo) {
+    this.resolvedComposedWorkoutData = {
+      ...this.resolvedComposedWorkoutData,
+      workoutBasicInfo: {
+        ...(this.resolvedComposedWorkoutData.workoutBasicInfo ?? {}),
+        ...$event,
+      },
+    };
   }
 
   private releaseResources(): void {

@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 
 import {
@@ -10,23 +10,13 @@ import {
   ConcreteSingleWorkoutItemInstruction,
   ConcreteWorkoutItemSerializer,
   InstructionType,
-  SerializedWorkout,
   WorkoutBasicInfo,
   WorkoutFacadeService,
   WorkoutItem,
   WorkoutItemComposite,
   WorkoutItemFlatNode,
 } from '@fitness-tracker/workout-domain';
-import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import {
-  Subject,
-  merge,
-  scan,
-  shareReplay,
-  withLatestFrom,
-  map,
-  tap,
-} from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ComposeWorkoutDropService } from './compose-workout-drop.service';
 import { ComposeWorkoutTreeService } from './compose-workout-tree.service';
 
@@ -39,69 +29,7 @@ export class ComposeWorkoutComponentService {
 
   public readonly instructionType = InstructionType;
 
-  public readonly addToComposableSuperset = new Subject<WorkoutItemFlatNode>();
-  public readonly reset = new Subject<void>();
-  public readonly saveSupersetSubj = new Subject<void>();
-  public readonly saveWorkoutSubj = new Subject<SerializedWorkout['content']>();
-  private readonly workoutBasicInfoSubj = new Subject<
-    WorkoutBasicInfo | undefined
-  >();
-
-  public readonly workoutBasicInfo$ = this.workoutBasicInfoSubj.asObservable();
-
-  public readonly temporarySuperset$ = merge(
-    this.addToComposableSuperset.asObservable(),
-    this.reset,
-  ).pipe(
-    scan(
-      (acc, curr) => (curr ? [...acc, curr] : []),
-      [] as WorkoutItemFlatNode[],
-    ),
-    shareReplay(1),
-  );
-
-  public readonly createSuperset$ = this.saveSupersetSubj.asObservable().pipe(
-    withLatestFrom(this.temporarySuperset$),
-    map(([, superset]: [void, WorkoutItemFlatNode[]]) => superset),
-    tap((superset) =>
-      superset.forEach((node: WorkoutItemFlatNode) =>
-        this.treeService.deleteItem(this.treeService.getNestedNode(node)),
-      ),
-    ),
-    tap((superset) => {
-      const supersetsNth = this.dataSource.data.reduce(
-        (acc, curr) => (curr instanceof WorkoutItemComposite ? ++acc : acc),
-        1,
-      );
-
-      const set = new WorkoutItemComposite(
-        `Superset`,
-        [],
-        new ConcreteCompositeWorkoutItemInstruction(),
-        String(supersetsNth),
-      );
-
-      const parent: WorkoutItem = this.treeService.addItem(set);
-
-      superset.forEach((node) => this.treeService.insertItem(node, parent));
-    }),
-    tap(() => this.reset.next()),
-    untilDestroyed(this),
-  );
-
-  private readonly saveWorkout$ = this.saveWorkoutSubj.asObservable().pipe(
-    withLatestFrom(this.workoutBasicInfoSubj),
-    map(
-      ([content, basicInfo]) =>
-        ({
-          content,
-          ...basicInfo,
-        } as SerializedWorkout),
-    ),
-    tap((serializedWorkout: SerializedWorkout) =>
-      this.workoutFacade.createWorkout(serializedWorkout),
-    ),
-  );
+  public readonly temporarySuperset = signal<WorkoutItemFlatNode[]>([]);
 
   constructor(
     private readonly treeService: ComposeWorkoutTreeService,
@@ -116,10 +44,6 @@ export class ComposeWorkoutComponentService {
     this.dataSource = this.treeService.dataSource;
     this.expansionModel = this.treeService.expansionModel;
 
-    this.workoutBasicInfoSubj.next(composedWorkoutData.workoutBasicInfo);
-    this.createSuperset$.pipe(untilDestroyed(this)).subscribe();
-    this.saveWorkout$.pipe(untilDestroyed(this)).subscribe();
-
     return {
       treeControl: this.treeControl,
       dataSource: this.dataSource,
@@ -127,7 +51,7 @@ export class ComposeWorkoutComponentService {
     };
   }
 
-  public saveWorkout(): void {
+  public saveWorkout(basicInfo: WorkoutBasicInfo): void {
     if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
       console.log('Data is not valid to be saved');
 
@@ -138,7 +62,10 @@ export class ComposeWorkoutComponentService {
       this.workoutItemSerializeStrategy.serialize(workoutItem),
     );
 
-    this.saveWorkoutSubj.next(serializedWorkoutContent);
+    this.workoutFacade.createWorkout({
+      ...basicInfo,
+      content: serializedWorkoutContent,
+    });
   }
 
   public decompose(decomposedNode: WorkoutItemFlatNode): void {
@@ -153,20 +80,29 @@ export class ComposeWorkoutComponentService {
     this.treeService.removeFromWorkout(node);
   }
 
-  public saveBasicInfo($event: WorkoutBasicInfo): void {
-    this.workoutBasicInfoSubj.next($event);
-  }
-
   public resetSuperset(): void {
-    this.reset.next();
+    this.temporarySuperset.set([]);
   }
 
   public saveSuperset(): void {
-    this.saveSupersetSubj.next();
+    const parent = this.treeService.addItem(this.createSuperset());
+
+    this.temporarySuperset().forEach((node: WorkoutItemFlatNode) => {
+      this.treeService.deleteItem(this.treeService.getNestedNode(node));
+      this.treeService.insertItem(node, parent);
+    });
+
+    this.resetSuperset();
   }
 
   public addToSuperset(node: WorkoutItemFlatNode): void {
-    this.addToComposableSuperset.next(node);
+    this.temporarySuperset.update((superset) => [...superset, node]);
+  }
+
+  public removeFromTemporarySuperset(node: WorkoutItemFlatNode) {
+    this.temporarySuperset.update((superset) =>
+      superset.filter((item) => item !== node),
+    );
   }
 
   public drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
@@ -190,5 +126,15 @@ export class ComposeWorkoutComponentService {
 
   public releaseResources(): void {
     this.workoutFacade.onNavigatedFromWorkoutCompose();
+  }
+
+  private createSuperset() {
+    const set = new WorkoutItemComposite(
+      `Superset`,
+      [],
+      new ConcreteCompositeWorkoutItemInstruction(),
+      String(this.treeService.getSupersetsTotal() + 1),
+    );
+    return set;
   }
 }
