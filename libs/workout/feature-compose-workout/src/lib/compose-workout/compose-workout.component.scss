@@ -12,11 +12,12 @@
 }
 
 .exercise-node-name {
-  vertical-align: center;
+  vertical-align: middle;
+}
 
-  .name-text {
-    margin-right: 0.5rem;
-  }
+.exercise-description-panel {
+  place-content: center end;
+  gap: 0.5rem;
 }
 
 .superset-panel-header {
@@ -39,6 +40,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  vertical-align: middle;
 }
 
 .superset__accordion,
@@ -68,13 +70,25 @@
   gap: 1rem;
   margin: 2rem auto;
 
-  > * {
+  * {
     width: 100%;
   }
 }
 
 .hidden {
   display: none;
+}
+
+.workout-form {
+  width: 100%;
+}
+
+.validation-pin-text {
+  display: hidden;
+}
+
+.information-chip {
+  margin: 0.5rem auto;
 }
 
 @media screen and (min-width: 600px) {
@@ -92,6 +106,10 @@
   .exercise-title-panel {
     flex-basis: 300px;
   }
+
+  // .validation-pin-text {
+  //   display: block;
+  // }
 }
 
 @media screen and (min-width: 768px) {

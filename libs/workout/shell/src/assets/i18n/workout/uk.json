@@ -1,5 +1,24 @@
 {
-  "basicInformation": {},
+  "basicInformation": {
+    "title": "Інтрукції тренування",
+    "name": "Назва тренування",
+    "targetMuscles": "Цільові мʼязи",
+    "level": "Рівень складносі",
+    "coverUrl": "Обладинка (URL адреса)",
+    "avatarUrl": "Аватар (URL адреса)",
+    "description": "Опис",
+    "importantNotes": "Важливі нотатки"
+  },
+  "actionButtons": {
+    "composeSuperset": "Створити суперсет",
+    "discardSuperset": "Скасувати суперсет",
+    "saveSuperset": "Зберегти суперсет",
+    "decompose": "Розбити на вправи",
+    "add": "Додати",
+    "remove": "Видалити",
+    "saveWorkout": "Зберегти тренування",
+    "saveWorkoutDisabledTooltip": "Заповніть всі поля інструкцій для тренувань, вправ і суперсетів"
+  },
   "instructions": {
     "REPS": "повторень",
     "DURATION": "тривалість",

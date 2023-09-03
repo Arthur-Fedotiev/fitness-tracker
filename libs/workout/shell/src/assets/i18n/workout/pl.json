@@ -1,4 +1,24 @@
 {
+  "basicInformation": {
+    "title": "Instrukcje ćwiczeń",
+    "name": "Nazwa treningu",
+    "targetMuscles": "Mięśnie docelowe",
+    "poziom": "Poziom",
+    "coverUrl": "URL obrazu tytułowego",
+    "avatarUrl": "URL awatara",
+    "opis": "Opis",
+    "importantNotes": "Ważne notatki"
+  },
+  "actionButtons": {
+    "composeSuperset": "Utwórz nadzbiór",
+    "discardSuperset": "Odrzuć nadzbiór",
+    "saveSuperset": "Zapisz nadzbiór",
+    "decompose": "Rozkład nadzbiór",
+    "dodaj": "Dodaj",
+    "usuń": "Usuń",
+    "saveWorkout": "Zapisz trening",
+    "saveWorkoutDisabledTooltip": "Musisz wypełnić wszystkie pola instrukcji dotyczących treningu, ćwiczeń i superserii"
+  },
   "instructions": {
     "REPS": "repetitions",
     "DURATION": "duration",

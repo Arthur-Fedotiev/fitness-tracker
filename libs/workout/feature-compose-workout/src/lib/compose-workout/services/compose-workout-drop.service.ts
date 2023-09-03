@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import {
@@ -9,7 +10,10 @@ import { ComposeWorkoutTreeService } from './compose-workout-tree.service';
 
 @Injectable()
 export class ComposeWorkoutDropService {
-  constructor(private readonly treeService: ComposeWorkoutTreeService) {}
+  constructor(
+    private readonly treeService: ComposeWorkoutTreeService,
+    private readonly snackBar: MatSnackBar,
+  ) {}
   public drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
     if (!event.isPointerOverContainer) return;
 
@@ -63,36 +67,56 @@ export class ComposeWorkoutDropService {
     if (!newSiblings) return;
 
     const nodeAtDestFlatNode = this.treeService.treeControl.dataNodes.find(
-      (n) => nodeAtDest.id === n.id,
-    );
+      ({ id }) => nodeAtDest.id === id,
+    )!;
 
-    if (nodeDragged.expandable && !nodeAtDestFlatNode?.expandable) {
-      alert('Supersets cannot consist of other supersets!');
+    if (this.isSupersetDroppedIntoSuperset(nodeDragged, nodeAtDestFlatNode)) {
+      this.showCannotDropIntoSupersetMessage();
       return;
     }
 
     this.treeService.deleteItem(nodeToInsert);
 
-    if (nodeAtDest.id === nodeDragged?.id) return;
+    if (nodeAtDest.id === nodeDragged?.id) {
+      return;
+    }
 
     if (isDraggedAcrossLevels(flatNodeAtDest.level, nodeDragged.level)) {
-      const isDroppedInto = nodeDragged.level < flatNodeAtDest.level;
+      this.insertNodeIntoAnotherLevel(
+        nodeDragged,
+        flatNodeAtDest,
+        nodeToInsert,
+        nodeAtDest,
+      );
 
-      if (isDroppedInto) {
-        nodeAtDest.children
-          ? this.treeService.insertItemAbove(
-              nodeAtDest.children[0],
-              nodeToInsert,
-            )
-          : this.treeService.insertItemAbove(nodeAtDest, nodeToInsert);
-
-        return;
-      }
+      return;
     }
 
     event.currentIndex > event.previousIndex
       ? this.treeService.insertItemBelow(nodeAtDest, nodeToInsert)
       : this.treeService.insertItemAbove(nodeAtDest, nodeToInsert);
+  }
+
+  private insertNodeIntoAnotherLevel(
+    nodeDragged: WorkoutItemFlatNode,
+    flatNodeAtDest: WorkoutItemFlatNode,
+    nodeToInsert: WorkoutItem,
+    nodeAtDest: WorkoutItem,
+  ): void {
+    const isDroppedInto = nodeDragged.level < flatNodeAtDest.level;
+
+    if (!isDroppedInto) return;
+
+    nodeAtDest.children
+      ? this.treeService.insertItemAbove(nodeAtDest.children[0], nodeToInsert)
+      : this.treeService.insertItemAbove(nodeAtDest, nodeToInsert);
+  }
+
+  private isSupersetDroppedIntoSuperset(
+    draggedNode: WorkoutItemFlatNode,
+    destinationNode: WorkoutItemFlatNode,
+  ): boolean {
+    return draggedNode.expandable && destinationNode.level > 0;
   }
 
   private visibleNodes(): WorkoutItem[] {
@@ -108,5 +132,15 @@ export class ComposeWorkoutDropService {
       addExpandedChildren(node, this.treeService.expansionModel.selected);
     });
     return result;
+  }
+
+  private showCannotDropIntoSupersetMessage(): void {
+    this.snackBar.open(
+      'You cannot drop a superset into another superset',
+      'OK',
+      {
+        duration: Infinity,
+      },
+    );
   }
 }

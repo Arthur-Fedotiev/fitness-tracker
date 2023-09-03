@@ -1,12 +1,23 @@
 {
   "basicInformation": {
-    "title": "Workout basic information",
+    "title": "Workout instructions",
     "name": "Workout name",
     "targetMuscles": "Target muscles",
     "level": "Level",
     "coverUrl": "Cover image URL",
+    "avatarUrl": "Avatar image URL",
     "description": "Description",
     "importantNotes": "Important notes"
+  },
+  "actionButtons": {
+    "composeSuperset": "Compose superset",
+    "discardSuperset": "Discard superset",
+    "saveSuperset": "Save superset",
+    "decompose": "Decompose",
+    "add": "Add",
+    "remove": "Remove",
+    "saveWorkout": "Save workout",
+    "saveWorkoutDisabledTooltip": "Fill in all the fields of instructions for workout, exercises and supersets"
   },
   "instructions": {
     "REPS": "repetitions",

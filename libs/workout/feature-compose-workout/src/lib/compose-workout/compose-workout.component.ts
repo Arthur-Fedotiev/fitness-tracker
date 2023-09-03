@@ -33,15 +33,17 @@ import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-
 import { FormsModule, NgForm } from '@angular/forms';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
 import { TranslateModule } from '@ngx-translate/core';
-import { merge, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @UntilDestroy()
 @Component({
@@ -62,18 +64,19 @@ import { Router } from '@angular/router';
     MatExpansionModule,
     WorkoutBasicInfoComponent,
     MatTreeModule,
+    MatChipsModule,
     CdkDropList,
     CdkDrag,
     MatButtonModule,
+    MatSnackBarModule,
+    MatTooltipModule,
     NgIf,
     MatIconModule,
     ExtendedModule,
     FormsModule,
     WorkoutItemLoadSubformComponent,
     WorkoutItemRestComponent,
-    AsyncPipe,
     TranslateModule,
-    JsonPipe,
   ],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {
@@ -85,7 +88,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     this.composeWorkoutPresenter.treeControl;
   public dataSource: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode> =
     this.composeWorkoutPresenter.dataSource;
-  public expansionModel: SelectionModel<string> =
+  public treeExpansionModel: SelectionModel<string> =
     this.composeWorkoutPresenter.expansionModel;
 
   public readonly hasChild = hasChild;
@@ -112,7 +115,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
 
     this.treeControl = treeControl;
     this.dataSource = dataSource;
-    this.expansionModel = expansionModel;
+    this.treeExpansionModel = expansionModel;
   }
 
   ngOnDestroy(): void {
