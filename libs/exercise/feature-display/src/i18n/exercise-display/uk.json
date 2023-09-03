@@ -1,11 +1,16 @@
 {
-	"EXERCISE": {
-		"editBtn": "Редагувати",
-		"equipment": "Знаряд",
-		"exerciseType": "Тип",
-		"targetMuscle": "Мишца",
-		"viewBtn": "Детальніше"
-	},
-	"loadMore": "Більше",
-	"showFilters": "Показати фільтри"
+  "EXERCISE": {
+    "editBtn": "Редагувати",
+    "equipment": "Знаряд",
+    "exerciseType": "Тип",
+    "targetMuscle": "Мишца",
+    "viewBtn": "Детальніше"
+  },
+  "loadMore": "Більше",
+  "showFilters": "Показати фільтри",
+  "composedWorkout": {
+    "createWorkout": "Створити тренування",
+    "proceed": "Продовжити",
+    "cancel": "Скасувати"
+  }
 }

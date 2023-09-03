@@ -1,11 +1,16 @@
 {
-	"EXERCISE": {
-		"editBtn": "Edytować",
-		"equipment": "Ekwipunek",
-		"exerciseType": "Rodzaj",
-		"targetMuscle": "Mięsień",
-		"viewBtn": "widok"
-	},
-	"loadMore": "Załaduj więcej",
-	"showFilters": "Pokaż filtry"
+  "EXERCISE": {
+    "editBtn": "Edytować",
+    "equipment": "Ekwipunek",
+    "exerciseType": "Rodzaj",
+    "targetMuscle": "Mięsień",
+    "viewBtn": "widok"
+  },
+  "loadMore": "Załaduj więcej",
+  "showFilters": "Pokaż filtry",
+  "composedWorkout": {
+    "createWorkout": "Utwórz trening",
+    "proceed": "Kontynuuj",
+    "cancel": "Anuluj"
+  }
 }

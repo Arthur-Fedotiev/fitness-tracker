@@ -1,11 +1,16 @@
 {
-	"EXERCISE": {
-		"editBtn": "EDIT",
-		"equipment": "Equipment",
-		"exerciseType": "Type",
-		"targetMuscle": "Muscle",
-		"viewBtn": "VIEW"
-	},
-	"loadMore": "Load More",
-	"showFilters": "Show Filters"
+  "EXERCISE": {
+    "editBtn": "EDIT",
+    "equipment": "Equipment",
+    "exerciseType": "Type",
+    "targetMuscle": "Muscle",
+    "viewBtn": "VIEW"
+  },
+  "loadMore": "Load More",
+  "showFilters": "Show Filters",
+  "composedWorkout": {
+    "createWorkout": "Create Workout",
+    "proceed": "Proceed",
+    "cancel": "Cancel"
+  }
 }

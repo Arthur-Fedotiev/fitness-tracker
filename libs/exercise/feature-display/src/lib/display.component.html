@@ -53,7 +53,7 @@
             color="accent"
             (click)="isWorkoutCreationMode = true"
           >
-            Create workout
+            {{ 'composedWorkout.createWorkout' | translate }}
           </button>
           <ng-container *ngIf="isWorkoutCreationMode"
             ><button
@@ -63,7 +63,7 @@
               [disabled]="!selectedForWorkoutIds().size"
               (click)="finishComposing()"
             >
-              Proceed
+              {{ 'composedWorkout.proceed' | translate }}
             </button>
 
             <button
@@ -72,7 +72,7 @@
               color="warn"
               (click)="cancelComposing()"
             >
-              Cancel
+              {{ 'composedWorkout.cancel' | translate }}
             </button>
           </ng-container>
         </mat-panel-title>
