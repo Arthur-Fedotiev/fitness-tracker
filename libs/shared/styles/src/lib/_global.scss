@@ -5,7 +5,8 @@
 @include responsive.title();
 
 :root {
-  --ft-main-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  --ft-primary-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  --ft-primary-font-size: 12px;
 }
 
 html,
@@ -14,8 +15,8 @@ body {
 }
 body {
   margin: 0;
-  font-family: var(--ft-main-font-family);
-  font-size: 12px;
+  font-family: var(--ft-primary-font-family);
+  font-size: var(--ft-primary-font-size);
 }
 
 .title-link {
@@ -25,12 +26,5 @@ body {
 body.dark-theme {
   .title-link {
     color: wheat;
-  }
-}
-
-@media screen and (min-width: 400px) {
-  //if more than 400 px {
-  body {
-    font-size: 14px;
   }
 }
