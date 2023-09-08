@@ -2417,9 +2417,9 @@ setprototypeof@1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-"shared-package@file:shared-package-2.0.0.tgz":
-  version "2.0.0"
-  resolved "file:shared-package-2.0.0.tgz#d5e1ba590913cad18927e840bba2a70d53bc2846"
+"shared-package@file:shared-package-5.0.0.tgz":
+  version "5.0.0"
+  resolved "file:shared-package-5.0.0.tgz#1bb9d2beafc4ca1275f211a64121e495829c3e73"
 
 shebang-command@^2.0.0:
   version "2.0.0"

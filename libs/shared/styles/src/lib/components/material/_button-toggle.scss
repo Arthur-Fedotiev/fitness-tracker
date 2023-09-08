@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+@mixin include-button-toggle-theme($theme, $level: 500) {
+  .mat-button-toggle-checked {
+    background-color: mat.get-color-from-palette($theme, $level);
+    color: mat.get-color-from-palette($theme, 50);
+  }
+
+  .mat-button-toggle {
+    flex: 1;
+  }
+}

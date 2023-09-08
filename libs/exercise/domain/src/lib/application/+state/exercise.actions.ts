@@ -1,9 +1,9 @@
 import { WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
 import { GetExerciseRequestDto } from '../../entities/dto/request/get/get-exercise-request.dto';
-import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
 import { EXERCISES_ACTION_NAMES } from './exercise.actions.enum';
+import { SaveExerciseCommandModel } from '../models/create-update-exercise.models';
 
 export const init = createAction('[Exercises Page] Init');
 
@@ -89,7 +89,7 @@ export const emptyExercisesList = createAction(
 
 export const exerciseSaved = createAction(
   EXERCISES_ACTION_NAMES.EXERCISE_SAVED,
-  props<WithPayload<CreateUpdateExerciseRequestDTO>>(),
+  props<WithPayload<SaveExerciseCommandModel>>(),
 );
 
 export const exerciseSavedSuccess = createAction(

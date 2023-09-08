@@ -1,9 +1,9 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  OnInit,
   OnDestroy,
   Inject,
+  effect,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -20,16 +20,15 @@ import {
   EXERCISE_DETAILS_QUERY,
   ReleaseExerciseDetailsCommand,
   RELEASE_EXERCISE_DETAILS_COMMAND,
-  CreateUpdateExerciseRequestDTO,
   EXERCISE_SAVED_COMMAND,
   ExerciseSavedCommand,
-  ExerciseResponseDto,
 } from '@fitness-tracker/exercise/domain';
 
-import { filter, startWith, Subject, take, tap, withLatestFrom } from 'rxjs';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { filter, take } from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -58,32 +57,11 @@ import { MatInputModule } from '@angular/material/input';
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateAndEditComponent implements OnInit, OnDestroy {
+export class CreateAndEditComponent implements OnDestroy {
   public readonly exerciseForm: UntypedFormGroup = this.getForm();
 
-  private readonly pathExerciseFormValue$ =
-    this.exerciseQuery.selectedExerciseDetails$.pipe(
-      filter(Boolean),
-      tap(this.exerciseForm.patchValue.bind(this.exerciseForm)),
-      take(1),
-      untilDestroyed(this),
-    );
-
-  private readonly save: Subject<void> = new Subject<void>();
-
-  public readonly onSave$ = this.save.asObservable().pipe(
-    withLatestFrom(
-      this.pathExerciseFormValue$.pipe(startWith({} as ExerciseResponseDto)),
-    ),
-    tap(([, exercise]) =>
-      this.exerciseSavedCommand.exerciseSaved(
-        new CreateUpdateExerciseRequestDTO(
-          this.exerciseForm.value,
-          exercise.id,
-        ),
-      ),
-    ),
-    untilDestroyed(this),
+  private readonly exerciseDetails = toSignal(
+    this.exerciseQuery.selectedExerciseDetails$.pipe(filter(Boolean), take(1)),
   );
 
   public get ratingControl(): AbstractControl<number | null, number | null> {
@@ -103,10 +81,8 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
     @Inject(EXERCISE_SAVED_COMMAND)
     private readonly exerciseSavedCommand: ExerciseSavedCommand,
     private readonly fb: UntypedFormBuilder,
-  ) {}
-
-  public ngOnInit(): void {
-    this.initListeners();
+  ) {
+    effect(() => this.exerciseForm.patchValue(this.exerciseDetails() ?? {}));
   }
 
   public ngOnDestroy(): void {
@@ -114,7 +90,10 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
   }
 
   public onSave(): void {
-    this.save.next();
+    this.exerciseSavedCommand.exerciseSaved({
+      exercise: this.exerciseForm.value,
+      id: this.exerciseDetails()?.id,
+    });
   }
 
   public ratingChange(rating: number | null): void {
@@ -143,9 +122,5 @@ export class CreateAndEditComponent implements OnInit, OnDestroy {
       muscleDiagramUrl: [null],
       rating: [null, Validators.required],
     });
-  }
-
-  private initListeners(): void {
-    this.onSave$.subscribe();
   }
 }

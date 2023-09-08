@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Store } from '@ngrx/store';
 
 import * as ExercisesActions from '../application/+state/exercise.actions';
 import * as ExercisesSelectors from '../application/+state/exercise.selectors';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.dto';
-import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { SearchOptions } from '../entities/response/exercise-search.interface';
 import { IsLoadingQuery } from '../entities/queries/is-loading.query';
 import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query';
@@ -15,6 +13,8 @@ import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-d
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
 import { ExerciseSavedCommand } from '../entities/commands';
 import { Router } from '@angular/router';
+import { SaveExerciseCommandModel } from './models/create-update-exercise.models';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseFacade
@@ -25,19 +25,19 @@ export class ExerciseFacade
     ReleaseExerciseDetailsCommand,
     ExerciseSavedCommand
 {
+  private readonly exercisesList$ = this.store
+    .select(ExercisesSelectors.getAllExercises)
+    .pipe(map((exercises) => exercises.filter(({ name }) => name)));
+
   public readonly isLoading$ = this.store.select(ExercisesSelectors.getLoading);
-  public readonly exercisesList = this.store.selectSignal(
-    ExercisesSelectors.getAllExercises,
-  );
+  public readonly exercisesList = toSignal(this.exercisesList$, {
+    initialValue: [] as ExerciseResponseDto[],
+  });
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,
   );
 
-  constructor(
-    private readonly store: Store,
-    private readonly afs: AngularFirestore,
-    private readonly router: Router,
-  ) {}
+  constructor(private readonly store: Store, private readonly router: Router) {}
 
   public exercisePreviews$(
     ids: Set<string>,
@@ -49,20 +49,10 @@ export class ExerciseFacade
     this.store.dispatch(ExercisesActions.loadExercises());
   }
 
-  public exerciseSaved(exercise: CreateUpdateExerciseRequestDTO) {
-    const id = exercise.baseData?.id ?? this.afs.createId();
-
-    // return /error/i.test(exercise.translatableData.name)
-    //   ? timer(1_500).pipe(
-    //       switchMap(() => throwError(() => 'Opps! Exercise name was "Error"')),
-    //     )
-    //   : this.exercisesService.createOrUpdateExercise(
-    //       exercise.setId(id).serialize(),
-    //     );
-
+  public exerciseSaved(saveExerciseCommand: SaveExerciseCommandModel) {
     this.store.dispatch(
       ExercisesActions.exerciseSaved({
-        payload: exercise.setId(id).serialize(),
+        payload: saveExerciseCommand,
       }),
     );
 

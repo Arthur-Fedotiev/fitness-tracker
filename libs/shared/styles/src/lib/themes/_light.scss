@@ -1,7 +1,9 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+@use './typography' as *;
 @use '../components';
 @use '../mixins/contrast';
+@use '../components/material/button-toggle' as *;
 
 $ft-app-light-primary: mat.define-palette(mat.$amber-palette);
 $ft-app-light-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
@@ -15,13 +17,14 @@ $ft-app-light-theme: mat.define-light-theme(
       accent: $ft-app-light-accent,
       warn: $ft-app-light-warn,
     ),
-    // Define the default density level for our app.
-    density: 0,
+    typography: $ft-typography,
+    density: -2,
   )
 );
 
 body:not(.dark-theme) {
   @include mat.all-component-themes($ft-app-light-theme);
+  @include include-button-toggle-theme($ft-app-light-primary);
 
   @include contrast.contrast(
     $ft-app-light-primary,

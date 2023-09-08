@@ -42,6 +42,7 @@ import {
   ExercisePagination,
   EXERCISE_DESCRIPTORS_TOKEN,
   SearchOptions,
+  ExerciseResponseDto,
 } from '@fitness-tracker/exercise/domain';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
@@ -60,9 +61,22 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {
+  MatButtonToggleChange,
+  MatButtonToggleModule,
+} from '@angular/material/button-toggle';
+import { AuthFacadeService } from '@fitness-tracker/auth/domain';
+import { selectUserInfo } from '@fitness-tracker/auth/domain';
+
 enum EXERCISE_MODE {
   'VIEW' = 'view',
   'EDIT' = 'edit',
+}
+
+enum ExerciseOwner {
+  FitnessTracker = 'FitnessTracker',
+  User = 'User',
+  All = 'All',
 }
 
 @UntilDestroy()
@@ -74,6 +88,7 @@ enum EXERCISE_MODE {
     CommonModule,
     FlexLayoutModule,
     MatFormFieldModule,
+    MatButtonToggleModule,
     MatInputModule,
     MatExpansionModule,
     MatBadgeModule,
@@ -92,7 +107,9 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   public readonly roles = ROLES;
   public readonly exerciseMode = EXERCISE_MODE;
+  public readonly ExerciseOwner = ExerciseOwner;
   public readonly exercisesList = this.exerciseFacade.exercisesList;
+  public readonly userInfo = this.authFacade.userInfo;
   public readonly isLoadingProhibited = signal(false);
   public readonly searchQuery = signal('');
 
@@ -117,9 +134,9 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   protected selectedForWorkoutIds = signal(new Set<string>());
   protected exercises = computed(() =>
-    this.exercisesList().filter(({ name }) =>
-      name.toLowerCase().includes(this.searchQuery().toLowerCase()),
-    ),
+    this.exercisesList()
+      .filter(this.byExerciseOwner)
+      .filter(this.bySearchQuery),
   );
 
   protected selectedForWorkoutExercises = computed(() =>
@@ -152,12 +169,14 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     .asObservable()
     .pipe(filter(Boolean), skip(1), first());
 
+  protected exerciseOwner = signal(ExerciseOwner.All);
   protected isWorkoutCreationMode = false;
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly exerciseFacade: ExerciseFacade,
+    private readonly authFacade: AuthFacadeService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
   ) {
@@ -224,6 +243,10 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.setMusclesQueryParams($event);
   }
 
+  protected onExerciseOwnerChanges({ value }: MatButtonToggleChange) {
+    this.exerciseOwner.set(value);
+  }
+
   private initListeners() {
     this.refreshExercises$.subscribe();
     this.loadExercises$.subscribe();
@@ -252,4 +275,18 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   protected onSearchChanges = debounce((searchQuery: string) => {
     this.searchQuery.set(searchQuery);
   }, 100);
+
+  private byExerciseOwner = ({ userId }: ExerciseResponseDto) => {
+    switch (this.exerciseOwner()) {
+      case ExerciseOwner.FitnessTracker:
+        return !userId || userId !== this.userInfo()?.uid;
+      case ExerciseOwner.User:
+        return userId === this.userInfo()?.uid;
+      case ExerciseOwner.All:
+        return true;
+    }
+  };
+
+  private bySearchQuery: (value: ExerciseResponseDto) => boolean = ({ name }) =>
+    name.toLowerCase().includes(this.searchQuery().toLowerCase());
 }

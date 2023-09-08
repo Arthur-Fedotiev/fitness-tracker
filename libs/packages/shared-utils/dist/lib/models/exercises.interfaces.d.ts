@@ -14,4 +14,6 @@ export interface Exercise {
     instructionVideo: string;
     muscleDiagramUrl: string;
     benefits: string;
+    userId: string;
+    admin: boolean;
 }

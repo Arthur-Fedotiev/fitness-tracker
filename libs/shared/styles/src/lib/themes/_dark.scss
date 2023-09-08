@@ -3,6 +3,8 @@
 
 @use '../components';
 @use '../mixins/contrast';
+@use './typography' as *;
+@use '../components/material/button-toggle' as *;
 
 $ft-app-dark-primary: mat.define-palette(mat.$deep-orange-palette);
 $ft-app-dark-accent: mat.define-palette(mat.$yellow-palette);
@@ -15,13 +17,14 @@ $ft-app-dark-theme: mat.define-dark-theme(
       accent: $ft-app-dark-accent,
       warn: $ft-app-dark-warn,
     ),
-    // Define the default density level for our app.
-    density: -1,
+    typography: $ft-typography,
+    density: -2,
   )
 );
 
 body.dark-theme {
   @include mat.all-component-themes($ft-app-dark-theme);
+  @include include-button-toggle-theme($ft-app-dark-primary);
 
   @include contrast.contrast(
     $ft-app-dark-primary,

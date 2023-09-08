@@ -11,6 +11,7 @@ import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
 import { HttpClient } from '@angular/common/http';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/i18n/domain';
 import { authProviders } from '@fitness-tracker/auth/shell';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 const i18nGlobalPath = 'assets/i18n/';
 let isCoreDependenciesRegistered = false;
@@ -23,6 +24,12 @@ export const provideCoreDependencies = () => {
   isCoreDependenciesRegistered = true;
 
   return [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+      },
+    },
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

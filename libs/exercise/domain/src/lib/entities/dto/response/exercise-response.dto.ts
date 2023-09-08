@@ -65,6 +65,9 @@ export class ExerciseResponseDto {
   public readonly rating: number;
   public readonly targetMuscle: string;
 
+  public readonly userId: string;
+  public readonly admin: boolean;
+
   public readonly name: string;
   public readonly benefits: string[];
   public readonly instructions: string[];
@@ -88,6 +91,8 @@ export class ExerciseResponseDto {
     instructions,
     shortDescription,
     longDescription,
+    userId,
+    admin,
   }: WithId<ExerciseResponse['baseData']> & ExerciseTranslationResponse) {
     this.id = id;
     this.name = name;
@@ -105,6 +110,8 @@ export class ExerciseResponseDto {
     this.instructions = this.deserializeNumericListString(instructions);
     this.shortDescription = shortDescription;
     this.longDescription = longDescription;
+    this.userId = userId;
+    this.admin = admin;
   }
 
   private deserializeNumericListString(

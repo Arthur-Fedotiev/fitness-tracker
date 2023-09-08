@@ -12,6 +12,8 @@ type BaseDataKeys = keyof Pick<
   | 'muscleDiagramUrl'
   | 'rating'
   | 'targetMuscle'
+  | 'userId'
+  | 'admin'
 >;
 
 export interface ExerciseResponse {

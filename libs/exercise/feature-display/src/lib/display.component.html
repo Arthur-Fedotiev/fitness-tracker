@@ -28,6 +28,19 @@
           (input)="onSearchChanges($any($event.target).value)"
         />
       </mat-form-field>
+
+      <mat-button-toggle-group
+        name="exerciseOwner"
+        aria-label="Exercise by"
+        [value]="exerciseOwner()"
+        (change)="onExerciseOwnerChanges($event)"
+      >
+        <mat-button-toggle [value]="ExerciseOwner.FitnessTracker"
+          >FitnessTracker</mat-button-toggle
+        >
+        <mat-button-toggle [value]="ExerciseOwner.User">Mine</mat-button-toggle>
+        <mat-button-toggle [value]="ExerciseOwner.All">All</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
     <components-exercise-list

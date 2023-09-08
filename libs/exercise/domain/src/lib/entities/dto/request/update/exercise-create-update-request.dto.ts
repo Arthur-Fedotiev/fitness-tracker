@@ -19,9 +19,11 @@ export class CreateUpdateExerciseRequestDTO {
       equipment,
       instructionVideo,
       muscleDiagramUrl,
+      userId,
+      admin,
       ...translatableData
     }: BaseDataRequest & TranslatableExerciseDataRequest,
-    id?: string,
+    id: string,
   ) {
     this.baseData = {
       rating,
@@ -35,6 +37,8 @@ export class CreateUpdateExerciseRequestDTO {
       id,
       instructionVideo,
       muscleDiagramUrl,
+      userId,
+      admin,
     };
     this.translatableData = translatableData;
   }

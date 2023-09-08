@@ -13,6 +13,7 @@ import {
   selectIsLoggedIn,
   selectIsLoggedOut,
   selectPhotoUrl,
+  selectUserInfo,
 } from '../application/+state/selectors/auth.selectors';
 import { toUserInfo } from '../functions';
 import { UserInfo } from '../models';
@@ -20,6 +21,7 @@ import { UserDataQuery } from '@fitness-tracker/shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacadeService implements UserDataQuery {
+  public readonly userInfo = this.store.selectSignal(selectUserInfo);
   public readonly isLoggedIn$ = this.store.select(selectIsLoggedIn);
   public readonly isLoggedOut$ = this.store.select(selectIsLoggedOut);
   public readonly photoUrl$ = this.store.select(selectPhotoUrl);

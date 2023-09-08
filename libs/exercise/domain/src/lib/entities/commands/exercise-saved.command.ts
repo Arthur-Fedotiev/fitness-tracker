@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
-import { CreateUpdateExerciseRequestDTO } from '../dto/request/update/exercise-create-update-request.dto';
+import { SaveExerciseCommandModel } from '../../application/models/create-update-exercise.models';
 
 export interface ExerciseSavedCommand {
-  exerciseSaved(exercise: CreateUpdateExerciseRequestDTO): void;
+  exerciseSaved(command: SaveExerciseCommandModel): void;
 }
 
 export const EXERCISE_SAVED_COMMAND = new InjectionToken<ExerciseSavedCommand>(

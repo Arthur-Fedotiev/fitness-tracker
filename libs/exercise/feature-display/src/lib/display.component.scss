@@ -8,11 +8,12 @@
   }
 
   .exercises-list {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
     width: 90%;
     margin: auto;
     padding-bottom: 50px;
-    display: flex;
-    flex-flow: column nowrap;
   }
 
   .filters {
