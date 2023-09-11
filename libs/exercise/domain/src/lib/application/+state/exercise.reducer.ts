@@ -2,15 +2,17 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 import * as ExerciseActions from './exercise.actions';
 
-import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
+import { ExerciseResponseModel } from '../models/exercise-response.model';
 
 export const EXERCISES_FEATURE_KEY = 'exercises';
-export const sortComparer = (a: ExerciseResponseDto, b: ExerciseResponseDto) =>
-  b.rating - a.rating > 0 ? 1 : -1;
+export const sortComparer = (
+  a: ExerciseResponseModel,
+  b: ExerciseResponseModel,
+) => (b.rating - a.rating > 0 ? 1 : -1);
 
-export interface State extends EntityState<ExerciseResponseDto> {
+export interface State extends EntityState<ExerciseResponseModel> {
   selectedId?: string | number;
-  selectedExercise: ExerciseResponseDto | null;
+  selectedExercise: ExerciseResponseModel | null;
   loading: boolean;
   error?: string | null;
 }
@@ -19,8 +21,8 @@ export interface ExercisesPartialState {
   readonly [EXERCISES_FEATURE_KEY]: State;
 }
 
-export const exercisesAdapter: EntityAdapter<ExerciseResponseDto> =
-  createEntityAdapter<ExerciseResponseDto>({
+export const exercisesAdapter: EntityAdapter<ExerciseResponseModel> =
+  createEntityAdapter<ExerciseResponseModel>({
     sortComparer,
   });
 

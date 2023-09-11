@@ -6,4 +6,4 @@ export {
 } from './lib/testing/auth-facade.mock';
 
 export * from './lib/application/+state/selectors/auth.selectors';
-export * from './lib/models';
+export * from './lib/application/models';

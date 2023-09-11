@@ -5,7 +5,10 @@ export const authProviders = [
   authDomainProviders,
   {
     provide: ICON_PROVIDER,
-    useValue: { iconKeys: ['sign-up'], iconUrl: '/assets/images' },
+    useValue: {
+      iconKeys: ['sign-up', 'google-logo'],
+      iconUrl: '/assets/images/auth',
+    },
     multi: true,
   },
 ];

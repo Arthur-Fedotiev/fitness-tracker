@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { canActivate } from '@angular/fire/compat/auth-guard';
+import { canActivate } from '@angular/fire/auth-guard';
 import { ExerciseResolver } from '@fitness-tracker/exercise/domain';
 import { adminOnly } from '@fitness-tracker/shared/utils';
 

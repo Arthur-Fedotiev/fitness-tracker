@@ -46,11 +46,6 @@
         },
         "styles": [
           {
-            "input": "node_modules/firebaseui/dist/firebaseui.css",
-            "bundleName": "firebase-ui",
-            "inject": false
-          },
-          {
             "input": "libs/shared/styles/src/lib/themes/_dark.scss",
             "bundleName": "dark-theme",
             "inject": false

@@ -75,5 +75,15 @@
     "BEGINNER": "Початковий",
     "INTERMEDIATE": "Середній",
     "ADVANCED": "Продвинутий"
+  },
+  "auth": {
+    "loginWithEmail": "Увійти з ел. поштою",
+    "loginWithGoogle": "Увійти з Google",
+    "signUpWithEmail": "Зареєструватися з ел. поштою",
+    "login": "Вхід",
+    "signUp": "Зареєструватися",
+    "cancel": "Скасувати",
+    "emailLabel": "Ел. адреса",
+    "passwordLabel": "Пароль"
   }
 }

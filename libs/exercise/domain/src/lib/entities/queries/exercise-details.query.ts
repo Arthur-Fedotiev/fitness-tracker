@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExerciseResponseDto } from '../dto/response/exercise-response.dto';
+import { ExerciseResponseModel } from '../../application/models/exercise-response.model';
 
 export interface ExerciseDetailsQuery {
-  selectedExerciseDetails$: Observable<ExerciseResponseDto | null>;
+  selectedExerciseDetails$: Observable<ExerciseResponseModel | null>;
 }
 
 export const EXERCISE_DETAILS_QUERY = new InjectionToken<ExerciseDetailsQuery>(

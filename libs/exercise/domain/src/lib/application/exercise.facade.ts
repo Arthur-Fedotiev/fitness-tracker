@@ -5,8 +5,7 @@ import { Store } from '@ngrx/store';
 import * as ExercisesActions from '../application/+state/exercise.actions';
 import * as ExercisesSelectors from '../application/+state/exercise.selectors';
 import { Observable, map } from 'rxjs';
-import { ExerciseResponseDto } from '../entities/dto/response/exercise-response.dto';
-import { SearchOptions } from '../entities/response/exercise-search.interface';
+import { ExerciseResponseModel } from './models/exercise-response.model';
 import { IsLoadingQuery } from '../entities/queries/is-loading.query';
 import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query';
 import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-details.command';
@@ -15,6 +14,7 @@ import { ExerciseSavedCommand } from '../entities/commands';
 import { Router } from '@angular/router';
 import { SaveExerciseCommandModel } from './models/create-update-exercise.models';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FindExercisesSearchOptions } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseFacade
@@ -31,7 +31,7 @@ export class ExerciseFacade
 
   public readonly isLoading$ = this.store.select(ExercisesSelectors.getLoading);
   public readonly exercisesList = toSignal(this.exercisesList$, {
-    initialValue: [] as ExerciseResponseDto[],
+    initialValue: [] as ExerciseResponseModel[],
   });
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,
@@ -41,7 +41,7 @@ export class ExerciseFacade
 
   public exercisePreviews$(
     ids: Set<string>,
-  ): Observable<Pick<ExerciseResponseDto, 'avatarUrl' | 'id' | 'name'>[]> {
+  ): Observable<Pick<ExerciseResponseModel, 'avatarUrl' | 'id' | 'name'>[]> {
     return this.store.select(ExercisesSelectors.selectExercisePreview(ids));
   }
 
@@ -71,11 +71,11 @@ export class ExerciseFacade
     this.store.dispatch(ExercisesActions.deleteExercise({ payload }));
   }
 
-  public findExercises(payload: Partial<SearchOptions>): void {
+  public findExercises(payload: FindExercisesSearchOptions): void {
     this.store.dispatch(ExercisesActions.findExercises({ payload }));
   }
 
-  public refreshExercises(payload: Partial<SearchOptions>): void {
+  public refreshExercises(payload: FindExercisesSearchOptions): void {
     this.store.dispatch(ExercisesActions.refreshExercises({ payload }));
   }
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { canActivate } from '@angular/fire/compat/auth-guard';
+import { canActivate } from '@angular/fire/auth-guard';
 import { Route, RouterModule } from '@angular/router';
 import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/public-api';
 import { LayoutComponent } from '@fitness-tracker/layout/feature';

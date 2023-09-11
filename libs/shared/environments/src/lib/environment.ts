@@ -16,10 +16,6 @@ export const environment = {
     messagingSenderId: '28325280548',
     appId: '1:28325280548:web:bcc5caa8fa5766c27fd1b1',
   },
-  algolia: {
-    appId: 'YDPTK1N3A0',
-    appKey: 'f276d50884ab207ec3de77c64dd4cb55',
-  },
   api: {
     createUser:
       'https://us-central1-fitness-tracker-ui-dev.cloudfunctions.net/createUser',

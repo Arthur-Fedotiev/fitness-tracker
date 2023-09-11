@@ -1,3 +1,3 @@
-import { ExerciseResponse } from '../../../response/exercise-response';
+import { ExerciseResponseDto } from '../../../response/exercise-response';
 
-export type BaseDataRequest = ExerciseResponse['baseData'] & { id?: string };
+export type BaseDataRequest = ExerciseResponseDto['baseData'] & { id?: string };

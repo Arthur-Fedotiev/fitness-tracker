@@ -5,16 +5,20 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { languageMetaReducer } from './+state/meta-reducers/language-meta-reducer.reducer';
 import { environment } from '@fitness-tracker/shared/environments';
 import { appReduceMap, FtState } from './+state/reducers/app.reduce-map';
-import { AngularFireModule } from '@angular/fire/compat';
-import { FirebaseUIModule } from 'firebaseui-angular';
-import { firebaseUiAuthConfig } from './firebase/firebase-auth-ui-config';
 
 import {
-  AngularFirestoreModule,
-  USE_EMULATOR as USE_FIRESTORE_EMULATOR,
-} from '@angular/fire/compat/firestore';
-import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
-import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+  provideAuth,
+  connectAuthEmulator,
+  getAuth,
+  AuthModule,
+} from '@angular/fire/auth';
+
+import {
+  connectFunctionsEmulator,
+  FunctionsModule,
+  getFunctions,
+  provideFunctions,
+} from '@angular/fire/functions';
 
 import {
   ScreenTrackingService,
@@ -22,6 +26,14 @@ import {
 } from '@angular/fire/analytics';
 import { SettingsEffects } from './+state/effects/settings.effects';
 import { darkMode } from './+state/meta-reducers/dark-mode.reducer';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import {
+  connectFirestoreEmulator,
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  provideFirestore,
+} from '@angular/fire/firestore';
 
 @NgModule({
   imports: [
@@ -34,33 +46,44 @@ import { darkMode } from './+state/meta-reducers/dark-mode.reducer';
     }),
     EffectsModule.forRoot([SettingsEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
-    AngularFirestoreModule,
+    FunctionsModule,
+    AuthModule,
+
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.useEmulators) {
+        connectAuthEmulator(auth, 'http://localhost:9099', {
+          disableWarnings: true,
+        });
+      }
+
+      return auth;
+    }),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+
+      // local cache
+
+      if (environment.useEmulators) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      }
+
+      // initializeFirestore(firestore.app, {
+      //   localCache: persistentLocalCache(),
+      // });
+
+      return firestore;
+    }),
+    provideFunctions(() => {
+      const functions = getFunctions();
+      if (environment.useEmulators) {
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+      }
+      return functions;
+    }),
   ],
-  providers: [
-    ScreenTrackingService,
-    UserTrackingService,
-    {
-      provide: USE_FIRESTORE_EMULATOR,
-      useValue: environment.useEmulators
-        ? ['http://localhost:8080']
-        : undefined,
-    },
-    {
-      provide: USE_FUNCTIONS_EMULATOR,
-      useValue: environment.useEmulators
-        ? ['http://localhost:5001']
-        : undefined,
-    },
-    {
-      provide: USE_AUTH_EMULATOR,
-      useValue: environment.useEmulators
-        ? ['http://127.0.0.1:9099']
-        : undefined,
-    },
-  ],
+  providers: [ScreenTrackingService, UserTrackingService],
 })
 export class SharedDataAccessRootModule {}
 

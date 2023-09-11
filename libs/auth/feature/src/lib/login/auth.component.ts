@@ -1,30 +1,132 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { FirebaseUIModule } from 'firebaseui-angular';
-import { AuthFacadeService } from '@fitness-tracker/auth/domain';
-import { StyleManagerService } from '@fitness-tracker/shared/data-access';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AuthFacadeService, AuthFormModel } from '@fitness-tracker/auth/domain';
 import { MatIconModule } from '@angular/material/icon';
-
-const FIREBASE_UI_STYLESHEET = 'firebase-ui.css';
+import { NgIf } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-auth',
-  templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatIconModule, FirebaseUIModule],
-})
-export class AuthComponent implements OnInit {
-  constructor(
-    private readonly authFacade: AuthFacadeService,
-    private readonly styleManager: StyleManagerService,
-  ) {}
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    NgIf,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TranslateModule,
+  ],
+  template: `
+    <mat-icon
+      class="welcome-icon"
+      width="50%"
+      svgIcon="sign-up"
+      [color]="'accent'"
+    ></mat-icon>
+    <form
+      #authForm="ngForm"
+      *ngIf="selectedAuthFlowStrategy; else authFlowActions"
+      class="sing-in-form"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'auth.emailLabel' | translate }}</mat-label>
+        <input
+          matInput
+          placeholder="{{ 'auth.emailLabel' | translate }}<"
+          name="email"
+          [(ngModel)]="authFormModel.email"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'auth.passwordLabel' | translate }}</mat-label>
+        <input
+          matInput
+          placeholder="{{ 'auth.passwordLabel' | translate }}"
+          name="password"
+          [(ngModel)]="authFormModel.password"
+        />
+      </mat-form-field>
+      <div class="sign-in-actions">
+        <button mat-button (click)="cancelEmailLogin()">Cancel</button>
+        <button color="primary" mat-raised-button (click)="onSubmit()">
+          {{ authTypeStrategies[selectedAuthFlowStrategy].label | translate }}
+        </button>
+      </div>
+    </form>
 
-  ngOnInit(): void {
-    this.styleManager.loadStylesheet(FIREBASE_UI_STYLESHEET);
+    <ng-template #authFlowActions
+      ><div class="auth-flow-actions">
+        <button mat-raised-button (click)="loginWithGoogle()">
+          <mat-icon class="google-icon" svgIcon="google-logo"></mat-icon>
+          {{ 'auth.loginWithGoogle' | translate }}
+        </button>
+        <button color="accent" mat-raised-button (click)="startEmailLogin()">
+          {{ 'auth.loginWithEmail' | translate }}
+        </button>
+
+        <button mat-raised-button color="warn" (click)="startEmailSignup()">
+          {{ 'auth.signUpWithEmail' | translate }}
+        </button>
+      </div></ng-template
+    >
+  `,
+})
+export class AuthComponent {
+  protected authFormModel: AuthFormModel = {
+    email: '',
+    password: '',
+  };
+
+  protected authTypeStrategies = {
+    signin: {
+      type: 'signin',
+      label: 'auth.login',
+      onSubmit: this.signInWithEmailAndPassword.bind(this),
+    },
+    signup: {
+      type: 'signup',
+      label: 'auth.signUp',
+      onSubmit: this.signUpWithEmailAndPassword.bind(this),
+    },
+  } as const;
+
+  protected selectedAuthFlowStrategy:
+    | keyof typeof this.authTypeStrategies
+    | null = null;
+
+  constructor(private readonly authFacade: AuthFacadeService) {}
+
+  protected loginWithGoogle() {
+    this.authFacade.loginWithGoogle();
   }
 
-  errorCallback(): void {
-    this.authFacade.loginErrored();
+  protected async signInWithEmailAndPassword() {
+    this.authFacade.loginWithEmail(structuredClone(this.authFormModel));
+  }
+
+  protected async signUpWithEmailAndPassword() {
+    this.authFacade.signUpWithEmail(structuredClone(this.authFormModel));
+  }
+
+  protected startEmailLogin() {
+    this.selectedAuthFlowStrategy = 'signin';
+  }
+
+  protected startEmailSignup() {
+    this.selectedAuthFlowStrategy = 'signup';
+  }
+
+  protected cancelEmailLogin() {
+    this.selectedAuthFlowStrategy = null;
+  }
+
+  protected onSubmit() {
+    this.authTypeStrategies[this.selectedAuthFlowStrategy!].onSubmit();
   }
 }

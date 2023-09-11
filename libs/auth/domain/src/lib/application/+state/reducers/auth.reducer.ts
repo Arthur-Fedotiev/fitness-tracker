@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
 import { GLOBAL_PATHS, WithPayload } from '@fitness-tracker/shared/utils';
-import { UserInfo } from '../../../models';
+import { UserInfo } from '../../models';
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
@@ -23,7 +23,7 @@ export const reducer = createReducer(
   on(AuthActions.login, (state) => state),
   on(
     AuthActions.loginSuccess,
-    (state, { payload: user }: WithPayload<UserInfo | null>) => ({
+    (state, { payload: user }: WithPayload<UserInfo>) => ({
       ...state,
       user,
     }),

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
+import { ExerciseResponseModel } from '../models/exercise-response.model';
 import {
   exercisesAdapter,
   EXERCISES_FEATURE_KEY,
@@ -24,7 +24,7 @@ export const getExercisesError = createSelector(
 
 export const getAllExercises = createSelector(
   getExercisesState,
-  (state: State): ExerciseResponseDto[] => selectAll(state),
+  (state: State): ExerciseResponseModel[] => selectAll(state),
 );
 
 export const getExercisesEntities = createSelector(
@@ -35,11 +35,11 @@ export const getExercisesEntities = createSelector(
 export const selectExercisePreview = (exerciseIds: Set<string>) =>
   createSelector(
     getExercisesEntities,
-    (entities): Pick<ExerciseResponseDto, 'avatarUrl' | 'id' | 'name'>[] =>
+    (entities): Pick<ExerciseResponseModel, 'avatarUrl' | 'id' | 'name'>[] =>
       [...exerciseIds].map((exerciseId) => {
         const { id, name, avatarUrl } = entities[
           exerciseId
-        ] as ExerciseResponseDto;
+        ] as ExerciseResponseModel;
         return { id, name, avatarUrl };
       }),
   );

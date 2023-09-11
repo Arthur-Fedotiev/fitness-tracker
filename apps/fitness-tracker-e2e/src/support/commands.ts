@@ -1,10 +1,7 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
-import 'firebase/compat/firestore';
 import { attachCustomCommands } from 'cypress-firebase';
 import { environment } from '@fitness-tracker/shared/environments';
 import { clickOutside, dataCy, selectLanguage, selectMatOption } from './utils';
+import { initializeApp } from '@angular/fire/app';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare global {
@@ -26,26 +23,26 @@ Cypress.Commands.addAll({
   selectMatOption,
 });
 
-firebase.initializeApp(environment.firebase);
+initializeApp(environment.firebase);
 
 if (Cypress.env('IS_EMULATORS_ENABLED')) {
   const firestoreEmulatorHost = Cypress.env('FIRESTORE_EMULATOR_HOST');
 
   if (firestoreEmulatorHost) {
-    firebase.firestore().settings({
-      host: firestoreEmulatorHost,
-      experimentalForceLongPolling: true,
-      ssl: false,
-    });
+    //  firestore().settings({
+    //     host: firestoreEmulatorHost,
+    //     experimentalForceLongPolling: true,
+    //     ssl: false,
+    //   });
   }
 
   const authEmulatorHost = Cypress.env('FIREBASE_AUTH_EMULATOR_HOST');
   if (authEmulatorHost) {
-    firebase.auth().useEmulator(`${authEmulatorHost}`);
+    //  auth().useEmulator(`${authEmulatorHost}`);
   }
 }
 
-attachCustomCommands({ Cypress, cy, firebase });
+// attachCustomCommands({ Cypress, cy, firebase });
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
 //

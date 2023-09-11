@@ -12,80 +12,63 @@ import {
   Observable,
   of,
   switchMap,
-  throwError,
-  timer,
   withLatestFrom,
+  first,
+  filter,
 } from 'rxjs';
 
-import { WithPayload } from '@fitness-tracker/shared/utils';
-import { Action, Store } from '@ngrx/store';
-import { LanguageCodes } from 'shared-package';
-import { TypedAction } from '@ngrx/store/src/models';
+import {
+  DEFAULT_PAGINATION_STATE,
+  ORDER_BY,
+} from '@fitness-tracker/shared/utils';
+import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs/operators';
 import { FirebaseExerciseDataService } from '../../infrastructure/exercise.data.service';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
-import {
-  GetExerciseRequestDto,
-  SearchOptions,
-} from '../../entities/dto/request/get/get-exercise-request.dto';
-import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
+import { GetExerciseRequestDto } from '../../entities/dto/request/get/get-exercise-request.dto';
+import { ExerciseResponseModel } from '../models/exercise-response.model';
 import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseDetailsDialogComponent } from '../../application/providers/exercise-details-dialog.provider';
-import {
-  selectIsAdmin,
-  selectUserInfo,
-  UserInfo,
-} from '@fitness-tracker/auth/domain';
-import { SaveExerciseCommandModel } from '../models/create-update-exercise.models';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { filter } from 'rxjs';
+import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
+import { Firestore } from '@angular/fire/firestore';
 
 @Injectable()
 export class ExerciseEffects {
   public readonly findExercises$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        EXERCISES_ACTION_NAMES.FIND_EXERCISES,
-        EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
+      ofType(ExercisesActions.findExercises, ExercisesActions.refreshExercises),
+      withLatestFrom(
+        this.store.select(selectLanguage),
+        this.store.select(selectUserInfo).pipe(filter(Boolean)),
       ),
-      withLatestFrom(this.store.select(selectLanguage)),
-      concatMap(
-        ([{ payload, type }, language]: [
-          TypedAction<
-            | EXERCISES_ACTION_NAMES.FIND_EXERCISES
-            | EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
-          > &
-            WithPayload<SearchOptions>,
-          LanguageCodes,
-        ]) =>
-          this.exercisesService
-            .findExercisesPaginated(
-              new GetExerciseRequestDto(
-                { ...payload },
-                language,
-                type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
-              ),
-            )
-            .pipe(
-              map((exercises: ExerciseResponseDto[]) =>
-                type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
-                  ? ExercisesActions.refreshExercisesSuccess({
-                      payload: exercises,
-                    })
-                  : ExercisesActions.findExercisesSuccess({
-                      payload: { exercises, firstPage: !!payload.firstPage },
-                    }),
-              ),
-              catchError(() => of(ExercisesActions.findExercisesFailure())),
+      concatMap(([{ payload, type }, language, { uid: userId }]) =>
+        this.exercisesService
+          .findExercisesPaginated(
+            new GetExerciseRequestDto(
+              this.normalizeSearchOptions({ ...payload, userId }),
+              language,
+              type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
             ),
+          )
+          .pipe(
+            map((exercises: ExerciseResponseModel[]) =>
+              type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
+                ? ExercisesActions.refreshExercisesSuccess({
+                    payload: exercises,
+                  })
+                : ExercisesActions.findExercisesSuccess({
+                    payload: { exercises, firstPage: !!payload.firstPage },
+                  }),
+            ),
+            catchError(() => of(ExercisesActions.findExercisesFailure())),
+          ),
       ),
     ),
   );
 
   public readonly saveExercise$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.EXERCISE_SAVED),
+      ofType(ExercisesActions.exerciseSaved),
       withLatestFrom(
         this.store.select(selectUserInfo).pipe(filter(Boolean)),
         this.store.select(selectIsAdmin).pipe(filter(Boolean)),
@@ -93,17 +76,18 @@ export class ExerciseEffects {
       mergeMap(
         ([
           {
-            payload: { id = this.afs.createId(), exercise },
+            payload: { exercise },
           },
           { uid: userId },
           admin,
-        ]: [WithPayload<SaveExerciseCommandModel>, UserInfo, boolean]) =>
+        ]) =>
           this.exercisesService
             .createOrUpdateExercise(
-              new CreateUpdateExerciseRequestDTO(
-                { ...exercise, userId, admin },
-                id,
-              ).serialize(),
+              new CreateUpdateExerciseRequestDTO({
+                ...exercise,
+                userId,
+                admin,
+              }).serialize(),
             )
             .pipe(
               map(() => ExercisesActions.exerciseSavedSuccess()),
@@ -115,32 +99,27 @@ export class ExerciseEffects {
 
   public readonly deleteExercise$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.DELETE_EXERCISE),
-      mergeMap(
-        ({ payload }: WithPayload<string>): Observable<Action> =>
-          this.exercisesService.deleteExercise(payload).pipe(
-            map(() => ExercisesActions.deleteExerciseSuccess({ payload })),
-            catchError(() => of(ExercisesActions.deleteExerciseFailure())),
-          ),
+      ofType(ExercisesActions.deleteExercise),
+      mergeMap(({ payload }) =>
+        this.exercisesService.deleteExercise(payload).pipe(
+          map(() => ExercisesActions.deleteExerciseSuccess({ payload })),
+          catchError(() => of(ExercisesActions.deleteExerciseFailure())),
+        ),
       ),
     ),
   );
 
   public readonly loadExerciseDetails$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS),
+      ofType(ExercisesActions.loadExerciseDetails),
       withLatestFrom(this.store.select(selectLanguage)),
-      switchMap(
-        ([{ payload }, lang]: [
-          WithPayload<string>,
-          LanguageCodes,
-        ]): Observable<Action> =>
-          this.exercisesService.getExerciseDetails(payload, lang).pipe(
-            map((payload: ExerciseResponseDto) =>
-              ExercisesActions.loadExerciseDetailsSuccess({ payload }),
-            ),
-            catchError(() => of(ExercisesActions.loadExerciseDetailsFailure())),
+      switchMap(([{ payload }, lang]) =>
+        this.exercisesService.getExerciseDetails(payload, lang).pipe(
+          map((payload) =>
+            ExercisesActions.loadExerciseDetailsSuccess({ payload }),
           ),
+          catchError(() => of(ExercisesActions.loadExerciseDetailsFailure())),
+        ),
       ),
     ),
   );
@@ -157,14 +136,11 @@ export class ExerciseEffects {
       ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
       switchMap(() =>
         this.actions$.pipe(
-          ofType(
-            EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
-            EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
-          ),
+          ofType(ExercisesActions.loadExerciseDetailsSuccess),
           first(),
         ),
       ),
-      switchMap(({ payload }: WithPayload<ExerciseResponseDto>) =>
+      switchMap(({ payload }) =>
         forkJoin([of(payload), this.detailsDialogFactory]).pipe(
           switchMap(([exercise, component]) =>
             this.dialog
@@ -184,6 +160,27 @@ export class ExerciseEffects {
     private readonly exercisesService: FirebaseExerciseDataService,
     private readonly store: Store,
     private readonly dialog: MatDialog,
-    private readonly afs: AngularFirestore,
+    private readonly afs: Firestore,
   ) {}
+
+  private normalizeSearchOptions({
+    sortOrder = ORDER_BY.DESC,
+    firstPage = DEFAULT_PAGINATION_STATE.firstPage,
+    pageSize = DEFAULT_PAGINATION_STATE.pageSize,
+    ...options
+  }: {
+    userId: string;
+    sortOrder?: ORDER_BY;
+    ids?: string[];
+    targetMuscles?: string[];
+    firstPage?: boolean;
+    pageSize?: number;
+  }) {
+    return {
+      ...options,
+      sortOrder,
+      firstPage,
+      pageSize,
+    };
+  }
 }

@@ -16,34 +16,52 @@ import {
   selectUserInfo,
 } from '../application/+state/selectors/auth.selectors';
 import { toUserInfo } from '../functions';
-import { UserInfo } from '../models';
 import { UserDataQuery } from '@fitness-tracker/shared/models';
+import { UserInfo } from '../application/models';
+import {
+  loginWithGoogle,
+  loginWithEmail,
+  signUpWithEmail,
+} from '../application/+state/actions/auth.actions';
+import { AuthFormModel } from '../application/models/auth-form.models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacadeService implements UserDataQuery {
-  public readonly userInfo = this.store.selectSignal(selectUserInfo);
-  public readonly isLoggedIn$ = this.store.select(selectIsLoggedIn);
-  public readonly isLoggedOut$ = this.store.select(selectIsLoggedOut);
-  public readonly photoUrl$ = this.store.select(selectPhotoUrl);
-  public readonly destinationUrl$ = this.store.select(selectDestinationUrl);
-  public readonly authJwtToken$ = this.store.select(selectAuthJwtToken);
-  public readonly isAdmin$ = this.store.select(selectIsAdmin);
+  readonly userInfo = this.store.selectSignal(selectUserInfo);
+  readonly isLoggedIn$ = this.store.select(selectIsLoggedIn);
+  readonly isLoggedOut$ = this.store.select(selectIsLoggedOut);
+  readonly photoUrl$ = this.store.select(selectPhotoUrl);
+  readonly destinationUrl$ = this.store.select(selectDestinationUrl);
+  readonly authJwtToken$ = this.store.select(selectAuthJwtToken);
+  readonly isAdmin$ = this.store.select(selectIsAdmin);
 
   constructor(private readonly store: Store) {}
 
-  public loggedIn(user: UserInfo | null): void {
+  loggedIn(user: UserInfo): void {
     this.store.dispatch(loginSuccess({ payload: toUserInfo(user) }));
   }
 
-  public loginErrored(): void {
+  loginErrored(): void {
     this.store.dispatch(loginFailure());
   }
 
-  public logOut(): void {
+  logOut(): void {
     this.store.dispatch(logout());
   }
 
-  public setDestinationURL(payload: string): void {
+  setDestinationURL(payload: string): void {
     this.store.dispatch(setDestinationURL({ payload }));
+  }
+
+  loginWithGoogle() {
+    this.store.dispatch(loginWithGoogle());
+  }
+
+  loginWithEmail(payload: AuthFormModel) {
+    this.store.dispatch(loginWithEmail({ payload }));
+  }
+
+  signUpWithEmail(payload: AuthFormModel) {
+    this.store.dispatch(signUpWithEmail({ payload }));
   }
 }

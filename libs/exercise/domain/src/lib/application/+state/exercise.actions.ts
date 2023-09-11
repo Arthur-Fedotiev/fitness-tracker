@@ -1,9 +1,9 @@
 import { WithPayload } from '@fitness-tracker/shared/utils';
 import { createAction, props } from '@ngrx/store';
-import { GetExerciseRequestDto } from '../../entities/dto/request/get/get-exercise-request.dto';
-import { ExerciseResponseDto } from '../../entities/dto/response/exercise-response.dto';
+import { ExerciseResponseModel } from '../models/exercise-response.model';
 import { EXERCISES_ACTION_NAMES } from './exercise.actions.enum';
 import { SaveExerciseCommandModel } from '../models/create-update-exercise.models';
+import { FindExercisesSearchOptions } from '../models';
 
 export const init = createAction('[Exercises Page] Init');
 
@@ -13,7 +13,7 @@ export const loadExercises = createAction(
 
 export const loadExercisesSuccess = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISES_SUCCESS,
-  props<{ exercises: ExerciseResponseDto[] }>(),
+  props<{ exercises: ExerciseResponseModel[] }>(),
 );
 
 export const loadExercisesFailure = createAction(
@@ -23,13 +23,13 @@ export const loadExercisesFailure = createAction(
 
 export const findExercises = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES,
-  props<WithPayload<GetExerciseRequestDto['searchOptions']>>(),
+  props<WithPayload<FindExercisesSearchOptions>>(),
 );
 
 export const findExercisesSuccess = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES_SUCCESS,
   props<
-    WithPayload<{ exercises: ExerciseResponseDto[]; firstPage: boolean }>
+    WithPayload<{ exercises: ExerciseResponseModel[]; firstPage: boolean }>
   >(),
 );
 
@@ -39,12 +39,12 @@ export const findExercisesFailure = createAction(
 
 export const refreshExercises = createAction(
   EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
-  props<WithPayload<GetExerciseRequestDto['searchOptions']>>(),
+  props<WithPayload<FindExercisesSearchOptions>>(),
 );
 
 export const refreshExercisesSuccess = createAction(
   EXERCISES_ACTION_NAMES.REFRESH_EXERCISES_SUCCESS,
-  props<WithPayload<ExerciseResponseDto[]>>(),
+  props<WithPayload<ExerciseResponseModel[]>>(),
 );
 
 export const refreshExercisesFailure = createAction(
@@ -121,7 +121,7 @@ export const loadExerciseDetails = createAction(
 
 export const loadExerciseDetailsSuccess = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_SUCCESS,
-  props<WithPayload<ExerciseResponseDto>>(),
+  props<WithPayload<ExerciseResponseModel>>(),
 );
 
 export const releaseExerciseDetails = createAction(

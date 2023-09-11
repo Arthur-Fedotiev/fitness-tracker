@@ -4,6 +4,7 @@
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  gap: 2rem;
 
   .welcome-icon {
     margin: 2rem 0;
@@ -11,7 +12,26 @@
     height: 35%;
   }
 
-  .auth-container {
-    margin-top: 1rem;
+  .google-icon {
+    height: 100%;
+  }
+
+  .sing-in-form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+  }
+
+  .auth-flow-actions {
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    gap: 1rem;
+  }
+
+  .sign-in-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
   }
 }

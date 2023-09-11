@@ -75,5 +75,15 @@
     "BEGINNER": "Beginner",
     "INTERMEDIATE": "Intermediate",
     "ADVANCED": "Advanced"
+  },
+  "auth": {
+    "loginWithEmail": "Zaloguj się za pomocą adresu e-mail",
+    "loginWithGoogle": "Zaloguj się przez Google",
+    "signUpWithEmail": "Zarejestruj się za pomocą adresu e-mail",
+    "login": "Zaloguj się",
+    "signUp": "Zarejestruj się",
+    "cancel": "Anuluj",
+    "emailLabel": "E-mail",
+    "passwordLabel": "Hasło"
   }
 }

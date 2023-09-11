@@ -1,64 +1,75 @@
-import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  CollectionReference,
-  DocumentReference,
-} from '@angular/fire/compat/firestore';
+import { Injectable, inject } from '@angular/core';
+
 import {
   convertOneSnap,
   convertSnaps,
   WithId,
 } from '@fitness-tracker/shared/utils';
-import { Observable, from, first, map } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 import { WorkoutPreview } from '../../workout-preview';
 import { SerializedWorkout } from '../classes/workout-serializer';
+import {
+  DocumentReference,
+  CollectionReference,
+  Firestore,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from '@angular/fire/firestore';
+
+export type WorkoutCollection = CollectionReference<SerializedWorkout>;
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkoutService {
-  constructor(public readonly afs: AngularFirestore) {}
+  private readonly afs = inject(Firestore);
+  private readonly workoutCollectionRef = collection(
+    this.afs,
+    'workouts',
+  ) as WorkoutCollection;
 
   public createWorkout(
     workout: SerializedWorkout,
   ): Observable<void | DocumentReference<SerializedWorkout>> {
     const id = workout.id;
 
-    return id
-      ? from(
-          this.afs.doc<SerializedWorkout>(`workouts/${id}`).set(workout),
-        ).pipe(first())
-      : from(
-          this.afs.collection<SerializedWorkout>(`workouts`).add(workout),
-        ).pipe(first());
+    return from(
+      id
+        ? setDoc(doc(this.workoutCollectionRef, id), workout)
+        : addDoc(this.workoutCollectionRef, workout),
+    );
   }
 
   public getWorkout(workoutId: string): Observable<SerializedWorkout> {
-    return this.afs
-      .doc<SerializedWorkout>(`workouts/${workoutId}`)
-      .get()
-      .pipe(map<any, WithId<SerializedWorkout>>(convertOneSnap));
+    return from(getDoc(doc(this.workoutCollectionRef, workoutId))).pipe(
+      map<any, WithId<SerializedWorkout>>(convertOneSnap),
+    );
   }
 
   public deleteWorkout(workoutId: string): Observable<void> {
-    return from(
-      this.afs.doc<SerializedWorkout>(`workouts/${workoutId}`).delete(),
-    );
+    return from(deleteDoc(doc(this.workoutCollectionRef, workoutId)));
   }
 
   public findWorkouts(
     muscles?: string[],
   ): Observable<Required<SerializedWorkout>[]> {
-    return this.afs
-      .collection<Required<SerializedWorkout>>(
-        'workouts',
-        (ref: CollectionReference) =>
-          !muscles?.length
-            ? ref
-            : ref.where('targetMuscles', 'array-contains-any', muscles),
-      )
-      .get()
-      .pipe(map((a) => convertSnaps<any>(a)));
+    return from(
+      getDocs(
+        !muscles?.length
+          ? this.workoutCollectionRef
+          : query(
+              this.workoutCollectionRef,
+              where('targetMuscles', 'array-contains-any', muscles),
+            ),
+      ),
+    ).pipe(map((a) => convertSnaps<any>(a)));
   }
 
   public getWorkoutPreviews(muscles?: string[]): Observable<WorkoutPreview[]> {

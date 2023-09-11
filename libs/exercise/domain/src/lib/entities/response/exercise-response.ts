@@ -16,6 +16,6 @@ type BaseDataKeys = keyof Pick<
   | 'admin'
 >;
 
-export interface ExerciseResponse {
+export interface ExerciseResponseDto {
   readonly baseData: Pick<Exercise, BaseDataKeys>;
 }

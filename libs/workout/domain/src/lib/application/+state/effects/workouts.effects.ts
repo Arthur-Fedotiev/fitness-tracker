@@ -31,7 +31,10 @@ import {
   toExercisesMap,
   toWorkoutDetails,
 } from '../../utils/mappers';
-import { FirebaseExerciseDataService } from '@fitness-tracker/exercise/public-api';
+import {
+  FirebaseExerciseDataService,
+  GetWorkoutExercisesRequestDto,
+} from '@fitness-tracker/exercise/public-api';
 
 @Injectable()
 export class WorkoutsEffects {
@@ -110,11 +113,9 @@ export class WorkoutsEffects {
               serializedWorkout: SerializedWorkout;
             }) =>
               this.exercisesService
-                .findExercisesForWorkout({
-                  searchOptions: { ids },
-                  lang,
-                  refresh: false,
-                })
+                .findExercisesForWorkout(
+                  new GetWorkoutExercisesRequestDto({ ids }, lang),
+                )
                 .pipe(
                   map((exercises: any[]) => ({
                     exercises: exercises.reduce(

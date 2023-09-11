@@ -76,9 +76,6 @@ export enum EXERCISE_MODE {
 export enum EXERCISE_FIELD_NAMES {
   'RATING' = 'rating',
   'TARGET_MUSCLE' = 'targetMuscle',
-}
-
-export enum LOAD_EXERCISES_ACTIONS {
-  'EXERCISE_PAGINATION' = 'EXERCISE_PAGINATION',
-  'EXERCISE_PAGE_QUERY_CHANGE' = 'EXERCISE_PAGE_QUERY_CHANGE',
+  'USER_ID' = 'userId',
+  'ADMIN' = 'admin',
 }

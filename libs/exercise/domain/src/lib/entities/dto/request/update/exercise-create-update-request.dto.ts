@@ -1,5 +1,3 @@
-import { LOAD_EXERCISES_ACTIONS } from '../../../exercise.enums';
-import { SearchOptions } from '../get/get-exercise-request.dto';
 import { BaseDataRequest } from './base-data-request';
 import { TranslatableExerciseDataRequest } from './translatable-data-request';
 
@@ -23,7 +21,7 @@ export class CreateUpdateExerciseRequestDTO {
       admin,
       ...translatableData
     }: BaseDataRequest & TranslatableExerciseDataRequest,
-    id: string,
+    id?: string,
   ) {
     this.baseData = {
       rating,
@@ -43,23 +41,13 @@ export class CreateUpdateExerciseRequestDTO {
     this.translatableData = translatableData;
   }
 
-  public setId(id: string): CreateUpdateExerciseRequestDTO {
+  public setId(id: string): this {
     this.baseData.id = id;
 
     return this;
   }
 
-  public serialize(): CreateUpdateExerciseRequestDTO {
+  public serialize(): this {
     return { ...this };
   }
-}
-
-export class ExercisePagination {
-  public readonly type = LOAD_EXERCISES_ACTIONS.EXERCISE_PAGINATION;
-  constructor(public payload: Pick<SearchOptions, 'pageSize' | 'firstPage'>) {}
-}
-
-export class ExerciseListQueryChange {
-  public readonly type = LOAD_EXERCISES_ACTIONS.EXERCISE_PAGE_QUERY_CHANGE;
-  constructor(public payload: Pick<SearchOptions, 'targetMuscles'>) {}
 }

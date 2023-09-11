@@ -1,8 +1,8 @@
 import { WithId } from '@fitness-tracker/shared/utils';
-import { ExerciseResponse } from '../../response/exercise-response';
-import { ExerciseTranslationResponse } from '../../response/exercise-translation-response';
+import { ExerciseResponseDto } from '../../entities/response/exercise-response';
+import { ExerciseTranslationResponse } from '../../entities/response/exercise-translation-response';
 
-export class ExerciseResponseDto {
+export class ExerciseResponseModel {
   public static readonly TARGET_MUSCLES = [
     'NECK',
     'TRAPS',
@@ -93,7 +93,7 @@ export class ExerciseResponseDto {
     longDescription,
     userId,
     admin,
-  }: WithId<ExerciseResponse['baseData']> & ExerciseTranslationResponse) {
+  }: WithId<ExerciseResponseDto['baseData']> & ExerciseTranslationResponse) {
     this.id = id;
     this.name = name;
     this.avatarUrl = avatarUrl;

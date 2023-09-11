@@ -38,11 +38,12 @@ import { toExerciseLoadState, toLoadMoreAction } from './utils/mappers';
 import {
   ExerciseDescriptors,
   ExerciseFacade,
+  EXERCISE_DESCRIPTORS_TOKEN,
+  ExerciseResponseDto,
+  FindExercisesSearchOptions,
   ExerciseListQueryChange,
   ExercisePagination,
-  EXERCISE_DESCRIPTORS_TOKEN,
-  SearchOptions,
-  ExerciseResponseDto,
+  SearchExercisesState,
 } from '@fitness-tracker/exercise/domain';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
@@ -66,7 +67,6 @@ import {
   MatButtonToggleModule,
 } from '@angular/material/button-toggle';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
-import { selectUserInfo } from '@fitness-tracker/auth/domain';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -123,11 +123,9 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     debounceTime(500),
     distinctUntilChanged(isEqual),
     map((targetMuscles: string | null) =>
-      targetMuscles ? JSON.parse(targetMuscles) : [],
+      targetMuscles ? (JSON.parse(targetMuscles) as string[]) : [],
     ),
-    tap((filters: SearchOptions['targetMuscles']) =>
-      this.targetMusclesSubj.next(filters),
-    ),
+    tap((targetMuscles) => this.targetMusclesSubj.next(targetMuscles)),
     map((targetMuscles) => new ExerciseListQueryChange({ targetMuscles })),
     untilDestroyed(this),
   );
@@ -145,12 +143,12 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     ),
   );
 
-  private readonly loadExercises$: Observable<Partial<SearchOptions>> = merge(
+  private readonly loadExercises$ = merge(
     this.loadMoreExercises$,
     this.targetMusclesFromQueries$,
   ).pipe(
     tap(() => this.isLoadingProhibited.set(true)),
-    scan(toExerciseLoadState, {} as Partial<SearchOptions>),
+    scan(toExerciseLoadState, {} as SearchExercisesState),
     skip(1),
     tap(this.findExercises.bind(this)),
     untilDestroyed(this),
@@ -163,7 +161,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   );
 
   private readonly targetMusclesSubj = new BehaviorSubject<
-    SearchOptions['targetMuscles']
+    FindExercisesSearchOptions['targetMuscles']
   >([]);
   public readonly targetMuscles$ = this.targetMusclesSubj
     .asObservable()
@@ -239,7 +237,9 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  public targetMusclesChanges($event: SearchOptions['targetMuscles']) {
+  public targetMusclesChanges(
+    $event: FindExercisesSearchOptions['targetMuscles'],
+  ) {
     this.setMusclesQueryParams($event);
   }
 
@@ -252,7 +252,9 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.loadExercises$.subscribe();
   }
 
-  private setMusclesQueryParams(targetMuscles: SearchOptions['targetMuscles']) {
+  private setMusclesQueryParams(
+    targetMuscles: FindExercisesSearchOptions['targetMuscles'],
+  ) {
     const currentRoute: string = this.router.url.split('?')[0];
 
     this.router.navigate([currentRoute], {
@@ -260,11 +262,11 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  private findExercises(paginationData: Partial<SearchOptions>) {
+  private findExercises(paginationData: FindExercisesSearchOptions) {
     this.exerciseFacade.findExercises(paginationData);
   }
 
-  private refreshExercises(paginationData: Pagination) {
+  private refreshExercises(paginationData: FindExercisesSearchOptions) {
     this.exerciseFacade.refreshExercises(paginationData);
   }
 

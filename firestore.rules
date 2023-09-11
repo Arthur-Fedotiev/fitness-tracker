@@ -8,12 +8,13 @@ service cloud.firestore {
     match /exercises/{exerciseId} {
       allow read: if isAuthenticated();
 
-      allow create,update: if isAdmin();
-      allow delete: if isAuthenticated() && isAdmin();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || isExerciseBelongsToUser();
+      allow delete: if isAdmin() || (isAuthenticated() && isExerciseBelongsToUser());
 
       match /translations/{translationId} {
         allow read: if isAuthenticated();
-        allow write: if isAdmin();
+        allow write: if isAdmin() || (isAuthenticated() && isExerciseBelongsToUser());
       }
     }
 
@@ -71,6 +72,14 @@ service cloud.firestore {
     function isNonEmptyString(fieldName) {
       return request.resource.data[fieldName] is string &&
       request.resource.data[fieldName].size() > 0;
+    }
+
+    function isExerciseBelongsToUser() {
+      return request.resource.data.userId == request.auth.uid;
+    }
+
+    function isFitnessTrackerExercise() {
+      return request.resource.data.userId == undefined || request.resource.data.userId == null;
     }
   }
 }

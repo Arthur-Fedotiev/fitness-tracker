@@ -1,4 +1,4 @@
-import firebase from 'firebase/compat/app';
+import { QuerySnapshot } from '@angular/fire/firestore';
 import { WithId } from '../..';
 
 export const convertOneSnap = <T>(snap: any): T =>
@@ -12,7 +12,7 @@ export function convertSnaps<T>(snaps: any): WithId<T>[] {
 }
 
 export function convertSnapsToDictionary<T, P = unknown>(
-  snaps: firebase.firestore.QuerySnapshot<P>,
+  snaps: QuerySnapshot<P>,
 ): WithId<T> {
   return <WithId<T>>(
     snaps.docs.reduce((acc, snap) => ({ ...acc, [snap.id]: snap.data() }), {})
