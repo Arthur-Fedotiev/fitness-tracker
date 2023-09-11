@@ -8,7 +8,10 @@ import {
 } from '@angular/core';
 import { FormsModule, ControlContainer, NgModelGroup } from '@angular/forms';
 
-import { WorkoutBasicInfo } from '@fitness-tracker/workout-domain';
+import {
+  WorkoutBasicInfoFormModel,
+  WorkoutBasicInfo,
+} from '@fitness-tracker/workout-domain';
 import { WorkoutLevel } from '@fitness-tracker/workout-domain';
 import { ExerciseDescriptors } from '@fitness-tracker/exercise/public-api';
 import { TranslateModule } from '@ngx-translate/core';
@@ -45,7 +48,6 @@ import { formViewProvider } from '@fitness-tracker/shared/utils';
   viewProviders: [formViewProvider],
 })
 export class WorkoutBasicInfoComponent {
-  public form!: NgModelGroup;
   @Input()
   set basicInfo(basicInfo: WorkoutBasicInfo | null | undefined) {
     this.workoutBasicInfo = {
@@ -54,17 +56,13 @@ export class WorkoutBasicInfoComponent {
     };
   }
   @Input()
-  public exerciseDescriptors!: ExerciseDescriptors;
-  @Output()
-  public readonly basicInfoChange = new EventEmitter<WorkoutBasicInfo>();
-  @Output()
-  public readonly basicInfoValidChange = new EventEmitter<boolean>();
+  exerciseDescriptors!: ExerciseDescriptors;
 
-  public readonly parentForm = inject(ControlContainer).control;
+  protected form!: NgModelGroup;
+  protected readonly parentForm = inject(ControlContainer).control;
+  protected readonly workoutLevels = WorkoutLevel;
 
-  public readonly workoutLevels = WorkoutLevel;
-
-  public workoutBasicInfo: WorkoutBasicInfo = {
+  protected workoutBasicInfo: WorkoutBasicInfoFormModel = {
     name: '',
     targetMuscles: [],
     avatarUrl: '',
@@ -73,8 +71,4 @@ export class WorkoutBasicInfoComponent {
     level: WorkoutLevel.BEGINNER,
     importantNotes: '',
   };
-
-  protected onBasicInfoChange(): void {
-    this.basicInfoChange.emit({ ...this.basicInfo, ...this.workoutBasicInfo });
-  }
 }

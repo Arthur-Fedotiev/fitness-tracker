@@ -1,19 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, withLatestFrom } from 'rxjs/operators';
-import { Observable, of, pipe, switchMap, UnaryFunction } from 'rxjs';
+import { Observable, of, pipe, switchMap, UnaryFunction, filter } from 'rxjs';
 
 import { WorkoutActionNames } from '../actions/workout-action-names';
-import {
-  createWorkoutFailure,
-  createWorkoutSuccess,
-  deleteWorkoutSuccess,
-  loadWorkoutDetailsFailure,
-  loadWorkoutDetailsSuccess,
-  loadWorkoutPreviewsFailure,
-  loadWorkoutPreviewsSuccess,
-  deleteWorkoutFailure,
-} from '../actions/workouts.actions';
+import * as WorkoutActions from '../actions/workouts.actions';
 import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '../../../workout-preview';
 
@@ -22,6 +13,7 @@ import { selectLanguage } from '@fitness-tracker/shared/data-access';
 
 import { LanguageCodes } from 'shared-package';
 import { WithPayload } from '@fitness-tracker/shared/utils';
+import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
 import {
   SerializedWorkout,
   WorkoutDetails,
@@ -40,12 +32,22 @@ import {
 export class WorkoutsEffects {
   public readonly createWorkout$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkoutActionNames.CREATE_WORKOUT),
-      switchMap(({ payload }: WithPayload<SerializedWorkout>) =>
-        this.workoutAPI.createWorkout(payload).pipe(
-          map(() => createWorkoutSuccess()),
-          catchError(() => of(createWorkoutFailure())),
-        ),
+      ofType(WorkoutActions.createWorkout),
+      withLatestFrom(
+        this.store.select(selectUserInfo).pipe(filter(Boolean)),
+        this.store.select(selectIsAdmin),
+      ),
+      switchMap(([{ payload }, { uid: userId }, admin]) =>
+        this.workoutAPI
+          .createWorkout({
+            ...payload,
+            admin,
+            userId: admin ? null : userId,
+          })
+          .pipe(
+            map(() => WorkoutActions.createWorkoutSuccess()),
+            catchError(() => of(WorkoutActions.createWorkoutFailure())),
+          ),
       ),
     ),
   );
@@ -56,9 +58,9 @@ export class WorkoutsEffects {
       switchMap(({ payload }) =>
         this.workoutAPI.getWorkoutPreviews(payload).pipe(
           map((payload: WorkoutPreview[]) =>
-            loadWorkoutPreviewsSuccess({ payload }),
+            WorkoutActions.loadWorkoutPreviewsSuccess({ payload }),
           ),
-          catchError(() => of(loadWorkoutPreviewsFailure())),
+          catchError(() => of(WorkoutActions.loadWorkoutPreviewsFailure())),
         ),
       ),
     ),
@@ -68,8 +70,10 @@ export class WorkoutsEffects {
     this.actions$.pipe(
       ofType(WorkoutActionNames.LOAD_WORKOUT_DETAILS),
       this.getWorkoutDetailsLocalized$(),
-      map((payload: WorkoutDetails) => loadWorkoutDetailsSuccess({ payload })),
-      catchError(() => [loadWorkoutDetailsFailure()]),
+      map((payload: WorkoutDetails) =>
+        WorkoutActions.loadWorkoutDetailsSuccess({ payload }),
+      ),
+      catchError(() => [WorkoutActions.loadWorkoutDetailsFailure()]),
     ),
   );
 
@@ -78,8 +82,8 @@ export class WorkoutsEffects {
       ofType(WorkoutActionNames.DELETE_WORKOUT),
       switchMap(({ payload }: { payload: string }) =>
         this.workoutAPI.deleteWorkout(payload).pipe(
-          map(() => deleteWorkoutSuccess({ payload })),
-          catchError(() => of(deleteWorkoutFailure())),
+          map(() => WorkoutActions.deleteWorkoutSuccess({ payload })),
+          catchError(() => of(WorkoutActions.deleteWorkoutFailure())),
         ),
       ),
     ),

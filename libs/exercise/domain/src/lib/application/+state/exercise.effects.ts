@@ -30,7 +30,6 @@ import { ExerciseResponseModel } from '../models/exercise-response.model';
 import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseDetailsDialogComponent } from '../../application/providers/exercise-details-dialog.provider';
 import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
-import { Firestore } from '@angular/fire/firestore';
 
 @Injectable()
 export class ExerciseEffects {
@@ -86,7 +85,7 @@ export class ExerciseEffects {
               new CreateUpdateExerciseRequestDTO(
                 {
                   ...exercise,
-                  userId: this.getExerciseUserId(userId, admin),
+                  userId: admin ? null : userId,
                   admin,
                 },
                 id,
@@ -163,7 +162,6 @@ export class ExerciseEffects {
     private readonly exercisesService: FirebaseExerciseDataService,
     private readonly store: Store,
     private readonly dialog: MatDialog,
-    private readonly afs: Firestore,
   ) {}
 
   private normalizeSearchOptions({
@@ -185,9 +183,5 @@ export class ExerciseEffects {
       firstPage,
       pageSize,
     };
-  }
-
-  private getExerciseUserId(userId: string, admin: boolean) {
-    return admin ? null : userId ?? null;
   }
 }

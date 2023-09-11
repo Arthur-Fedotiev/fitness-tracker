@@ -4,4 +4,6 @@ export interface WorkoutPreview {
   img: string;
   level: string;
   targetMuscles: string[];
+  userId: string | null;
+  admin: boolean;
 }

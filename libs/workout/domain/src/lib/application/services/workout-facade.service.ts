@@ -9,7 +9,6 @@ import {
   loadWorkoutDetails,
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
-import { WorkoutPreview } from '../../workout-preview';
 import { navigatedFromWorkoutCompose } from '../+state/actions/workouts.actions';
 import {
   workoutDetails,
@@ -24,8 +23,7 @@ import {
   providedIn: 'root',
 })
 export class WorkoutFacadeService {
-  public readonly workoutPreviews$: Observable<WorkoutPreview[]> =
-    this.store.select(workoutPreviews);
+  public readonly workoutPreviews = this.store.selectSignal(workoutPreviews);
 
   public readonly workoutDetails$: Observable<SerializedWorkout | null> =
     this.store.select(workoutDetails);

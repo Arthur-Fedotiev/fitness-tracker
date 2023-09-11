@@ -1,21 +1,34 @@
-<ft-muscle-multi-select
-  [initialTargetMuscles]="(targetMuscles$ | async)!"
-  [muscleList]="exerciseDescriptors.muscles"
-  (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
-></ft-muscle-multi-select>
+<div class="filters">
+  <ft-muscle-multi-select
+    [initialTargetMuscles]="(targetMuscles$ | async)!"
+    [muscleList]="exerciseDescriptors.muscles"
+    (targetMusclesFiltersChanges)="targetMusclesChanges($event)"
+  ></ft-muscle-multi-select>
 
-<ng-container *ngIf="(workoutPreviews$ | async)! as workoutPreviews">
-  <ng-container *ngIf="workoutPreviews.length; else noWorkouts">
-    <ft-workout-list [listData]="(workoutPreviews$ | async)!">
-      <ng-template let-workoutItem>
-        <ft-workout-preview
-          [workout]="workoutItem"
-          (workoutEdited)="editWorkout($event)"
-          (workoutDeleted)="deleteWorkout($event)"
-        ></ft-workout-preview>
-      </ng-template>
-    </ft-workout-list>
-  </ng-container>
+  <mat-button-toggle-group
+    name="exerciseOwner"
+    aria-label="Exercise by"
+    [value]="workoutOwner()"
+    (change)="workoutOwner.set($event.value)"
+  >
+    <mat-button-toggle [value]="ExerciseOwner.FitnessTracker"
+      >FitnessTracker</mat-button-toggle
+    >
+    <mat-button-toggle [value]="ExerciseOwner.User">Mine</mat-button-toggle>
+    <mat-button-toggle [value]="ExerciseOwner.All">All</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<ng-container *ngIf="workouts()?.length; else noWorkouts">
+  <ft-workout-list [listData]="workouts()">
+    <ng-template let-workoutItem>
+      <ft-workout-preview
+        [workout]="workoutItem"
+        (workoutEdited)="editWorkout($event)"
+        (workoutDeleted)="deleteWorkout($event)"
+      ></ft-workout-preview>
+    </ng-template>
+  </ft-workout-list>
 </ng-container>
 
 <ng-template #noWorkouts>

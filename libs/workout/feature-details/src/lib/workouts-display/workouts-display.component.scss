@@ -7,3 +7,17 @@
   margin-top: 2rem;
   text-align: center;
 }
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 400px) {
+  .filters {
+    flex-flow: row nowrap;
+  }
+}

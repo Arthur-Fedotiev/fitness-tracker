@@ -3,6 +3,9 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Inject,
+  signal,
+  inject,
+  computed,
 } from '@angular/core';
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
 import { WorkoutPreview } from '@fitness-tracker/workout-domain';
@@ -32,8 +35,16 @@ import {
 } from '@fitness-tracker/workout/ui';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
+
+enum WorkoutOwner {
+  FitnessTracker = 'FitnessTracker',
+  User = 'User',
+  All = 'All',
+}
 
 @UntilDestroy()
 @Component({
@@ -49,13 +60,23 @@ type TargetMuscles = ExerciseDescriptors['muscles'];
     WorkoutPreviewComponent,
     TranslateModule,
     AsyncPipe,
+    MatButtonToggleModule,
   ],
 })
 export class WorkoutsDisplayComponent implements OnInit {
-  public readonly workoutPreviews$: Observable<WorkoutPreview[]> =
-    this.workoutFacade.workoutPreviews$.pipe(filter(Boolean));
+  protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;
+  public readonly userInfo = inject(AuthFacadeService).userInfo;
 
-  public readonly queryParams$ = this.route.queryParamMap.pipe(
+  protected readonly ExerciseOwner = WorkoutOwner;
+  protected readonly workoutOwner = signal(WorkoutOwner.All);
+  protected readonly ownerPredicateMap = {
+    [WorkoutOwner.FitnessTracker]: (workout: WorkoutPreview) => !workout.userId,
+    [WorkoutOwner.User]: (workout: WorkoutPreview) =>
+      workout.userId === this.userInfo()?.uid,
+    [WorkoutOwner.All]: () => true,
+  };
+
+  protected readonly queryParams$ = this.route.queryParamMap.pipe(
     map((queryParams: ParamMap) => queryParams.get('targetMuscles')),
     debounceTime(500),
     distinctUntilChanged(isEqual),
@@ -67,8 +88,12 @@ export class WorkoutsDisplayComponent implements OnInit {
     untilDestroyed(this),
   );
 
+  protected workouts = computed(() =>
+    this.workoutPreviews().filter(this.ownerPredicateMap[this.workoutOwner()]),
+  );
+
   private readonly targetMusclesSubj = new BehaviorSubject<TargetMuscles>([]);
-  public readonly targetMuscles$ = this.targetMusclesSubj
+  protected readonly targetMuscles$ = this.targetMusclesSubj
     .asObservable()
     .pipe(skip(1), first());
 

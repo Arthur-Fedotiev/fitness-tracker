@@ -19,6 +19,8 @@ export interface WorkoutBasicInfo {
   coverUrl: string;
   avatarUrl: string;
   level: string;
+  userId: string | null;
+  admin: boolean;
 }
 
 export interface SerializedWorkout extends WorkoutBasicInfo {

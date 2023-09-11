@@ -11,10 +11,7 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import {
-  Pagination,
-  DEFAULT_PAGINATION_STATE,
-} from '@fitness-tracker/shared/utils';
+import { DEFAULT_PAGINATION_STATE } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -49,7 +46,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';

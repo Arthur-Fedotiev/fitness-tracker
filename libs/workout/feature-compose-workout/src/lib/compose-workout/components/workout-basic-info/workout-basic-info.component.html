@@ -10,7 +10,6 @@
       required
       name="name"
       [(ngModel)]="workoutBasicInfo.name"
-      (ngModelChange)="onBasicInfoChange()"
     />
   </mat-form-field>
 
@@ -21,7 +20,6 @@
       name="targetMuscles"
       required
       [(ngModel)]="workoutBasicInfo.targetMuscles"
-      (ngModelChange)="onBasicInfoChange()"
     >
       <mat-option
         *ngFor="let muscle of exerciseDescriptors.muscles"
@@ -37,7 +35,6 @@
       name="level"
       required=""
       [(ngModel)]="workoutBasicInfo.level"
-      (ngModelChange)="onBasicInfoChange()"
     >
       <mat-option
         *ngFor="let lvl of exerciseDescriptors.proficiencyLvls"
@@ -54,7 +51,6 @@
       required
       name="coverUrl"
       [(ngModel)]="workoutBasicInfo.coverUrl"
-      (ngModelChange)="onBasicInfoChange()"
     />
   </mat-form-field>
 
@@ -65,7 +61,6 @@
       name="avatarUrl"
       required
       [(ngModel)]="workoutBasicInfo.avatarUrl"
-      (ngModelChange)="onBasicInfoChange()"
     />
   </mat-form-field>
 
@@ -76,7 +71,6 @@
       placeholder="{{ 'basicInformation.description' | translate }}"
       name="description"
       [(ngModel)]="workoutBasicInfo.description"
-      (ngModelChange)="onBasicInfoChange()"
     ></textarea>
   </mat-form-field>
 
@@ -87,7 +81,6 @@
       placeholder="{{ 'basicInformation.importantNotes' | translate }}"
       name="importantNotes"
       [(ngModel)]="workoutBasicInfo.importantNotes"
-      (ngModelChange)="onBasicInfoChange()"
     ></textarea>
   </mat-form-field>
 </div>

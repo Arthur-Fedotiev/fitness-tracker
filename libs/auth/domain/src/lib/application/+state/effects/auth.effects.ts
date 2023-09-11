@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, first, withLatestFrom } from 'rxjs/operators';
 import * as AuthActions from '../actions/auth.actions';
 import { AUTH_ACTION_NAMES } from '../models/action-name.enum';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ import {
 import { GLOBAL_PATHS } from '@fitness-tracker/shared/utils';
 import { toUserInfo } from '../../../functions';
 import { from } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectDestinationUrl } from '../selectors/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -101,7 +103,7 @@ export class AuthEffects {
   readonly logOutSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AUTH_ACTION_NAMES.LOGOUT_SUCCESS),
+        ofType(AuthActions.logoutSuccess),
         tap(() => this.router.navigateByUrl(GLOBAL_PATHS.LOGIN)),
       ),
     { dispatch: false },
@@ -110,8 +112,20 @@ export class AuthEffects {
   readonly redirectOnLogin$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.loginSuccess),
-        tap(() => this.router.navigateByUrl(GLOBAL_PATHS.EXERCISES_LIST)),
+        ofType(
+          AuthActions.loginWithEmail,
+          AuthActions.loginWithGoogle,
+          AuthActions.signUpWithEmail,
+        ),
+        withLatestFrom(this.store.select(selectDestinationUrl)),
+        switchMap(([, destinationUrl]) =>
+          this.actions$.pipe(
+            ofType(AuthActions.loginSuccess),
+            first(),
+            map(() => destinationUrl),
+          ),
+        ),
+        tap((destinationUrl) => this.router.navigateByUrl(destinationUrl)),
       ),
     { dispatch: false },
   );
@@ -120,5 +134,6 @@ export class AuthEffects {
     private readonly actions$: Actions,
     private readonly router: Router,
     private readonly afAuth: Auth,
+    private readonly store: Store,
   ) {}
 }

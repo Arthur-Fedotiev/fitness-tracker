@@ -6,3 +6,4 @@ export * from './classes';
 export * from './services/workout-facade.service';
 export * from './compose-workout.models';
 export * from './resolvers';
+export * from './models';

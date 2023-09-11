@@ -1,4 +1,5 @@
 import { map, Observable, pipe, UnaryFunction } from 'rxjs';
+import { GLOBAL_PATHS } from '../constants/routing.consts';
 import {
   customClaims,
   redirectLoggedInTo,
@@ -6,7 +7,8 @@ import {
 } from '@angular/fire/auth-guard';
 
 export const redirectUnauthorizedToLogin = () =>
-  redirectUnauthorizedTo(['auth', 'login']);
+  redirectUnauthorizedTo(GLOBAL_PATHS.LOGIN);
+
 export const adminOnly: () => UnaryFunction<
   Observable<any>,
   Observable<boolean>
@@ -16,5 +18,6 @@ export const adminOnly: () => UnaryFunction<
     map(({ admin }) => admin),
     map(Boolean),
   );
+
 export const redirectLoggedInToExercises = () =>
-  redirectLoggedInTo(['exercises', 'all']);
+  redirectLoggedInTo(GLOBAL_PATHS.EXERCISES_LIST);
