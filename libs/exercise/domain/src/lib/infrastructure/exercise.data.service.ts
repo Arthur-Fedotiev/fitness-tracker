@@ -208,11 +208,10 @@ export class FirebaseExerciseDataService {
     return query(
       filteredRef,
       or(
-        where(
-          new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID),
-          '==',
+        where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID), 'in', [
+          null,
           searchOptions.userId,
-        ),
+        ]),
         where(
           new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
           '==',

@@ -11657,9 +11657,9 @@ shallow-clone@^3.0.0:
   dependencies:
     kind-of "^6.0.2"
 
-"shared-package@file:shared-package-5.0.0.tgz":
-  version "5.0.0"
-  resolved "file:shared-package-5.0.0.tgz#1bb9d2beafc4ca1275f211a64121e495829c3e73"
+"shared-package@file:shared-package-5.1.0.tgz":
+  version "5.1.0"
+  resolved "file:shared-package-5.1.0.tgz#519cc2878eb0fd5441477bc2ceb1ebb0ea7e6d07"
 
 shebang-command@^2.0.0:
   version "2.0.0"

@@ -76,18 +76,21 @@ export class ExerciseEffects {
       mergeMap(
         ([
           {
-            payload: { exercise },
+            payload: { exercise, id },
           },
           { uid: userId },
           admin,
         ]) =>
           this.exercisesService
             .createOrUpdateExercise(
-              new CreateUpdateExerciseRequestDTO({
-                ...exercise,
-                userId,
-                admin,
-              }).serialize(),
+              new CreateUpdateExerciseRequestDTO(
+                {
+                  ...exercise,
+                  userId: this.getExerciseUserId(userId, admin),
+                  admin,
+                },
+                id,
+              ).serialize(),
             )
             .pipe(
               map(() => ExercisesActions.exerciseSavedSuccess()),
@@ -182,5 +185,9 @@ export class ExerciseEffects {
       firstPage,
       pageSize,
     };
+  }
+
+  private getExerciseUserId(userId: string, admin: boolean) {
+    return admin ? null : userId ?? null;
   }
 }

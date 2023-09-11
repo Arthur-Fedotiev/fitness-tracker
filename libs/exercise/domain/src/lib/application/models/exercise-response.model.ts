@@ -65,7 +65,7 @@ export class ExerciseResponseModel {
   public readonly rating: number;
   public readonly targetMuscle: string;
 
-  public readonly userId: string;
+  public readonly userId: string | null;
   public readonly admin: boolean;
 
   public readonly name: string;
