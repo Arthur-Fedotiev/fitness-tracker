@@ -20,14 +20,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = __importStar(require("firebase-admin"));
+const shared_package_1 = require("shared-package");
 admin.initializeApp({
     credential: admin.credential.cert('./sa.json'),
 });
 const db = admin.firestore();
-async function updateUserIdAndAdmin() {
+async function updateExerciseOwnership() {
     try {
         await db.runTransaction(async (transaction) => {
-            const exerciseCollectionSnapshot = await transaction.get(db.collection('exercises'));
+            const exerciseCollectionSnapshot = await transaction.get(db.collection(shared_package_1.COLLECTIONS.EXERCISES));
             await Promise.all(exerciseCollectionSnapshot.docs.map((doc) => {
                 const data = doc.data();
                 if (data.baseData.userId === undefined ||
@@ -48,4 +49,4 @@ async function updateUserIdAndAdmin() {
         console.error(err);
     }
 }
-updateUserIdAndAdmin();
+updateExerciseOwnership();

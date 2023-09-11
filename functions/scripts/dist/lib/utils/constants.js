@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.questions = exports.failureIcon = exports.successIcon = void 0;
-var emoji = require('node-emoji');
-var rightArrow = emoji.get('arrow_right');
-var id = emoji.get('id');
-var bank = emoji.get('bank');
-var user = emoji.get('ghost');
+const emoji = require('node-emoji');
+const rightArrow = emoji.get('arrow_right');
+const id = emoji.get('id');
+const bank = emoji.get('bank');
+const user = emoji.get('ghost');
 exports.successIcon = emoji.get('sunglasses');
 exports.failureIcon = emoji.get('cry');
 exports.questions = [
-    "".concat(bank, " Please enter full path to your Service Account json file\n\n").concat(rightArrow, "   "),
-    "\n".concat(id, " Please enter user's uid you want to update\n\n").concat(rightArrow, "    "),
-    "\n".concat(user, " Please enter user's new role?\n\n").concat(rightArrow, "   "),
+    `${bank} Please enter full path to your Service Account json file\n\n${rightArrow}   `,
+    `\n${id} Please enter user's uid you want to update\n\n${rightArrow}    `,
+    `\n${user} Please enter user's new role?\n\n${rightArrow}   `,
 ];

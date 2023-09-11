@@ -1,16 +1,16 @@
-// using readline and event handlers for making a question-answering app.
-
-import readline from 'readline'
+import readline from 'readline';
 import { EventEmitter } from 'events';
-import { Questions } from './utils/models';
+import { Questions } from './models';
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 const isNotAnsweredAll = (
-  { length: answersLength }: string[], { length: questionsLength }: Questions): boolean => answersLength < questionsLength;
+  { length: answersLength }: string[],
+  { length: questionsLength }: Questions,
+): boolean => answersLength < questionsLength;
 
 export default (questions: Questions) => {
   const answers: string[] = [];

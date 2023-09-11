@@ -1,5 +1,4 @@
 "use strict";
-// using readline and event handlers for making a question-answering app.
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8,7 +7,7 @@ const readline_1 = __importDefault(require("readline"));
 const events_1 = require("events");
 const rl = readline_1.default.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
 });
 const isNotAnsweredAll = ({ length: answersLength }, { length: questionsLength }) => answersLength < questionsLength;
 exports.default = (questions) => {
