@@ -19,26 +19,28 @@ import {
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ComposeWorkoutDropService } from './compose-workout-drop.service';
 import { ComposeWorkoutTreeService } from './compose-workout-tree.service';
+import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
 
 @UntilDestroy()
 @Injectable()
 export class ComposeWorkoutComponentService {
-  public treeControl!: FlatTreeControl<WorkoutItemFlatNode>;
-  public dataSource!: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
-  public expansionModel!: SelectionModel<string>;
+  treeControl!: FlatTreeControl<WorkoutItemFlatNode>;
+  dataSource!: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
+  expansionModel!: SelectionModel<string>;
 
-  public readonly instructionType = InstructionType;
+  readonly instructionType = InstructionType;
 
-  public readonly temporarySuperset = signal<WorkoutItemFlatNode[]>([]);
+  readonly temporarySuperset = signal<WorkoutItemFlatNode[]>([]);
 
   constructor(
     private readonly treeService: ComposeWorkoutTreeService,
     private readonly workoutItemSerializeStrategy: ConcreteWorkoutItemSerializer,
     private readonly workoutFacade: WorkoutFacadeService,
     private readonly dropService: ComposeWorkoutDropService,
+    private readonly exercisesFacade: ExerciseFacade,
   ) {}
 
-  public init(composedWorkoutData: ComposeWorkoutData) {
+  init(composedWorkoutData: ComposeWorkoutData) {
     this.treeService.initialize(composedWorkoutData.workoutContent);
     this.treeControl = this.treeService.treeControl;
     this.dataSource = this.treeService.dataSource;
@@ -51,7 +53,7 @@ export class ComposeWorkoutComponentService {
     };
   }
 
-  public saveWorkout(basicInfo: WorkoutBasicInfo): void {
+  saveWorkout(basicInfo: WorkoutBasicInfo) {
     if (!this.dataSource.data.every((workoutItem) => workoutItem.isValid())) {
       console.log('Data is not valid to be saved');
 
@@ -68,23 +70,23 @@ export class ComposeWorkoutComponentService {
     });
   }
 
-  public decompose(decomposedNode: WorkoutItemFlatNode): void {
+  decompose(decomposedNode: WorkoutItemFlatNode) {
     this.treeService.decompose(decomposedNode);
   }
 
-  public removeFromSuperset(node: WorkoutItemFlatNode): void {
+  removeFromSuperset(node: WorkoutItemFlatNode) {
     this.treeService.removeFromSuperset(node);
   }
 
-  public removeFromWorkout(node: WorkoutItemFlatNode): void {
+  removeFromWorkout(node: WorkoutItemFlatNode) {
     this.treeService.removeFromWorkout(node);
   }
 
-  public resetSuperset(): void {
+  resetSuperset() {
     this.temporarySuperset.set([]);
   }
 
-  public saveSuperset(): void {
+  saveSuperset() {
     const parent = this.treeService.addItem(this.createSuperset());
 
     this.temporarySuperset().forEach((node: WorkoutItemFlatNode) => {
@@ -95,25 +97,21 @@ export class ComposeWorkoutComponentService {
     this.resetSuperset();
   }
 
-  public addToSuperset(node: WorkoutItemFlatNode): void {
+  addToSuperset(node: WorkoutItemFlatNode) {
     this.temporarySuperset.update((superset) => [...superset, node]);
   }
 
-  public removeFromTemporarySuperset(node: WorkoutItemFlatNode) {
+  removeFromTemporarySuperset(node: WorkoutItemFlatNode) {
     this.temporarySuperset.update((superset) =>
       superset.filter((item) => item !== node),
     );
   }
 
-  public drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
+  drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
     this.dropService.drop(event);
   }
 
-  public addToWorkout(exercise: {
-    avatarUrl: string;
-    id: string;
-    name: string;
-  }): void {
+  addToWorkout(exercise: { avatarUrl: string; id: string; name: string }) {
     this.treeService.addItem(
       this.workoutItemSerializeStrategy.deserialize({
         ...exercise,
@@ -124,8 +122,12 @@ export class ComposeWorkoutComponentService {
     );
   }
 
-  public releaseResources(): void {
+  releaseResources() {
     this.workoutFacade.onNavigatedFromWorkoutCompose();
+  }
+
+  showExerciseDetails(id: string) {
+    this.exercisesFacade.openExerciseDetailsDialog(id);
   }
 
   private createSuperset() {

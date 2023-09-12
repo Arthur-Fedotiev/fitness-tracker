@@ -57,6 +57,8 @@ export const workoutRoutes = [
       {
         path: 'compose',
         providers: [
+          EXERCISE_DOMAIN_PROVIDERS,
+          exerciseDetailsDialogProvider,
           {
             provide: SerializerStrategy,
             useExisting: ConcreteWorkoutItemSerializer,

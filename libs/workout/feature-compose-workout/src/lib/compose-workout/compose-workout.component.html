@@ -44,6 +44,19 @@
             >
               <mat-expansion-panel-header>
                 <mat-panel-title class="exercise-title-panel">
+                  <button
+                    mat-icon-button
+                    color="accent"
+                    (click)="
+                      showExerciseDetails(node.workoutItem.id);
+                      $event.stopPropagation()
+                    "
+                    [attr.aria-label]="
+                      'See details for ' + node.workoutItem.name
+                    "
+                  >
+                    <mat-icon class="mat-icon-rtl-mirror"> search </mat-icon>
+                  </button>
                   <h4>
                     {{ node.workoutItem.name }}
                   </h4>

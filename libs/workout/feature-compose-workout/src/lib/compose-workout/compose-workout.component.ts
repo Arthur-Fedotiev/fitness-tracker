@@ -91,9 +91,9 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   public treeExpansionModel: SelectionModel<string> =
     this.composeWorkoutPresenter.expansionModel;
 
-  public readonly hasChild = hasChild;
-  public isSupersetComposeUnderway = false;
-  public temporarySupersetNodeIds = computed(
+  protected readonly hasChild = hasChild;
+  protected isSupersetComposeUnderway = false;
+  protected temporarySupersetNodeIds = computed(
     () =>
       new Set(
         this.composeWorkoutPresenter.temporarySuperset().map((node) => node.id),
@@ -102,14 +102,14 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
-    public readonly exerciseDescriptors: ExerciseDescriptors,
+    protected readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly composeWorkoutPresenter: ComposeWorkoutComponentService,
     private readonly router: Router,
   ) {
     getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     const { treeControl, dataSource, expansionModel } =
       this.composeWorkoutPresenter.init(this.resolvedComposedWorkoutData);
 
@@ -118,29 +118,29 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     this.treeExpansionModel = expansionModel;
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.releaseResources();
   }
 
-  public toggleComposeSuperset() {
+  protected toggleComposeSuperset() {
     this.isSupersetComposeUnderway = !this.isSupersetComposeUnderway;
     this.composeWorkoutPresenter.resetSuperset();
   }
 
-  public saveSuperset() {
+  protected saveSuperset() {
     this.isSupersetComposeUnderway = !this.isSupersetComposeUnderway;
     this.composeWorkoutPresenter.saveSuperset();
   }
 
-  public decompose(decomposedNode: WorkoutItemFlatNode): void {
+  protected decompose(decomposedNode: WorkoutItemFlatNode) {
     this.composeWorkoutPresenter.decompose(decomposedNode);
   }
 
-  public remove(node: WorkoutItemFlatNode): void {
+  protected remove(node: WorkoutItemFlatNode) {
     this.composeWorkoutPresenter.removeFromWorkout(node);
   }
 
-  public saveWorkout(): void {
+  protected saveWorkout() {
     this.composeWorkoutPresenter.saveWorkout({
       ...(this.resolvedComposedWorkoutData.workoutBasicInfo ?? {}),
       ...this.workoutForm.value['workoutBasicInfo'],
@@ -150,23 +150,27 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     this.router.navigate(['workouts', 'all']);
   }
 
-  public trackById(_: number, node: WorkoutItem): string | number {
+  protected trackById(_: number, node: WorkoutItem): string | number {
     return node.id;
   }
 
-  public drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
+  protected drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
     this.composeWorkoutPresenter.drop(event);
   }
 
-  public addToSuperset(node: WorkoutItemFlatNode): void {
+  protected addToSuperset(node: WorkoutItemFlatNode) {
     this.composeWorkoutPresenter.addToSuperset(node);
   }
 
-  public removeFromTemporarySuperset(node: WorkoutItemFlatNode): void {
+  protected removeFromTemporarySuperset(node: WorkoutItemFlatNode) {
     this.composeWorkoutPresenter.removeFromTemporarySuperset(node);
   }
 
-  private releaseResources(): void {
+  protected showExerciseDetails(id: string) {
+    this.composeWorkoutPresenter.showExerciseDetails(id);
+  }
+
+  private releaseResources() {
     this.composeWorkoutPresenter.releaseResources();
   }
 }
