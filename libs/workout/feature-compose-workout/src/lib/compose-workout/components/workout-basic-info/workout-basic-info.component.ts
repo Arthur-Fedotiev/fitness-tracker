@@ -22,7 +22,6 @@ import { NgFor, TitleCasePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FlexModule } from '@angular/flex-layout/flex';
 import { formViewProvider } from '@fitness-tracker/shared/utils';
 
 @Component({
@@ -33,7 +32,6 @@ import { formViewProvider } from '@fitness-tracker/shared/utils';
   standalone: true,
   imports: [
     FormsModule,
-    FlexModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,

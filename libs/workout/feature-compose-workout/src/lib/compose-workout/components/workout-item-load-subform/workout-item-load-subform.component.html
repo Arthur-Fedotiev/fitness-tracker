@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline">
+<mat-form-field class="load-control" appearance="outline">
   <mat-label> {{ 'loadLabel.selectLoad' | translate }} </mat-label>
   <mat-select
     placeholder="{{ 'loadLabel.selectLoad' | translate }}"
@@ -15,7 +15,11 @@
   </mat-select>
 </mat-form-field>
 
-<mat-form-field *ngIf="instruction.type" appearance="outline">
+<mat-form-field
+  class="load-control"
+  *ngIf="instruction.type"
+  appearance="outline"
+>
   <mat-label> {{ 'loadLabel.' + instruction.type | translate }} </mat-label>
   <input
     type="number"

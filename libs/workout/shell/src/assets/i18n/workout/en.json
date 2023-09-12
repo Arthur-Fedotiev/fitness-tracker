@@ -33,8 +33,8 @@
     "DURATION": "Amount of seconds"
   },
   "restLabel": {
-    "restPauseBetween": "Rest between sets",
-    "restPauseAfterComplete": "Rest after exercise done",
+    "restPauseBetween": "Rest between sets (sec.)",
+    "restPauseAfterComplete": "Rest after exercise done (sec.)",
     "totalSets": "Total sets"
   },
   "compoundTypes": {

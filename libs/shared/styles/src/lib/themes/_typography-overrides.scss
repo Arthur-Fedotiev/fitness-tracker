@@ -1,0 +1,14 @@
+@mixin override-mat-typography() {
+  .mat-h3,
+  .mat-subtitle-1,
+  .mat-typography .mat-h3,
+  .mat-typography .mat-subtitle-1,
+  .mat-typography h3,
+  .mat-h4,
+  .mat-body-1,
+  .mat-typography .mat-h4,
+  .mat-typography .mat-body-1,
+  .mat-typography h4 {
+    margin: 0 !important;
+  }
+}

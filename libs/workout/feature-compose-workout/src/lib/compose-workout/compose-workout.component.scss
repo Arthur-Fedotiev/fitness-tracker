@@ -18,6 +18,7 @@
 .exercise-description-panel {
   place-content: center end;
   gap: 0.5rem;
+  padding-right: 1rem;
 }
 
 .superset-panel-header {
@@ -36,11 +37,7 @@
 
 .exercise-title-panel {
   flex-basis: 150px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
-  vertical-align: middle;
 }
 
 .superset__accordion,
@@ -59,6 +56,23 @@
 .superset-form {
   width: 90%;
   margin: auto;
+}
+
+.instruction-form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+}
+
+.item-load,
+.item-rest {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
 }
 
 .compose-workout-actions {
@@ -106,10 +120,6 @@
   .exercise-title-panel {
     flex-basis: 300px;
   }
-
-  // .validation-pin-text {
-  //   display: block;
-  // }
 }
 
 @media screen and (min-width: 768px) {

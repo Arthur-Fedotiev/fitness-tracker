@@ -10,6 +10,7 @@
 
 .list {
   display: flex;
+  gap: 1rem;
 }
 
 .action {
@@ -19,7 +20,10 @@
 
 .user-avatar-item {
   margin-right: 2rem;
+
   .user-avatar {
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 0.5rem;
   }
 }

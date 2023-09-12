@@ -15,15 +15,7 @@
       <h1 class="mat-display-1">{{ workout.name | uppercase }}</h1>
     </div>
   </header>
-  <section
-    fxFlexAlign="center"
-    ngClass.xs="ft-w-xs"
-    ngClass.sm="ft-w-sm"
-    ngClass.md="ft-w-md"
-    ngClass.lg="ft-w-lg"
-    ngClass.xl="ft-w-xl"
-    class="workout-wrapper"
-  >
+  <section fxFlexAlign="center" class="workout-wrapper">
     <ng-container *ngFor="let workoutItem of workout.content; first as first">
       <ng-template
         [ngTemplateOutlet]="workoutTpl"
@@ -35,7 +27,7 @@
 
 <ng-template #workoutTpl let-item let-first="first">
   <mat-divider *ngIf="!first" class="divider"></mat-divider>
-  <div *ngIf="item.children" class="superset-description">
+  <div *ngIf="item.children" class="mat-body-1 superset-description">
     <h2>{{ 'compoundTypes.superset' | translate | uppercase }}</h2>
     <p [translate]="'supersetNotes'"></p>
     <p
@@ -57,7 +49,7 @@
   </ng-container>
 
   <ng-container *ngIf="!item.children">
-    <h2 class="mat-card-title single-item-title">
+    <h2 class="single-item-title">
       <ng-container
         *ngTemplateOutlet="titleTpl; context: { $implicit: item.name }"
       ></ng-container>
@@ -89,12 +81,12 @@
         />
       </div>
 
-      <mat-card-title *ngIf="isChild" class="card__title">
+      <mat-card-title *ngIf="isChild" class="mat-headline-5">
         <ng-container
           *ngTemplateOutlet="titleTpl; context: { $implicit: item.name }"
         ></ng-container>
       </mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle class="mat-body-1">
         <span *ngIf="!isChild">
           {{ 'totalSets' | translate }} - {{ item.totalSets }},</span
         >
@@ -122,12 +114,5 @@
   </mat-card>
 </ng-template>
 <ng-template #titleTpl let-title
-  ><span
-    ngClass.xs="ft-xs"
-    ngClass.sm="ft-sm"
-    ngClass.md="ft-md"
-    ngClass.lg="ft-lg"
-    ngClass.xl="ft-xl"
-    >{{ title }}</span
-  ></ng-template
+  ><span>{{ title }}</span></ng-template
 >

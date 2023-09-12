@@ -87,20 +87,16 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div
-                fxLayout="column nowrap"
-                fxLayout.gt-lg="row nowrap"
-                class="exercise__form"
+                class="instruction-form"
                 ngModelGroup="{{ node.id }}"
                 #instructionsForm="ngModelGroup"
               >
                 <ft-workout-item-load
-                  fxLayout="column nowrap"
-                  fxLayout.gt-lg="row nowrap"
+                  class="item-load"
                   [instruction]="node.workoutItem.instructionStrategy"
                 ></ft-workout-item-load>
                 <ft-workout-item-rest
-                  fxLayout="column nowrap"
-                  fxLayout.gt-lg="row nowrap"
+                  class="item-rest"
                   *ngIf="!node.workoutItem.parent"
                   [instruction]="node.workoutItem.instructionStrategy"
                 ></ft-workout-item-rest>

@@ -36,8 +36,8 @@
     "DURATION": "Ilość sekund"
   },
   "restLabel": {
-    "restPauseBetween": "Przerwa na odpoczynek",
-    "restPauseAfterComplete": "Odpoczywaj pomiędzy seriami",
+    "restPauseBetween": "Przerwa na odpoczynek (sek.)",
+    "restPauseAfterComplete": "Odpoczywaj pomiędzy seriami (sek.)",
     "totalSets": "Razem zestawy"
   },
   "supersetNotes": "Perform the exercises in order, resting as little as possible between movements.",

@@ -1,0 +1,17 @@
+:host {
+  .rest-control {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 400px) {
+    .rest-control {
+      width: 75%;
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    .rest-control {
+      width: 50%;
+    }
+  }
+}

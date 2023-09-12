@@ -1,7 +1,3 @@
-@use 'responsive' as responsive;
-
-@include responsive.width();
-
 .single-item-title {
   text-align: center;
 }
@@ -50,13 +46,9 @@
 }
 
 .card {
-  margin-bottom: 1rem;
+  width: 90%;
+  margin: 1rem auto 1rem auto;
   padding-left: 1rem;
-  &__title {
-    .name {
-      text-align: center;
-    }
-  }
 
   &__avatar-container {
     white-space: nowrap;

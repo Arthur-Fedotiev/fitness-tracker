@@ -1,0 +1,17 @@
+:host {
+  .load-control {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 400px) {
+    .load-control {
+      width: 75%;
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    .load-control {
+      width: 50%;
+    }
+  }
+}
