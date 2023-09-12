@@ -1,5 +1,5 @@
-<h2 mat-dialog-title [align]="'center'">{{ exercise.name }}</h2>
-<mat-dialog-content fxLayout="column nowrap" class="mat-typography">
+<h2 mat-dialog-title class="title">{{ exercise.name }}</h2>
+<mat-dialog-content class="mat-typography content">
   <video
     *ngIf="exercise?.instructionVideo as videoUrl"
     class="video-instructions"
@@ -9,7 +9,10 @@
     loop
   >
     <source [src]="videoUrl" type="video/mp4" />
-    Browser not supported
+    <p>
+      Your browser doesn't support HTML video. Here is a
+      <a href="{{ videoUrl }}">link to the video</a> instead.
+    </p>
   </video>
   <section *ngIf="exercise.instructions?.length">
     <p *ngFor="let instruction of exercise?.instructions; index as i">
@@ -20,7 +23,7 @@
 <mat-dialog-actions align="end">
   <button
     [mat-dialog-close]="true"
-    mat-button
+    mat-stroked-button
     cdkFocusInitial
     ftE2e="closeExerciseDetailsDialog"
   >

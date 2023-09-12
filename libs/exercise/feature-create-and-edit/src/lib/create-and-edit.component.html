@@ -1,18 +1,16 @@
 <main fxLayout="row nowrap" fxLayoutAlign="center">
-  <section
-    class="create-exercise"
-    fxFlex="50%"
-    fxFlex.xs="90%"
-    fxFlex.sm="60%"
-    fxFlex.md="75"
-  >
+  <section class="create-exercise-section">
     <h3>Create New Exercise</h3>
-
-    <form [formGroup]="exerciseForm" ftE2e="exerciseCreateAndEditForm">
+    <form
+      [formGroup]="exerciseForm"
+      ftE2e="exerciseCreateAndEditForm"
+      class="exercise-form"
+    >
       <mat-form-field appearance="outline">
         <input
           placeholder="Exercise name"
           matInput
+          required
           formControlName="name"
           ftE2e="exerciseNameInput"
         />
@@ -110,32 +108,35 @@
         />
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Rating</mat-label>
-        <input
-          #rating
-          type="number"
-          step="0.1"
-          formControlName="rating"
-          matInput
-          required
-          ftE2e="exerciseRatingInput"
-        />
-      </mat-form-field>
-      <mat-slider
-        discrete
-        ftE2e="exerciseRatingSlider"
-        [min]="0"
-        [max]="10"
-        [step]="0.1"
-        [showTickMarks]="true"
-      >
-        <input
-          matSliderThumb
-          [value]="ratingControl.value"
-          (change)="ratingChange($any($event.target).value)"
-        />
-      </mat-slider>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Rating</mat-label>
+          <input
+            #rating
+            type="number"
+            step="0.1"
+            formControlName="rating"
+            matInput
+            required
+            ftE2e="exerciseRatingInput"
+          />
+        </mat-form-field>
+        <mat-slider
+          discrete
+          ftE2e="exerciseRatingSlider"
+          [min]="0"
+          [max]="10"
+          [step]="0.1"
+          [showTickMarks]="true"
+        >
+          <input
+            matSliderThumb
+            [value]="ratingControl.value"
+            (change)="ratingChange($any($event.target).value)"
+          />
+        </mat-slider>
+      </div>
+
       <mat-form-field appearance="outline">
         <textarea
           matInput

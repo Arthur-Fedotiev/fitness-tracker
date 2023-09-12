@@ -4,8 +4,34 @@
   }
 }
 
-.create-exercise {
+.create-exercise-section {
+  width: 100%;
+  padding: 0 1rem;
   margin-top: 20px;
+
+  .exercise-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .create-exercise-section {
+    .exercise-form {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .create-exercise-section {
+    .exercise-form {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 1.5rem;
+    }
+  }
 }
 
 .exercise-thumbnail {
