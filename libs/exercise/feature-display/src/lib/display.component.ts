@@ -31,12 +31,15 @@ import {
 
 import { ROLES } from 'shared-package';
 import { debounce, isEqual } from 'lodash-es';
-import { toExerciseLoadState, toLoadMoreAction } from './utils/mappers';
+import {
+  toExerciseLoadState,
+  toLoadMoreAction,
+  toExerciseVM,
+} from './utils/mappers';
 import {
   ExerciseDescriptors,
   ExerciseFacade,
   EXERCISE_DESCRIPTORS_TOKEN,
-  ExerciseResponseDto,
   FindExercisesSearchOptions,
   ExerciseListQueryChange,
   ExercisePagination,
@@ -46,7 +49,10 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { ExerciseListComponent } from '@fitness-tracker/exercise/ui-components';
+import {
+  ExerciseListComponent,
+  ExerciseVM,
+} from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
 import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
@@ -63,6 +69,7 @@ import {
   MatButtonToggleModule,
 } from '@angular/material/button-toggle';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -106,8 +113,11 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   public readonly ExerciseOwner = ExerciseOwner;
   public readonly exercisesList = this.exerciseFacade.exercisesList;
   public readonly userInfo = this.authFacade.userInfo;
-  public readonly isLoadingProhibited = signal(false);
   public readonly searchQuery = signal('');
+
+  public readonly isAdmin = toSignal(this.authFacade.isAdmin$, {
+    initialValue: false,
+  });
 
   private readonly loadExercisesSubj: Subject<{ isLoadMore: boolean }> =
     new Subject<{ isLoadMore: boolean }>();
@@ -127,14 +137,22 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   );
 
   protected selectedForWorkoutIds = signal(new Set<string>());
-  protected exercises = computed(() =>
-    this.exercisesList()
-      .filter(this.byExerciseOwner)
-      .filter(this.bySearchQuery),
+  protected exerciseVMs = computed<ExerciseVM[]>(() =>
+    this.exercisesList().map(
+      toExerciseVM(
+        this.isAdmin(),
+        this.userInfo()!.uid,
+        this.selectedForWorkoutIds(),
+      ),
+    ),
+  );
+
+  protected filteredExerciseVMs = computed(() =>
+    this.exerciseVMs().filter(this.byExerciseOwner).filter(this.bySearchQuery),
   );
 
   protected selectedForWorkoutExercises = computed(() =>
-    this.exercises().filter((exercise) =>
+    this.filteredExerciseVMs().filter((exercise) =>
       this.selectedForWorkoutIds().has(exercise.id),
     ),
   );
@@ -143,7 +161,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.loadMoreExercises$,
     this.targetMusclesFromQueries$,
   ).pipe(
-    tap(() => this.isLoadingProhibited.set(true)),
     scan(toExerciseLoadState, {} as SearchExercisesState),
     skip(1),
     tap(this.findExercises.bind(this)),
@@ -174,13 +191,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
   ) {
-    effect(
-      () => this.exercises().length && this.isLoadingProhibited.set(false),
-      {
-        allowSignalWrites: true,
-      },
-    );
-
     effect(
       () =>
         this.selectedForWorkoutIds().size === 0 &&
@@ -274,7 +284,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.searchQuery.set(searchQuery);
   }, 100);
 
-  private byExerciseOwner = ({ userId }: ExerciseResponseDto) => {
+  private byExerciseOwner = ({ userId }: ExerciseVM) => {
     switch (this.exerciseOwner()) {
       case ExerciseOwner.FitnessTracker:
         return !userId || userId !== this.userInfo()?.uid;
@@ -285,6 +295,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     }
   };
 
-  private bySearchQuery: (value: ExerciseResponseDto) => boolean = ({ name }) =>
+  private bySearchQuery: (value: ExerciseVM) => boolean = ({ name }) =>
     name.toLowerCase().includes(this.searchQuery().toLowerCase());
 }

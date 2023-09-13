@@ -3,17 +3,10 @@ export interface Exercise {
     exerciseType: string;
     targetMuscle: string;
     equipment: string;
-    rating: number;
     avatarUrl: string;
     avatarSecondaryUrl: string;
-    coverUrl: string;
-    coverSecondaryUrl: string;
-    shortDescription: string;
-    longDescription: string;
-    instructions: string;
-    instructionVideo: string;
-    muscleDiagramUrl: string;
-    benefits: string;
+    instructions: string[];
+    instructionVideo: string | null;
     userId: string | null;
     admin: boolean;
 }

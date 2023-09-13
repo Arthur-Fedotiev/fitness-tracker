@@ -1,23 +1,18 @@
 import { Exercise } from 'shared-package';
 
+export type ExerciseFromModel = Pick<
+  Exercise,
+  | 'avatarUrl'
+  | 'avatarSecondaryUrl'
+  | 'targetMuscle'
+  | 'exerciseType'
+  | 'equipment'
+  | 'instructionVideo'
+  | 'name'
+  | 'instructions'
+>;
+
 export interface SaveExerciseCommandModel {
-  exercise: Pick<
-    Exercise,
-    | 'rating'
-    | 'avatarUrl'
-    | 'avatarSecondaryUrl'
-    | 'coverUrl'
-    | 'coverSecondaryUrl'
-    | 'targetMuscle'
-    | 'exerciseType'
-    | 'equipment'
-    | 'instructionVideo'
-    | 'muscleDiagramUrl'
-    | 'name'
-    | 'benefits'
-    | 'instructions'
-    | 'shortDescription'
-    | 'longDescription'
-  >;
+  exercise: ExerciseFromModel;
   id?: string;
 }

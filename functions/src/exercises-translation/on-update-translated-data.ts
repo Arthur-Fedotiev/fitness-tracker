@@ -11,6 +11,7 @@ import {
   Translations,
   mapTranslatedData,
 } from 'shared-package';
+import { instructionsTransformer } from './functions/mappers/instructions.transformer';
 
 export default async (
     change: Change<firestore.QueryDocumentSnapshot>,
@@ -32,8 +33,12 @@ export default async (
     logger.log(
         ` Run translation collection updates for exercise with id ${context.params.exerciseId}`,
     );
-    const translations: Translations<Exercise> =
-      mapTranslatedData<Exercise>(newTranslatedData);
+    const translations: Translations<Exercise> = mapTranslatedData<Exercise>(
+        newTranslatedData,
+        {
+          instructions: instructionsTransformer,
+        },
+    );
     const exerciseRef = db.doc(`${COLLECTIONS.EXERCISES}/${exerciseId}`);
 
     logger.log(`translations ${JSON.stringify(translations)}`);

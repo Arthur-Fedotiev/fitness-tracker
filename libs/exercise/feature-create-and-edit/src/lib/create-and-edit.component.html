@@ -2,7 +2,7 @@
   <section class="create-exercise-section">
     <h3>Create New Exercise</h3>
     <form
-      [formGroup]="exerciseForm"
+      #exerciseForm="ngForm"
       ftE2e="exerciseCreateAndEditForm"
       class="exercise-form"
     >
@@ -11,22 +11,22 @@
           placeholder="Exercise name"
           matInput
           required
-          formControlName="name"
+          name="name"
           ftE2e="exerciseNameInput"
+          [(ngModel)]="exerciseFormModel.name"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-select
+          required
           placeholder="Select Exercise Type"
-          formControlName="exerciseType"
+          name="exerciseType"
+          [(ngModel)]="exerciseFormModel.exerciseType"
           ftE2e="exerciseTypeSelect"
         >
           <mat-option
-            *ngFor="
-              let exerciseType of exerciseDescriptors.exerciseTypes;
-              trackBy: trackByIndex
-            "
+            *ngFor="let exerciseType of exerciseDescriptors.exerciseTypes"
             [value]="exerciseType"
             >{{
               'EXERCISE-TYPES.' + exerciseType | translate | titlecase
@@ -37,15 +37,14 @@
 
       <mat-form-field appearance="outline">
         <mat-select
+          required
           placeholder="Select target muscle"
-          formControlName="targetMuscle"
+          name="targetMuscle"
+          [(ngModel)]="exerciseFormModel.targetMuscle"
           ftE2e="exerciseTargetMuscleSelect"
         >
           <mat-option
-            *ngFor="
-              let muscle of exerciseDescriptors.muscles;
-              trackBy: trackByIndex
-            "
+            *ngFor="let muscle of exerciseDescriptors.muscles"
             [value]="muscle"
             >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
           >
@@ -54,16 +53,15 @@
 
       <mat-form-field appearance="outline">
         <mat-select
+          required
           placeholder="Select Equipment"
-          formControlName="equipment"
+          name="equipment"
+          [(ngModel)]="exerciseFormModel.equipment"
           ftE2e="exerciseEquipmentSelect"
         >
           >
           <mat-option
-            *ngFor="
-              let equipmentItem of exerciseDescriptors.equipment;
-              trackBy: trackByIndex
-            "
+            *ngFor="let equipmentItem of exerciseDescriptors.equipment"
             [value]="equipmentItem"
             >{{
               'EQUIPMENT.' + equipmentItem | translate | titlecase
@@ -72,122 +70,77 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <input
-          placeholder="Cover image url"
-          matInput
-          formControlName="coverUrl"
-          ftE2e="exerciseCoverUrlInput"
-        />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <input
-          placeholder="Cover secondary url"
-          matInput
-          formControlName="coverSecondaryUrl"
-          ftE2e="exerciseCoverSecondaryUrlInput"
-        />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
+      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
         <input
           placeholder="Avatar url"
           matInput
-          formControlName="avatarUrl"
+          name="avatarUrl"
+          [(ngModel)]="exerciseFormModel.avatarUrl"
           ftE2e="exerciseAvatarUrlInput"
         />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
         <input
           placeholder="Avatar secondary url"
           matInput
-          formControlName="avatarSecondaryUrl"
+          name="avatarSecondaryUrl"
           ftE2e="exerciseAvatarSecondaryUrlInput"
+          [(ngModel)]="exerciseFormModel.avatarSecondaryUrl"
         />
       </mat-form-field>
-
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Rating</mat-label>
-          <input
-            #rating
-            type="number"
-            step="0.1"
-            formControlName="rating"
-            matInput
-            required
-            ftE2e="exerciseRatingInput"
-          />
-        </mat-form-field>
-        <mat-slider
-          discrete
-          ftE2e="exerciseRatingSlider"
-          [min]="0"
-          [max]="10"
-          [step]="0.1"
-          [showTickMarks]="true"
-        >
-          <input
-            matSliderThumb
-            [value]="ratingControl.value"
-            (change)="ratingChange($any($event.target).value)"
-          />
-        </mat-slider>
-      </div>
-
-      <mat-form-field appearance="outline">
-        <textarea
-          matInput
-          placeholder="Exercise short description"
-          formControlName="shortDescription"
-          ftE2e="exerciseShortDescriptionInput"
-        ></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <textarea
-          matInput
-          placeholder="Exercise long description"
-          formControlName="longDescription"
-          ftE2e="exerciseLongDescriptionInput"
-        ></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <textarea
-          matInput
-          placeholder="Benefits"
-          formControlName="benefits"
-        ></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <textarea
-          matInput
-          placeholder="Exercise instructions"
-          formControlName="instructions"
-          ftE2e="exerciseInstructionsInput"
-        ></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
+      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
         <input
           placeholder="Instructions video"
           matInput
-          formControlName="instructionVideo"
+          name="instructionVideo"
+          [(ngModel)]="exerciseFormModel.instructionVideo"
           ftE2e="exerciseInstructionVideoInput"
         />
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <input
-          placeholder="Muscle diagram video"
-          matInput
-          formControlName="muscleDiagramUrl"
-          ftE2e="exerciseMuscleDiagramUrlInput"
-        />
-      </mat-form-field>
+
+      <div ngModelGroup="instructions" class="instructions-container">
+        <h2>Instructions</h2>
+
+        <div
+          class="instructions-group"
+          *ngFor="
+            let instruction of exerciseFormModel.instructions;
+            let i = index;
+            trackBy: trackByFn
+          "
+        >
+          <mat-form-field class="instruction-input" appearance="outline">
+            <mat-label>Instruction {{ i + 1 }}</mat-label>
+            <textarea
+              placeholder="Instruction"
+              matInput
+              name="{{ i }}"
+              cdkTextareaAutosize
+              ftE2e="exerciseInstructionInput"
+              [(ngModel)]="exerciseFormModel.instructions[i]"
+            ></textarea>
+          </mat-form-field>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeInstruction(i)"
+            ftE2e="removeExerciseInstructionBtn"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="exerciseFormModel.instructions.push('')"
+        ftE2e="addExerciseInstructionBtn"
+      >
+        ADD INSTRUCTION
+      </button>
       <button
         mat-raised-button
         color="warn"
@@ -197,6 +150,6 @@
       >
         SAVE
       </button>
-    </form>
+    </div>
   </section>
 </main>

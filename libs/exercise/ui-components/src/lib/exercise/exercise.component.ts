@@ -11,13 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { ExtendedModule } from '@angular/flex-layout/extended';
-import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
+import { NgOptimizedImage, TitleCasePipe, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import {
   ImgFallbackDirective,
   E2eDirective,
 } from '@fitness-tracker/shared/utils';
-import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 
 @Component({
   selector: 'components-exercise',
@@ -29,11 +28,11 @@ import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
     MatCardModule,
     ImgFallbackDirective,
     NgOptimizedImage,
+    NgIf,
     ExtendedModule,
     E2eDirective,
     TranslateModule,
     MatButtonModule,
-    RolesDirective,
     MatIconModule,
     TitleCasePipe,
   ],
@@ -45,8 +44,6 @@ export class ExerciseComponent {
   public exercise!: ExerciseVM;
   @Input()
   public idx!: number;
-  @Input()
-  public isSelected = false;
 
   @Output()
   public readonly exerciseEdited = new EventEmitter<string>();

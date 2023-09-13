@@ -5,6 +5,9 @@ import {
   loginSuccess,
   logout,
   setDestinationURL,
+  loginWithGoogle,
+  loginWithEmail,
+  signUpWithEmail,
 } from '../application/+state/actions/auth.actions';
 import {
   selectAuthJwtToken,
@@ -18,12 +21,8 @@ import {
 import { toUserInfo } from '../functions';
 import { UserDataQuery } from '@fitness-tracker/shared/models';
 import { UserInfo } from '../application/models';
-import {
-  loginWithGoogle,
-  loginWithEmail,
-  signUpWithEmail,
-} from '../application/+state/actions/auth.actions';
 import { AuthFormModel } from '../application/models/auth-form.models';
+import { filter, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacadeService implements UserDataQuery {
@@ -34,6 +33,10 @@ export class AuthFacadeService implements UserDataQuery {
   readonly destinationUrl$ = this.store.select(selectDestinationUrl);
   readonly authJwtToken$ = this.store.select(selectAuthJwtToken);
   readonly isAdmin$ = this.store.select(selectIsAdmin);
+  readonly userId$ = this.store.select(selectUserInfo).pipe(
+    filter(Boolean),
+    map((userInfo) => userInfo?.uid),
+  );
 
   constructor(private readonly store: Store) {}
 

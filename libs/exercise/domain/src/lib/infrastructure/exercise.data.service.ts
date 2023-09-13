@@ -70,11 +70,10 @@ export class FirebaseExerciseDataService {
   private exerciseDocCash: QueryDocumentSnapshot<ExerciseResponseDto> | null =
     null;
 
-  public createOrUpdateExercise(
-    exercise: CreateUpdateExerciseRequestDTO,
-  ): Observable<void | DocumentReference<ExerciseResponseDto>> {
-    const id = exercise.baseData.id;
-
+  public createOrUpdateExercise({
+    id,
+    ...exercise
+  }: CreateUpdateExerciseRequestDTO): Observable<void | DocumentReference<ExerciseResponseDto>> {
     const handler = id
       ? setDoc(doc(this.exerciseCollectionRef, id), exercise)
       : addDoc(this.exerciseCollectionRef, exercise);

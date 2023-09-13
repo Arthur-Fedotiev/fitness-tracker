@@ -1,9 +1,6 @@
 import { Translations, Exercise, LanguageCodes } from 'shared-package';
 
-type ExerciseTranslatableKeys = keyof Pick<
-  Exercise,
-  'name' | 'benefits' | 'instructions' | 'longDescription' | 'shortDescription'
->;
+type ExerciseTranslatableKeys = keyof Pick<Exercise, 'name' | 'instructions'>;
 
 export type ExerciseTranslationResponse = Translations<
   Pick<Exercise, ExerciseTranslatableKeys>

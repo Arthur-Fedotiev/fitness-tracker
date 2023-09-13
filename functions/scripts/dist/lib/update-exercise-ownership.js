@@ -19,10 +19,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateExerciseOwnership = void 0;
 const admin = __importStar(require("firebase-admin"));
 const shared_package_1 = require("shared-package");
 admin.initializeApp({
-    credential: admin.credential.cert('./sa.json'),
+    credential: admin.credential.cert('./sa.prod.json'),
 });
 const db = admin.firestore();
 async function updateExerciseOwnership() {
@@ -49,4 +50,5 @@ async function updateExerciseOwnership() {
         console.error(err);
     }
 }
+exports.updateExerciseOwnership = updateExerciseOwnership;
 updateExerciseOwnership();

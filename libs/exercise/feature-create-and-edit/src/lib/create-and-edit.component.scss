@@ -1,35 +1,81 @@
-:host {
-  main {
-    padding: 1rem 0 2rem;
-  }
+main {
+  display: block;
+  padding: 1rem;
 }
 
 .create-exercise-section {
   width: 100%;
-  padding: 0 1rem;
   margin-top: 20px;
 
   .exercise-form {
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  .instructions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .instructions-group {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .instruction-input {
+    flex-basis: 90%;
+
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 }
 
 @media screen and (min-width: 400px) {
+  main {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   .create-exercise-section {
     .exercise-form {
       grid-template-columns: 1fr 1fr;
       grid-gap: 1.5rem;
     }
+
+    .instructions-container {
+      grid-column: 1 / span 2;
+      grid-row: auto;
+    }
   }
 }
 
 @media screen and (min-width: 900px) {
+  main {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
   .create-exercise-section {
     .exercise-form {
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 1.5rem;
+    }
+
+    .instructions-container {
+      grid-column: 1 / span 3;
     }
   }
 }

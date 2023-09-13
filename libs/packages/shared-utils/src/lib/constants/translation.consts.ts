@@ -11,3 +11,5 @@ export const LANG_CODES = [
   'pt',
   'es',
 ] as const;
+
+export const INSTRUCTIONS_DELIMITER = '___';

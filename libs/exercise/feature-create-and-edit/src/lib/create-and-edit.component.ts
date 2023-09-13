@@ -4,15 +4,9 @@ import {
   OnDestroy,
   Inject,
   effect,
+  ChangeDetectorRef,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {
   ExerciseDescriptors,
   ExerciseDetailsQuery,
@@ -22,6 +16,7 @@ import {
   RELEASE_EXERCISE_DETAILS_COMMAND,
   EXERCISE_SAVED_COMMAND,
   ExerciseSavedCommand,
+  ExerciseFromModel,
 } from '@fitness-tracker/exercise/domain';
 
 import { filter, take } from 'rxjs';
@@ -36,6 +31,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
+import { ROLES } from 'shared-package';
 
 @UntilDestroy()
 @Component({
@@ -47,29 +46,35 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule,
     TranslateModule,
     MatSliderModule,
     MatInputModule,
+    MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatButtonModule,
+    RolesDirective,
   ],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAndEditComponent implements OnDestroy {
-  public readonly exerciseForm: UntypedFormGroup = this.getForm();
+  public exerciseFormModel: ExerciseFromModel = {
+    name: '',
+    exerciseType: '',
+    targetMuscle: '',
+    equipment: '',
+    avatarUrl: 'assets/images/exercises/ronnie-coleman.png',
+    avatarSecondaryUrl: 'assets/images/exercises/ronnie-coleman.png',
+    instructions: [],
+    instructionVideo: '',
+  };
+
+  protected readonly Roles = ROLES;
 
   private readonly exerciseDetails = toSignal(
     this.exerciseQuery.selectedExerciseDetails$.pipe(filter(Boolean), take(1)),
   );
-
-  public get ratingControl(): AbstractControl<number | null, number | null> {
-    return this.exerciseForm.get('rating' as const) as AbstractControl<
-      number | null,
-      number | null
-    >;
-  }
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
@@ -80,47 +85,34 @@ export class CreateAndEditComponent implements OnDestroy {
     private readonly releaseExerciseDetailsCommand: ReleaseExerciseDetailsCommand,
     @Inject(EXERCISE_SAVED_COMMAND)
     private readonly exerciseSavedCommand: ExerciseSavedCommand,
-    private readonly fb: UntypedFormBuilder,
+    private readonly cdr: ChangeDetectorRef,
   ) {
-    effect(() => this.exerciseForm.patchValue(this.exerciseDetails() ?? {}));
+    effect(() => {
+      this.exerciseFormModel = {
+        ...this.exerciseFormModel,
+        ...(structuredClone(this.exerciseDetails()) ?? {}),
+      };
+
+      this.cdr.markForCheck();
+    });
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.releaseExerciseDetailsCommand.releaseExerciseDetails();
   }
 
-  public onSave(): void {
+  onSave(): void {
     this.exerciseSavedCommand.exerciseSaved({
-      exercise: this.exerciseForm.value,
+      exercise: this.exerciseFormModel,
       id: this.exerciseDetails()?.id,
     });
   }
 
-  public ratingChange(rating: number | null): void {
-    this.ratingControl.setValue(rating, { emitEvent: false });
+  removeInstruction(index: number): void {
+    this.exerciseFormModel.instructions.splice(index, 1);
   }
 
-  public trackByIndex(index: number): number {
+  trackByFn(index: number): number {
     return index;
-  }
-
-  private getForm(): UntypedFormGroup {
-    return this.fb.group({
-      name: ['', Validators.required],
-      exerciseType: [null, Validators.required],
-      targetMuscle: [null, Validators.required],
-      equipment: [null, Validators.required],
-      coverUrl: [null],
-      coverSecondaryUrl: [null],
-      avatarUrl: [null, Validators.required],
-      avatarSecondaryUrl: [null],
-      shortDescription: [null],
-      longDescription: [null],
-      benefits: [null],
-      instructions: [null],
-      instructionVideo: [null],
-      muscleDiagramUrl: [null],
-      rating: [null, Validators.required],
-    });
   }
 }

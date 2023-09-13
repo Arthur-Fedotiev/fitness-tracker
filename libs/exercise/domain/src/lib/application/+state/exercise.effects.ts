@@ -30,6 +30,7 @@ import { ExerciseResponseModel } from '../models/exercise-response.model';
 import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseDetailsDialogComponent } from '../../application/providers/exercise-details-dialog.provider';
 import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class ExerciseEffects {
@@ -70,7 +71,7 @@ export class ExerciseEffects {
       ofType(ExercisesActions.exerciseSaved),
       withLatestFrom(
         this.store.select(selectUserInfo).pipe(filter(Boolean)),
-        this.store.select(selectIsAdmin).pipe(filter(Boolean)),
+        this.store.select(selectIsAdmin),
       ),
       mergeMap(
         ([

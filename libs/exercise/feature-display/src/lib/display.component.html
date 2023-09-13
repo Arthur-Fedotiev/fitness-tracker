@@ -44,7 +44,7 @@
     </div>
 
     <components-exercise-list
-      [exerciseList]="exercises()"
+      [exerciseList]="filteredExerciseVMs()"
       [selectedForWorkoutIds]="selectedForWorkoutIds.asReadonly()"
       [isWorkoutCreationMode]="isWorkoutCreationMode"
       (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
@@ -55,7 +55,7 @@
     ></components-exercise-list>
   </article>
 
-  <mat-accordion *ngIf="exercises().length" class="composed-workout-section">
+  <mat-accordion *ngIf="exerciseVMs().length" class="composed-workout-section">
     <mat-expansion-panel #panel class="mat-app-background" hideToggle disabled>
       <mat-expansion-panel-header>
         <mat-panel-title class="actions">

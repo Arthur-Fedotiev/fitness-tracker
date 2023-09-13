@@ -56,41 +56,27 @@ export class ExerciseResponseModel {
   public readonly id: string;
   public readonly avatarUrl: string;
   public readonly avatarSecondaryUrl: string;
-  public readonly coverUrl: string;
-  public readonly coverSecondaryUrl: string;
   public readonly equipment: string;
   public readonly exerciseType: string;
-  public readonly instructionVideo: string;
-  public readonly muscleDiagramUrl: string;
-  public readonly rating: number;
+  public readonly instructionVideo: string | null;
   public readonly targetMuscle: string;
 
   public readonly userId: string | null;
   public readonly admin: boolean;
 
   public readonly name: string;
-  public readonly benefits: string[];
   public readonly instructions: string[];
-  public readonly shortDescription: string;
-  public readonly longDescription: string;
 
   constructor({
     id,
     name,
     avatarUrl,
     avatarSecondaryUrl,
-    coverUrl,
-    coverSecondaryUrl,
     equipment,
     exerciseType,
     instructionVideo,
-    muscleDiagramUrl,
-    rating,
     targetMuscle,
-    benefits,
     instructions,
-    shortDescription,
-    longDescription,
     userId,
     admin,
   }: WithId<ExerciseResponseDto['baseData']> & ExerciseTranslationResponse) {
@@ -98,25 +84,12 @@ export class ExerciseResponseModel {
     this.name = name;
     this.avatarUrl = avatarUrl;
     this.avatarSecondaryUrl = avatarSecondaryUrl;
-    this.coverUrl = coverUrl;
-    this.coverSecondaryUrl = coverSecondaryUrl;
     this.equipment = equipment;
     this.exerciseType = exerciseType;
     this.instructionVideo = instructionVideo;
-    this.muscleDiagramUrl = muscleDiagramUrl;
-    this.rating = rating;
     this.targetMuscle = targetMuscle;
-    this.benefits = this.deserializeNumericListString(benefits);
-    this.instructions = this.deserializeNumericListString(instructions);
-    this.shortDescription = shortDescription;
-    this.longDescription = longDescription;
+    this.instructions = instructions;
     this.userId = userId;
     this.admin = admin;
-  }
-
-  private deserializeNumericListString(
-    serializedString: string | null,
-  ): string[] {
-    return serializedString?.split(/\d.\s/g)?.slice(1) ?? [];
   }
 }

@@ -10,3 +10,4 @@ node_modules/
 
 # service-account.json
 scripts/sa.json
+scripts/sa.prod.json

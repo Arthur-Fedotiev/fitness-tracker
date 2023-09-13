@@ -17,7 +17,6 @@ export const EXERCISE_ROUTES: Routes = [
       import('@fitness-tracker/exercise/feature-create-and-edit').then(
         (m) => m.CreateAndEditComponent,
       ),
-    ...canActivate(adminOnly),
   },
   {
     path: ':id',

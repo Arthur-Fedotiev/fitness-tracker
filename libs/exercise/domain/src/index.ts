@@ -2,7 +2,7 @@ export * from './lib/exercise-domain.providers';
 export { ExerciseFacade } from './lib/application/exercise.facade';
 export * from './lib/entities/dto/request/get/get-exercise-request.dto';
 export * from './lib/entities/dto/request/update/exercise-create-update-request.dto';
-export { ExerciseResponseModel as ExerciseResponseDto } from './lib/application/models/exercise-response.model';
+export { ExerciseResponseModel } from './lib/application/models/exercise-response.model';
 export { ExerciseResolver } from './lib/application/resolvers/exercise.resolver';
 export * from './lib/entities/exercise.enums';
 export * from './lib/application/providers/exercise-descriptors.provider';

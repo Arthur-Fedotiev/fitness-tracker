@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 import { COLLECTIONS } from 'shared-package';
 
 admin.initializeApp({
-  credential: admin.credential.cert('./sa.json'),
+  credential: admin.credential.cert('./sa.prod.json'),
 });
 
 const db = admin.firestore();

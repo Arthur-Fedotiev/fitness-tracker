@@ -4,13 +4,9 @@ type BaseDataKeys = keyof Pick<
   Exercise,
   | 'avatarSecondaryUrl'
   | 'avatarUrl'
-  | 'coverSecondaryUrl'
-  | 'coverUrl'
   | 'equipment'
   | 'exerciseType'
   | 'instructionVideo'
-  | 'muscleDiagramUrl'
-  | 'rating'
   | 'targetMuscle'
   | 'userId'
   | 'admin'

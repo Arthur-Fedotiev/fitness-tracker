@@ -5,10 +5,7 @@ import * as ExerciseActions from './exercise.actions';
 import { ExerciseResponseModel } from '../models/exercise-response.model';
 
 export const EXERCISES_FEATURE_KEY = 'exercises';
-export const sortComparer = (
-  a: ExerciseResponseModel,
-  b: ExerciseResponseModel,
-) => (b.rating - a.rating > 0 ? 1 : -1);
+export const sortComparer = false;
 
 export interface State extends EntityState<ExerciseResponseModel> {
   selectedId?: string | number;

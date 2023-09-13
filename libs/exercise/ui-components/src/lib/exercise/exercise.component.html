@@ -1,7 +1,7 @@
 <mat-card
   class="card mat-elevation-z8"
   tabindex="0"
-  [class]="isSelected ? ['contrast', 'accent'] : []"
+  [class]="exercise.isSelected ? ['contrast', 'accent'] : []"
 >
   <mat-card-title-group>
     <img
@@ -63,7 +63,7 @@
     </button>
 
     <button
-      *ftRoles="roles.ADMIN"
+      *ngIf="exercise.canEdit"
       mat-stroked-button
       color="primary"
       ftE2e="editExerciseBtn"
@@ -72,7 +72,7 @@
       {{ 'EXERCISE.editBtn' | translate }}
     </button>
     <button
-      *ftRoles="roles.ADMIN"
+      *ngIf="exercise.canDelete"
       mat-mini-fab
       color="warn"
       ftE2e="deleteExerciseBtn"

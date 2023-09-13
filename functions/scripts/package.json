@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start:update-user-role": "npx tsc && node dist/update-user-role.js",
-    "start:update-exercise-ownership": "npx tsc && node dist/update-exercise-ownership.js"
+    "start:migrate-instructions": "npx tsc && node dist/lib/migrate-instructions.js",
+    "start:update-user-role": "npx tsc && node dist/lib/update-user-role.js",
+    "start:update-exercise-ownership": "npx tsc && node dist/lib/update-exercise-ownership.js"
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
@@ -15,7 +16,7 @@
   "dependencies": {
     "node-emoji": "^1.11.0",
     "rxjs": "^7.4.0",
-    "shared-package": "file:shared-package-5.1.0.tgz"
+    "shared-package": "file:shared-package-5.2.0.tgz"
   },
   "keywords": [],
   "author": "",
