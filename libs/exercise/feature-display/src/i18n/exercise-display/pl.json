@@ -4,7 +4,8 @@
     "equipment": "Ekwipunek",
     "exerciseType": "Rodzaj",
     "targetMuscle": "Mięsień",
-    "viewBtn": "widok"
+    "viewBtn": "Widok",
+    "noInstructions": "Pzepraszamy, ale nie ma instrukcji dla tego ćwiczenia."
   },
   "loadMore": "Załaduj więcej",
   "showFilters": "Pokaż filtry",

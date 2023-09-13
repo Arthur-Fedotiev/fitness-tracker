@@ -88,7 +88,7 @@ export class ExerciseResponseModel {
     this.exerciseType = exerciseType;
     this.instructionVideo = instructionVideo;
     this.targetMuscle = targetMuscle;
-    this.instructions = instructions;
+    this.instructions = instructions.filter(Boolean);
     this.userId = userId;
     this.admin = admin;
   }

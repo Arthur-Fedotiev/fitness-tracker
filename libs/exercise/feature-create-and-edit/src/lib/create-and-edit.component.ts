@@ -66,7 +66,7 @@ export class CreateAndEditComponent implements OnDestroy {
     equipment: '',
     avatarUrl: 'assets/images/exercises/ronnie-coleman.png',
     avatarSecondaryUrl: 'assets/images/exercises/ronnie-coleman.png',
-    instructions: [],
+    instructions: [''],
     instructionVideo: '',
   };
 

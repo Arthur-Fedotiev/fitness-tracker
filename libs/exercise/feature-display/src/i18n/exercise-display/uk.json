@@ -4,7 +4,8 @@
     "equipment": "Знаряд",
     "exerciseType": "Тип",
     "targetMuscle": "Мишца",
-    "viewBtn": "Детальніше"
+    "viewBtn": "Детальніше",
+    "noInstructions": "Нажаль, інструкції відсутні."
   },
   "loadMore": "Більше",
   "showFilters": "Показати фільтри",

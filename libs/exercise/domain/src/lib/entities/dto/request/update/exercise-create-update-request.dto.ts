@@ -38,9 +38,9 @@ export class CreateUpdateExerciseRequestDTO {
       ...this,
       translatableData: {
         ...this.translatableData,
-        instructions: this.translatableData.instructions.join(
-          INSTRUCTIONS_DELIMITER,
-        ),
+        instructions: this.translatableData.instructions
+          .filter(Boolean)
+          .join(INSTRUCTIONS_DELIMITER),
       },
     };
   }

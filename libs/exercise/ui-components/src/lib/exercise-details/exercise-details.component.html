@@ -14,15 +14,18 @@
       <a href="{{ videoUrl }}">link to the video</a> instead.
     </p>
   </video>
-  <section *ngIf="exercise.instructions?.length">
+  <section
+    class="instructions-section"
+    *ngIf="exercise.instructions?.length; else placeholderTpl"
+  >
     <p *ngFor="let instruction of exercise?.instructions; index as i">
       {{ i + 1 }}. {{ instruction }}
     </p>
   </section>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions class="actions" align="end">
   <button
-    [mat-dialog-close]="true"
+    mat-dialog-close
     mat-stroked-button
     cdkFocusInitial
     ftE2e="closeExerciseDetailsDialog"
@@ -30,3 +33,7 @@
     {{ 'BTN.close' | translate }}
   </button>
 </mat-dialog-actions>
+
+<ng-template #placeholderTpl>
+  <p>{{ 'EXERCISE.noInstructions' | translate }}</p>
+</ng-template>

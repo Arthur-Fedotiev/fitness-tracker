@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-import { canActivate } from '@angular/fire/auth-guard';
 import { ExerciseResolver } from '@fitness-tracker/exercise/domain';
-import { adminOnly } from '@fitness-tracker/shared/utils';
 
 export const EXERCISE_ROUTES: Routes = [
   {
@@ -32,7 +30,8 @@ export const EXERCISE_ROUTES: Routes = [
           import('@fitness-tracker/exercise/feature-create-and-edit').then(
             (m) => m.CreateAndEditComponent,
           ),
-        ...canActivate(adminOnly),
+        // TODO: can activate if exercise belongs to user or if exercise is created by admin and user is admin
+        // ...canActivate(adminOnly),
       },
     ],
   },

@@ -1,10 +1,11 @@
 {
   "EXERCISE": {
-    "editBtn": "EDIT",
+    "editBtn": "Edit",
     "equipment": "Equipment",
     "exerciseType": "Type",
     "targetMuscle": "Muscle",
-    "viewBtn": "VIEW"
+    "viewBtn": "View",
+    "noInstructions": "Unfortunately, there are no instructions available for this exercise."
   },
   "loadMore": "Load More",
   "showFilters": "Show Filters",

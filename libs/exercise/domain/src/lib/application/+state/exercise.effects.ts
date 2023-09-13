@@ -147,7 +147,13 @@ export class ExerciseEffects {
         forkJoin([of(payload), this.detailsDialogFactory]).pipe(
           switchMap(([exercise, component]) =>
             this.dialog
-              .open(component, { data: { exercise } })
+              .open(component, {
+                minWidth: '24rem',
+                width: 'fit-content',
+                height: 'fit-content',
+                maxWidth: '80vw',
+                data: { exercise },
+              })
               .afterClosed()
               .pipe(map(() => ExercisesActions.releaseExerciseDetails())),
           ),

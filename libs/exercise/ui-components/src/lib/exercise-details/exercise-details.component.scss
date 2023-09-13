@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
 .video-instructions {
   align-self: center;
   max-width: 27rem;
@@ -12,5 +17,13 @@
 .content {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.instructions-section {
+  overflow-y: scroll;
+}
+
+.actions {
+  margin-top: auto;
 }
