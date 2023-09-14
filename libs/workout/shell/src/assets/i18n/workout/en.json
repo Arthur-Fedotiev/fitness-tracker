@@ -5,9 +5,7 @@
     "targetMuscles": "Target muscles",
     "level": "Level",
     "coverUrl": "Cover image URL",
-    "avatarUrl": "Avatar image URL",
-    "description": "Description",
-    "importantNotes": "Important notes"
+    "avatarUrl": "Avatar image URL"
   },
   "actionButtons": {
     "composeSuperset": "Compose superset",

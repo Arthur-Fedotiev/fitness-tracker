@@ -2,17 +2,15 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  Output,
-  EventEmitter,
   inject,
 } from '@angular/core';
-import { FormsModule, ControlContainer, NgModelGroup } from '@angular/forms';
+import { FormsModule, ControlContainer } from '@angular/forms';
 
 import {
   WorkoutBasicInfoFormModel,
   WorkoutBasicInfo,
+  WorkoutLevel,
 } from '@fitness-tracker/workout-domain';
-import { WorkoutLevel } from '@fitness-tracker/workout-domain';
 import { ExerciseDescriptors } from '@fitness-tracker/exercise/public-api';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { formViewProvider } from '@fitness-tracker/shared/utils';
+import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
+import { ROLES } from 'shared-package';
 
 @Component({
   selector: 'ft-workout-basic-info',
@@ -42,6 +42,7 @@ import { formViewProvider } from '@fitness-tracker/shared/utils';
     MatButtonModule,
     TitleCasePipe,
     TranslateModule,
+    RolesDirective,
   ],
   viewProviders: [formViewProvider],
 })
@@ -56,17 +57,17 @@ export class WorkoutBasicInfoComponent {
   @Input()
   exerciseDescriptors!: ExerciseDescriptors;
 
-  protected form!: NgModelGroup;
+  protected readonly Roles = ROLES;
+
   protected readonly parentForm = inject(ControlContainer).control;
   protected readonly workoutLevels = WorkoutLevel;
 
   protected workoutBasicInfo: WorkoutBasicInfoFormModel = {
     name: '',
     targetMuscles: [],
-    avatarUrl: '',
-    coverUrl: '',
-    description: '',
-    level: WorkoutLevel.BEGINNER,
-    importantNotes: '',
+    avatarUrl:
+      'https://www.bodybuilding.com/images/2019/august/fyr2.0-comingsoon-header.jpg',
+    coverUrl: 'https://i.ytimg.com/vi/ah_vve9bEBI/maxresdefault.jpg',
+    level: WorkoutLevel.INTERMEDIATE,
   };
 }

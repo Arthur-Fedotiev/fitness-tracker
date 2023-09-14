@@ -5,9 +5,7 @@
     "targetMuscles": "Mięśnie docelowe",
     "poziom": "Poziom",
     "coverUrl": "URL obrazu tytułowego",
-    "avatarUrl": "URL awatara",
-    "opis": "Opis",
-    "importantNotes": "Ważne notatki"
+    "avatarUrl": "URL awatara"
   },
   "actionButtons": {
     "composeSuperset": "Utwórz nadzbiór",

@@ -44,7 +44,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
     <input
       placeholder="{{ 'basicInformation.coverUrl' | translate }}"
       matInput
@@ -62,25 +62,5 @@
       required
       [(ngModel)]="workoutBasicInfo.avatarUrl"
     />
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <textarea
-      matInput
-      cdkTextareaAutosize
-      placeholder="{{ 'basicInformation.description' | translate }}"
-      name="description"
-      [(ngModel)]="workoutBasicInfo.description"
-    ></textarea>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <textarea
-      matInput
-      cdkTextareaAutosize
-      placeholder="{{ 'basicInformation.importantNotes' | translate }}"
-      name="importantNotes"
-      [(ngModel)]="workoutBasicInfo.importantNotes"
-    ></textarea>
   </mat-form-field>
 </div>

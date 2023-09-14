@@ -156,20 +156,15 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div
-                fxLayout="column nowrap"
-                fxLayout.gt-lg="row nowrap"
                 class="superset-form"
                 ngModelGroup="{{ node.id }}"
                 #supersetInstructionsForm="ngModelGroup"
               >
                 <ft-workout-item-load
-                  fxLayout="column nowrap"
-                  fxLayout.gt-lg="row nowrap"
                   [instruction]="node.workoutItem.instructionStrategy"
                 ></ft-workout-item-load>
+                <mat-divider></mat-divider>
                 <ft-workout-item-rest
-                  fxLayout="column nowrap"
-                  fxLayout.gt-lg="row nowrap"
                   [instruction]="node.workoutItem.instructionStrategy"
                 ></ft-workout-item-rest>
               </div>

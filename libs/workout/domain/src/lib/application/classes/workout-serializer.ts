@@ -14,8 +14,6 @@ export interface WorkoutBasicInfo {
   name: string;
   id?: string;
   targetMuscles: string[];
-  importantNotes: string;
-  description: string;
   coverUrl: string;
   avatarUrl: string;
   level: string;

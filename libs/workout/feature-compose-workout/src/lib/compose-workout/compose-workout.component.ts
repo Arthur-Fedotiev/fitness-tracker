@@ -44,6 +44,7 @@ import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
 
 @UntilDestroy()
 @Component({
@@ -77,6 +78,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     WorkoutItemLoadSubformComponent,
     WorkoutItemRestComponent,
     TranslateModule,
+    MatDividerModule,
   ],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {

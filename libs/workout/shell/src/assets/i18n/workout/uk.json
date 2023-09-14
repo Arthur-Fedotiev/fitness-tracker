@@ -5,9 +5,7 @@
     "targetMuscles": "Цільові мʼязи",
     "level": "Рівень складносі",
     "coverUrl": "Обладинка (URL адреса)",
-    "avatarUrl": "Аватар (URL адреса)",
-    "description": "Опис",
-    "importantNotes": "Важливі нотатки"
+    "avatarUrl": "Аватар (URL адреса)"
   },
   "actionButtons": {
     "composeSuperset": "Створити суперсет",

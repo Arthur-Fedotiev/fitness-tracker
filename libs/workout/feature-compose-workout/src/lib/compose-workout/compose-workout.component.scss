@@ -54,8 +54,11 @@
 }
 
 .superset-form {
-  width: 90%;
-  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .instruction-form {
@@ -123,10 +126,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .superset-form {
-    width: 50%;
-  }
-
   .page-content {
     padding-left: 4rem;
     padding-right: 4rem;
@@ -138,10 +137,6 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .superset-form {
-    width: 40%;
-  }
-
   .workout-form {
     width: 75%;
   }
