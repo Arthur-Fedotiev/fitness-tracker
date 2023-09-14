@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
 import { canActivate } from '@angular/fire/auth-guard';
-import { Route, RouterModule } from '@angular/router';
+import { Route } from '@angular/router';
 import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/public-api';
 import { LayoutComponent } from '@fitness-tracker/layout/feature';
 
@@ -11,7 +10,7 @@ import {
 } from '@fitness-tracker/shared/utils';
 import { workoutDataProviders } from '@fitness-tracker/workout-domain';
 
-const appRoutes: Route[] = [
+export const APP_ROUTES: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'exercises/all' },
   {
     path: '',
@@ -49,15 +48,3 @@ const appRoutes: Route[] = [
   },
   { path: '**', redirectTo: 'exercises/all' },
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, {
-      enableTracing: false,
-      initialNavigation: 'enabledNonBlocking',
-      bindToComponentInputs: true,
-    }),
-  ],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

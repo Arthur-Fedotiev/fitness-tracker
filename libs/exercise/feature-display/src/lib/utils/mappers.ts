@@ -26,7 +26,11 @@ export const toLoadMoreAction = ({ isLoadMore }: { isLoadMore: boolean }) =>
   });
 
 export const toExerciseVM =
-  (isAdmin: boolean, uid: string, selectedForWorkoutIds: Set<string>) =>
+  (
+    isAdmin: boolean,
+    uid: string | undefined,
+    selectedForWorkoutIds: Set<string>,
+  ) =>
   ({
     id,
     name,

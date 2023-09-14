@@ -1,27 +1,36 @@
 import { importProvidersFrom } from '@angular/core';
-import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
-import { SharedDataAccessModule } from '@fitness-tracker/shared/data-access';
+import { provideLayout } from '@fitness-tracker/layout/feature';
+import { provideSharedDataAccess } from '@fitness-tracker/shared/data-access';
 import { MissingTranslationService } from '@fitness-tracker/shared/i18n/utils';
 import {
   MissingTranslationHandler,
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { SharedRootPwaModule } from '@fitness-tracker/shared/pwa';
+import { providePwa } from '@fitness-tracker/shared/pwa';
 import { HttpClient } from '@angular/common/http';
 import { translationsLoaderFactory } from '@fitness-tracker/shared/i18n/domain';
-import { authProviders } from '@fitness-tracker/auth/shell';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { provideAuthDomain } from '@fitness-tracker/auth/domain';
 
 const i18nGlobalPath = 'assets/i18n/';
-let isCoreDependenciesRegistered = false;
 
-export const provideCoreDependencies = () => {
-  if (isCoreDependenciesRegistered) {
-    throw new Error('Core dependencies have already been registered.');
-  }
+export const ensureProvidedOnceFactory = (name = 'Dependencies') => {
+  let isProvided = false;
 
-  isCoreDependenciesRegistered = true;
+  return () => {
+    if (isProvided) {
+      throw new Error(`${name} can only be provided once.`);
+    }
+
+    isProvided = true;
+  };
+};
+
+const coreGuard = ensureProvidedOnceFactory('Core Dependencies');
+
+export const provideCore = () => {
+  coreGuard();
 
   return [
     {
@@ -45,9 +54,9 @@ export const provideCoreDependencies = () => {
         extend: true,
       }),
     ),
-    importProvidersFrom(SharedRootPwaModule.forRoot()),
-    importProvidersFrom(SharedDataAccessModule.forRoot()),
-    importProvidersFrom(LayoutFeatureModule.forRoot()),
-    authProviders,
+    provideSharedDataAccess(),
+    provideLayout(),
+    provideAuthDomain(),
+    providePwa(),
   ];
 };

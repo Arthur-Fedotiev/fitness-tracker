@@ -2,17 +2,19 @@ import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from '@fitness-tracker/shared/environments';
 
 import { AppComponent } from './app/app.component';
-import { provideCoreDependencies } from './app/core.module';
+import { provideCore } from './app/core.providers';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LayoutFeatureModule } from '@fitness-tracker/layout/feature';
-// import { AuthModule } from '@angular/fire/auth';
-import { AppRoutingModule } from './app/app-routing.module';
+import { APP_ROUTES } from './app/app.routes';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   withInterceptorsFromDi,
   provideHttpClient,
 } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withEnabledBlockingInitialNavigation,
+} from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
@@ -23,16 +25,13 @@ if (environment.production) {
 setTimeout(function scheduleAppBootstrap() {
   bootstrapApplication(AppComponent, {
     providers: [
-      importProvidersFrom(
-        BrowserModule,
-        RouterModule,
-        FlexLayoutModule,
-        AppRoutingModule,
-        // AuthModule,
-        LayoutFeatureModule,
-        MatDialogModule,
+      importProvidersFrom(BrowserModule, FlexLayoutModule, MatDialogModule),
+      provideRouter(
+        APP_ROUTES,
+        withEnabledBlockingInitialNavigation(),
+        withComponentInputBinding(),
       ),
-      provideCoreDependencies(),
+      provideCore(),
       provideAnimations(),
       provideHttpClient(withInterceptorsFromDi()),
     ],

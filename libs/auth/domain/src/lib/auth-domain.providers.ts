@@ -9,7 +9,7 @@ import {
 import { USER_DATA_QUERY_TOKEN } from '@fitness-tracker/shared/models';
 import { AuthFacadeService } from './services/auth-facade.service';
 
-export const authDomainProviders = [
+export const provideAuthDomain = () => [
   importProvidersFrom(
     StoreModule.forFeature(authFeatureKey, reducer),
     EffectsModule.forFeature([AuthEffects]),

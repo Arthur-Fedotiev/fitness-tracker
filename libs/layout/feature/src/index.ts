@@ -1,2 +1,2 @@
-export * from './lib/layout-feature.module';
-export { LayoutComponent } from './lib/layout/layout.component'
+export { provideLayout } from './lib/provide-layout';
+export { LayoutComponent } from './lib/layout/layout.component';

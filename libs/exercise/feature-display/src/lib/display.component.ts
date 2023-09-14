@@ -141,7 +141,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.exercisesList().map(
       toExerciseVM(
         this.isAdmin(),
-        this.userInfo()!.uid,
+        this.userInfo()?.uid,
         this.selectedForWorkoutIds(),
       ),
     ),
@@ -253,6 +253,10 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.exerciseOwner.set(value);
   }
 
+  protected onSearchChanges = debounce((searchQuery: string) => {
+    this.searchQuery.set(searchQuery);
+  }, 100);
+
   private initListeners() {
     this.refreshExercises$.subscribe();
     this.loadExercises$.subscribe();
@@ -276,14 +280,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.exerciseFacade.refreshExercises(paginationData);
   }
 
-  private releaseResources() {
-    this.exerciseFacade.emptyExercisesList();
-  }
-
-  protected onSearchChanges = debounce((searchQuery: string) => {
-    this.searchQuery.set(searchQuery);
-  }, 100);
-
   private byExerciseOwner = ({ userId }: ExerciseVM) => {
     switch (this.exerciseOwner()) {
       case ExerciseOwner.FitnessTracker:
@@ -297,4 +293,8 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   private bySearchQuery: (value: ExerciseVM) => boolean = ({ name }) =>
     name.toLowerCase().includes(this.searchQuery().toLowerCase());
+
+  private releaseResources() {
+    this.exerciseFacade.emptyExercisesList();
+  }
 }
