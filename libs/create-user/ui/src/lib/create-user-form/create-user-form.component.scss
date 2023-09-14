@@ -1,16 +1,27 @@
-:host {
-  display: flex;
-  justify-content: center;
-}
-
 .create-user {
-  margin-top: 20px;
-  form {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 90%;
+  margin: 0 auto;
+
+  .create-user-form {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
 }
 
-.promo {
-  margin-bottom: 20px;
+@media screen and (min-width: 400px) {
+  .create-user {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 7680px) {
+  .create-user {
+    width: 50%;
+  }
 }
