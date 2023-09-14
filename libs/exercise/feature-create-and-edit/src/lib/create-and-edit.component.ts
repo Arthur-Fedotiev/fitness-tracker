@@ -22,7 +22,6 @@ import {
 import { filter, take } from 'rxjs';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -44,7 +43,6 @@ import { ROLES } from 'shared-package';
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     FormsModule,
     TranslateModule,
     MatSliderModule,

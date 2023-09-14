@@ -47,7 +47,6 @@ import {
 } from '@fitness-tracker/exercise/domain';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {
   ExerciseListComponent,
@@ -89,7 +88,6 @@ enum ExerciseOwner {
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatButtonToggleModule,
     MatInputModule,

@@ -1,19 +1,7 @@
 <main class="main-page">
-  <section>
-    <button
-      *ngIf="false"
-      fxHide.gt-xs
-      mat-button
-      class="mat-raised-button mat-accent"
-    >
-      SHOW FILTERS
-    </button>
-  </section>
-
   <article class="exercises-list">
     <div class="filters">
       <ft-muscle-multi-select
-        fxLayout
         [initialTargetMuscles]="(targetMuscles$ | async)!"
         [muscleList]="exerciseDescriptors.muscles"
         (targetMusclesFiltersChanges)="targetMusclesChanges($event)"

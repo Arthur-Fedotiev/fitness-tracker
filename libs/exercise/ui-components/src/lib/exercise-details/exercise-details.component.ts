@@ -5,7 +5,6 @@ import {
   Inject,
   Optional,
 } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,14 +21,7 @@ interface ExerciseDetailsVM {
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
   standalone: true,
-  imports: [
-    NgIf,
-    NgFor,
-    FlexLayoutModule,
-    TranslateModule,
-    MatDialogModule,
-    MatButtonModule,
-  ],
+  imports: [NgIf, NgFor, TranslateModule, MatDialogModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {

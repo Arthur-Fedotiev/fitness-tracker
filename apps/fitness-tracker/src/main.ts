@@ -5,7 +5,6 @@ import { AppComponent } from './app/app.component';
 import { provideCore } from './app/core.providers';
 import { MatDialogModule } from '@angular/material/dialog';
 import { APP_ROUTES } from './app/app.routes';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   withInterceptorsFromDi,
   provideHttpClient,
@@ -25,7 +24,7 @@ if (environment.production) {
 setTimeout(function scheduleAppBootstrap() {
   bootstrapApplication(AppComponent, {
     providers: [
-      importProvidersFrom(BrowserModule, FlexLayoutModule, MatDialogModule),
+      importProvidersFrom(BrowserModule, MatDialogModule),
       provideRouter(
         APP_ROUTES,
         withEnabledBlockingInitialNavigation(),
