@@ -105,11 +105,9 @@
                 #instructionsForm="ngModelGroup"
               >
                 <ft-workout-item-load
-                  class="item-load"
                   [instruction]="node.workoutItem.instructionStrategy"
                 ></ft-workout-item-load>
                 <ft-workout-item-rest
-                  class="item-rest"
                   *ngIf="!node.workoutItem.parent"
                   [instruction]="node.workoutItem.instructionStrategy"
                 ></ft-workout-item-rest>

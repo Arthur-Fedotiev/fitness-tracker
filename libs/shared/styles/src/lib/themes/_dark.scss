@@ -22,13 +22,11 @@ $ft-app-dark-theme: mat.define-dark-theme(
   )
 );
 
-body.dark-theme {
-  @include mat.all-component-themes($ft-app-dark-theme);
-  @include include-button-toggle-theme($ft-app-dark-primary);
+@include mat.all-component-themes($ft-app-dark-theme);
+@include include-button-toggle-theme($ft-app-dark-primary);
 
-  @include contrast.contrast(
-    $ft-app-dark-primary,
-    $ft-app-dark-accent,
-    $ft-app-dark-warn
-  );
-}
+@include contrast.contrast(
+  $ft-app-dark-primary,
+  $ft-app-dark-accent,
+  $ft-app-dark-warn
+);

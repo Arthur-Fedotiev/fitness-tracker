@@ -67,17 +67,6 @@
   gap: 1rem;
 }
 
-.item-load,
-.item-rest {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-
-  width: 100%;
-}
-
 .compose-workout-actions {
   width: 80%;
   display: flex;
