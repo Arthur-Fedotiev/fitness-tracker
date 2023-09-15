@@ -1,9 +1,9 @@
 {
   "name": "fitness-tracker",
   "short_name": "fitness-tracker",
-  "theme_color": "#fff",
-  "background_color": "#fafafa",
-  "display": "standalone",
+  "theme_color": "#303030",
+  "background_color": "#424242",
+  "display": "minimal-ui",
   "scope": "./",
   "start_url": "./",
   "icons": [

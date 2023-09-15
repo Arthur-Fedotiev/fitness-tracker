@@ -22,6 +22,7 @@
     "cypress:run": "cd apps/fitness-tracker-e2e/ && cypress run",
     "cypress:open": "cd apps/fitness-tracker-e2e/ && cypress open",
     "deploy:staging": "firebase use staging && nx run fitness-tracker:build:staging && firebase deploy --only hosting",
+    "deploy:prod": "firebase use production && nx run fitness-tracker:build:production && firebase deploy --only hosting",
     "deploy-functions:staging": "firebase use staging && firebase deploy --only functions",
     "affected:test": "nx affected:test",
     "affected:lint": "nx affected:lint",

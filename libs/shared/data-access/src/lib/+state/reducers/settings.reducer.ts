@@ -10,7 +10,7 @@ export interface SettingsState {
 
 export const initialState: SettingsState = {
   language: 'en',
-  isDarkMode: false,
+  isDarkMode: true,
 };
 
 export const settingsReducerImplicit = createReducer(
