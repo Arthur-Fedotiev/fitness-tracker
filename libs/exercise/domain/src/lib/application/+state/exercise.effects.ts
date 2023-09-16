@@ -40,18 +40,19 @@ export class ExerciseEffects {
       withLatestFrom(
         this.store.select(selectLanguage),
         this.store.select(selectUserInfo).pipe(filter(Boolean)),
+        this.store.select(selectIsAdmin),
       ),
-      concatMap(([{ payload, type }, language, { uid: userId }]) =>
+      concatMap(([{ payload, type }, language, { uid: userId }, isAdmin]) =>
         this.exercisesService
           .findExercisesPaginated(
             new GetExerciseRequestDto(
-              this.normalizeSearchOptions({ ...payload, userId }),
+              this.normalizeSearchOptions({ ...payload, userId, isAdmin }),
               language,
               type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
             ),
           )
           .pipe(
-            map((exercises: ExerciseResponseModel[]) =>
+            map((exercises) =>
               type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
                 ? ExercisesActions.refreshExercisesSuccess({
                     payload: exercises,
@@ -60,7 +61,9 @@ export class ExerciseEffects {
                     payload: { exercises, firstPage: !!payload.firstPage },
                   }),
             ),
-            catchError(() => of(ExercisesActions.findExercisesFailure())),
+            catchError((payload) =>
+              of(ExercisesActions.findExercisesFailure({ payload })),
+            ),
           ),
       ),
     ),
@@ -94,7 +97,9 @@ export class ExerciseEffects {
             )
             .pipe(
               map(() => ExercisesActions.exerciseSavedSuccess()),
-              catchError(() => [ExercisesActions.exerciseSavedFailure()]),
+              catchError((payload) => [
+                ExercisesActions.exerciseSavedFailure({ payload }),
+              ]),
             ),
       ),
     ),
@@ -106,7 +111,9 @@ export class ExerciseEffects {
       mergeMap(({ payload }) =>
         this.exercisesService.deleteExercise(payload).pipe(
           map(() => ExercisesActions.deleteExerciseSuccess({ payload })),
-          catchError(() => of(ExercisesActions.deleteExerciseFailure())),
+          catchError((payload) =>
+            of(ExercisesActions.deleteExerciseFailure({ payload })),
+          ),
         ),
       ),
     ),
@@ -121,7 +128,9 @@ export class ExerciseEffects {
           map((payload) =>
             ExercisesActions.loadExerciseDetailsSuccess({ payload }),
           ),
-          catchError(() => of(ExercisesActions.loadExerciseDetailsFailure())),
+          catchError((payload) =>
+            of(ExercisesActions.loadExerciseDetailsFailure({ payload })),
+          ),
         ),
       ),
     ),
@@ -129,14 +138,14 @@ export class ExerciseEffects {
 
   public readonly loadExerciseDetailsBeforeOpen$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
+      ofType(ExercisesActions.openExerciseDetailsDialog),
       map(({ payload }) => ExercisesActions.loadExerciseDetails({ payload })),
     ),
   );
 
   public readonly openExerciseDetailsDialog$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EXERCISES_ACTION_NAMES.OPEN_EXERCISE_DETAILS_DIALOG),
+      ofType(ExercisesActions.openExerciseDetailsDialog),
       switchMap(() =>
         this.actions$.pipe(
           ofType(ExercisesActions.loadExerciseDetailsSuccess),
@@ -162,6 +171,20 @@ export class ExerciseEffects {
     ),
   );
 
+  readonly logErrors$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          ExercisesActions.findExercisesFailure,
+          ExercisesActions.exerciseSavedFailure,
+          ExercisesActions.deleteExerciseFailure,
+          ExercisesActions.loadExerciseDetailsFailure,
+        ),
+        tap(({ payload }) => console.error(payload)),
+      ),
+    { dispatch: false },
+  );
+
   constructor(
     @Inject(ExerciseDetailsDialogComponent)
     private readonly detailsDialogFactory: Observable<Type<unknown>>,
@@ -183,6 +206,7 @@ export class ExerciseEffects {
     targetMuscles?: string[];
     firstPage?: boolean;
     pageSize?: number;
+    isAdmin: boolean;
   }) {
     return {
       ...options,

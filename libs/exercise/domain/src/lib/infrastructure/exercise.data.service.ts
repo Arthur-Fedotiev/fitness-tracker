@@ -15,11 +15,11 @@ import {
   getDoc,
   getDocs,
   limit,
-  or,
   query,
   setDoc,
   startAfter,
   where,
+  and,
 } from '@angular/fire/firestore';
 
 import {
@@ -33,7 +33,7 @@ import {
   of,
   forkJoin,
 } from 'rxjs';
-import { COLLECTIONS, LanguageCodes, Translations } from 'shared-package';
+import { COLLECTIONS, LanguageCodes } from 'shared-package';
 
 import { ExerciseResponseDto } from '../entities/response/exercise-response';
 import {
@@ -51,11 +51,15 @@ import {
   GetExerciseRequestDto,
   GetWorkoutExercisesRequestDto,
   SearchOptionsDto,
+  WorkoutExercisesSearchOptions,
 } from '../entities/dto/request/get/get-exercise-request.dto';
 import { LanguagesISO } from '@fitness-tracker/shared/i18n/utils';
 import { chunk } from 'lodash-es';
+import { ExerciseTranslationResponse } from '../entities/response/exercise-translation-response';
 
 export type ExerciseCollection = CollectionReference<ExerciseResponseDto>;
+export type ExerciseTranslationSubCollection =
+  CollectionReference<ExerciseTranslationResponse>;
 
 @Injectable({
   providedIn: 'root',
@@ -70,7 +74,7 @@ export class FirebaseExerciseDataService {
   private exerciseDocCash: QueryDocumentSnapshot<ExerciseResponseDto> | null =
     null;
 
-  public createOrUpdateExercise({
+  createOrUpdateExercise({
     id,
     ...exercise
   }: CreateUpdateExerciseRequestDTO): Observable<void | DocumentReference<ExerciseResponseDto>> {
@@ -81,7 +85,7 @@ export class FirebaseExerciseDataService {
     return from(handler).pipe(first());
   }
 
-  public findExercisesForWorkout({
+  findExercisesForWorkout({
     searchOptions: { ids, ...restSearchOptions },
     lang,
   }: GetWorkoutExercisesRequestDto): Observable<ExerciseResponseModel[]> {
@@ -97,13 +101,10 @@ export class FirebaseExerciseDataService {
     ).pipe(map((exercises) => exercises.flat()));
   }
 
-  public findExercisesPaginated(req: GetExerciseRequest) {
+  findExercisesPaginated(req: GetExerciseRequest) {
     const query =
       req.type === ExerciseSearchType.WorkoutExerciseSearch
-        ? this.toRefOfWorkoutList(
-            this.exerciseCollectionRef,
-            req.searchOptions.ids,
-          )
+        ? this.toRefOfWorkoutList(this.exerciseCollectionRef, req.searchOptions)
         : this.toExerciseSearchRef(this.exerciseCollectionRef, req);
 
     return from(getDocs<ExerciseResponseDto>(query)).pipe(
@@ -129,29 +130,27 @@ export class FirebaseExerciseDataService {
       }),
       map((translatedExercises) =>
         translatedExercises.map(
-          (translatedExercise: any) =>
-            new ExerciseResponseModel(translatedExercise),
+          (translatedExercise) => new ExerciseResponseModel(translatedExercise),
         ),
       ),
       first(),
     );
   }
 
-  public deleteExercise(exerciseId: string) {
+  deleteExercise(exerciseId: string) {
     return from(deleteDoc(doc(this.exerciseCollectionRef, exerciseId)));
   }
 
-  public getExerciseDetails(
+  getExerciseDetails(
     exerciseId: string,
     lang: LanguageCodes = LanguagesISO.ENGLISH,
-  ): Observable<ExerciseResponseModel> {
+  ) {
     return from(getDoc(doc(this.exerciseCollectionRef, exerciseId))).pipe(
-      map((exercise) => convertOneSnap<WithId<ExerciseResponseDto>>(exercise)),
+      map(convertOneSnap),
       map(this.toBaseDataWithId),
       switchMap((exercise) => this.toExerciseTranslation$(lang)(exercise)),
       map(
-        (translatedExercise: any) =>
-          new ExerciseResponseModel(translatedExercise),
+        (translatedExercise) => new ExerciseResponseModel(translatedExercise),
       ),
     );
   }
@@ -193,71 +192,97 @@ export class FirebaseExerciseDataService {
     ref: ExerciseCollection,
     searchOptions: SearchOptionsDto,
   ) {
-    const filteredRef = searchOptions.targetMuscles?.length
+    const queryWithOwnership = searchOptions.isAdmin
       ? query(
           ref,
+          where(
+            new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
+            '==',
+            true,
+          ),
+        )
+      : query(
+          ref,
+          and(
+            where(
+              new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID),
+              '==',
+              searchOptions.userId,
+            ),
+            where(
+              new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
+              '==',
+              false,
+            ),
+          ),
+        );
+
+    return searchOptions.targetMuscles?.length
+      ? query(
+          queryWithOwnership,
           where(
             new FieldPath('baseData', EXERCISE_FIELD_NAMES.TARGET_MUSCLE),
             'in',
             searchOptions.targetMuscles,
           ),
         )
-      : ref;
+      : queryWithOwnership;
+  }
 
+  private toRefOfWorkoutList(
+    ref: ExerciseCollection,
+    { ids, isAdmin, userId }: WorkoutExercisesSearchOptions,
+  ) {
     return query(
-      filteredRef,
-      or(
-        where(
-          new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID),
-          '==',
-          searchOptions.userId,
-        ),
-        where(
-          new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID),
-          '==',
-          null,
-        ),
+      ref,
+      and(
+        where(documentId(), 'in', ids),
+        ...(isAdmin
+          ? [
+              where(
+                new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
+                '==',
+                true,
+              ),
+            ]
+          : [
+              where(
+                new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID),
+                '==',
+                userId,
+              ),
+              where(
+                new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
+                '==',
+                false,
+              ),
+            ]),
       ),
     );
   }
 
-  private toRefOfWorkoutList(ref: ExerciseCollection, ids: string[]) {
-    return query<ExerciseResponseDto>(ref, where(documentId(), 'in', ids));
-  }
-
-  private toExerciseTranslation$<T extends { id: string }>(
-    lang: LanguageCodes,
-  ) {
-    return (exercise: T) =>
+  private toExerciseTranslation$(lang: LanguageCodes) {
+    return <TExerciseBase extends { id: string }>(exercise: TExerciseBase) =>
       from(
-        getDoc(
-          doc(
-            this.exerciseCollectionRef,
-            exercise.id,
-            COLLECTIONS.TRANSLATIONS,
-            lang,
-          ),
-        ),
+        getDoc(doc(this.getTranslationsSubcollection(exercise.id), lang)),
       ).pipe(
-        map((exercise) => convertOneSnap<T>(exercise)),
-        map(
-          (
-            translation: Translations<
-              Translations<T>[typeof lang]
-            >[typeof lang],
-          ) => ({
-            ...translation,
-            ...exercise,
-          }),
-        ),
+        map(convertOneSnap),
+        map((translation) => ({
+          ...translation,
+          ...exercise,
+        })),
         first(),
       );
   }
 
-  private toBaseDataWithId({
-    baseData,
-    id,
-  }: WithId<ExerciseResponseDto>): WithId<ExerciseResponseDto['baseData']> {
+  private toBaseDataWithId({ baseData, id }: WithId<ExerciseResponseDto>) {
     return { ...baseData, id };
+  }
+
+  private getTranslationsSubcollection(id: string) {
+    return collection(
+      doc(this.exerciseCollectionRef, id),
+      COLLECTIONS.TRANSLATIONS,
+    ) as ExerciseTranslationSubCollection;
   }
 }

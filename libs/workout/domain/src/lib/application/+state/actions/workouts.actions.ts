@@ -19,6 +19,7 @@ export const loadWorkoutPreviewsSuccess = createAction(
 
 export const loadWorkoutPreviewsFailure = createAction(
   WorkoutActionNames.LOAD_WORKOUT_DETAILS_FAILURE,
+  props<WithPayload<unknown>>(),
 );
 
 export const loadWorkoutDetails = createAction(
@@ -33,6 +34,7 @@ export const loadWorkoutDetailsSuccess = createAction(
 
 export const loadWorkoutDetailsFailure = createAction(
   WorkoutActionNames.LOAD_WORKOUT_DETAILS_FAILURE,
+  props<WithPayload<unknown>>(),
 );
 
 export const createWorkout = createAction(
@@ -46,6 +48,7 @@ export const createWorkoutSuccess = createAction(
 
 export const createWorkoutFailure = createAction(
   WorkoutActionNames.CREATE_WORKOUT_FAILURE,
+  props<WithPayload<unknown>>(),
 );
 
 export const editWorkout = createAction(
@@ -57,8 +60,9 @@ export const editWorkoutSuccess = createAction(
   WorkoutActionNames.EDIT_WORKOUT_SUCCESS,
 );
 
-export const editWorkouttFailure = createAction(
+export const editWorkoutFailure = createAction(
   WorkoutActionNames.EDIT_WORKOUT_FAILURE,
+  props<WithPayload<unknown>>(),
 );
 
 export const deleteWorkout = createAction(
@@ -73,6 +77,7 @@ export const deleteWorkoutSuccess = createAction(
 
 export const deleteWorkoutFailure = createAction(
   WorkoutActionNames.DELETE_WORKOUT_FAILURE,
+  props<WithPayload<unknown>>(),
 );
 
 export const navigatedFromWorkoutCompose = createAction(

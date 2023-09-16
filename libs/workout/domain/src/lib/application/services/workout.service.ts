@@ -1,10 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 
-import {
-  convertOneSnap,
-  convertSnaps,
-  WithId,
-} from '@fitness-tracker/shared/utils';
+import { convertOneSnap, convertSnaps } from '@fitness-tracker/shared/utils';
 import { Observable, from, map } from 'rxjs';
 import { WorkoutPreview } from '../../workout-preview';
 import { SerializedWorkout } from '../classes/workout-serializer';
@@ -21,6 +17,7 @@ import {
   query,
   setDoc,
   where,
+  and,
 } from '@angular/fire/firestore';
 
 export type WorkoutCollection = CollectionReference<SerializedWorkout>;
@@ -38,18 +35,16 @@ export class WorkoutService {
   public createWorkout(
     workout: SerializedWorkout,
   ): Observable<void | DocumentReference<SerializedWorkout>> {
-    const id = workout.id;
-
     return from(
-      id
-        ? setDoc(doc(this.workoutCollectionRef, id), workout)
+      workout.id
+        ? setDoc(doc(this.workoutCollectionRef, workout.id), workout)
         : addDoc(this.workoutCollectionRef, workout),
     );
   }
 
   public getWorkout(workoutId: string): Observable<SerializedWorkout> {
     return from(getDoc(doc(this.workoutCollectionRef, workoutId))).pipe(
-      map<any, WithId<SerializedWorkout>>(convertOneSnap),
+      map(convertOneSnap),
     );
   }
 
@@ -57,24 +52,13 @@ export class WorkoutService {
     return from(deleteDoc(doc(this.workoutCollectionRef, workoutId)));
   }
 
-  public findWorkouts(
+  public getWorkoutPreviews(
+    userId: string,
+    isAdmin: boolean,
     muscles?: string[],
-  ): Observable<Required<SerializedWorkout>[]> {
-    return from(
-      getDocs(
-        !muscles?.length
-          ? this.workoutCollectionRef
-          : query(
-              this.workoutCollectionRef,
-              where('targetMuscles', 'array-contains-any', muscles),
-            ),
-      ),
-    ).pipe(map((a) => convertSnaps<any>(a)));
-  }
-
-  public getWorkoutPreviews(muscles?: string[]): Observable<WorkoutPreview[]> {
-    return this.findWorkouts(muscles).pipe(
-      map((workouts: Required<SerializedWorkout>[]) =>
+  ): Observable<WorkoutPreview[]> {
+    return this.findWorkouts(userId, isAdmin, muscles).pipe(
+      map((workouts) =>
         workouts.map(
           ({
             id,
@@ -84,7 +68,7 @@ export class WorkoutService {
             level,
             userId,
             admin,
-          }: Required<SerializedWorkout>) => ({
+          }) => ({
             id,
             name,
             img,
@@ -96,5 +80,29 @@ export class WorkoutService {
         ),
       ),
     );
+  }
+
+  private findWorkouts(
+    userId: string,
+    isAdmin: boolean,
+    muscles: string[] = [],
+  ) {
+    const queryWithOwnership = isAdmin
+      ? query(this.workoutCollectionRef, where('admin', '==', true))
+      : query(
+          this.workoutCollectionRef,
+          and(where('userId', '==', userId), where('admin', '==', false)),
+        );
+
+    return from(
+      getDocs(
+        !muscles.length
+          ? queryWithOwnership
+          : query(
+              queryWithOwnership,
+              where('targetMuscles', 'array-contains-any', muscles),
+            ),
+      ),
+    ).pipe(map(convertSnaps));
   }
 }

@@ -6,6 +6,7 @@ export interface SearchOptionsDto extends Pagination {
   readonly sortOrder: ORDER_BY;
   readonly targetMuscles?: string[];
   readonly userId: string;
+  readonly isAdmin: boolean;
 }
 
 export class GetExerciseRequestDto {
@@ -20,6 +21,8 @@ export class GetExerciseRequestDto {
 
 export interface WorkoutExercisesSearchOptions {
   readonly ids: string[];
+  readonly userId: string;
+  readonly isAdmin: boolean;
 }
 
 export class GetWorkoutExercisesRequestDto {

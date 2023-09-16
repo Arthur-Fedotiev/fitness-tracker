@@ -18,7 +18,7 @@ export const loadExercisesSuccess = createAction(
 
 export const loadExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISES_FAILURE,
-  props<{ error: any }>(),
+  props<{ error: unknown }>(),
 );
 
 export const findExercises = createAction(
@@ -35,6 +35,7 @@ export const findExercisesSuccess = createAction(
 
 export const findExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES_FAILURE,
+  props<{ payload: unknown }>(),
 );
 
 export const refreshExercises = createAction(
@@ -49,10 +50,11 @@ export const refreshExercisesSuccess = createAction(
 
 export const refreshExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.FIND_EXERCISES_FAILURE,
+  props<{ payload: unknown }>(),
 );
 
 export const emptyExercisesList = createAction(
-  EXERCISES_ACTION_NAMES.REFRESH_EXERCISES_FAILURE,
+  EXERCISES_ACTION_NAMES.EMPTY_EXERCISES,
 );
 
 export const exerciseSaved = createAction(
@@ -66,6 +68,7 @@ export const exerciseSavedSuccess = createAction(
 
 export const exerciseSavedFailure = createAction(
   EXERCISES_ACTION_NAMES.EXERCISE_SAVED_FAILURE,
+  props<{ payload: unknown }>(),
 );
 
 export const deleteExercise = createAction(
@@ -80,6 +83,7 @@ export const deleteExerciseSuccess = createAction(
 
 export const deleteExerciseFailure = createAction(
   EXERCISES_ACTION_NAMES.DELETE_EXERCISE_FAILURE,
+  props<{ payload: unknown }>(),
 );
 
 export const loadExerciseDetails = createAction(
@@ -98,6 +102,7 @@ export const releaseExerciseDetails = createAction(
 
 export const loadExerciseDetailsFailure = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISE_DETAILS_FAILURE,
+  props<{ payload: unknown }>(),
 );
 
 export const openExerciseDetailsDialog = createAction(

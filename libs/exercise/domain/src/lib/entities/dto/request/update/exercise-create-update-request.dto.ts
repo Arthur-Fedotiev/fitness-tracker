@@ -16,7 +16,8 @@ export class CreateUpdateExerciseRequestDTO {
       instructionVideo,
       userId,
       admin,
-      ...translatableData
+      instructions,
+      name,
     }: BaseDataRequest & TranslatableExerciseDataRequest,
     public readonly id?: string,
   ) {
@@ -30,7 +31,10 @@ export class CreateUpdateExerciseRequestDTO {
       userId,
       admin,
     };
-    this.translatableData = translatableData;
+    this.translatableData = {
+      instructions,
+      name,
+    };
   }
 
   public serialize() {

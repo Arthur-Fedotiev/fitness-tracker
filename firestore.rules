@@ -6,45 +6,30 @@ service cloud.firestore {
     }
 
     match /exercises/{exerciseId} {
-      allow read: if isAuthenticated();
+      allow read: if withValidAccessOwnership('exercise');
 
-      allow create: if isAdmin();
-      allow update: if isAdmin() || isExerciseBelongsToUser();
-      allow delete: if isAdmin() || (isAuthenticated() && isExerciseBelongsToUser());
+      allow create: if isValidExercise();
+      allow update: if withValidAccessOwnership('exercise') && isValidExercise();
+      allow delete: if withValidAccessOwnership('exercise');
 
       match /translations/{translationId} {
-        allow read: if isAuthenticated();
-        allow write: if isAdmin() || (isAuthenticated() && isExerciseBelongsToUser());
+        allow read: if withValidAccessToTranslation(database, 'exercises', exerciseId); // TODO: verify tomorrow
+        allow write: if isAdmin();
       }
     }
 
-    match /muscles/{doc=**} {
-      allow read: if isAuthenticated();
+    match /workouts/{workoutId} {
+      allow read: if withValidAccessOwnership('workout');
 
-      allow write: if isAdmin();
+      allow create: if isValidWorkout();
+      allow update: if withValidAccessOwnership('workout') && isValidWorkout();
+      allow delete: if withValidAccessOwnership('workout');
     }
 
-    match /equipment/{doc=**} {
-      allow read: if isAuthenticated();
+    function withValidAccessToTranslation(database, collectionName, docId) {
+      let exerciseData = get(/databases/$(database)/documents/$(collectionName)/$(docId)).data.baseData;
 
-      allow write: if isAdmin();
-    }
-
-    match /exercise-types/{doc=**} {
-      allow read: if isAuthenticated();
-
-      allow write: if isAdmin();
-    }
-
-    match /workouts/{doc=**} {
-      allow read: if isAuthenticated();
-
-      allow write: if isAdmin();
-    }
-
-    match /{path=**}/translations/{id} {
-      allow read: if isKnownUser();
-      allow write: if isAdmin();
+      return isAdmin() && exerciseData.admin == true || isKnownUser() && exerciseData.userId == request.auth.uid;
     }
 
     function isAdmin() {
@@ -62,24 +47,66 @@ service cloud.firestore {
     }
 
     function isValidExercise() {
-      return isNonEmptyString('name') &&
-      isNonEmptyString('exerciseType') &&
-      isNonEmptyString('targetMuscle') &&
-      isNonEmptyString('equipment') &&
-      isNonEmptyString('avatarUrl');
+      let baseData = request.resource.data.baseData;
+      let translatableData = request.resource.data.translatableData;
+
+      return isNonEmptyString(translatableData.name) &&
+      isNonEmptyString(baseData.exerciseType) &&
+      isNonEmptyString(baseData.targetMuscle) &&
+      isNonEmptyString(baseData.equipment) &&
+      isNonEmptyString(baseData.avatarUrl) &&
+      isNonEmptyString(baseData.avatarSecondaryUrl) &&
+      translatableData.instructions is string &&
+      isRequestOwnershipValid('exercise');
     }
 
-    function isNonEmptyString(fieldName) {
-      return request.resource.data[fieldName] is string &&
-      request.resource.data[fieldName].size() > 0;
+    function isValidWorkout() {
+      let data =  request.resource.data;
+
+      return isNonEmptyString(data.name) &&
+      isNonEmptyList(data.targetMuscles) &&
+      isNonEmptyString(data.coverUrl) &&
+      isNonEmptyString(data.avatarUrl) &&
+      isNonEmptyString(data.level) &&
+      isRequestOwnershipValid('workout');
     }
 
-    function isExerciseBelongsToUser() {
-      return request.resource.data.userId == request.auth.uid;
+    function isNonEmptyString(val) {
+      return val is string && val.size() > 0;
     }
 
-    function isFitnessTrackerExercise() {
-      return request.resource.data.userId == undefined || request.resource.data.userId == null;
+    function isNonEmptyList(val) {
+      return val is list && val.size() > 0;
+    }
+
+    function isRequestOwnershipValid(type) {
+      let requestAdmin = type == 'workout' ? request.resource.data.admin : request.resource.data.baseData.admin;
+      let requestUserId = type == 'workout' ? request.resource.data.userId : request.resource.data.baseData.userId;
+
+      let isValidForAdmin = isAdmin() && requestAdmin == true && requestUserId == null;
+      let isValidForUser = isKnownUser() && requestAdmin == false && requestUserId == request.auth.uid;
+
+      return isValidForAdmin || isValidForUser;
+    }
+
+    function withValidAccessOwnership(type) {
+      return isOwnedByAdmin(type) || isOwnedByUser(type);
+    }
+
+    function isOwnedByAdmin(type) {
+      return isAdmin() && isAdminResource(type);
+    }
+
+    function isOwnedByUser(type) {
+      let resourceUserId = type == 'workout' ? resource.data.userId : resource.data.baseData.userId;
+
+      return isKnownUser() && request.auth.uid == resourceUserId;
+    }
+
+    function isAdminResource(type) {
+      let isAdmin = type == 'workout' ? resource.data.admin : resource.data.baseData.admin;
+
+      return isAdmin == true;
     }
   }
 }

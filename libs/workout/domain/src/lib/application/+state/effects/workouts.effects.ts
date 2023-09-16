@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, withLatestFrom } from 'rxjs/operators';
 import { Observable, of, pipe, switchMap, UnaryFunction, filter } from 'rxjs';
 
-import { WorkoutActionNames } from '../actions/workout-action-names';
 import * as WorkoutActions from '../actions/workouts.actions';
 import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '../../../workout-preview';
@@ -11,13 +10,9 @@ import { WorkoutPreview } from '../../../workout-preview';
 import { Store } from '@ngrx/store';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
 
-import { LanguageCodes } from 'shared-package';
-import { WithPayload } from '@fitness-tracker/shared/utils';
+import { WithPayload, WithId } from '@fitness-tracker/shared/utils';
 import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
-import {
-  SerializedWorkout,
-  WorkoutDetails,
-} from '../../classes/workout-serializer';
+import { WorkoutDetails } from '../../classes/workout-serializer';
 import {
   toIdsFromSerializedWorkout,
   toExercisesMap,
@@ -46,7 +41,9 @@ export class WorkoutsEffects {
           })
           .pipe(
             map(() => WorkoutActions.createWorkoutSuccess()),
-            catchError(() => of(WorkoutActions.createWorkoutFailure())),
+            catchError((payload) =>
+              of(WorkoutActions.createWorkoutFailure({ payload })),
+            ),
           ),
       ),
     ),
@@ -54,13 +51,21 @@ export class WorkoutsEffects {
 
   public readonly loadWorkouts$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkoutActionNames.LOAD_WORKOUT_PREVIEWS),
-      switchMap(({ payload }) =>
-        this.workoutAPI.getWorkoutPreviews(payload).pipe(
+      ofType(WorkoutActions.loadWorkoutPreviews),
+      withLatestFrom(
+        this.store.select(selectUserInfo).pipe(filter(Boolean)),
+        this.store.select(selectIsAdmin),
+      ),
+      switchMap(([{ payload }, { uid }, isAdmin]) =>
+        this.workoutAPI.getWorkoutPreviews(uid, isAdmin, payload).pipe(
           map((payload: WorkoutPreview[]) =>
             WorkoutActions.loadWorkoutPreviewsSuccess({ payload }),
           ),
-          catchError(() => of(WorkoutActions.loadWorkoutPreviewsFailure())),
+          catchError((err: unknown) => {
+            console.error('error', err);
+
+            return of(WorkoutActions.loadWorkoutPreviewsFailure({ payload }));
+          }),
         ),
       ),
     ),
@@ -68,25 +73,42 @@ export class WorkoutsEffects {
 
   public readonly loadWorkoutDetails = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkoutActionNames.LOAD_WORKOUT_DETAILS),
+      ofType(WorkoutActions.loadWorkoutDetails),
       this.getWorkoutDetailsLocalized$(),
-      map((payload: WorkoutDetails) =>
-        WorkoutActions.loadWorkoutDetailsSuccess({ payload }),
-      ),
-      catchError(() => [WorkoutActions.loadWorkoutDetailsFailure()]),
+      map((payload) => WorkoutActions.loadWorkoutDetailsSuccess({ payload })),
+      catchError((payload) => [
+        WorkoutActions.loadWorkoutDetailsFailure({ payload }),
+      ]),
     ),
   );
 
   public readonly deleteWorkout$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkoutActionNames.DELETE_WORKOUT),
-      switchMap(({ payload }: { payload: string }) =>
+      ofType(WorkoutActions.deleteWorkout),
+      switchMap(({ payload }) =>
         this.workoutAPI.deleteWorkout(payload).pipe(
           map(() => WorkoutActions.deleteWorkoutSuccess({ payload })),
-          catchError(() => of(WorkoutActions.deleteWorkoutFailure())),
+          catchError((payload) =>
+            of(WorkoutActions.deleteWorkoutFailure({ payload })),
+          ),
         ),
       ),
     ),
+  );
+
+  readonly logError$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          WorkoutActions.loadWorkoutPreviewsFailure,
+          WorkoutActions.loadWorkoutDetailsFailure,
+          WorkoutActions.deleteWorkoutFailure,
+          WorkoutActions.createWorkoutFailure,
+          WorkoutActions.editWorkoutFailure,
+        ),
+        map(({ payload }) => console.error(payload)),
+      ),
+    { dispatch: false },
   );
 
   constructor(
@@ -101,34 +123,34 @@ export class WorkoutsEffects {
     Observable<WorkoutDetails>
   > {
     return pipe(
-      withLatestFrom(this.store.select(selectLanguage)),
-      switchMap(([{ payload }, lang]: [WithPayload<string>, LanguageCodes]) =>
+      withLatestFrom(
+        this.store.select(selectLanguage),
+        this.store.select(selectUserInfo).pipe(filter(Boolean)),
+        this.store.select(selectIsAdmin),
+      ),
+      switchMap(([{ payload }, lang, { uid: userId }, isAdmin]) =>
         this.workoutAPI.getWorkout(payload).pipe(
           map((serializedWorkout) => ({
             serializedWorkout,
             ids: toIdsFromSerializedWorkout(serializedWorkout),
           })),
-          switchMap(
-            ({
-              ids,
-              serializedWorkout,
-            }: {
-              ids: string[];
-              serializedWorkout: SerializedWorkout;
-            }) =>
-              this.exercisesService
-                .findExercisesForWorkout(
-                  new GetWorkoutExercisesRequestDto({ ids }, lang),
-                )
-                .pipe(
-                  map((exercises: any[]) => ({
-                    exercises: exercises.reduce(
-                      toExercisesMap,
-                      new Map<string, any>(),
-                    ),
-                    serializedWorkout,
-                  })),
+          switchMap(({ ids, serializedWorkout }) =>
+            this.exercisesService
+              .findExercisesForWorkout(
+                new GetWorkoutExercisesRequestDto(
+                  { ids, userId, isAdmin },
+                  lang,
                 ),
+              )
+              .pipe(
+                map((exercises) => ({
+                  exercises: exercises.reduce(
+                    toExercisesMap,
+                    new Map<string, WithId<unknown>>(),
+                  ),
+                  serializedWorkout,
+                })),
+              ),
           ),
           map(toWorkoutDetails),
         ),

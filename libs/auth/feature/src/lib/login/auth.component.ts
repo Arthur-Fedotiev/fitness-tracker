@@ -38,7 +38,7 @@ import { TranslateModule } from '@ngx-translate/core';
         <mat-label>{{ 'auth.emailLabel' | translate }}</mat-label>
         <input
           matInput
-          placeholder="{{ 'auth.emailLabel' | translate }}<"
+          placeholder="{{ 'auth.emailLabel' | translate }}"
           name="email"
           [(ngModel)]="authFormModel.email"
         />
