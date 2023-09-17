@@ -2719,10 +2719,10 @@ setprototypeof@1.2.0:
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-"shared-package@file:shared-package-5.4.0.tgz":
-  version "5.4.0"
-  resolved "file:shared-package-5.4.0.tgz"
-  integrity sha512-4WZ50Tx/MxqXBfi4szWUnHnaDkqn9hk8ROzQPoepV85VUD7rTPIL2KMeVSYuIJIY511quMOQZns5aFyZoj+F8Q==
+"shared-package@file:shared-package-5.5.0.tgz":
+  version "5.5.0"
+  resolved "file:shared-package-5.5.0.tgz"
+  integrity sha512-BpUAYjXJ+O1cO8RpGbaN1ls+alOLHltnS+GrhRWQBvZbLB6CM+qIoZQpI3Olyn448XTyn7G8eufU/XZ4BZf6VQ==
 
 shebang-command@^2.0.0:
   version "2.0.0"
