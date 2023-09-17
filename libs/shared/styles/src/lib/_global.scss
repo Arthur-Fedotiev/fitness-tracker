@@ -24,13 +24,3 @@ body {
   font-family: var(--ft-primary-font-family);
   font-size: var(--ft-primary-font-size);
 }
-
-.title-link {
-  color: #000;
-}
-
-body.dark-theme {
-  .title-link {
-    color: wheat;
-  }
-}

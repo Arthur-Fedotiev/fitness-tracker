@@ -9,13 +9,24 @@ import { ROLES } from 'shared-package';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgFor, LowerCasePipe, TitleCasePipe } from '@angular/common';
+import {
+  NgIf,
+  NgFor,
+  LowerCasePipe,
+  TitleCasePipe,
+  NgOptimizedImage,
+} from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { ImgFallbackDirective } from '@fitness-tracker/shared/utils';
+import {
+  ImgFallbackDirective,
+  WORKOUT_PREVIEW_FALLBACK_IMG,
+} from '@fitness-tracker/shared/utils';
 import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatChipsModule } from '@angular/material/chips';
 
-interface WorkoutPreview {
+interface WorkoutPreviewVM {
   id: string;
   name: string;
   img: string;
@@ -41,20 +52,17 @@ interface WorkoutPreview {
     LowerCasePipe,
     TitleCasePipe,
     TranslateModule,
+    MatMenuModule,
+    MatChipsModule,
+    NgOptimizedImage,
   ],
 })
 export class WorkoutPreviewComponent {
-  @Input() workout!: WorkoutPreview;
+  @Input() workout!: WorkoutPreviewVM;
 
-  @Output() public readonly workoutEdited = new EventEmitter<string>();
-  @Output() public readonly workoutDeleted = new EventEmitter<string>();
+  @Output() readonly workoutEdited = new EventEmitter<string>();
+  @Output() readonly workoutDeleted = new EventEmitter<string>();
 
-  public readonly roles = ROLES;
-
-  public deleteWorkout(id: string) {
-    this.workoutDeleted.emit(id);
-  }
-  public editWorkout(id: string) {
-    this.workoutEdited.emit(id);
-  }
+  protected readonly roles = ROLES;
+  protected fallbackImg = WORKOUT_PREVIEW_FALLBACK_IMG;
 }
