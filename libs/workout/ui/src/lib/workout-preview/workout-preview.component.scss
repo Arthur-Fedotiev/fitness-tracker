@@ -41,3 +41,12 @@
     }
   }
 }
+
+@media (prefers-reduced-transparency) {
+  .card {
+    .card-avatar {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+}

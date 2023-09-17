@@ -5,3 +5,11 @@
     @include animateFadeIn(350ms, calc(150ms * (var(--animation-order) + 1)));
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .list {
+    .item {
+      animation: none;
+    }
+  }
+}
