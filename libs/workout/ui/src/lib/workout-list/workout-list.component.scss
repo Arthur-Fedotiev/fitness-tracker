@@ -1,5 +1,7 @@
-.content ::ng-deep {
-  & mat-card {
-    margin-bottom: 3rem;
+@use 'animations' as *;
+
+.list {
+  .item {
+    @include animateFadeIn(350ms, calc(150ms * (var(--animation-order) + 1)));
   }
 }
