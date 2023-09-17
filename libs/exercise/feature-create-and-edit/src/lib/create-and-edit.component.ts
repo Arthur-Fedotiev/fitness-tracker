@@ -34,6 +34,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 import { ROLES } from 'shared-package';
+import {
+  EXERCISE_AVATAR_FALLBACK_IMG,
+  EXERCISE_AVATAR_FALLBACK_SECONDARY_IMG,
+} from '@fitness-tracker/shared/utils';
 
 @UntilDestroy()
 @Component({
@@ -62,8 +66,8 @@ export class CreateAndEditComponent implements OnDestroy {
     exerciseType: '',
     targetMuscle: '',
     equipment: '',
-    avatarUrl: 'assets/images/exercises/ronnie-coleman.png',
-    avatarSecondaryUrl: 'assets/images/exercises/ronnie-coleman.png',
+    avatarUrl: EXERCISE_AVATAR_FALLBACK_IMG,
+    avatarSecondaryUrl: EXERCISE_AVATAR_FALLBACK_SECONDARY_IMG,
     instructions: [''],
     instructionVideo: '',
   };

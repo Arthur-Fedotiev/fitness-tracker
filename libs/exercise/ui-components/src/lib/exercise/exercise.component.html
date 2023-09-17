@@ -7,23 +7,22 @@
     <img
       class="card__avatar"
       mat-card-sm-image
-      [ngSrc]="exercise.avatarUrl"
+      [ngSrc]="exercise.avatarUrl ?? avatarFallback"
+      [priority]="exercise.hasPriority"
       width="80"
       height="80"
-      priority="{{ idx <= 5 ? 'priority' : '' }}"
-      alt="primary image"
-      ftWithFallback
+      alt="{{ exercise.name }} primary image"
     />
     <img
       fxHide.lt-sm
       class="card__avatar"
       mat-card-sm-image
-      [ngSrc]="exercise.avatarSecondaryUrl"
-      priority="{{ idx <= 5 ? 'priority' : '' }}"
-      alt="secondary image"
+      [ngSrc]="exercise.avatarSecondaryUrl ?? secondaryAvatarFallback"
+      ftWithFallback
+      [priority]="exercise.hasPriority"
+      alt="{{ exercise.name }} secondary image"
       width="80"
       height="80"
-      ftWithFallback
     />
     <mat-card-title class="card__title">
       <span ftE2e="exerciseName">{{ exercise.name }}</span>

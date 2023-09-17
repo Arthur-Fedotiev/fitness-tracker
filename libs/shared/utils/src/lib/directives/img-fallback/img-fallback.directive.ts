@@ -5,11 +5,11 @@ import {
   ElementRef,
   HostListener,
 } from '@angular/core';
-import { DEFAULT_FALLBACK_IMG } from './default-image';
+import { DEFAULT_FALLBACK_IMG } from './fallback.constants';
 
 @Directive({
-    selector: 'img[ftWithFallback]',
-    standalone: true,
+  selector: 'img[ftWithFallback]',
+  standalone: true,
 })
 export class ImgFallbackDirective {
   // eslint-disable-next-line @angular-eslint/no-input-rename

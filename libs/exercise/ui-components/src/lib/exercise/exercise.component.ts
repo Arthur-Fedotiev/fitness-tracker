@@ -16,6 +16,8 @@ import { MatCardModule } from '@angular/material/card';
 import {
   ImgFallbackDirective,
   E2eDirective,
+  EXERCISE_AVATAR_FALLBACK_IMG,
+  EXERCISE_AVATAR_FALLBACK_SECONDARY_IMG,
 } from '@fitness-tracker/shared/utils';
 
 @Component({
@@ -38,8 +40,6 @@ import {
   ],
 })
 export class ExerciseComponent {
-  public readonly roles = ROLES;
-
   @Input()
   public exercise!: ExerciseVM;
   @Input()
@@ -53,6 +53,11 @@ export class ExerciseComponent {
   public readonly exerciseDeleted = new EventEmitter<string>();
   @Output()
   public readonly exerciseAddedToWorkout = new EventEmitter<string>();
+
+  protected readonly roles = ROLES;
+  protected readonly avatarFallback = EXERCISE_AVATAR_FALLBACK_IMG;
+  protected readonly secondaryAvatarFallback =
+    EXERCISE_AVATAR_FALLBACK_SECONDARY_IMG;
 
   public viewExercise({ id }: ExerciseVM): void {
     this.exerciseViewed.emit(id);
