@@ -37,6 +37,8 @@ import { NgIf, AsyncPipe } from '@angular/common';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
+import { WorkoutPreviewVM } from '@fitness-tracker/workout/ui';
+import { MAX_WORKOUT_WITH_PRIORITY } from './constants';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
@@ -88,8 +90,20 @@ export class WorkoutsDisplayComponent implements OnInit {
     untilDestroyed(this),
   );
 
+  protected workoutPreviewVMs = computed(() =>
+    this.workoutPreviews().map(
+      (workoutPreview, idx) =>
+        ({
+          ...workoutPreview,
+          hasPriority: idx <= MAX_WORKOUT_WITH_PRIORITY,
+        } satisfies WorkoutPreviewVM),
+    ),
+  );
+
   protected workouts = computed(() =>
-    this.workoutPreviews().filter(this.ownerPredicateMap[this.workoutOwner()]),
+    this.workoutPreviewVMs().filter(
+      this.ownerPredicateMap[this.workoutOwner()],
+    ),
   );
 
   private readonly targetMusclesSubj = new BehaviorSubject<TargetMuscles>([]);

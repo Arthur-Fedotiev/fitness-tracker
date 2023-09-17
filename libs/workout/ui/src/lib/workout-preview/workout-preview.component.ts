@@ -25,14 +25,7 @@ import {
 import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
-
-interface WorkoutPreviewVM {
-  id: string;
-  name: string;
-  img: string;
-  level: string;
-  targetMuscles: string[];
-}
+import { WorkoutPreviewVM } from './models';
 
 @Component({
   selector: 'ft-workout-preview',
@@ -58,7 +51,7 @@ interface WorkoutPreviewVM {
   ],
 })
 export class WorkoutPreviewComponent {
-  @Input() workout!: WorkoutPreviewVM;
+  @Input({ required: true }) workout!: WorkoutPreviewVM;
 
   @Output() readonly workoutEdited = new EventEmitter<string>();
   @Output() readonly workoutDeleted = new EventEmitter<string>();

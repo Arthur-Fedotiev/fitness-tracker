@@ -8,7 +8,7 @@ export const selectWorkoutsState =
     fromWorkouts.workoutsFeatureKey,
   );
 
-export const workoutPreviews = createSelector(
+export const selectWorkoutPreviewsVM = createSelector(
   selectWorkoutsState,
   (state): WorkoutPreview[] => state.workoutPreviews,
 );

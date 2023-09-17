@@ -6,7 +6,10 @@
     class="card-avatar"
     mat-card-image
     [alt]="workout.name + ' avatar'"
-    [src]="workout.img"
+    [ngSrc]="workout.img"
+    width="1280"
+    height="720"
+    [priority]="workout.hasPriority"
     [ftWithFallback]="fallbackImg"
   />
 

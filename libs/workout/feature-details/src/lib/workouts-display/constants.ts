@@ -1,0 +1,1 @@
+export const MAX_WORKOUT_WITH_PRIORITY = 5;
