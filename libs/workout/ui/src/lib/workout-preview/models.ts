@@ -5,4 +5,6 @@ export interface WorkoutPreviewVM {
   level: string;
   targetMuscles: string[];
   hasPriority: boolean;
+  canDelete: boolean;
+  canEdit: boolean;
 }

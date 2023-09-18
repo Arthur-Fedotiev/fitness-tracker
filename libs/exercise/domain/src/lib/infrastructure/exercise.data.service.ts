@@ -20,6 +20,7 @@ import {
   startAfter,
   where,
   and,
+  or,
 } from '@angular/fire/firestore';
 
 import {
@@ -203,7 +204,7 @@ export class FirebaseExerciseDataService {
         )
       : query(
           ref,
-          and(
+          or(
             where(
               new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID),
               '==',
@@ -212,7 +213,7 @@ export class FirebaseExerciseDataService {
             where(
               new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
               '==',
-              false,
+              true,
             ),
           ),
         );
@@ -254,7 +255,7 @@ export class FirebaseExerciseDataService {
               where(
                 new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN),
                 '==',
-                false,
+                true,
               ),
             ]),
       ),

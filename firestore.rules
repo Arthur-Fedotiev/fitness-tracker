@@ -6,30 +6,30 @@ service cloud.firestore {
     }
 
     match /exercises/{exerciseId} {
-      allow read: if withValidAccessOwnership('exercise');
+      allow read: if withValidOwnershipForReads('exercise');
 
       allow create: if isValidExercise();
-      allow update: if withValidAccessOwnership('exercise') && isValidExercise();
-      allow delete: if withValidAccessOwnership('exercise');
+      allow update: if withValidAccessOwnershipForWrites('exercise') && isValidExercise();
+      allow delete: if withValidAccessOwnershipForWrites('exercise');
 
       match /translations/{translationId} {
-        allow read: if withValidAccessToTranslation(database, 'exercises', exerciseId); // TODO: verify tomorrow
+        allow read: if withValidAccessToTranslationReads(database, 'exercises', exerciseId); // TODO: verify tomorrow
         allow write: if isAdmin();
       }
     }
 
     match /workouts/{workoutId} {
-      allow read: if withValidAccessOwnership('workout');
+      allow read: if withValidOwnershipForReads('workout');
 
       allow create: if isValidWorkout();
-      allow update: if withValidAccessOwnership('workout') && isValidWorkout();
-      allow delete: if withValidAccessOwnership('workout');
+      allow update: if withValidAccessOwnershipForWrites('workout') && isValidWorkout();
+      allow delete: if withValidAccessOwnershipForWrites('workout');
     }
 
-    function withValidAccessToTranslation(database, collectionName, docId) {
+    function withValidAccessToTranslationReads(database, collectionName, docId) {
       let exerciseData = get(/databases/$(database)/documents/$(collectionName)/$(docId)).data.baseData;
 
-      return isAdmin() && exerciseData.admin == true || isKnownUser() && exerciseData.userId == request.auth.uid;
+      return isAdmin() && exerciseData.admin == true || (isKnownUser() && exerciseData.userId == request.auth.uid) || exerciseData.admin == true;
     }
 
     function isAdmin() {
@@ -68,6 +68,7 @@ service cloud.firestore {
       isNonEmptyString(data.coverUrl) &&
       isNonEmptyString(data.avatarUrl) &&
       isNonEmptyString(data.level) &&
+      isNonEmptyList(data.content) &&
       isRequestOwnershipValid('workout');
     }
 
@@ -89,12 +90,22 @@ service cloud.firestore {
       return isValidForAdmin || isValidForUser;
     }
 
-    function withValidAccessOwnership(type) {
+    function withValidAccessOwnershipForWrites(type) {
       return isOwnedByAdmin(type) || isOwnedByUser(type);
+    }
+
+    function withValidOwnershipForReads(type) {
+      return isOwnedByAdmin(type) || isOwnedByUser(type) || isPublicResource(type);
     }
 
     function isOwnedByAdmin(type) {
       return isAdmin() && isAdminResource(type);
+    }
+
+    function isPublicResource(type) {
+       let resourceAdmin = type == 'workout' ? resource.data.admin : resource.data.baseData.admin;
+
+      return isAuthenticated() && resourceAdmin == true;
     }
 
     function isOwnedByUser(type) {

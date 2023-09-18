@@ -17,6 +17,7 @@
     <mat-card-title class="title">
       <div>{{ workout.name }}</div>
       <button
+        *ngIf="workout.canDelete && workout.canEdit"
         mat-icon-button
         aria-label="Workout actions"
         [matMenuTriggerFor]="menu"

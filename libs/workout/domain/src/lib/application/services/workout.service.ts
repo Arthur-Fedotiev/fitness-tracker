@@ -18,6 +18,7 @@ import {
   setDoc,
   where,
   and,
+  or,
 } from '@angular/fire/firestore';
 
 export type WorkoutCollection = CollectionReference<SerializedWorkout>;
@@ -87,12 +88,10 @@ export class WorkoutService {
     isAdmin: boolean,
     muscles: string[] = [],
   ) {
-    const queryWithOwnership = isAdmin
-      ? query(this.workoutCollectionRef, where('admin', '==', true))
-      : query(
-          this.workoutCollectionRef,
-          and(where('userId', '==', userId), where('admin', '==', false)),
-        );
+    const queryWithOwnership = query(
+      this.workoutCollectionRef,
+      or(where('userId', '==', userId), where('admin', '==', true)),
+    );
 
     return from(
       getDocs(

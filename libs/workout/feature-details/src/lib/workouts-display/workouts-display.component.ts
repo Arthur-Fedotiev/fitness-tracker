@@ -10,8 +10,6 @@ import {
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
 import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import {
-  Observable,
-  filter,
   tap,
   debounceTime,
   BehaviorSubject,
@@ -39,6 +37,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 import { WorkoutPreviewVM } from '@fitness-tracker/workout/ui';
 import { MAX_WORKOUT_WITH_PRIORITY } from './constants';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
@@ -67,7 +66,8 @@ enum WorkoutOwner {
 })
 export class WorkoutsDisplayComponent implements OnInit {
   protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;
-  public readonly userInfo = inject(AuthFacadeService).userInfo;
+  public readonly userInfo = this.authFacade.userInfo;
+  public readonly isAdmin = toSignal(this.authFacade.isAdmin$);
 
   protected readonly ExerciseOwner = WorkoutOwner;
   protected readonly workoutOwner = signal(WorkoutOwner.All);
@@ -96,6 +96,10 @@ export class WorkoutsDisplayComponent implements OnInit {
         ({
           ...workoutPreview,
           hasPriority: idx <= MAX_WORKOUT_WITH_PRIORITY,
+          canDelete:
+            this.isAdmin() || workoutPreview.userId === this.userInfo()?.uid,
+          canEdit:
+            this.isAdmin() || workoutPreview.userId === this.userInfo()?.uid,
         } satisfies WorkoutPreviewVM),
     ),
   );
@@ -115,6 +119,7 @@ export class WorkoutsDisplayComponent implements OnInit {
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
     public readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly workoutFacade: WorkoutFacadeService,
+    private readonly authFacade: AuthFacadeService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
   ) {}

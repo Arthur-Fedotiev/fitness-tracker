@@ -54,7 +54,7 @@ export class WorkoutBasicInfoComponent {
       ...(basicInfo ?? {}),
     };
   }
-  @Input()
+  @Input({ required: true })
   exerciseDescriptors!: ExerciseDescriptors;
 
   protected readonly Roles = ROLES;
@@ -62,7 +62,7 @@ export class WorkoutBasicInfoComponent {
   protected readonly parentForm = inject(ControlContainer).control;
   protected readonly workoutLevels = WorkoutLevel;
 
-  protected workoutBasicInfo: WorkoutBasicInfoFormModel = {
+  workoutBasicInfo: WorkoutBasicInfoFormModel = {
     name: '',
     targetMuscles: [],
     avatarUrl:

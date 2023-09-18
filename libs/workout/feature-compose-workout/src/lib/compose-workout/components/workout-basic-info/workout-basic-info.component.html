@@ -54,7 +54,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
     <input
       placeholder="{{ 'basicInformation.avatarUrl' | translate }}"
       matInput

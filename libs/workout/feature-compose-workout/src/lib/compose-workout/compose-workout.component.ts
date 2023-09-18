@@ -21,6 +21,7 @@ import {
   WorkoutItemFlatNode,
   WorkoutItem,
   ComposeWorkoutData,
+  WorkoutBasicInfo,
 } from '@fitness-tracker/workout-domain';
 
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -78,7 +79,8 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {
-  @ViewChild('workoutForm') workoutForm!: NgForm;
+  @ViewChild(WorkoutBasicInfoComponent, { static: true })
+  basicInfoProvider!: WorkoutBasicInfoComponent;
 
   @Input({ required: true }) resolvedComposedWorkoutData!: ComposeWorkoutData;
 
@@ -141,7 +143,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   protected saveWorkout() {
     this.composeWorkoutPresenter.saveWorkout({
       ...(this.resolvedComposedWorkoutData.workoutBasicInfo ?? {}),
-      ...this.workoutForm.value['workoutBasicInfo'],
+      ...(this.basicInfoProvider.workoutBasicInfo as WorkoutBasicInfo),
     });
 
     this.releaseResources();
