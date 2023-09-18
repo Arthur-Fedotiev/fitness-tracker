@@ -1,13 +1,10 @@
 <article>
   <div class="content">
-    <div class="list" fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div class="list">
       <div
         *ngFor="let item of listData; trackBy: trackById; let i = index"
         class="item"
         [style.--animation-order]="i"
-        [fxFlex]="100 / 3 + '%'"
-        fxFlex.xs="100%"
-        fxFlex.sm="50%"
       >
         <ng-template
           [ngTemplateOutlet]="workoutTemplate"

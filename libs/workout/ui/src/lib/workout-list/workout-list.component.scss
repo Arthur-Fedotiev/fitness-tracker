@@ -1,8 +1,33 @@
 @use 'animations' as *;
 
 .list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
   .item {
     @include animateFadeIn(350ms, calc(150ms * (var(--animation-order) + 1)));
+
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 600px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
