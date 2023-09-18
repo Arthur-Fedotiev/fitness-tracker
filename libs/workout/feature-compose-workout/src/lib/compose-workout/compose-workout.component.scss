@@ -1,5 +1,15 @@
 @use '@angular/material' as mat;
 
+.basic-info-outer-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.basic-info-inner-wrapper {
+  flex-basis: 95%;
+}
+
 .page-content {
   display: flex;
   justify-content: center;
@@ -59,12 +69,14 @@
   gap: 2rem;
   width: 100%;
   margin: 0 auto;
+  padding: 1rem 0;
 }
 
 .instruction-form {
   display: flex;
   flex-flow: column nowrap;
-  gap: 1rem;
+  gap: 2rem;
+  padding: 1rem 0;
 }
 
 .compose-workout-actions {

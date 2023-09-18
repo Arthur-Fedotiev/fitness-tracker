@@ -31,13 +31,11 @@ import { hasChild, WorkoutDatabase } from './services/workout-db';
 import { WorkoutItemRestComponent } from './components/workout-item-rest/workout-item-rest.component';
 import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-subform/workout-item-load-subform.component';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { FlexModule } from '@angular/flex-layout/flex';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -61,7 +59,6 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
   standalone: true,
   imports: [
-    FlexModule,
     MatExpansionModule,
     WorkoutBasicInfoComponent,
     MatTreeModule,
@@ -73,7 +70,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTooltipModule,
     NgIf,
     MatIconModule,
-    ExtendedModule,
     FormsModule,
     WorkoutItemLoadSubformComponent,
     WorkoutItemRestComponent,

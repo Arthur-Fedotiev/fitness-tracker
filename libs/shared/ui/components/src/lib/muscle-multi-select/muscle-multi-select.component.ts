@@ -5,7 +5,6 @@ import {
   Output,
 } from '@angular/core';
 import { NgFor, TitleCasePipe } from '@angular/common';
-import { FlexModule } from '@angular/flex-layout';
 import {
   AbstractControl,
   FormBuilder,
@@ -23,7 +22,6 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [
     FormsModule,
-    FlexModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -33,11 +31,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TitleCasePipe,
     TranslateModule,
   ],
-  template: `<form
-    class="filters"
-    fxLayoutAlign.gt-sm="flex-start"
-    [formGroup]="workoutFilters"
-  >
+  template: `<form class="filters" [formGroup]="workoutFilters">
     <mat-form-field class="filters__item" appearance="outline">
       <mat-select
         formControlName="targetMuscles"
@@ -60,8 +54,15 @@ import { TranslateModule } from '@ngx-translate/core';
         display: flex;
         justify-content: center;
         flex: 1;
+
         &__item {
           flex: 1;
+        }
+      }
+
+      @media screen and (min-width: 600px) {
+        .filters {
+          justify-content: flex-start;
         }
       }
     `,
