@@ -9,7 +9,6 @@ import {
 import { ExerciseVM } from '../models/exercise-vm';
 import { ExerciseComponent } from '../exercise/exercise.component';
 import { NgFor } from '@angular/common';
-import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
   selector: 'components-exercise-list',
@@ -17,7 +16,7 @@ import { FlexModule } from '@angular/flex-layout/flex';
   styleUrls: ['./exercise-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [FlexModule, NgFor, ExerciseComponent],
+  imports: [NgFor, ExerciseComponent],
 })
 export class ExerciseListComponent {
   @Input() public exerciseList: ExerciseVM[] | null = null;

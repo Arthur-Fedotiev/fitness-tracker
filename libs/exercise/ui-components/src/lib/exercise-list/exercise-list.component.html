@@ -1,19 +1,13 @@
 <div
   class="exercises-panel"
   [class.exercises-panel--workout-creation]="isWorkoutCreationMode"
-  fxLayout="row wrap"
-  fxLayoutGap="1rem"
-  fxLayoutAlign="center"
 >
   <components-exercise
     *ngFor="let exercise of exerciseList; trackBy: trackById; let i = index"
     [class.animate-pulse]="
       isWorkoutCreationMode && !selectedForWorkoutIds().has(exercise.id)
     "
-    class="exercises-panel__item"
-    fxFlex="90%"
-    fxFlex.gt-sm="45%"
-    fxFlex.gt-lg="33%"
+    class="item"
     [exercise]="exercise"
     [idx]="i"
     (exerciseEdited)="editExercise($event)"
