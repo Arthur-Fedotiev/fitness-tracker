@@ -16,7 +16,9 @@
 }
 
 .settings-wrapper {
-  display: none;
+  &--row {
+    display: none;
+  }
 
   .settings {
     .toolbar {

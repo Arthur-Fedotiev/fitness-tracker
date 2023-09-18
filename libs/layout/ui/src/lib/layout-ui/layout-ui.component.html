@@ -21,7 +21,10 @@
 
 <ng-template #navList let-layout>
   <ft-navigation-bar class="nav-bar" [layout]="layout"></ft-navigation-bar>
-  <section class="settings-wrapper">
+  <section
+    class="settings-wrapper"
+    [class.settings-wrapper--row]="layout === 'row'"
+  >
     <ft-settings-bar
       class="settings"
       [class.toolbar]="layout === 'row'"
