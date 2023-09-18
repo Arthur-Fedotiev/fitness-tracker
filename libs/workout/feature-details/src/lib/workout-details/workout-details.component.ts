@@ -15,8 +15,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { ExtendedModule } from '@angular/flex-layout/extended';
-import { FlexModule } from '@angular/flex-layout/flex';
+
 import {
   NgIf,
   NgFor,
@@ -36,8 +35,6 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
   standalone: true,
   imports: [
     NgIf,
-    FlexModule,
-    ExtendedModule,
     NgFor,
     NgTemplateOutlet,
     MatDividerModule,

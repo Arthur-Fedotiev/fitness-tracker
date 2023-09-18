@@ -1,4 +1,4 @@
-<article fxLayout="column nowrap" *ngIf="workoutDetails$ | async as workout">
+<article *ngIf="workoutDetails$ | async as workout" class="wrapper">
   <header
     class="workout-header"
     [style.background-image]="
@@ -7,15 +7,11 @@
       '), url(https://www.bodybuilding.com/images/2019/june/gethin-8-week-salespage-header-mobile-550x1085.jpg)'
     "
   >
-    <div
-      class="workout-header__content"
-      fxLayout="column nowrap"
-      fxLayoutAlign="space-between center"
-    >
+    <div class="workout-header__content">
       <h1 class="mat-display-1">{{ workout.name | uppercase }}</h1>
     </div>
   </header>
-  <section fxFlexAlign="center" class="workout-wrapper">
+  <section class="workout-wrapper">
     <ng-container *ngFor="let workoutItem of workout.content; first as first">
       <ng-template
         [ngTemplateOutlet]="workoutTpl"
@@ -27,7 +23,7 @@
 
 <ng-template #workoutTpl let-item let-first="first">
   <mat-divider *ngIf="!first" class="divider"></mat-divider>
-  <div *ngIf="item.children" class="mat-body-1 superset-description">
+  <div *ngIf="item.children" class="superset-description">
     <h2>{{ 'compoundTypes.superset' | translate | uppercase }}</h2>
     <p [translate]="'supersetNotes'"></p>
     <p
