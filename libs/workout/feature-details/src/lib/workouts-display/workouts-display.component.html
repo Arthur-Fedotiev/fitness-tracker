@@ -23,6 +23,7 @@
   <ft-workout-list [listData]="workouts()">
     <ng-template let-workoutItem>
       <ft-workout-preview
+        class="workout-preview"
         [workout]="workoutItem"
         (workoutEdited)="editWorkout($event)"
         (workoutDeleted)="deleteWorkout($event)"
