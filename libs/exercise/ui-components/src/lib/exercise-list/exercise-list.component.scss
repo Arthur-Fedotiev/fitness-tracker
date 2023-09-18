@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'animations' as *;
 
 :host {
   .exercises-panel {
@@ -7,9 +8,20 @@
     gap: 1rem;
     justify-content: center;
 
+    .item {
+      &--faded-in:not(.animate-pulse):not(.item--selected) {
+        @include animateFadeIn(
+          $duration: 250ms,
+          $delay: calc(100ms * (var(--animation-order)))
+        );
+      }
+    }
+
     &--workout-creation {
       .item:hover {
         cursor: pointer;
+        transition: transform 0.2ms ease-in-out;
+        transform: scale(1.05);
       }
     }
   }
@@ -28,6 +40,7 @@
 
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: calc(50ms * (var(--animation-order) + 1));
   }
 
   @keyframes pulse {
@@ -36,7 +49,7 @@
       opacity: 1;
     }
     50% {
-      opacity: 0.6;
+      opacity: 0.3;
     }
   }
 }

@@ -6,10 +6,13 @@
   gap: 1rem;
 
   .item {
-    @include animateFadeIn(350ms, calc(150ms * (var(--animation-order) + 1)));
-
+    opacity: 0;
     width: 100%;
     margin-bottom: 16px;
+
+    &--animated {
+      @include animateFadeIn(350ms, calc(150ms * (var(--animation-order) + 1)));
+    }
   }
 }
 

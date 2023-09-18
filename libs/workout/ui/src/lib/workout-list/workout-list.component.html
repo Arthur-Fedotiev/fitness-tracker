@@ -3,7 +3,7 @@
     <div class="list">
       <div
         *ngFor="let item of listData; trackBy: trackById; let i = index"
-        class="item"
+        class="item item--animated"
         [style.--animation-order]="i"
       >
         <ng-template

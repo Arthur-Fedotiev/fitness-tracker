@@ -20,10 +20,11 @@
 
 .workout-preview {
   display: block;
+  transition: all 250ms ease-in-out;
 
   &:hover {
     @include mat.elevation(8);
-    transform: scale(1.025);
+    transform: scale(1.05);
   }
 }
 

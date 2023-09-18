@@ -20,7 +20,7 @@ export class WorkoutListComponent {
   @Input() listData: WithId<unknown>[] = [];
   @ContentChild(TemplateRef) workoutTemplate!: TemplateRef<unknown>;
 
-  public trackById(index: number, item: WithId<unknown>): string | number {
+  protected trackById(index: number, item: WithId<unknown>): string | number {
     return item.id ?? index;
   }
 }

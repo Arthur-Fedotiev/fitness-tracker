@@ -7,7 +7,9 @@
     [class.animate-pulse]="
       isWorkoutCreationMode && !selectedForWorkoutIds().has(exercise.id)
     "
-    class="item"
+    [class.item--selected]="selectedForWorkoutIds().has(exercise.id)"
+    class="item item--faded-in"
+    [style.--animation-order]="i"
     [exercise]="exercise"
     [idx]="i"
     (exerciseEdited)="editExercise($event)"

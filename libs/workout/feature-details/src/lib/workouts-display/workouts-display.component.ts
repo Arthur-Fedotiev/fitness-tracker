@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   Inject,
   signal,
-  inject,
   computed,
 } from '@angular/core';
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
