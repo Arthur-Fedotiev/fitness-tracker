@@ -1,12 +1,12 @@
 <mat-sidenav-container fullscreen>
-  <mat-sidenav class="sidenav" #sideNav (click)="sideNav.close()">
+  <mat-sidenav #sideNav class="sidenav" (click)="sideNav.close()">
     <ng-container
       *ngTemplateOutlet="navList; context: { $implicit: 'column' }"
     ></ng-container>
   </mat-sidenav>
 
-  <mat-toolbar color="primary">
-    <div fxHide.gt-sm class="toolbar-tools">
+  <mat-toolbar color="warn">
+    <div class="menu-container">
       <button mat-icon-button (click)="sideNav.open('mouse')">
         <mat-icon>menu</mat-icon>
       </button>
@@ -21,10 +21,10 @@
 
 <ng-template #navList let-layout>
   <ft-navigation-bar class="nav-bar" [layout]="layout"></ft-navigation-bar>
-  <section [fxHide.lt-md]="layout === 'row'">
+  <section class="settings-wrapper">
     <ft-settings-bar
-      [class.toolbar]="layout === 'row'"
       class="settings"
+      [class.toolbar]="layout === 'row'"
       [isLoggedIn]="isLoggedIn"
       [isLoggedOut]="isLoggedOut"
       [isDarkMode]="isDarkMode"

@@ -11,9 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { NgFor, NgIf } from '@angular/common';
-import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexModule } from '@angular/flex-layout/flex';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
@@ -35,9 +33,7 @@ import {
     MatMenuModule,
     MatSelectModule,
     E2eDirective,
-    FlexModule,
     MatIconModule,
-    ExtendedModule,
     NgFor,
     MatOptionModule,
     NgIf,

@@ -6,7 +6,7 @@
   padding-top: var(--sections-gap);
 }
 
-.toolbar-tools {
+.menu-container {
   display: flex;
   width: 100%;
 }
@@ -15,18 +15,22 @@
   height: 90%;
 }
 
-.settings {
-  .toolbar {
-    margin-left: auto;
-    width: 25vw;
-    --settings-layout: flex;
-    --settings-flag-width: 3rem;
-  }
-  &:not(.toolbar) {
-    padding: 0 0.75rem;
-    margin-top: var(--sections-gap);
-    --settings-layout: block;
-    --settings-flag-width: 10rem;
+.settings-wrapper {
+  display: none;
+
+  .settings {
+    .toolbar {
+      margin-left: auto;
+      width: 25vw;
+      --settings-layout: flex;
+      --settings-flag-width: 3rem;
+    }
+    &:not(.toolbar) {
+      padding: 0 0.75rem;
+      margin-top: var(--sections-gap);
+      --settings-layout: block;
+      --settings-flag-width: 10rem;
+    }
   }
 }
 
@@ -35,4 +39,14 @@ mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 9999;
+}
+
+@media screen and (min-width: 960px) {
+  .settings-wrapper {
+    display: block;
+  }
+
+  .menu-container {
+    display: none;
+  }
 }

@@ -1,10 +1,14 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  HostBinding,
+} from '@angular/core';
 import { ROLES } from 'shared-package';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { ExtendedModule } from '@angular/flex-layout/extended';
-import { FlexModule } from '@angular/flex-layout/flex';
+
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -19,8 +23,6 @@ import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
   standalone: true,
   imports: [
     MatListModule,
-    FlexModule,
-    ExtendedModule,
     E2eDirective,
     RouterLink,
     MatIconModule,
@@ -31,6 +33,9 @@ import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
   ],
 })
 export class NavigationBarComponent {
-  @Input() public layout!: 'row' | 'column';
-  public readonly roles = ROLES;
+  @HostBinding('style.--nav-container-direction')
+  @Input({ required: true })
+  layout: 'row' | 'column' = 'row';
+
+  protected readonly roles = ROLES;
 }

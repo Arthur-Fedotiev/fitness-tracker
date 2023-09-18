@@ -1,100 +1,65 @@
 <mat-nav-list
-  [fxLayout]="layout"
-  [fxHide.lt-md]="layout === 'row'"
   class="nav-list"
   aria-label="Navigation bar"
-  [class.nav-list--toolbar-view]="layout === 'row'"
   [class.horizontal]="layout === 'row'"
 >
-  <mat-list-item fxHide fxShow.md>
+  <mat-list-item>
     <a
       matListItemTitle
-      matTooltip="{{ 'NAVIGATION_BAR.exercisesLink' | translate }}"
-      matTooltipPosition="above"
+      class="nav-link"
       ftE2e="navLinkExercises"
+      title="{{ 'NAVIGATION_BAR.exercisesLink' | translate }}"
       [routerLink]="['exercises', 'all']"
     >
       <mat-icon class="nav-icon" svgIcon="exercises"></mat-icon>
-    </a>
-  </mat-list-item>
-  <mat-list-item fxHide.md>
-    <a
-      matListItemTitle
-      class="nav-link"
-      ftE2e="navLinkExercises"
-      [routerLink]="['exercises', 'all']"
-    >
-      <mat-icon class="nav-icon" svgIcon="exercises"></mat-icon>
-      <span translate>NAVIGATION_BAR.exercisesLink</span>
+      <span class="nav-link-text">{{
+        'NAVIGATION_BAR.exercisesLink' | translate
+      }}</span>
     </a></mat-list-item
   >
 
-  <mat-list-item fxHide fxShow.md
-    ><a
-      matListItemTitle
-      matTooltip="{{ 'NAVIGATION_BAR.workoutsLink' | translate }}"
-      matTooltipPosition="above"
-      ftE2e="navLinkWorkouts"
-      [routerLink]="['workouts', 'all']"
-    >
-      <mat-icon class="nav-icon black-icon" svgIcon="workouts"></mat-icon>
-    </a>
-  </mat-list-item>
-
-  <mat-list-item fxHide.md
+  <mat-list-item
     ><a
       matListItemTitle
       class="nav-link"
       ftE2e="navLinkExercises"
+      title="{{ 'NAVIGATION_BAR.workoutsLink' | translate }}"
       [routerLink]="['workouts', 'all']"
     >
       <mat-icon class="nav-icon black-icon" svgIcon="workouts"></mat-icon>
-      <span translate>NAVIGATION_BAR.workoutsLink</span>
+      <span class="nav-link-text">{{
+        'NAVIGATION_BAR.workoutsLink' | translate
+      }}</span>
     </a></mat-list-item
   >
 
-  <mat-list-item fxHide fxShow.md
-    ><a
-      matListItemTitle
-      matTooltip="{{ 'NAVIGATION_BAR.createExerciseLink' | translate }}"
-      matTooltipPosition="above"
-      ftE2e="navLinkCreateExercise"
-      [routerLink]="['exercises', 'create']"
-    >
-      <mat-icon class="nav-icon" svgIcon="blacksmith"></mat-icon>
-    </a>
-  </mat-list-item>
-  <mat-list-item fxHide.md>
+  <mat-list-item>
     <a
       matListItemTitle
       class="nav-link"
       ftE2e="navLinkCreateExercise"
+      title="{{ 'NAVIGATION_BAR.createExerciseLink' | translate }}"
       [routerLink]="['exercises', 'create']"
     >
       <mat-icon class="nav-icon" svgIcon="blacksmith"></mat-icon>
-      <span translate>NAVIGATION_BAR.createExerciseLink</span>
+      <span class="nav-link-text">{{
+        'NAVIGATION_BAR.createExerciseLink' | translate
+      }}</span>
     </a></mat-list-item
   >
-  <mat-list-item *ftRoles="roles.ADMIN" fxHide fxShow.md>
-    <a
-      matListItemTitle
-      matTooltip="{{ 'NAVIGATION_BAR.createUserLink' | translate }}"
-      matTooltipPosition="above"
-      ftE2e="navLinkCreateUser"
-      [routerLink]="['create-user']"
-    >
-      <mat-icon class="nav-icon black-icon" svgIcon="stud"></mat-icon>
-    </a>
-  </mat-list-item>
-  <mat-list-item *ftRoles="roles.ADMIN" fxHide.md>
+
+  <mat-list-item *ftRoles="roles.ADMIN">
     <a
       matListItemTitle
       class="nav-link"
       ftE2e="navLinkCreateExercise"
+      title="{{ 'NAVIGATION_BAR.createUserLink' | translate }}"
       [routerLink]="['create-user']"
     >
       <mat-icon class="nav-icon" svgIcon="stud"></mat-icon>
-      <span translate>NAVIGATION_BAR.createUserLink</span>
+      <span class="nav-link-text">{{
+        'NAVIGATION_BAR.createUserLink' | translate
+      }}</span>
     </a></mat-list-item
   >
 </mat-nav-list>
