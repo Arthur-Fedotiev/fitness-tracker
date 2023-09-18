@@ -1,30 +1,3 @@
-.exercise-actions {
-  display: flex;
-  gap: 1rem;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.add-btn {
-  margin-left: 0.5rem;
-}
-
-.card {
-  border-radius: 1.5rem;
-  &__avatar {
-    border-radius: 0.5rem;
-    object-fit: cover;
-  }
-  &__title {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  .subtitle-item > p:first-child {
-    color: #ff5722;
-  }
-}
-
 :host ::ng-deep {
   mat-card-title-group {
     display: flex;
@@ -45,6 +18,49 @@
         font-size: 1rem;
         font-weight: 500;
         white-space: nowrap;
+      }
+    }
+  }
+}
+
+.exercise-actions {
+  display: flex;
+  gap: 1rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.add-btn {
+  margin-left: 0.5rem;
+}
+
+.card {
+  border-radius: 1.5rem;
+
+  .avatar {
+    border-radius: 0.5rem;
+    object-fit: cover;
+
+    &--secondary {
+      display: none;
+    }
+  }
+
+  &__title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .subtitle-item > p:first-child {
+    color: #ff5722;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .card {
+    .avatar {
+      &--secondary {
+        display: block;
       }
     }
   }

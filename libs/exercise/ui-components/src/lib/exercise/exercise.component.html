@@ -5,7 +5,7 @@
 >
   <mat-card-title-group>
     <img
-      class="card__avatar"
+      class="avatar"
       mat-card-sm-image
       [ngSrc]="exercise.avatarUrl ?? avatarFallback"
       [priority]="exercise.hasPriority"
@@ -14,8 +14,7 @@
       alt="{{ exercise.name }} primary image"
     />
     <img
-      fxHide.lt-sm
-      class="card__avatar"
+      class="avatar avatar--secondary"
       mat-card-sm-image
       [ngSrc]="exercise.avatarSecondaryUrl ?? secondaryAvatarFallback"
       ftWithFallback
