@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import {
   createWorkout,
   deleteWorkout,
@@ -10,6 +9,7 @@ import {
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
 import { navigatedFromWorkoutCompose } from '../+state/actions/workouts.actions';
+import { getAreWorkoutsLoading } from '../+state/selectors/workouts.selectors';
 import {
   workoutDetails,
   selectWorkoutPreviewsVM,
@@ -23,37 +23,33 @@ import {
   providedIn: 'root',
 })
 export class WorkoutFacadeService {
-  public readonly workoutPreviews = this.store.selectSignal(
-    selectWorkoutPreviewsVM,
-  );
+  readonly areWorkoutsLoading = this.store.selectSignal(getAreWorkoutsLoading);
+  readonly workoutPreviews = this.store.selectSignal(selectWorkoutPreviewsVM);
+  readonly workoutDetails$ = this.store.select(workoutDetails);
 
-  public readonly workoutDetails$: Observable<SerializedWorkout | null> =
-    this.store.select(workoutDetails);
   constructor(private readonly store: Store) {}
 
-  public loadWorkoutPreviews(
-    payload?: WorkoutBasicInfo['targetMuscles'],
-  ): void {
+  loadWorkoutPreviews(payload?: WorkoutBasicInfo['targetMuscles']): void {
     this.store.dispatch(loadWorkoutPreviews({ payload }));
   }
 
-  public loadWorkoutDetails(payload: string): void {
+  loadWorkoutDetails(payload: string): void {
     this.store.dispatch(loadWorkoutDetails({ payload }));
   }
 
-  public createWorkout(payload: SerializedWorkout): void {
+  createWorkout(payload: SerializedWorkout): void {
     this.store.dispatch(createWorkout({ payload }));
   }
 
-  public editWorkout(payload: string): void {
+  editWorkout(payload: string): void {
     this.store.dispatch(editWorkout({ payload }));
   }
 
-  public deleteWorkout(payload: string): void {
+  deleteWorkout(payload: string): void {
     this.store.dispatch(deleteWorkout({ payload }));
   }
 
-  public onNavigatedFromWorkoutCompose(): void {
+  onNavigatedFromWorkoutCompose(): void {
     this.store.dispatch(navigatedFromWorkoutCompose());
   }
 }

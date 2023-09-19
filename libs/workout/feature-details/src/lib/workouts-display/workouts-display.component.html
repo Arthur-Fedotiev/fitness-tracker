@@ -19,7 +19,7 @@
   </mat-button-toggle-group>
 </div>
 
-<ng-container *ngIf="workouts()?.length; else noWorkouts">
+<ng-container *ngIf="!areWorkoutsLoading(); else loaderTpl">
   <ft-workout-list [listData]="workouts()">
     <ng-template let-workoutItem>
       <ft-workout-preview
@@ -32,6 +32,6 @@
   </ft-workout-list>
 </ng-container>
 
-<ng-template #noWorkouts>
-  <h1 class="no-data" translate="NO_DATA"></h1>
+<ng-template #loaderTpl>
+  <mat-spinner class="loader" diameter="100"></mat-spinner>
 </ng-template>

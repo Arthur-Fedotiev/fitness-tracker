@@ -37,6 +37,7 @@ import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 import { WorkoutPreviewVM } from '@fitness-tracker/workout/ui';
 import { MAX_WORKOUT_WITH_PRIORITY } from './constants';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
@@ -61,12 +62,14 @@ enum WorkoutOwner {
     TranslateModule,
     AsyncPipe,
     MatButtonToggleModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class WorkoutsDisplayComponent implements OnInit {
   protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;
-  public readonly userInfo = this.authFacade.userInfo;
-  public readonly isAdmin = toSignal(this.authFacade.isAdmin$);
+  protected readonly areWorkoutsLoading = this.workoutFacade.areWorkoutsLoading;
+  protected readonly userInfo = this.authFacade.userInfo;
+  protected readonly isAdmin = toSignal(this.authFacade.isAdmin$);
 
   protected readonly ExerciseOwner = WorkoutOwner;
   protected readonly workoutOwner = signal(WorkoutOwner.All);

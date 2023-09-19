@@ -8,19 +8,32 @@ export const workoutsFeatureKey = 'workouts';
 export interface WorkoutsState {
   workoutPreviews: WorkoutPreview[];
   workoutDetails: WorkoutDetails | null;
+  areWorkoutsLoading: boolean;
 }
 
 export const initialState: WorkoutsState = {
   workoutPreviews: [],
   workoutDetails: null,
+  areWorkoutsLoading: false,
 };
 
 export const reducer = createReducer(
   initialState,
 
+  on(WorkoutsActions.loadWorkoutPreviews, (state) => ({
+    ...state,
+    areWorkoutsLoading: true,
+  })),
+
   on(WorkoutsActions.loadWorkoutPreviewsSuccess, (state, { payload }) => ({
     ...state,
     workoutPreviews: payload,
+    areWorkoutsLoading: false,
+  })),
+
+  on(WorkoutsActions.loadWorkoutPreviewsFailure, (state) => ({
+    ...state,
+    areWorkoutsLoading: false,
   })),
 
   on(WorkoutsActions.loadWorkoutDetailsSuccess, (state, { payload }) => ({

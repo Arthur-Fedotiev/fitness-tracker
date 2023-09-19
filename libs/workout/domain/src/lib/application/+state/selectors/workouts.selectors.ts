@@ -1,7 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromWorkouts from '../reducers/workouts.reducer';
-import { WorkoutPreview } from '../../../workout-preview';
-import { SerializedWorkout } from '../../classes/workout-serializer';
 
 export const selectWorkoutsState =
   createFeatureSelector<fromWorkouts.WorkoutsState>(
@@ -10,10 +8,15 @@ export const selectWorkoutsState =
 
 export const selectWorkoutPreviewsVM = createSelector(
   selectWorkoutsState,
-  (state): WorkoutPreview[] => state.workoutPreviews,
+  (state) => state.workoutPreviews,
 );
 
 export const workoutDetails = createSelector(
   selectWorkoutsState,
-  (state): SerializedWorkout | null => state.workoutDetails,
+  (state) => state.workoutDetails,
+);
+
+export const getAreWorkoutsLoading = createSelector(
+  selectWorkoutsState,
+  (state) => state.areWorkoutsLoading,
 );

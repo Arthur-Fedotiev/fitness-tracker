@@ -28,7 +28,11 @@
   }
 }
 
-@media screen and (min-width: 400px) {
+.loader {
+  margin: 10rem auto;
+}
+
+@media screen and (min-width: 600px) {
   .filters {
     flex-flow: row nowrap;
   }
