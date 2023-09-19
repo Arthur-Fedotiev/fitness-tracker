@@ -1,14 +1,14 @@
 <main class="main-container">
   <section class="create-exercise-section">
-    <h3>Create New Exercise</h3>
+    <h3>{{ 'title' | translate }}</h3>
     <form
       #exerciseForm="ngForm"
       ftE2e="exerciseCreateAndEditForm"
       class="exercise-form"
     >
       <mat-form-field appearance="outline">
+        <mat-label>{{ 'label.name' | translate }}</mat-label>
         <input
-          placeholder="Exercise name"
           matInput
           required
           name="name"
@@ -18,9 +18,9 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
+        <mat-label>{{ 'label.type' | translate }}</mat-label>
         <mat-select
           required
-          placeholder="Select Exercise Type"
           name="exerciseType"
           [(ngModel)]="exerciseFormModel.exerciseType"
           ftE2e="exerciseTypeSelect"
@@ -36,9 +36,9 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
+        <mat-label>{{ 'label.targetMuscle' | translate }}</mat-label>
         <mat-select
           required
-          placeholder="Select target muscle"
           name="targetMuscle"
           [(ngModel)]="exerciseFormModel.targetMuscle"
           ftE2e="exerciseTargetMuscleSelect"
@@ -52,9 +52,10 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
+        <mat-label>{{ 'label.equipment' | translate }}</mat-label>
+
         <mat-select
           required
-          placeholder="Select Equipment"
           name="equipment"
           [(ngModel)]="exerciseFormModel.equipment"
           ftE2e="exerciseEquipmentSelect"
@@ -70,8 +71,9 @@
       </mat-form-field>
 
       <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+        <mat-label>{{ 'label.avatarUrl' | translate }}</mat-label>
+
         <input
-          placeholder="Avatar url"
           matInput
           name="avatarUrl"
           [(ngModel)]="exerciseFormModel.avatarUrl"
@@ -80,8 +82,8 @@
       </mat-form-field>
 
       <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+        <mat-label>{{ 'label.avatarSecondaryUrl' | translate }}</mat-label>
         <input
-          placeholder="Avatar secondary url"
           matInput
           name="avatarSecondaryUrl"
           ftE2e="exerciseAvatarSecondaryUrlInput"
@@ -89,8 +91,8 @@
         />
       </mat-form-field>
       <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+        <mat-label>{{ 'label.instructionVideo' | translate }}</mat-label>
         <input
-          placeholder="Instructions video"
           matInput
           name="instructionVideo"
           [(ngModel)]="exerciseFormModel.instructionVideo"
@@ -99,7 +101,7 @@
       </mat-form-field>
 
       <div ngModelGroup="instructions" class="instructions-container">
-        <h2>Instructions</h2>
+        <h2>{{ 'label.instructions' | translate }}</h2>
 
         <div
           class="instructions-group"
@@ -110,9 +112,10 @@
           "
         >
           <mat-form-field class="instruction-input" appearance="outline">
-            <mat-label>Instruction {{ i + 1 }}</mat-label>
+            <mat-label>
+              {{ 'label.instruction' | translate }} {{ i + 1 }}</mat-label
+            >
             <textarea
-              placeholder="Instruction"
               matInput
               name="{{ i }}"
               cdkTextareaAutosize
@@ -123,6 +126,7 @@
           <button
             mat-icon-button
             color="warn"
+            attr.aria-labelledby="{{ 'actions.removeInstruction' | translate }}"
             (click)="removeInstruction(i)"
             ftE2e="removeExerciseInstructionBtn"
           >
@@ -138,7 +142,7 @@
         (click)="exerciseFormModel.instructions.push('')"
         ftE2e="addExerciseInstructionBtn"
       >
-        ADD INSTRUCTION
+        {{ 'actions.addInstruction' | translate }}
       </button>
       <button
         mat-raised-button
@@ -147,7 +151,7 @@
         [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
         (click)="onSave()"
       >
-        SAVE
+        {{ 'actions.save' | translate }}
       </button>
     </div>
   </section>

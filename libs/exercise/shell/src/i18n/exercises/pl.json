@@ -1,0 +1,34 @@
+{
+  "title": "Utwórz nowe ćwiczenie",
+  "label": {
+    "name": "Nazwa ćwiczenia",
+    "type": "Rodzaj ćwiczenia",
+    "targetMuscle": "Mięsień docelowy",
+    "sprzęt": "sprzęt",
+    "avatarUrl": "Adres URL awatara",
+    "avatarSecondaryUrl": "Dodatkowy adres URL awatara",
+    "instructionVideo": "URL wideo",
+    "instrukcje": "Instrukcje",
+    "instrukcja": "Instrukcja"
+  },
+  "actions": {
+    "removeInstruction": "Usuń instrukcję",
+    "addInstruction": "Dodaj instrukcję",
+    "instruction": "Instrukcja"
+  },
+  "EXERCISE": {
+    "editBtn": "Edytować",
+    "equipment": "Ekwipunek",
+    "exerciseType": "Rodzaj",
+    "targetMuscle": "Mięsień",
+    "viewBtn": "Widok",
+    "noInstructions": "Pzepraszamy, ale nie ma instrukcji dla tego ćwiczenia."
+  },
+  "loadMore": "Załaduj więcej",
+  "showFilters": "Pokaż filtry",
+  "composedWorkout": {
+    "createWorkout": "Utwórz trening",
+    "proceed": "Kontynuuj",
+    "cancel": "Anuluj"
+  }
+}

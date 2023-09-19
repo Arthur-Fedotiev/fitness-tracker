@@ -1,0 +1,34 @@
+{
+  "title": "Create New Exercise",
+  "label": {
+    "name": "Exercise name",
+    "type": "Exercise type",
+    "targetMuscle": "Target muscle",
+    "equipment": "Equipment",
+    "avatarUrl": "Avatar URL",
+    "avatarSecondaryUrl": "Avatar secondary URL",
+    "instructionVideo": "Video URL",
+    "instructions": "Instructions",
+    "instruction": "Instruction"
+  },
+  "actions": {
+    "removeInstruction": "Remove instruction",
+    "addInstruction": "Add instruction",
+    "save": "Save"
+  },
+  "EXERCISE": {
+    "editBtn": "Edit",
+    "equipment": "Equipment",
+    "exerciseType": "Type",
+    "targetMuscle": "Muscle",
+    "viewBtn": "View",
+    "noInstructions": "Unfortunately, there are no instructions available for this exercise."
+  },
+  "loadMore": "Load More",
+  "showFilters": "Show Filters",
+  "composedWorkout": {
+    "createWorkout": "Create Workout",
+    "proceed": "Proceed",
+    "cancel": "Cancel"
+  }
+}

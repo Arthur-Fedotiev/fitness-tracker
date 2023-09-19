@@ -69,16 +69,13 @@ const exercisesReducer = createReducer(
   ),
   on(ExerciseActions.loadExerciseDetails, (state) => ({
     ...state,
-    listLoading: true,
   })),
   on(ExerciseActions.loadExerciseDetailsSuccess, (state, { payload }) => ({
     ...state,
-    listLoading: false,
     selectedExercise: payload,
   })),
   on(ExerciseActions.loadExerciseDetailsFailure, (state) => ({
     ...state,
-    listLoading: false,
   })),
   on(ExerciseActions.releaseExerciseDetails, (state) => ({
     ...state,

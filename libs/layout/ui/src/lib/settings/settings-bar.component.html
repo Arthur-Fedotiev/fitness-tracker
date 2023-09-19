@@ -5,6 +5,7 @@
       type="button"
       mat-button
       [matMenuTriggerFor]="settingsMenu"
+      (click)="$event.stopPropagation()"
     >
       <mat-icon
         class="setting-icon"

@@ -1,0 +1,34 @@
+{
+  "title": "Створити нову вправу",
+  "label": {
+    "name": "Назва вправи",
+    "type": "Тип вправи",
+    "targetMuscle": "Цільовий м'яз",
+    "equipment": "Обладнання",
+    "avatarUrl": "URL-адреса аватара",
+    "avatarSecondaryUrl": "Вторинна URL-адреса аватара",
+    "instructionVideo": "URL-адреса відео",
+    "instructions": "Інструкції",
+    "instruction": "Інструкція"
+  },
+  "actions": {
+    "removeInstruction": "Видалити інструкцію",
+    "addInstruction": "Додати інструкцію",
+    "save": "Зберегти"
+  },
+  "EXERCISE": {
+    "editBtn": "Редагувати",
+    "equipment": "Знаряд",
+    "exerciseType": "Тип",
+    "targetMuscle": "Мишца",
+    "viewBtn": "Детальніше",
+    "noInstructions": "Нажаль, інструкції відсутні."
+  },
+  "loadMore": "Більше",
+  "showFilters": "Показати фільтри",
+  "composedWorkout": {
+    "createWorkout": "Створити тренування",
+    "proceed": "Продовжити",
+    "cancel": "Скасувати"
+  }
+}

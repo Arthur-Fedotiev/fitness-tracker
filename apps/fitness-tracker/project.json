@@ -27,9 +27,9 @@
             "output": "assets"
           },
           {
-            "input": "libs/exercise/feature-display/src/i18n/exercise-display",
+            "input": "libs/exercise/shell/src/i18n/exercises",
             "glob": "*.json",
-            "output": "assets/i18n/exercise-display"
+            "output": "assets/i18n/exercises"
           },
           {
             "input": "libs/workout/shell/src/assets/i18n/workout",

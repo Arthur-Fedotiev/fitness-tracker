@@ -20,7 +20,7 @@ import {
 } from '@fitness-tracker/exercise/domain';
 
 import { filter, take } from 'rxjs';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -38,6 +38,7 @@ import {
   EXERCISE_AVATAR_FALLBACK_IMG,
   EXERCISE_AVATAR_FALLBACK_SECONDARY_IMG,
 } from '@fitness-tracker/shared/utils';
+import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 
 @UntilDestroy()
 @Component({
@@ -57,7 +58,6 @@ import {
     MatButtonModule,
     RolesDirective,
   ],
-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAndEditComponent implements OnDestroy {
@@ -97,6 +97,8 @@ export class CreateAndEditComponent implements OnDestroy {
 
       this.cdr.markForCheck();
     });
+
+    getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
 
   ngOnDestroy(): void {

@@ -1,1 +1,1 @@
-export * from './lib/exercise-shell.module';
+export * from './lib/exercise-shell';
