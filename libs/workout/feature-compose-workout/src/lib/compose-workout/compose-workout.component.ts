@@ -31,7 +31,7 @@ import { ComposeWorkoutTreeService } from './services/compose-workout-tree.servi
 import { hasChild, WorkoutDatabase } from './services/workout-db';
 import { WorkoutItemRestComponent } from './components/workout-item-rest/workout-item-rest.component';
 import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-subform/workout-item-load-subform.component';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,6 +44,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { ConfirmationDialogService } from '@fitness-tracker/shared/ui/components';
 
 @UntilDestroy()
 @Component({
@@ -105,6 +106,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
     protected readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly composeWorkoutPresenter: ComposeWorkoutComponentService,
     private readonly router: Router,
+    private readonly confirmationDialogService: ConfirmationDialogService,
   ) {
     getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
@@ -137,7 +139,19 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   }
 
   protected remove(node: WorkoutItemFlatNode) {
-    this.composeWorkoutPresenter.removeFromWorkout(node);
+    this.confirmationDialogService
+      .open({
+        title: 'removalConfirmation.title',
+        message: 'removalConfirmation.message',
+        confirmLabel: 'removalConfirmation.confirmLabel',
+        cancelLabel: 'removalConfirmation.cancelLabel',
+      })
+      .pipe(untilDestroyed(this))
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.composeWorkoutPresenter.removeFromWorkout(node);
+        }
+      });
   }
 
   protected saveWorkout() {

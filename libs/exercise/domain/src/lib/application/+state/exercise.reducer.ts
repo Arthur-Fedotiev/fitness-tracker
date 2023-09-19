@@ -36,7 +36,7 @@ const exercisesReducer = createReducer(
     error: null,
   })),
   on(ExerciseActions.refreshExercisesSuccess, (state, { payload }) =>
-    exercisesAdapter.setAll(payload, { ...state, loading: false }),
+    exercisesAdapter.setAll(payload, { ...state, listLoading: false }),
   ),
   on(ExerciseActions.refreshExercisesFailure, (state) => ({
     ...state,

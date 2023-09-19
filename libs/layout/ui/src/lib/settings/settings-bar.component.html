@@ -1,6 +1,11 @@
 <mat-list class="list">
   <mat-list-item>
-    <button type="button" mat-button [matMenuTriggerFor]="settingsMenu">
+    <button
+      #menuTrigger="matMenuTrigger"
+      type="button"
+      mat-button
+      [matMenuTriggerFor]="settingsMenu"
+    >
       <mat-icon
         class="setting-icon"
         attr.aria-labelledby="{{ language!.value }}"
@@ -13,7 +18,11 @@
       <button
         *ngFor="let opt of languages"
         mat-menu-item
-        (click)="$event.stopPropagation(); selectLanguage(opt.value)"
+        (click)="
+          $event.stopPropagation();
+          selectLanguage(opt.value);
+          menuTrigger.closeMenu()
+        "
       >
         <mat-icon
           class="setting-icon"

@@ -42,5 +42,11 @@
   "totalSets": "Total sets",
   "restPause": "Rest between sets - {{restPauseBetween}} sec., and after all sets done - {{restPauseAfterComplete}} sec.",
   "notChildRest": "(rest {{restPauseBetween}} sec., rest after exercise done {{restPauseAfterComplete}}))",
-  "viewInstructionsBtn": "Instructions"
+  "viewInstructionsBtn": "Instructions",
+  "removalConfirmation": {
+    "title": "Usunięcie ćwiczeń",
+    "message": "Czy na pewno chcesz usunąć to ćwiczenie? Nie będziesz mógł dodać go ponownie.",
+    "confirmLabel": "Usuń",
+    "cancelLabel": "Anuluj"
+  }
 }

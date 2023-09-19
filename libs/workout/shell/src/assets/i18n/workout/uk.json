@@ -42,5 +42,11 @@
   "totalSets": "Підходів",
   "restPause": "Відпочинок між підходами - {{restPauseBetween}} сек., після суперсету - {{restPauseAfterComplete}} сек.",
   "notChildRest": "(відпочинок між підходами {{restPauseBetween}} сек., відпочинок після завершення вправи {{restPauseAfterComplete}})",
-  "viewInstructionsBtn": "Інтсрукції"
+  "viewInstructionsBtn": "Інтсрукції",
+  "removalConfirmation": {
+    "title": "Видалення вправи",
+    "message": "Ви впевнені, що хочете видалити цю вправу? Ви не зможете додати її назад.",
+    "confirmLabel": "Видалити",
+    "cancelLabel": "Скасувати"
+  }
 }
