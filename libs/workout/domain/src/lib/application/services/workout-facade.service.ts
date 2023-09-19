@@ -8,7 +8,10 @@ import {
   loadWorkoutDetails,
   loadWorkoutPreviews,
 } from '../+state/actions/workouts.actions';
-import { navigatedFromWorkoutCompose } from '../+state/actions/workouts.actions';
+import {
+  navigatedFromWorkoutCompose,
+  navigatedFromWorkoutDisplay,
+} from '../+state/actions/workouts.actions';
 import { getAreWorkoutsLoading } from '../+state/selectors/workouts.selectors';
 import {
   workoutDetails,
@@ -29,27 +32,31 @@ export class WorkoutFacadeService {
 
   constructor(private readonly store: Store) {}
 
-  loadWorkoutPreviews(payload?: WorkoutBasicInfo['targetMuscles']): void {
+  loadWorkoutPreviews(payload?: WorkoutBasicInfo['targetMuscles']) {
     this.store.dispatch(loadWorkoutPreviews({ payload }));
   }
 
-  loadWorkoutDetails(payload: string): void {
+  loadWorkoutDetails(payload: string) {
     this.store.dispatch(loadWorkoutDetails({ payload }));
   }
 
-  createWorkout(payload: SerializedWorkout): void {
+  createWorkout(payload: SerializedWorkout) {
     this.store.dispatch(createWorkout({ payload }));
   }
 
-  editWorkout(payload: string): void {
+  editWorkout(payload: string) {
     this.store.dispatch(editWorkout({ payload }));
   }
 
-  deleteWorkout(payload: string): void {
+  deleteWorkout(payload: string) {
     this.store.dispatch(deleteWorkout({ payload }));
   }
 
-  onNavigatedFromWorkoutCompose(): void {
+  onNavigatedFromWorkoutCompose() {
     this.store.dispatch(navigatedFromWorkoutCompose());
+  }
+
+  releaseWorkoutDisplayResources() {
+    this.store.dispatch(navigatedFromWorkoutDisplay());
   }
 }

@@ -5,6 +5,7 @@ import {
   Inject,
   signal,
   computed,
+  OnDestroy,
 } from '@angular/core';
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
 import { WorkoutPreview } from '@fitness-tracker/workout-domain';
@@ -65,7 +66,7 @@ enum WorkoutOwner {
     MatProgressSpinnerModule,
   ],
 })
-export class WorkoutsDisplayComponent implements OnInit {
+export class WorkoutsDisplayComponent implements OnInit, OnDestroy {
   protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;
   protected readonly areWorkoutsLoading = this.workoutFacade.areWorkoutsLoading;
   protected readonly userInfo = this.authFacade.userInfo;
@@ -119,40 +120,48 @@ export class WorkoutsDisplayComponent implements OnInit {
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
-    public readonly exerciseDescriptors: ExerciseDescriptors,
+    protected readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly workoutFacade: WorkoutFacadeService,
     private readonly authFacade: AuthFacadeService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
   ) {}
 
-  public ngOnInit(): void {
+  ngOnInit() {
     this.initListeners();
   }
 
-  public targetMusclesChanges($event: TargetMuscles): void {
+  ngOnDestroy() {
+    this.releaseResources();
+  }
+
+  protected targetMusclesChanges($event: TargetMuscles) {
     this.setMusclesQueryParams($event);
   }
 
-  public editWorkout(id: string): void {
+  protected editWorkout(id: string) {
     this.router.navigate(['workouts', 'compose'], {
       queryParams: { workoutId: id },
     });
   }
 
-  public deleteWorkout(id: string): void {
+  protected deleteWorkout(id: string) {
     this.workoutFacade.deleteWorkout(id);
   }
 
-  private initListeners(): void {
+  private initListeners() {
     this.queryParams$.subscribe();
   }
 
-  private setMusclesQueryParams(targetMuscles: TargetMuscles): void {
+  private setMusclesQueryParams(targetMuscles: TargetMuscles) {
     const currentRoute: string = this.router.url.split('?')[0];
 
     this.router.navigate([currentRoute], {
       queryParams: { targetMuscles: JSON.stringify(targetMuscles) },
     });
+  }
+
+  protected releaseResources() {
+    this.workoutFacade.releaseWorkoutDisplayResources();
   }
 }

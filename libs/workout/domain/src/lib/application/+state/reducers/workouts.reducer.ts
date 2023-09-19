@@ -52,4 +52,9 @@ export const reducer = createReducer(
     ...state,
     workoutDetails: null,
   })),
+
+  on(WorkoutsActions.navigatedFromWorkoutDisplay, (state) => ({
+    ...state,
+    workoutPreviews: [],
+  })),
 );
