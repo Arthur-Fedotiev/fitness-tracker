@@ -39,6 +39,7 @@ import { WorkoutPreviewVM } from '@fitness-tracker/workout/ui';
 import { MAX_WORKOUT_WITH_PRIORITY } from './constants';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { toWorkoutPreviewVM } from './mappers';
 
 type TargetMuscles = ExerciseDescriptors['muscles'];
 
@@ -70,7 +71,9 @@ export class WorkoutsDisplayComponent implements OnInit, OnDestroy {
   protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;
   protected readonly areWorkoutsLoading = this.workoutFacade.areWorkoutsLoading;
   protected readonly userInfo = this.authFacade.userInfo;
-  protected readonly isAdmin = toSignal(this.authFacade.isAdmin$);
+  protected readonly isAdmin = toSignal(this.authFacade.isAdmin$, {
+    initialValue: false,
+  });
 
   protected readonly ExerciseOwner = WorkoutOwner;
   protected readonly workoutOwner = signal(WorkoutOwner.All);
@@ -95,15 +98,7 @@ export class WorkoutsDisplayComponent implements OnInit, OnDestroy {
 
   protected workoutPreviewVMs = computed(() =>
     this.workoutPreviews().map(
-      (workoutPreview, idx) =>
-        ({
-          ...workoutPreview,
-          hasPriority: idx <= MAX_WORKOUT_WITH_PRIORITY,
-          canDelete:
-            this.isAdmin() || workoutPreview.userId === this.userInfo()?.uid,
-          canEdit:
-            this.isAdmin() || workoutPreview.userId === this.userInfo()?.uid,
-        } satisfies WorkoutPreviewVM),
+      toWorkoutPreviewVM(this.isAdmin(), this.userInfo()?.uid),
     ),
   );
 
