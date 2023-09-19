@@ -10,7 +10,7 @@ export const sortComparer = false;
 export interface State extends EntityState<ExerciseResponseModel> {
   selectedId?: string | number;
   selectedExercise: ExerciseResponseModel | null;
-  loading: boolean;
+  listLoading: boolean;
   error?: string | null;
 }
 
@@ -24,16 +24,15 @@ export const exercisesAdapter: EntityAdapter<ExerciseResponseModel> =
   });
 
 export const initialState: State = exercisesAdapter.getInitialState({
-  loading: false,
+  listLoading: false,
   selectedExercise: null,
-  collectionsMeta: null,
 });
 
 const exercisesReducer = createReducer(
   initialState,
   on(ExerciseActions.refreshExercises, (state) => ({
     ...state,
-    loading: true,
+    listLoading: true,
     error: null,
   })),
   on(ExerciseActions.refreshExercisesSuccess, (state, { payload }) =>
@@ -41,11 +40,11 @@ const exercisesReducer = createReducer(
   ),
   on(ExerciseActions.refreshExercisesFailure, (state) => ({
     ...state,
-    loading: false,
+    listLoading: false,
   })),
   on(ExerciseActions.findExercises, (state) => ({
     ...state,
-    loading: true,
+    listLoading: true,
     error: null,
   })),
   on(ExerciseActions.findExercisesSuccess, (state, { payload }) => {
@@ -60,7 +59,7 @@ const exercisesReducer = createReducer(
   }),
   on(ExerciseActions.findExercisesFailure, (state) => ({
     ...state,
-    loading: false,
+    listLoading: false,
   })),
   on(ExerciseActions.emptyExercisesList, (state) =>
     exercisesAdapter.removeAll(state),
@@ -70,16 +69,16 @@ const exercisesReducer = createReducer(
   ),
   on(ExerciseActions.loadExerciseDetails, (state) => ({
     ...state,
-    loading: true,
+    listLoading: true,
   })),
   on(ExerciseActions.loadExerciseDetailsSuccess, (state, { payload }) => ({
     ...state,
-    loading: false,
+    listLoading: false,
     selectedExercise: payload,
   })),
   on(ExerciseActions.loadExerciseDetailsFailure, (state) => ({
     ...state,
-    loading: false,
+    listLoading: false,
   })),
   on(ExerciseActions.releaseExerciseDetails, (state) => ({
     ...state,

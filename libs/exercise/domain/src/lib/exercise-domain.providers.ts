@@ -5,7 +5,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { EXERCISE_DETAILS_QUERY } from './entities/queries/exercise-details.query';
 import { ExerciseFacade } from './application/exercise.facade';
-import { IS_LOADING_QUERY } from './entities/queries/is-loading.query';
 import { LOAD_EXERCISE_DETAILS_COMMAND } from './entities/commands/load-exercise-details.command';
 import {
   EXERCISE_SAVED_COMMAND,
@@ -26,10 +25,7 @@ export const EXERCISE_DOMAIN_PROVIDERS = [
     provide: EXERCISE_DETAILS_QUERY,
     useExisting: ExerciseFacade,
   },
-  {
-    provide: IS_LOADING_QUERY,
-    useExisting: ExerciseFacade,
-  },
+
   {
     provide: LOAD_EXERCISE_DETAILS_COMMAND,
     useExisting: ExerciseFacade,

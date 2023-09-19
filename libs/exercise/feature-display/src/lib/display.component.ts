@@ -69,6 +69,7 @@ import {
 } from '@angular/material/button-toggle';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 enum EXERCISE_MODE {
   'VIEW' = 'view',
@@ -98,6 +99,7 @@ enum ExerciseOwner {
     TranslateModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MuscleMultiSelectComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -106,14 +108,16 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   @ViewChild(MatExpansionPanel) composedWorkoutPanel: MatExpansionPanel | null =
     null;
 
-  public readonly roles = ROLES;
-  public readonly exerciseMode = EXERCISE_MODE;
-  public readonly ExerciseOwner = ExerciseOwner;
-  public readonly exercisesList = this.exerciseFacade.exercisesList;
-  public readonly userInfo = this.authFacade.userInfo;
-  public readonly searchQuery = signal('');
+  protected readonly roles = ROLES;
+  protected readonly exerciseMode = EXERCISE_MODE;
+  protected readonly ExerciseOwner = ExerciseOwner;
+  protected readonly exercisesList = this.exerciseFacade.exercisesList;
+  protected readonly areExercisesLoading =
+    this.exerciseFacade.areExercisesLoading;
+  protected readonly userInfo = this.authFacade.userInfo;
+  protected readonly searchQuery = signal('');
 
-  public readonly isAdmin = toSignal(this.authFacade.isAdmin$, {
+  protected readonly isAdmin = toSignal(this.authFacade.isAdmin$, {
     initialValue: false,
   });
 
@@ -122,7 +126,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   private readonly loadMoreExercises$: Observable<ExercisePagination> =
     this.loadExercisesSubj.asObservable().pipe(map(toLoadMoreAction));
 
-  public readonly targetMusclesFromQueries$ = this.route.queryParamMap.pipe(
+  protected readonly targetMusclesFromQueries$ = this.route.queryParamMap.pipe(
     map((queryParams: ParamMap) => queryParams.get('targetMuscles')),
     debounceTime(500),
     distinctUntilChanged(isEqual),
@@ -174,7 +178,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   private readonly targetMusclesSubj = new BehaviorSubject<
     FindExercisesSearchOptions['targetMuscles']
   >([]);
-  public readonly targetMuscles$ = this.targetMusclesSubj
+  protected readonly targetMuscles$ = this.targetMusclesSubj
     .asObservable()
     .pipe(filter(Boolean), skip(1), first());
 
@@ -183,7 +187,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(EXERCISE_DESCRIPTORS_TOKEN)
-    public readonly exerciseDescriptors: ExerciseDescriptors,
+    protected readonly exerciseDescriptors: ExerciseDescriptors,
     private readonly exerciseFacade: ExerciseFacade,
     private readonly authFacade: AuthFacadeService,
     private readonly router: Router,
@@ -196,44 +200,44 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     this.initListeners();
     this.loadExercisesSubj.next({ isLoadMore: false });
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
     this.releaseResources();
   }
 
-  public navigate(mode: EXERCISE_MODE, id: string) {
+  protected navigate(mode: EXERCISE_MODE, id: string) {
     this.router.navigate(['..', id, mode], { relativeTo: this.route });
   }
 
-  public deleteExercise(id: string) {
+  protected deleteExercise(id: string) {
     this.exerciseFacade.deleteExercise(id);
   }
 
-  public loadMoreExercises(isLoadMore: boolean) {
+  protected loadMoreExercises(isLoadMore: boolean) {
     this.loadExercisesSubj.next({ isLoadMore });
   }
 
-  public addToComposedWorkout(id: string) {
+  protected addToComposedWorkout(id: string) {
     this.selectedForWorkoutIds.mutate((ids) => ids.add(id));
   }
 
-  public removeFromComposedWorkout(id: string) {
+  protected removeFromComposedWorkout(id: string) {
     this.selectedForWorkoutIds.mutate((ids) => ids.delete(id));
   }
-  public cancelComposing() {
+  protected cancelComposing() {
     this.isWorkoutCreationMode = false;
     this.selectedForWorkoutIds.mutate((ids) => ids.clear());
   }
 
-  public showExerciseDetails(id: string) {
+  protected showExerciseDetails(id: string) {
     this.exerciseFacade.openExerciseDetailsDialog(id);
   }
 
-  public finishComposing() {
+  protected finishComposing() {
     this.router.navigate(['workouts', 'compose'], {
       state: {
         workoutExercisesList: this.selectedForWorkoutExercises(),
@@ -241,7 +245,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  public targetMusclesChanges(
+  protected targetMusclesChanges(
     $event: FindExercisesSearchOptions['targetMuscles'],
   ) {
     this.setMusclesQueryParams($event);

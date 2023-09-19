@@ -6,7 +6,6 @@ import * as ExercisesActions from '../application/+state/exercise.actions';
 import * as ExercisesSelectors from '../application/+state/exercise.selectors';
 import { Observable, map } from 'rxjs';
 import { ExerciseResponseModel } from './models/exercise-response.model';
-import { IsLoadingQuery } from '../entities/queries/is-loading.query';
 import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query';
 import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-details.command';
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
@@ -19,7 +18,6 @@ import { FindExercisesSearchOptions } from './models';
 @Injectable({ providedIn: 'root' })
 export class ExerciseFacade
   implements
-    IsLoadingQuery,
     ExerciseDetailsQuery,
     LoadExerciseDetailsCommand,
     ReleaseExerciseDetailsCommand,
@@ -29,7 +27,9 @@ export class ExerciseFacade
     .select(ExercisesSelectors.getAllExercises)
     .pipe(map((exercises) => exercises.filter(({ name }) => name)));
 
-  public readonly isLoading$ = this.store.select(ExercisesSelectors.getLoading);
+  public readonly areExercisesLoading = this.store.selectSignal(
+    ExercisesSelectors.getExercisesLoading,
+  );
   public readonly exercisesList = toSignal(this.exercisesList$, {
     initialValue: [] as ExerciseResponseModel[],
   });
