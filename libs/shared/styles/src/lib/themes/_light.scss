@@ -4,6 +4,7 @@
 @use '../components';
 @use '../mixins/contrast';
 @use '../components/material/button-toggle' as *;
+@use '../components/material/sidenav' as *;
 
 $ft-app-light-primary: mat.define-palette(mat.$amber-palette);
 $ft-app-light-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
@@ -24,6 +25,7 @@ $ft-app-light-theme: mat.define-light-theme(
 body:not(.dark-theme) {
   @include mat.all-component-colors($ft-app-light-theme);
   @include include-button-toggle-theme($ft-app-light-primary);
+  @include include-sidenav-theme($ft-app-light-warn, 500);
 
   @include contrast.contrast(
     $ft-app-light-primary,

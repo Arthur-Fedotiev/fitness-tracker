@@ -32,7 +32,7 @@
     </div>
 
     <components-exercise-list
-      *ngIf="areExercisesLoading(); else loaderTpl"
+      *ngIf="!areExercisesLoading(); else loaderTpl"
       [exerciseList]="filteredExerciseVMs()"
       [selectedForWorkoutIds]="selectedForWorkoutIds.asReadonly()"
       [isWorkoutCreationMode]="isWorkoutCreationMode"

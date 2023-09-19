@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+@mixin include-sidenav-theme($theme, $level: 900) {
+  .mat-sidenav-content.mat-drawer-content {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .mat-sidenav-content::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 10px;
+    background-color: transparent;
+  }
+
+  .mat-sidenav-content::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: mat.get-color-from-palette($theme, $level);
+  }
+}

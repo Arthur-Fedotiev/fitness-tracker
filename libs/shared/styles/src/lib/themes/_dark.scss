@@ -5,6 +5,7 @@
 @use '../mixins/contrast';
 @use './typography' as *;
 @use '../components/material/button-toggle' as *;
+@use '../components/material/sidenav' as *;
 
 $ft-app-dark-primary: mat.define-palette(mat.$deep-orange-palette);
 $ft-app-dark-accent: mat.define-palette(mat.$yellow-palette);
@@ -24,6 +25,7 @@ $ft-app-dark-theme: mat.define-dark-theme(
 
 @include mat.all-component-themes($ft-app-dark-theme);
 @include include-button-toggle-theme($ft-app-dark-primary);
+@include include-sidenav-theme($ft-app-dark-warn, 500);
 
 @include contrast.contrast(
   $ft-app-dark-primary,

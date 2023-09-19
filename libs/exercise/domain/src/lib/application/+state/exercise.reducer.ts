@@ -54,7 +54,7 @@ const exercisesReducer = createReducer(
 
     return adapterAction(payload.exercises, {
       ...state,
-      loading: false,
+      listLoading: false,
     });
   }),
   on(ExerciseActions.findExercisesFailure, (state) => ({
