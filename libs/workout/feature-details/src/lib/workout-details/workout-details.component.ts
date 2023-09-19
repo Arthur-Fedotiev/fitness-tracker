@@ -50,8 +50,9 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 export class WorkoutDetailsComponent implements OnInit {
   private workoutId!: string;
 
-  public readonly workoutDetails$: Observable<SerializedWorkout> =
-    this.workoutFacade.workoutDetails$.pipe(filter(Boolean));
+  public readonly workoutDetails$ = this.workoutFacade.workoutDetails$.pipe(
+    filter(Boolean),
+  );
 
   public readonly updateWorkoutDetails$ = this.settingsFacade.language$.pipe(
     skip(1),

@@ -38,10 +38,7 @@ export interface SerializedWorkoutItem {
 }
 
 export interface WorkoutDetails extends WorkoutBasicInfo {
-  content: (
-    | SerializedWorkoutItem
-    | (SerializedWorkoutItem & WithId<unknown>)
-  )[];
+  content: SerializedWorkoutItem[];
 }
 
 @Injectable({ providedIn: 'root' })

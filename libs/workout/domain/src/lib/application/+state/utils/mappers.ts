@@ -1,9 +1,9 @@
 import { WithId } from '@fitness-tracker/shared/utils';
 import {
-  SerializedWorkoutItem,
   SerializedWorkout,
+  SerializedWorkoutItem,
   WorkoutDetails,
-} from '../classes/workout-serializer';
+} from '../../classes';
 
 export const getIds = ({ id, children }: SerializedWorkoutItem): any[] =>
   !children?.length ? [id] : children.map(getIds);

@@ -13,15 +13,16 @@ import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { WithPayload, WithId } from '@fitness-tracker/shared/utils';
 import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
 import { WorkoutDetails } from '../../classes/workout-serializer';
-import {
-  toIdsFromSerializedWorkout,
-  toExercisesMap,
-  toWorkoutDetails,
-} from '../../utils/mappers';
+
 import {
   FirebaseExerciseDataService,
   GetWorkoutExercisesRequestDto,
 } from '@fitness-tracker/exercise/public-api';
+import {
+  toIdsFromSerializedWorkout,
+  toExercisesMap,
+  toWorkoutDetails,
+} from '../utils/mappers';
 
 @Injectable()
 export class WorkoutsEffects {

@@ -9,30 +9,34 @@
 
 .workout-header {
   position: relative;
-  min-height: 250px;
-  overflow: auto;
-  padding: 30px 15px;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  background-color: black;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  .workout-avatar {
+    height: 40vh;
+    width: 100%;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 90%);
+    mask-image: linear-gradient(to top, transparent 0%, black 90%);
+  }
 
-  &__content {
+  .workout-info {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
 
-    width: 100%;
+    width: 90%;
+    margin: auto;
 
-    h1 {
-      font-weight: 700;
-    }
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+  }
+
+  .info-blocks {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 2rem;
   }
 }
 

@@ -1,14 +1,29 @@
 <article *ngIf="workoutDetails$ | async as workout" class="wrapper">
-  <header
-    class="workout-header"
-    [style.background-image]="
-      'url(' +
-      workout.avatarUrl +
-      '), url(https://www.bodybuilding.com/images/2019/june/gethin-8-week-salespage-header-mobile-550x1085.jpg)'
-    "
-  >
-    <div class="workout-header__content">
-      <h1 class="mat-display-1">{{ workout.name | uppercase }}</h1>
+  <header class="workout-header">
+    <img
+      class="workout-avatar"
+      [src]="workout.avatarUrl"
+      alt="{{ workout.name }}"
+    />
+    <div class="workout-info">
+      <h1 class="mat-headline-2">{{ workout.name | uppercase }}</h1>
+      <p>By FitnessTracker</p>
+      <div class="info-blocks">
+        <div>
+          <p class="mat-subtitle-1">
+            {{ workout.estimatedDurationMin + ' min' }}
+          </p>
+          <p class="mat-caption">EST DURATION</p>
+        </div>
+        <div>
+          <p class="mat-subtitle-1">{{ workout.totalExercises }}</p>
+          <p>EXERCISES</p>
+        </div>
+        <div>
+          <p class="mat-subtitle-1">{{ workout.totalReps }}</p>
+          <p>TOTAL REPS</p>
+        </div>
+      </div>
     </div>
   </header>
   <section class="workout-wrapper">

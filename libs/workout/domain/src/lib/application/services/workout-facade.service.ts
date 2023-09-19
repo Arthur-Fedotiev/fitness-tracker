@@ -14,7 +14,7 @@ import {
 } from '../+state/actions/workouts.actions';
 import { getAreWorkoutsLoading } from '../+state/selectors/workouts.selectors';
 import {
-  workoutDetails,
+  workoutDetailsVm,
   selectWorkoutPreviewsVM,
 } from '../+state/selectors/workouts.selectors';
 import {
@@ -28,7 +28,7 @@ import {
 export class WorkoutFacadeService {
   readonly areWorkoutsLoading = this.store.selectSignal(getAreWorkoutsLoading);
   readonly workoutPreviews = this.store.selectSignal(selectWorkoutPreviewsVM);
-  readonly workoutDetails$ = this.store.select(workoutDetails);
+  readonly workoutDetails$ = this.store.select(workoutDetailsVm);
 
   constructor(private readonly store: Store) {}
 
