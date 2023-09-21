@@ -1,10 +1,25 @@
+:host {
+  --secondary-text-color: darkgrey;
+  --highlighted-color: orange;
+}
+
+.mat-caption {
+  color: var(--secondary-text-color);
+}
+
 .wrapper {
   display: flex;
   flex-flow: column nowrap;
+  gap: 1rem;
 }
 
-.single-item-title {
-  text-align: center;
+.level-paragraph {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: darkred;
+  padding: 0.4rem;
+  border-radius: 6px;
 }
 
 .workout-header {
@@ -33,23 +48,64 @@
     left: 5%;
   }
 
-  .info-blocks {
+  .by {
+    color: var(--highlighted-color);
+  }
+
+  .workout-name {
+    font-style: oblique;
+    letter-spacing: 0.25em;
+  }
+
+  .workout-stats {
     display: flex;
     flex-flow: row nowrap;
     gap: 2rem;
+
+    > * {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 0.5rem;
+    }
   }
 }
 
-.superset-description {
-  width: 90%;
-  margin: auto;
+.superset-container {
+  .superset-description {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
 
-  h2 {
+    width: 90%;
+    margin: auto;
+
+    .superset-stats {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 2rem;
+    }
+
+    .workout-item-stats {
+      justify-content: center;
+    }
+  }
+}
+
+.workout-item-stats {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
+
+  > * {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+
     text-align: center;
   }
 
-  p {
-    padding: 0 0.5rem;
+  .stat-item {
+    color: var(--highlighted-color);
   }
 }
 
@@ -62,24 +118,37 @@
   margin: 2rem 0;
 }
 
+.compound-title {
+  display: flex;
+  flex-flow: row nowrap;
+  place-content: center;
+  gap: 1rem;
+
+  .name {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+}
+
 .card {
   width: 90%;
   margin: 1rem auto 1rem auto;
   padding-left: 1rem;
 
-  &__avatar-container {
-    white-space: nowrap;
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
+
+  &__avatar-container {
+  }
+
   &__avatar {
     border-radius: 1rem;
     align-self: flex-end;
-    &:first-of-type {
-      margin-right: 0.5rem;
-    }
-  }
-  &__actions {
-    display: flex;
-    justify-content: center;
   }
 }
 
@@ -88,14 +157,15 @@
   flex-flow: column nowrap;
   justify-content: center;
 
-  article {
-    flex-basis: 90%;
+  .mat-mdc-card-title-group {
+    > div:first-child {
+      width: 100%;
+    }
   }
+}
 
-  mat-card-title-group > div:first-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 0.5rem;
+@media screen and (min-width: 600px) {
+  .card__avatar--secondary {
+    display: unset;
   }
 }

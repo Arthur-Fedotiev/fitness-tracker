@@ -18,11 +18,12 @@
     "saveWorkoutDisabledTooltip": "Fill in all the fields of instructions for workout, exercises and supersets"
   },
   "instructions": {
-    "REPS": "repetitions",
-    "DURATION": "duration",
+    "REPS": "Reps",
+    "DURATION": "Duration (sec.)",
     "units": {
       "REPS": "RM",
-      "DURATION": "sec."
+      "DURATION": "sec",
+      "MINUTES": "min"
     }
   },
   "loadLabel": {
@@ -38,10 +39,20 @@
   "compoundTypes": {
     "superset": "Superset"
   },
-  "supersetNotes": "Perform the exercises in order, resting as little as possible between movements.",
+  "supersetNotes": "Perform the exercises in order, without or as little rest between.",
   "totalSets": "Total sets",
-  "restPause": "Rest between sets - {{restPauseBetween}} sec., and after all sets done - {{restPauseAfterComplete}} sec.",
-  "notChildRest": "(rest {{restPauseBetween}} sec., rest after exercise done {{restPauseAfterComplete}}))",
+  "totalRounds": "Total rounds",
+  "restPause": {
+    "betweenRounds": "Rest between rounds",
+    "betweenSets": "Rest between sets",
+    "afterSupersetComplete": "Rest after superset done",
+    "afterExerciseComplete": "Rest after exercise done"
+  },
+  "workoutStats": {
+    "estimatedDuration": "Est. duration",
+    "totalExercises": "Exercises",
+    "totalReps": "Reps"
+  },
   "viewInstructionsBtn": "Instructions",
   "removalConfirmation": {
     "title": "Exercise removal",

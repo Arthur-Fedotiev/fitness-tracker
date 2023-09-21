@@ -1,9 +1,17 @@
 @use 'themes';
+@use './themes/pallets' as pallets;
 @use 'components/spinner';
+@use '@angular/material' as mat;
+@use 'sass:map';
 
 :root {
   --ft-primary-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   --ft-primary-font-size: 12px;
+
+  --ft-accent-color: #{mat.get-color-from-palette(
+      pallets.$ft-app-dark-primary,
+      500
+    )};
 
   @media screen and (min-width: 400px) {
     --ft-primary-font-size: 14px;
@@ -11,6 +19,13 @@
 
   @media screen and (min-width: 900px) {
     --ft-primary-font-size: 16px;
+  }
+
+  body:not(.dark-theme) {
+    --ft--accent-color: #{mat.get-color-from-palette(
+        pallets.$ft-app-light-primary,
+        600
+      )};
   }
 }
 
@@ -29,4 +44,8 @@ body {
   margin: 0;
   font-family: var(--ft-primary-font-family);
   font-size: var(--ft-primary-font-size);
+}
+
+.accent-color {
+  color: var(--ft-accent-color);
 }

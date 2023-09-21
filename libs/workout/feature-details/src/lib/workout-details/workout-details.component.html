@@ -6,26 +6,41 @@
       alt="{{ workout.name }}"
     />
     <div class="workout-info">
-      <h1 class="mat-headline-2">{{ workout.name | uppercase }}</h1>
-      <p>By FitnessTracker</p>
-      <div class="info-blocks">
+      <h1 class="workout-name mat-headline-2">
+        {{ workout.name | uppercase }}
+      </h1>
+      <p class="by">By FitnessTracker</p>
+      <div class="workout-stats">
         <div>
-          <p class="mat-subtitle-1">
-            {{ workout.estimatedDurationMin + ' min' }}
+          <p class="mat-subtitle-1 stat-item">
+            {{ workout.estimatedDurationMin }}
+            {{ 'instructions.units.MINUTES' | translate }}
           </p>
-          <p class="mat-caption">EST DURATION</p>
+          <p class="mat-caption">
+            {{ 'workoutStats.estimatedDuration' | translate | uppercase }}
+          </p>
         </div>
         <div>
-          <p class="mat-subtitle-1">{{ workout.totalExercises }}</p>
-          <p>EXERCISES</p>
+          <p class="mat-subtitle-1 stat-item">{{ workout.totalExercises }}</p>
+          <p class="mat-caption">
+            {{ 'workoutStats.totalExercises' | translate | uppercase }}
+          </p>
         </div>
         <div>
-          <p class="mat-subtitle-1">{{ workout.totalReps }}</p>
-          <p>TOTAL REPS</p>
+          <p class="mat-subtitle-1 stat-item">{{ workout.totalReps }}</p>
+          <p class="mat-caption">
+            {{ 'workoutStats.totalReps' | translate | uppercase }}
+          </p>
         </div>
       </div>
     </div>
+    <p *ngIf="workout.level as lvl" class="level-paragraph">
+      {{ 'LEVELS.' + lvl | translate | titlecase }}
+    </p>
   </header>
+
+  <mat-divider></mat-divider>
+
   <section class="workout-wrapper">
     <ng-container *ngFor="let workoutItem of workout.content; first as first">
       <ng-template
@@ -38,33 +53,66 @@
 
 <ng-template #workoutTpl let-item let-first="first">
   <mat-divider *ngIf="!first" class="divider"></mat-divider>
-  <div *ngIf="item.children" class="superset-description">
-    <h2>{{ 'compoundTypes.superset' | translate | uppercase }}</h2>
-    <p [translate]="'supersetNotes'"></p>
-    <p
-      [translate]="'restPause'"
-      [translateParams]="{
-        restPauseBetween: item.restPauseBetween,
-        restPauseAfterComplete: item.restPauseAfterComplete
-      }"
-    ></p>
+
+  <div *ngIf="item.children" class="superset-container">
+    <div class="mat-body-strong superset-description">
+      <div class="compound-title">
+        <span class="name"
+          >{{ 'compoundTypes.superset' | translate | uppercase }}
+        </span>
+        <button
+          #infoTooltip="matTooltip"
+          mat-icon-button
+          [matTooltip]="'supersetNotes' | translate"
+          matTooltipPosition="right"
+          aria-tooltip="Show superset notes"
+          (click)="infoTooltip.toggle()"
+        >
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
+
+      <div class="workout-item-stats">
+        <div>
+          <p class="mat-subtitle-1 stat-item">
+            {{ item.totalSets }}
+          </p>
+          <p class="mat-caption">
+            {{ 'totalRounds' | translate }}
+          </p>
+        </div>
+        <div>
+          <p class="mat-subtitle-1 stat-item">
+            {{ item.restPauseBetween }}
+            {{ 'instructions.units.DURATION' | translate }}
+          </p>
+          <p class="mat-caption">
+            {{ 'restPause.betweenRounds' | translate }}
+          </p>
+        </div>
+        <div>
+          <p class="mat-subtitle-1 stat-item">
+            {{ item.restPauseAfterComplete }}
+            {{ 'instructions.units.DURATION' | translate }}
+          </p>
+          <p class="mat-caption">
+            {{ 'restPause.afterSupersetComplete' | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="item.children?.length">
+      <ng-container *ngFor="let item of item.children; index as idx">
+        <ng-template
+          [ngTemplateOutlet]="workoutSingleItem"
+          [ngTemplateOutletContext]="{ $implicit: item, isChild: true }"
+        ></ng-template>
+      </ng-container>
+    </ng-container>
   </div>
 
-  <ng-container *ngIf="item.children?.length">
-    <ng-container *ngFor="let item of item.children; index as idx">
-      <ng-template
-        [ngTemplateOutlet]="workoutSingleItem"
-        [ngTemplateOutletContext]="{ $implicit: item, isChild: true }"
-      ></ng-template>
-    </ng-container>
-  </ng-container>
-
   <ng-container *ngIf="!item.children">
-    <h2 class="single-item-title">
-      <ng-container
-        *ngTemplateOutlet="titleTpl; context: { $implicit: item.name }"
-      ></ng-container>
-    </h2>
     <ng-template
       [ngTemplateOutlet]="workoutSingleItem"
       [ngTemplateOutletContext]="{ $implicit: item, isChild: false }"
@@ -75,55 +123,64 @@
 <ng-template #workoutSingleItem let-item let-isChild="isChild">
   <mat-card class="card mat-elevation-z8" tabindex="0">
     <mat-card-title-group>
-      <div class="card__avatar-container">
-        <img
-          class="card__avatar"
-          mat-card-sm-image
-          alt="{{ item.name }} avatar"
-          [src]="item.avatarUrl"
-          ftWithFallback
-        />
-        <img
-          mat-card-sm-image
-          ftWithFallback
-          class="card__avatar"
-          alt="{{ item.name }} avatar"
-          [src]="item.avatarSecondaryUrl"
-        />
-      </div>
+      <img
+        class="card__avatar"
+        mat-card-md-image
+        alt="{{ item.name }} avatar"
+        [src]="item.avatarUrl"
+        ftWithFallback
+      />
 
-      <mat-card-title *ngIf="isChild" class="mat-headline-5">
-        <ng-container
-          *ngTemplateOutlet="titleTpl; context: { $implicit: item.name }"
-        ></ng-container>
+      <mat-card-title class="mat-headline-5">
+        <div class="title-container">
+          <span>{{ item.name }}</span>
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="showExerciseDetails(item.id)"
+          >
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
       </mat-card-title>
       <mat-card-subtitle class="mat-body-1">
-        <span *ngIf="!isChild">
-          {{ 'totalSets' | translate }} - {{ item.totalSets }},</span
-        >
-        {{ 'instructions.' + item.type | translate | titlecase }} -
-        {{ item.load }} {{ 'instructions.units.' + item.type | translate }}
-        <span
-          *ngIf="!isChild"
-          [translate]="'notChildRest'"
-          [translateParams]="{
-            restPauseBetween: item.restPauseBetween,
-            restPauseAfterComplete: item.restPauseAfterComplete
-          }"
-        ></span>
+        <div class="workout-item-stats">
+          <div *ngIf="!isChild">
+            <p class="mat-subtitle-1 stat-item">{{ item.totalSets }}</p>
+            <p class="mat-caption">
+              {{ 'totalSets' | translate }}
+            </p>
+          </div>
+          <div>
+            <p class="mat-subtitle-1 stat-item">
+              {{ item.load }}
+            </p>
+            <p class="mat-caption">
+              {{ 'instructions.' + item.type | translate }}
+            </p>
+          </div>
+          <ng-container *ngIf="!isChild">
+            <div>
+              <p class="mat-subtitle-1 stat-item">
+                {{ item.restPauseBetween }}
+                {{ 'instructions.units.DURATION' | translate }}
+              </p>
+              <p class="mat-caption">
+                {{ 'restPause.betweenSets' | translate }}
+              </p>
+            </div>
+            <div>
+              <p class="mat-subtitle-1 stat-item">
+                {{ item.restPauseAfterComplete }}
+                {{ 'instructions.units.DURATION' | translate }}
+              </p>
+              <p class="mat-caption">
+                {{ 'restPause.afterExerciseComplete' | translate }}
+              </p>
+            </div></ng-container
+          >
+        </div>
       </mat-card-subtitle>
     </mat-card-title-group>
-    <mat-card-actions class="card__actions">
-      <button
-        mat-stroked-button
-        class="mat-raised-button mat-primary"
-        (click)="showExerciseDetails(item.id)"
-      >
-        {{ 'viewInstructionsBtn' | translate }}
-      </button>
-    </mat-card-actions>
   </mat-card>
 </ng-template>
-<ng-template #titleTpl let-title
-  ><span>{{ title }}</span></ng-template
->

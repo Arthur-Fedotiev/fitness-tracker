@@ -22,7 +22,8 @@
     "DURATION": "тривалість",
     "units": {
       "REPS": "раз",
-      "DURATION": "сек."
+      "DURATION": "сек",
+      "MINUTES": "хв"
     }
   },
   "loadLabel": {
@@ -40,9 +41,19 @@
   },
   "supersetNotes": "Виконуйте вправи одну за іншою без відпочинку, або з мінімально можливим відпочинком.",
   "totalSets": "Підходів",
-  "restPause": "Відпочинок між підходами - {{restPauseBetween}} сек., після суперсету - {{restPauseAfterComplete}} сек.",
-  "notChildRest": "(відпочинок між підходами {{restPauseBetween}} сек., відпочинок після завершення вправи {{restPauseAfterComplete}})",
-  "viewInstructionsBtn": "Інтсрукції",
+  "totalRounds": "всього раундів",
+  "restPause": {
+    "betweenRounds": "Відпочинок між раундами",
+    "betweenSets": "Відпочинок між підходами",
+    "afterSupersetComplete": "Відпочинок після завершення суперсету",
+    "afterExerciseComplete": "Відпочинок після виконання вправи"
+  },
+  "workoutStats": {
+    "estimatedDuration": "Тривалість",
+    "totalExercises": "Вправ",
+    "totalReps": "Повторень"
+  },
+  "viewInstructionsBtn": "Інструкції",
   "removalConfirmation": {
     "title": "Видалення вправи",
     "message": "Ви впевнені, що хочете видалити цю вправу? Ви не зможете додати її назад.",

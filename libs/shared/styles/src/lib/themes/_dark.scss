@@ -1,15 +1,12 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
+@use './pallets' as *;
 @use '../components';
 @use '../mixins/contrast';
 @use './typography' as *;
 @use '../components/material/button-toggle' as *;
 @use '../components/material/sidenav' as *;
-
-$ft-app-dark-primary: mat.define-palette(mat.$deep-orange-palette);
-$ft-app-dark-accent: mat.define-palette(mat.$yellow-palette);
-$ft-app-dark-warn: mat.define-palette(mat.$red-palette);
 
 $ft-app-dark-theme: mat.define-dark-theme(
   (

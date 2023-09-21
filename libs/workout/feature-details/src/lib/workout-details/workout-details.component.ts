@@ -1,17 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ImgFallbackDirective } from '@fitness-tracker/shared/utils';
 
-import { filter, Observable, skip, tap } from 'rxjs';
+import { filter, skip, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import { TranslateModule } from '@ngx-translate/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
-import {
-  SerializedWorkout,
-  WorkoutFacadeService,
-} from '@fitness-tracker/workout-domain';
+import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -25,6 +22,8 @@ import {
   TitleCasePipe,
 } from '@angular/common';
 import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @UntilDestroy()
 @Component({
@@ -38,8 +37,11 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
     NgFor,
     NgTemplateOutlet,
     MatDividerModule,
+    MatIconModule,
+    MatTooltipModule,
     TranslateModule,
     MatCardModule,
+    MatDividerModule,
     ImgFallbackDirective,
     MatButtonModule,
     AsyncPipe,

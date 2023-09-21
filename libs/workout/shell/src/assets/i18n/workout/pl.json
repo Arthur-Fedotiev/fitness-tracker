@@ -22,7 +22,8 @@
     "DURATION": "duration",
     "units": {
       "REPS": "RM",
-      "DURATION": "sec."
+      "DURATION": "sec",
+      "MINUTES": "min"
     }
   },
   "compoundTypes": {
@@ -40,9 +41,19 @@
   },
   "supersetNotes": "Perform the exercises in order, resting as little as possible between movements.",
   "totalSets": "Total sets",
-  "restPause": "Rest between sets - {{restPauseBetween}} sec., and after all sets done - {{restPauseAfterComplete}} sec.",
-  "notChildRest": "(rest {{restPauseBetween}} sec., rest after exercise done {{restPauseAfterComplete}}))",
-  "viewInstructionsBtn": "Instructions",
+  "totalRounds": "całkowita liczba rund",
+  "restPause": {
+    "betweenRounds": "Odpoczynek pomiędzy rundami",
+    "betweenSets": "Odpoczynek pomiędzy seriami",
+    "afterSupersetComplete": "Odpoczynek po zakończeniu superserii",
+    "afterExerciseComplete": "Odpoczynek po zakończeniu ćwiczenia"
+  },
+  "workoutStats": {
+    "estimatedDuration": "Szacowany czas trwania",
+    "totalExercises": "Ćwiczenia",
+    "totalReps": "Powtórzenia"
+  },
+  "viewInstructionsBtn": "Instrukcje",
   "removalConfirmation": {
     "title": "Usunięcie ćwiczeń",
     "message": "Czy na pewno chcesz usunąć to ćwiczenie? Nie będziesz mógł dodać go ponownie.",
