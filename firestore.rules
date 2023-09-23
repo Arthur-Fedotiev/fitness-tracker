@@ -68,7 +68,6 @@ service cloud.firestore {
       isNonEmptyString(data.coverUrl) &&
       isNonEmptyString(data.avatarUrl) &&
       isNonEmptyString(data.level) &&
-      isNonEmptyList(data.content) &&
       isRequestOwnershipValid('workout');
     }
 
