@@ -45,7 +45,7 @@ export enum MUSCLES {
   'LATS' = 'Lats',
   'MIDDLE_BACK' = 'Middle Back',
   'LOWER_BACK' = 'Lower Back',
-  'FLUTES' = 'Glutes',
+  'GLUTES' = 'Glutes',
   'QUADS' = 'Quads',
   'HAMSTRINGS' = 'Hamstrings',
 }
