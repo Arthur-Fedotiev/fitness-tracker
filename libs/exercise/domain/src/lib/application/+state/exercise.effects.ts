@@ -26,7 +26,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { FirebaseExerciseDataService } from '../../infrastructure/exercise.data.service';
 import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { GetExerciseRequestDto } from '../../entities/dto/request/get/get-exercise-request.dto';
-import { ExerciseResponseModel } from '../models/exercise-response.model';
 import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseDetailsDialogComponent } from '../../application/providers/exercise-details-dialog.provider';
 import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
@@ -62,7 +61,11 @@ export class ExerciseEffects {
                   }),
             ),
             catchError((payload) =>
-              of(ExercisesActions.findExercisesFailure({ payload })),
+              of(
+                type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES
+                  ? ExercisesActions.findExercisesFailure({ payload })
+                  : ExercisesActions.refreshExercisesFailure({ payload }),
+              ),
             ),
           ),
       ),
@@ -175,7 +178,9 @@ export class ExerciseEffects {
     () =>
       this.actions$.pipe(
         ofType(
+          ExercisesActions.loadExercisesFailure,
           ExercisesActions.findExercisesFailure,
+          ExercisesActions.refreshExercisesFailure,
           ExercisesActions.exerciseSavedFailure,
           ExercisesActions.deleteExerciseFailure,
           ExercisesActions.loadExerciseDetailsFailure,

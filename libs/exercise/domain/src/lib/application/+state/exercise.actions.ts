@@ -18,7 +18,7 @@ export const loadExercisesSuccess = createAction(
 
 export const loadExercisesFailure = createAction(
   EXERCISES_ACTION_NAMES.LOAD_EXERCISES_FAILURE,
-  props<{ error: unknown }>(),
+  props<{ payload: unknown }>(),
 );
 
 export const findExercises = createAction(
