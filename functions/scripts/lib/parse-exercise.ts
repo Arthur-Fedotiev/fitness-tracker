@@ -29,7 +29,7 @@ request(URL, (error, response, body) => {
       targetMuscle,
       exerciseType,
       equipment,
-      instructionVideo,
+      instructionVideo: instructionVideo ?? null,
       userId: null,
       admin: true,
     },
@@ -244,11 +244,10 @@ export const EXERCISE_DESCRIPTORS = {
     'CABLE',
     'MEDICINE_BALL',
     'DUMBBELL',
-    'NONE',
     'E-Z_BAR',
     'OTHER',
     'EXERCISE_BALL',
-    'NULL',
+    'NONE',
   ],
   exerciseTypes: [
     'CARDIO',
@@ -275,4 +274,4 @@ const EXERCISE_TYPE_MAP = {
 } as any;
 
 const DEFAULT_DESCRIPTOR = 'NULL';
-const DEFAULT_EQUIPMENT = EXERCISE_DESCRIPTORS.equipment.at(-3);
+const DEFAULT_EQUIPMENT = EXERCISE_DESCRIPTORS.equipment.at(-1);

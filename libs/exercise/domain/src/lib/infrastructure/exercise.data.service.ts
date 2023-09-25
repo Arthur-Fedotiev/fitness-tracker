@@ -124,7 +124,6 @@ export class FirebaseExerciseDataService {
         const exercisesTranslationsObs = exercisesBaseData.map(
           this.toExerciseTranslation$(req.lang),
         );
-
         return exercisesBaseData?.length
           ? combineLatest(exercisesTranslationsObs)
           : of([]);

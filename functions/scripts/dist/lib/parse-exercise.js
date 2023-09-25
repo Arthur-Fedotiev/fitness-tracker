@@ -46,7 +46,7 @@ const [URL, instructionVideo] = process.argv.slice(2);
             targetMuscle,
             exerciseType,
             equipment,
-            instructionVideo,
+            instructionVideo: instructionVideo ?? null,
             userId: null,
             admin: true,
         },
@@ -209,11 +209,10 @@ exports.EXERCISE_DESCRIPTORS = {
         'CABLE',
         'MEDICINE_BALL',
         'DUMBBELL',
-        'NONE',
         'E-Z_BAR',
         'OTHER',
         'EXERCISE_BALL',
-        'NULL',
+        'NONE',
     ],
     exerciseTypes: [
         'CARDIO',
@@ -238,4 +237,4 @@ const EXERCISE_TYPE_MAP = {
     NULL: 'NULL',
 };
 const DEFAULT_DESCRIPTOR = 'NULL';
-const DEFAULT_EQUIPMENT = exports.EXERCISE_DESCRIPTORS.equipment.at(-3);
+const DEFAULT_EQUIPMENT = exports.EXERCISE_DESCRIPTORS.equipment.at(-1);
