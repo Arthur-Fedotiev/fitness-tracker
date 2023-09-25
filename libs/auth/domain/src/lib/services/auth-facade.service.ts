@@ -52,7 +52,7 @@ export class AuthFacadeService implements UserDataQuery {
     this.store.dispatch(logout());
   }
 
-  setDestinationURL(payload: string): void {
+  setDestinationUrl(payload: string): void {
     this.store.dispatch(setDestinationURL({ payload }));
   }
 

@@ -1,21 +1,32 @@
-import { canActivate } from '@angular/fire/auth-guard';
-import { Route } from '@angular/router';
+import { canActivate, AuthGuard } from '@angular/fire/auth-guard';
+import {
+  ActivatedRouteSnapshot,
+  Route,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/public-api';
 import { LayoutComponent } from '@fitness-tracker/layout/feature';
 
 import {
   adminOnly,
-  redirectLoggedInToExercises,
   redirectUnauthorizedToLogin,
 } from '@fitness-tracker/shared/utils';
 import { workoutDataProviders } from '@fitness-tracker/workout-domain';
+import { inject } from '@angular/core';
+import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 
 export const APP_ROUTES: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'exercises/all' },
   {
     path: '',
     component: LayoutComponent,
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [
+      (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => (
+        inject(AuthFacadeService).setDestinationUrl(state.url),
+        inject(AuthGuard).canActivate(next, state)
+      ),
+    ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
     children: [
       {
         path: 'exercises',
@@ -42,7 +53,7 @@ export const APP_ROUTES: Route[] = [
   },
   {
     path: 'auth',
-    ...canActivate(redirectLoggedInToExercises),
+    // ...canActivate(redirectLoggedInToExercises),
     loadChildren: () =>
       import('@fitness-tracker/auth/shell').then((m) => m.authFeatureRoutes),
   },
