@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/create-user/ui/src",
   "selector": "ft",
+  "tags": ["domain:create-user", "type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:create-user", "type:ui"]
+  }
 }

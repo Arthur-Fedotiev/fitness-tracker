@@ -4,6 +4,7 @@
   "sourceRoot": "libs/auth/shell/src",
   "prefix": "fitness-tracker",
   "projectType": "library",
+  "tags": ["domain:auth", "type:shell"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -29,6 +30,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:auth", "type:shell"]
+  }
 }

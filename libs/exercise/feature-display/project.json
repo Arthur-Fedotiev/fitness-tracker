@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/exercise/feature-display/src",
   "prefix": "exercise",
+  "tags": ["domain:exercise", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:exercise", "type:feature"]
+  }
 }

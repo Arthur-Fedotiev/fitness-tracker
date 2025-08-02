@@ -10,7 +10,7 @@ import { ExerciseVM } from '../models/exercise-vm';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgOptimizedImage, TitleCasePipe, NgIf } from '@angular/common';
+import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import {
   ImgFallbackDirective,
@@ -29,13 +29,12 @@ import {
     MatCardModule,
     ImgFallbackDirective,
     NgOptimizedImage,
-    NgIf,
     E2eDirective,
     TranslateModule,
     MatButtonModule,
     MatIconModule,
-    TitleCasePipe,
-  ],
+    TitleCasePipe
+],
 })
 export class ExerciseComponent {
   @Input()

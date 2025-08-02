@@ -3,8 +3,8 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/i18n/domain/src",
   "prefix": "fitness-tracker",
-  "tags": ["domain:shared", "type:domain-logic"],
   "projectType": "library",
+  "tags": ["domain:shared", "type:domain-logic"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

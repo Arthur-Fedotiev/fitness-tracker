@@ -28,7 +28,7 @@ export const providePersistence = ({
   useEmulators,
   firebase,
 }: ProvidePersistenceSettings) => [
-  importProvidersFrom(
+
     provideAuth(() => {
       const auth = getAuth();
 
@@ -61,5 +61,5 @@ export const providePersistence = ({
       }
       return functions;
     }),
-  ),
-];
+
+  ];

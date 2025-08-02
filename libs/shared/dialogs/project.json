@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/shared/dialogs/src",
   "prefix": "ft",
+  "tags": ["domain:shared", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:shared", "type:feature"]
+  }
 }

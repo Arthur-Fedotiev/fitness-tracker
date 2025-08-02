@@ -13,14 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 
-import {
-  NgIf,
-  NgFor,
-  NgTemplateOutlet,
-  AsyncPipe,
-  UpperCasePipe,
-  TitleCasePipe,
-} from '@angular/common';
+import { NgTemplateOutlet, AsyncPipe, UpperCasePipe, TitleCasePipe } from '@angular/common';
 import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -33,8 +26,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     NgTemplateOutlet,
     MatDividerModule,
     MatIconModule,
@@ -42,11 +33,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TranslateModule,
     MatCardModule,
     MatDividerModule,
-    ImgFallbackDirective,
     MatButtonModule,
     AsyncPipe,
     UpperCasePipe,
-    TitleCasePipe,
+    TitleCasePipe
   ],
 })
 export class WorkoutDetailsComponent implements OnInit {
@@ -70,7 +60,7 @@ export class WorkoutDetailsComponent implements OnInit {
     private readonly settingsFacade: SettingsFacadeService,
     private readonly exercisesFacade: ExerciseFacade,
     private readonly route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initData();

@@ -6,7 +6,7 @@
       mat-button
       [matMenuTriggerFor]="settingsMenu"
       (click)="$event.stopPropagation()"
-    >
+      >
       <mat-icon
         class="setting-icon"
         attr.aria-labelledby="{{ language!.value }}"
@@ -16,22 +16,23 @@
     </button>
 
     <mat-menu #settingsMenu>
-      <button
-        *ngFor="let opt of languages"
-        mat-menu-item
+      @for (opt of languages; track opt) {
+        <button
+          mat-menu-item
         (click)="
           $event.stopPropagation();
           selectLanguage(opt.value);
           menuTrigger.closeMenu()
         "
-      >
-        <mat-icon
-          class="setting-icon"
-          matListIcon
-          [svgIcon]="opt.value"
-        ></mat-icon>
-        <span>{{ opt.label }}</span>
-      </button>
+          >
+          <mat-icon
+            class="setting-icon"
+            matListIcon
+            [svgIcon]="opt.value"
+          ></mat-icon>
+          <span>{{ opt.label }}</span>
+        </button>
+      }
     </mat-menu>
   </mat-list-item>
 
@@ -42,28 +43,31 @@
       class="action"
       (click)="toggleDarkMode()"
       aria-label="Toggle Dark Theme"
-    >
+      >
       <mat-icon matListIcon class="setting-icon" color="accent">{{
         isDarkMode ? 'dark_mode' : 'light_mode'
       }}</mat-icon>
     </button>
   </mat-list-item>
-  <mat-list-item *ngIf="photoUrl" fxHide.lt-md class="user-avatar-item">
-    <img [src]="photoUrl" class="user-avatar setting-icon" />
-  </mat-list-item>
+  @if (photoUrl) {
+    <mat-list-item fxHide.lt-md class="user-avatar-item">
+      <img [src]="photoUrl" class="user-avatar setting-icon" />
+    </mat-list-item>
+  }
   <mat-list-item>
-    <button
-      *ngIf="isLoggedIn"
-      (click)="logOut()"
-      class="action"
-      mat-button
-      aria-label="Logout"
-    >
-      <mat-icon
-        class="nav-icon setting-icon"
-        svgIcon="exit"
+    @if (isLoggedIn) {
+      <button
+        (click)="logOut()"
+        class="action"
+        mat-button
         aria-label="Logout"
-      ></mat-icon>
-    </button>
+        >
+        <mat-icon
+          class="nav-icon setting-icon"
+          svgIcon="exit"
+          aria-label="Logout"
+        ></mat-icon>
+      </button>
+    }
   </mat-list-item>
 </mat-list>

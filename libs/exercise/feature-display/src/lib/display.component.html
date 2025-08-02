@@ -14,7 +14,7 @@
           type="text"
           [value]="searchQuery()"
           (input)="onSearchChanges($any($event.target).value)"
-        />
+          />
       </mat-form-field>
 
       <mat-button-toggle-group
@@ -22,109 +22,112 @@
         aria-label="Exercise by"
         [value]="exerciseOwner()"
         (change)="onExerciseOwnerChanges($event)"
-      >
+        >
         <mat-button-toggle [value]="ExerciseOwner.FitnessTracker"
           >FitnessTracker</mat-button-toggle
-        >
-        <mat-button-toggle [value]="ExerciseOwner.User">Mine</mat-button-toggle>
-        <mat-button-toggle [value]="ExerciseOwner.All">All</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-
-    <components-exercise-list
-      *ngIf="!areExercisesLoading(); else loaderTpl"
-      [exerciseList]="filteredExerciseVMs()"
-      [selectedForWorkoutIds]="selectedForWorkoutIds.asReadonly()"
-      [isWorkoutCreationMode]="isWorkoutCreationMode"
-      (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
-      (exerciseViewed)="showExerciseDetails($event)"
-      (exerciseDeleted)="deleteExercise($event)"
-      (exerciseAddedToWorkout)="addToComposedWorkout($event)"
-      (exerciseRemovedFromWorkout)="removeFromComposedWorkout($event)"
-    ></components-exercise-list>
-
-    <ng-template #loaderTpl>
-      <div class="loader">
-        <mat-spinner diameter="100"></mat-spinner>
+          >
+          <mat-button-toggle [value]="ExerciseOwner.User">Mine</mat-button-toggle>
+          <mat-button-toggle [value]="ExerciseOwner.All">All</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
-    </ng-template>
-  </article>
 
-  <mat-accordion *ngIf="exerciseVMs().length" class="composed-workout-section">
-    <mat-expansion-panel #panel class="mat-app-background" hideToggle disabled>
-      <mat-expansion-panel-header>
-        <mat-panel-title class="actions">
-          <button
-            *ngIf="!isWorkoutCreationMode"
-            mat-stroked-button
-            class="action"
-            color="accent"
-            (click)="isWorkoutCreationMode = true"
-          >
-            {{ 'composedWorkout.createWorkout' | translate }}
-          </button>
-          <ng-container *ngIf="isWorkoutCreationMode"
-            ><button
-              mat-stroked-button
-              class="action"
-              color="accent"
-              [disabled]="!selectedForWorkoutIds().size"
-              (click)="finishComposing()"
-            >
-              {{ 'composedWorkout.proceed' | translate }}
-            </button>
+      @if (!areExercisesLoading()) {
+        <components-exercise-list
+          [exerciseList]="filteredExerciseVMs()"
+          [selectedForWorkoutIds]="selectedForWorkoutIds.asReadonly()"
+          [isWorkoutCreationMode]="isWorkoutCreationMode"
+          (exerciseEdited)="navigate(exerciseMode.EDIT, $event)"
+          (exerciseViewed)="showExerciseDetails($event)"
+          (exerciseDeleted)="deleteExercise($event)"
+          (exerciseAddedToWorkout)="addToComposedWorkout($event)"
+          (exerciseRemovedFromWorkout)="removeFromComposedWorkout($event)"
+        ></components-exercise-list>
+      } @else {
+        <div class="loader">
+          <mat-spinner diameter="100"></mat-spinner>
+        </div>
+      }
 
-            <button
-              mat-stroked-button
-              class="action"
-              color="warn"
-              (click)="cancelComposing()"
-            >
-              {{ 'composedWorkout.cancel' | translate }}
-            </button>
-          </ng-container>
-        </mat-panel-title>
-        <button
-          *ngIf="selectedForWorkoutIds().size"
-          mat-icon-button
-          aria-label="Selected exercises"
-          color="primary"
-          (click)="panel.toggle()"
-        >
-          <mat-icon
-            [matBadge]="selectedForWorkoutIds().size"
-            matBadgeColor="accent"
-            matBadgeSize="small"
-            matBadgeOverlap
-            >search</mat-icon
-          >
-        </button>
-      </mat-expansion-panel-header>
-      <div class="selected-exercises-section">
-        <mat-card
-          *ngFor="let exercise of selectedForWorkoutExercises()"
-          class="selected-exercise mat-elevation-z8"
-          tabindex="0"
-        >
-          <img
-            mat-card-sm-image
-            alt="{{ exercise.name }} image"
-            [src]="exercise.avatarUrl"
-            ftWithFallback
-          />
+    </article>
 
-          <mat-card-title class="card__title">
-            {{ exercise.name }}
-          </mat-card-title>
-          <button
-            mat-icon-button
-            aria-label="Remove exercises"
-            (click)="removeFromComposedWorkout(exercise.id)"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-card>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-</main>
+    @if (exerciseVMs().length) {
+      <mat-accordion class="composed-workout-section">
+        <mat-expansion-panel #panel class="mat-app-background" hideToggle disabled>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="actions">
+              @if (!isWorkoutCreationMode) {
+                <button
+                  mat-stroked-button
+                  class="action"
+                  color="accent"
+                  (click)="isWorkoutCreationMode = true"
+                  >
+                  {{ 'composedWorkout.createWorkout' | translate }}
+                </button>
+              }
+              @if (isWorkoutCreationMode) {
+                <button
+                  mat-stroked-button
+                  class="action"
+                  color="accent"
+                  [disabled]="!selectedForWorkoutIds().size"
+                  (click)="finishComposing()"
+                  >
+                  {{ 'composedWorkout.proceed' | translate }}
+                </button>
+                <button
+                  mat-stroked-button
+                  class="action"
+                  color="warn"
+                  (click)="cancelComposing()"
+                  >
+                  {{ 'composedWorkout.cancel' | translate }}
+                </button>
+              }
+            </mat-panel-title>
+            @if (selectedForWorkoutIds().size) {
+              <button
+                mat-icon-button
+                aria-label="Selected exercises"
+                color="primary"
+                (click)="panel.toggle()"
+                >
+                <mat-icon
+                  [matBadge]="selectedForWorkoutIds().size"
+                  matBadgeColor="accent"
+                  matBadgeSize="small"
+                  matBadgeOverlap
+                  >search</mat-icon
+                  >
+                </button>
+              }
+            </mat-expansion-panel-header>
+            <div class="selected-exercises-section">
+              @for (exercise of selectedForWorkoutExercises(); track exercise) {
+                <mat-card
+                  class="selected-exercise mat-elevation-z8"
+                  tabindex="0"
+                  >
+                  <img
+                    mat-card-sm-image
+                    alt="{{ exercise.name }} image"
+                    [src]="exercise.avatarUrl"
+                    ftWithFallback
+                    />
+                  <mat-card-title class="card__title">
+                    {{ exercise.name }}
+                  </mat-card-title>
+                  <button
+                    mat-icon-button
+                    aria-label="Remove exercises"
+                    (click)="removeFromComposedWorkout(exercise.id)"
+                    >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-card>
+              }
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      }
+    </main>

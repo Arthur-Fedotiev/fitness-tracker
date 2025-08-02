@@ -1,20 +1,21 @@
 <div
   class="exercises-panel"
   [class.exercises-panel--workout-creation]="isWorkoutCreationMode"
->
-  <components-exercise
-    *ngFor="let exercise of exerciseList; trackBy: trackById; let i = index"
+  >
+  @for (exercise of exerciseList; track trackById(i, exercise); let i = $index) {
+    <components-exercise
     [class.animate-pulse]="
       isWorkoutCreationMode && !selectedForWorkoutIds().has(exercise.id)
     "
-    [class.item--selected]="selectedForWorkoutIds().has(exercise.id)"
-    class="item item--faded-in"
-    [style.--animation-order]="i"
-    [exercise]="exercise"
-    [idx]="i"
-    (exerciseEdited)="editExercise($event)"
-    (exerciseViewed)="viewExercise($event)"
-    (exerciseDeleted)="deleteExercise($event)"
-    (click)="onExerciseClick(exercise.id)"
-  ></components-exercise>
+      [class.item--selected]="selectedForWorkoutIds().has(exercise.id)"
+      class="item item--faded-in"
+      [style.--animation-order]="i"
+      [exercise]="exercise"
+      [idx]="i"
+      (exerciseEdited)="editExercise($event)"
+      (exerciseViewed)="viewExercise($event)"
+      (exerciseDeleted)="deleteExercise($event)"
+      (click)="onExerciseClick(exercise.id)"
+    ></components-exercise>
+  }
 </div>

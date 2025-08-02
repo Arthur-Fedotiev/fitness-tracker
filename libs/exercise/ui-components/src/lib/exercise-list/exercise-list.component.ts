@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ExerciseVM } from '../models/exercise-vm';
 import { ExerciseComponent } from '../exercise/exercise.component';
-import { NgFor } from '@angular/common';
+
 
 @Component({
   selector: 'components-exercise-list',
@@ -16,7 +16,7 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./exercise-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgFor, ExerciseComponent],
+  imports: [ExerciseComponent],
 })
 export class ExerciseListComponent {
   @Input() public exerciseList: ExerciseVM[] | null = null;

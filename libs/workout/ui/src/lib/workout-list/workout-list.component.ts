@@ -6,7 +6,7 @@ import {
   Input,
 } from '@angular/core';
 import { WithId } from '@fitness-tracker/shared/utils';
-import { NgFor, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'ft-workout-list',
@@ -14,7 +14,7 @@ import { NgFor, NgTemplateOutlet } from '@angular/common';
   styleUrls: ['./workout-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgFor, NgTemplateOutlet],
+  imports: [NgTemplateOutlet],
 })
 export class WorkoutListComponent {
   @Input() listData: WithId<unknown>[] = [];

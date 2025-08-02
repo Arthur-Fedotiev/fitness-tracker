@@ -33,7 +33,7 @@ import { WorkoutItemRestComponent } from './components/workout-item-rest/workout
 import { WorkoutItemLoadSubformComponent } from './components/workout-item-load-subform/workout-item-load-subform.component';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -70,14 +70,13 @@ import { ConfirmationDialogService } from '@fitness-tracker/shared/ui/components
     MatButtonModule,
     MatSnackBarModule,
     MatTooltipModule,
-    NgIf,
     MatIconModule,
     FormsModule,
     WorkoutItemLoadSubformComponent,
     WorkoutItemRestComponent,
     TranslateModule,
-    MatDividerModule,
-  ],
+    MatDividerModule
+],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   @ViewChild(WorkoutBasicInfoComponent, { static: true })

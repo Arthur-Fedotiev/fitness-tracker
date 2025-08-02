@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
-import { TitleCasePipe, NgIf } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'ft-workout-item-load',
@@ -20,15 +20,14 @@ import { TitleCasePipe, NgIf } from '@angular/common';
   viewProviders: [formViewProvider],
   standalone: true,
   imports: [
-    NgIf,
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
     MatOptionModule,
     MatInputModule,
     TranslateModule,
-    TitleCasePipe,
-  ],
+    TitleCasePipe
+],
 })
 export class WorkoutItemLoadSubformComponent {
   @Input() instruction!: WorkoutItemInstruction;

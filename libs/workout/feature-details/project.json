@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/workout/feature-details/src",
   "prefix": "ft",
+  "tags": ["domain:workout", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:workout", "type:feature"]
+  }
 }

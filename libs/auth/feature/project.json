@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/auth/feature/src",
   "selector": "ft",
+  "tags": ["scope:auth", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["scope:auth", "type:feature"]
+  }
 }

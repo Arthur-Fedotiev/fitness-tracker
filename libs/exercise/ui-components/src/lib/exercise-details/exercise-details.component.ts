@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import {
   Component,
   ChangeDetectionStrategy,
@@ -21,7 +21,7 @@ interface ExerciseDetailsVM {
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
   standalone: true,
-  imports: [NgIf, NgFor, TranslateModule, MatDialogModule, MatButtonModule],
+  imports: [TranslateModule, MatDialogModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {

@@ -5,7 +5,7 @@
     [(ngModel)]="instruction.type"
     name="type"
     required
-  >
+    >
     <mat-option [value]="instructionType.REPS">{{
       'instructions.' + instructionType.REPS | translate | titlecase
     }}</mat-option>
@@ -15,20 +15,21 @@
   </mat-select>
 </mat-form-field>
 
-<mat-form-field
-  class="load-control"
-  *ngIf="instruction.type"
-  appearance="outline"
->
-  <mat-label> {{ 'loadLabel.' + instruction.type | translate }} </mat-label>
-  <input
-    type="number"
-    step="1"
-    [(ngModel)]="instruction.load"
-    name="load"
-    min="0"
-    matInput
-    appearance="fill"
-    required
-  />
-</mat-form-field>
+@if (instruction.type) {
+  <mat-form-field
+    class="load-control"
+    appearance="outline"
+    >
+    <mat-label> {{ 'loadLabel.' + instruction.type | translate }} </mat-label>
+    <input
+      type="number"
+      step="1"
+      [(ngModel)]="instruction.load"
+      name="load"
+      min="0"
+      matInput
+      appearance="fill"
+      required
+      />
+  </mat-form-field>
+}

@@ -14,15 +14,15 @@ interface ProvideSharedStateSettings {
 export const provideSharedState = ({
   production,
 }: ProvideSharedStateSettings) => [
-  importProvidersFrom(
-    StoreModule.forRoot<FtState>(appReduceMap, {
-      metaReducers: [languageMetaReducer, darkMode],
-      runtimeChecks: {
-        strictActionImmutability: true,
-        strictStateImmutability: true,
-      },
-    }),
-    EffectsModule.forRoot([SettingsEffects]),
-    !production ? StoreDevtoolsModule.instrument() : [],
-  ),
-];
+    importProvidersFrom(
+      StoreModule.forRoot<FtState>(appReduceMap, {
+        metaReducers: [languageMetaReducer, darkMode],
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }),
+      EffectsModule.forRoot([SettingsEffects]),
+      !production ? StoreDevtoolsModule.instrument({ connectInZone: true, }) : [],
+    ),
+  ];

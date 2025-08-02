@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/shared/i18n/utils/src",
   "prefix": "ft",
+  "tags": ["domain:shared", "type:util"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:shared", "type:util"]
+  }
 }

@@ -1,123 +1,127 @@
-<article *ngIf="workoutDetails$ | async as workout" class="wrapper">
-  <header class="workout-header">
-    <img
-      class="workout-avatar"
-      [src]="workout.avatarUrl"
-      alt="{{ workout.name }}"
-    />
-    <div class="workout-info">
-      <h1 class="workout-name mat-headline-2">
-        {{ workout.name | uppercase }}
-      </h1>
-      <p class="by">By FitnessTracker</p>
-      <div class="workout-stats">
-        <div>
-          <p class="mat-subtitle-1 stat-item">
-            {{ workout.estimatedDurationMin }}
-            {{ 'instructions.units.MINUTES' | translate }}
-          </p>
-          <p class="mat-caption">
-            {{ 'workoutStats.estimatedDuration' | translate | uppercase }}
-          </p>
-        </div>
-        <div>
-          <p class="mat-subtitle-1 stat-item">{{ workout.totalExercises }}</p>
-          <p class="mat-caption">
-            {{ 'workoutStats.totalExercises' | translate | uppercase }}
-          </p>
-        </div>
-        <div>
-          <p class="mat-subtitle-1 stat-item">{{ workout.totalReps }}</p>
-          <p class="mat-caption">
-            {{ 'workoutStats.totalReps' | translate | uppercase }}
-          </p>
+@if (workoutDetails$ | async; as workout) {
+  <article class="wrapper">
+    <header class="workout-header">
+      <img
+        class="workout-avatar"
+        [src]="workout.avatarUrl"
+        alt="{{ workout.name }}"
+        />
+      <div class="workout-info">
+        <h1 class="workout-name mat-headline-2">
+          {{ workout.name | uppercase }}
+        </h1>
+        <p class="by">By FitnessTracker</p>
+        <div class="workout-stats">
+          <div>
+            <p class="mat-subtitle-1 stat-item">
+              {{ workout.estimatedDurationMin }}
+              {{ 'instructions.units.MINUTES' | translate }}
+            </p>
+            <p class="mat-caption">
+              {{ 'workoutStats.estimatedDuration' | translate | uppercase }}
+            </p>
+          </div>
+          <div>
+            <p class="mat-subtitle-1 stat-item">{{ workout.totalExercises }}</p>
+            <p class="mat-caption">
+              {{ 'workoutStats.totalExercises' | translate | uppercase }}
+            </p>
+          </div>
+          <div>
+            <p class="mat-subtitle-1 stat-item">{{ workout.totalReps }}</p>
+            <p class="mat-caption">
+              {{ 'workoutStats.totalReps' | translate | uppercase }}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <p *ngIf="workout.level as lvl" class="level-paragraph">
-      {{ 'LEVELS.' + lvl | translate | titlecase }}
-    </p>
-  </header>
-
-  <mat-divider></mat-divider>
-
-  <section class="workout-wrapper">
-    <ng-container *ngFor="let workoutItem of workout.content; first as first">
-      <ng-template
-        [ngTemplateOutlet]="workoutTpl"
-        [ngTemplateOutletContext]="{ $implicit: workoutItem, first }"
-      ></ng-template>
-    </ng-container>
-  </section>
-</article>
+      @if (workout.level; as lvl) {
+        <p class="level-paragraph">
+          {{ 'LEVELS.' + lvl | translate | titlecase }}
+        </p>
+      }
+    </header>
+    <mat-divider></mat-divider>
+    <section class="workout-wrapper">
+      @for (workoutItem of workout.content; track workoutItem; let first = $first) {
+        <ng-template
+          [ngTemplateOutlet]="workoutTpl"
+          [ngTemplateOutletContext]="{ $implicit: workoutItem, first }"
+        ></ng-template>
+      }
+    </section>
+  </article>
+}
 
 <ng-template #workoutTpl let-item let-first="first">
-  <mat-divider *ngIf="!first" class="divider"></mat-divider>
+  @if (!first) {
+    <mat-divider class="divider"></mat-divider>
+  }
 
-  <div *ngIf="item.children" class="superset-container">
-    <div class="mat-body-strong superset-description">
-      <div class="compound-title">
-        <span class="name"
-          >{{ 'compoundTypes.superset' | translate | uppercase }}
-        </span>
-        <button
-          #infoTooltip="matTooltip"
-          mat-icon-button
-          [matTooltip]="'supersetNotes' | translate"
-          matTooltipPosition="right"
-          aria-tooltip="Show superset notes"
-          (click)="infoTooltip.toggle()"
-        >
-          <mat-icon>info</mat-icon>
-        </button>
+  @if (item.children) {
+    <div class="superset-container">
+      <div class="mat-body-strong superset-description">
+        <div class="compound-title">
+          <span class="name"
+            >{{ 'compoundTypes.superset' | translate | uppercase }}
+          </span>
+          <button
+            #infoTooltip="matTooltip"
+            mat-icon-button
+            [matTooltip]="'supersetNotes' | translate"
+            matTooltipPosition="right"
+            aria-tooltip="Show superset notes"
+            (click)="infoTooltip.toggle()"
+            >
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+        <div class="workout-item-stats">
+          <div>
+            <p class="mat-subtitle-1 stat-item">
+              {{ item.totalSets }}
+            </p>
+            <p class="mat-caption">
+              {{ 'totalRounds' | translate }}
+            </p>
+          </div>
+          <div>
+            <p class="mat-subtitle-1 stat-item">
+              {{ item.restPauseBetween }}
+              {{ 'instructions.units.DURATION' | translate }}
+            </p>
+            <p class="mat-caption">
+              {{ 'restPause.betweenRounds' | translate }}
+            </p>
+          </div>
+          <div>
+            <p class="mat-subtitle-1 stat-item">
+              {{ item.restPauseAfterComplete }}
+              {{ 'instructions.units.DURATION' | translate }}
+            </p>
+            <p class="mat-caption">
+              {{ 'restPause.afterSupersetComplete' | translate }}
+            </p>
+          </div>
+        </div>
       </div>
-
-      <div class="workout-item-stats">
-        <div>
-          <p class="mat-subtitle-1 stat-item">
-            {{ item.totalSets }}
-          </p>
-          <p class="mat-caption">
-            {{ 'totalRounds' | translate }}
-          </p>
-        </div>
-        <div>
-          <p class="mat-subtitle-1 stat-item">
-            {{ item.restPauseBetween }}
-            {{ 'instructions.units.DURATION' | translate }}
-          </p>
-          <p class="mat-caption">
-            {{ 'restPause.betweenRounds' | translate }}
-          </p>
-        </div>
-        <div>
-          <p class="mat-subtitle-1 stat-item">
-            {{ item.restPauseAfterComplete }}
-            {{ 'instructions.units.DURATION' | translate }}
-          </p>
-          <p class="mat-caption">
-            {{ 'restPause.afterSupersetComplete' | translate }}
-          </p>
-        </div>
-      </div>
+      @if (item.children?.length) {
+        @for (item of item.children; track item; let idx = $index) {
+          <ng-template
+            [ngTemplateOutlet]="workoutSingleItem"
+            [ngTemplateOutletContext]="{ $implicit: item, isChild: true }"
+          ></ng-template>
+        }
+      }
     </div>
+  }
 
-    <ng-container *ngIf="item.children?.length">
-      <ng-container *ngFor="let item of item.children; index as idx">
-        <ng-template
-          [ngTemplateOutlet]="workoutSingleItem"
-          [ngTemplateOutletContext]="{ $implicit: item, isChild: true }"
-        ></ng-template>
-      </ng-container>
-    </ng-container>
-  </div>
-
-  <ng-container *ngIf="!item.children">
+  @if (!item.children) {
     <ng-template
       [ngTemplateOutlet]="workoutSingleItem"
       [ngTemplateOutletContext]="{ $implicit: item, isChild: false }"
     ></ng-template>
-  </ng-container>
+  }
 </ng-template>
 
 <ng-template #workoutSingleItem let-item let-isChild="isChild">
@@ -128,7 +132,7 @@
         mat-card-md-image
         alt="{{ item.name }} avatar"
         [src]="item.avatarUrl"
-      />
+        />
 
       <mat-card-title class="mat-headline-5">
         <div class="title-container">
@@ -137,19 +141,21 @@
             mat-icon-button
             color="primary"
             (click)="showExerciseDetails(item.id)"
-          >
+            >
             <mat-icon>info</mat-icon>
           </button>
         </div>
       </mat-card-title>
       <mat-card-subtitle class="mat-body-1">
         <div class="workout-item-stats">
-          <div *ngIf="!isChild">
-            <p class="mat-subtitle-1 stat-item">{{ item.totalSets }}</p>
-            <p class="mat-caption">
-              {{ 'totalSets' | translate }}
-            </p>
-          </div>
+          @if (!isChild) {
+            <div>
+              <p class="mat-subtitle-1 stat-item">{{ item.totalSets }}</p>
+              <p class="mat-caption">
+                {{ 'totalSets' | translate }}
+              </p>
+            </div>
+          }
           <div>
             <p class="mat-subtitle-1 stat-item">
               {{ item.load }}
@@ -158,7 +164,7 @@
               {{ 'instructions.' + item.type | translate }}
             </p>
           </div>
-          <ng-container *ngIf="!isChild">
+          @if (!isChild) {
             <div>
               <p class="mat-subtitle-1 stat-item">
                 {{ item.restPauseBetween }}
@@ -176,8 +182,8 @@
               <p class="mat-caption">
                 {{ 'restPause.afterExerciseComplete' | translate }}
               </p>
-            </div></ng-container
-          >
+            </div>
+          }
         </div>
       </mat-card-subtitle>
     </mat-card-title-group>

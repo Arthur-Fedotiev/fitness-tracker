@@ -1,4 +1,4 @@
-import { map, Observable, pipe, UnaryFunction } from 'rxjs';
+import { map, Observable, pipe, tap, UnaryFunction } from 'rxjs';
 import { GLOBAL_PATHS } from '../constants/routing.consts';
 import {
   customClaims,
@@ -13,11 +13,18 @@ export const adminOnly: () => UnaryFunction<
   Observable<any>,
   Observable<boolean>
 > = () =>
-  pipe(
-    customClaims,
-    map(({ admin }) => admin),
-    map(Boolean),
-  );
+    pipe(
+      customClaims,
+      tap(console.log),
+      map((claims) => {
+        // Handle both array and object cases
+        if (Array.isArray(claims)) {
+          return false; // or handle array case as needed
+        }
+        return claims?.admin || false;
+      }),
+      map(Boolean),
+    );
 
 export const redirectLoggedInToExercises = () =>
   redirectLoggedInTo(GLOBAL_PATHS.EXERCISES_LIST);

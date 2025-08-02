@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/workout/ui/src",
   "prefix": "ft",
+  "tags": ["domain:workout", "type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:workout", "type:ui"]
+  }
 }

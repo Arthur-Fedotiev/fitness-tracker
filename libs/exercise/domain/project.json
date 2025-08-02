@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/exercise/domain/src",
   "prefix": "exercise",
+  "tags": ["domain:exercise", "type:domain-logic"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:exercise", "type:domain-logic"]
+  }
 }

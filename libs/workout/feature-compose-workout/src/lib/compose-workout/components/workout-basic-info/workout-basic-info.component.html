@@ -2,7 +2,7 @@
   #workoutBasicInfoGroup="ngModelGroup"
   ngModelGroup="workoutBasicInfo"
   class="workout-basic-info"
->
+  >
   <mat-form-field appearance="outline">
     <input
       placeholder="{{ 'basicInformation.name' | translate }}"
@@ -10,7 +10,7 @@
       required
       name="name"
       [(ngModel)]="workoutBasicInfo.name"
-    />
+      />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -20,47 +20,49 @@
       name="targetMuscles"
       required
       [(ngModel)]="workoutBasicInfo.targetMuscles"
-    >
-      <mat-option
-        *ngFor="let muscle of exerciseDescriptors.muscles"
-        [value]="muscle"
-        >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
       >
-    </mat-select>
-  </mat-form-field>
+      @for (muscle of exerciseDescriptors.muscles; track muscle) {
+        <mat-option
+          [value]="muscle"
+          >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+          >
+        }
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-select
-      placeholder="{{ 'basicInformation.level' | translate }}"
-      name="level"
-      required=""
-      [(ngModel)]="workoutBasicInfo.level"
-    >
-      <mat-option
-        *ngFor="let lvl of exerciseDescriptors.proficiencyLvls"
-        [value]="lvl"
-        >{{ 'PROFICIENCY_LVL.' + lvl | translate | titlecase }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select
+        placeholder="{{ 'basicInformation.level' | translate }}"
+        name="level"
+        required=""
+        [(ngModel)]="workoutBasicInfo.level"
+        >
+        @for (lvl of exerciseDescriptors.proficiencyLvls; track lvl) {
+          <mat-option
+            [value]="lvl"
+            >{{ 'PROFICIENCY_LVL.' + lvl | translate | titlecase }}</mat-option
+            >
+          }
+        </mat-select>
+      </mat-form-field>
 
-  <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-    <input
-      placeholder="{{ 'basicInformation.coverUrl' | translate }}"
-      matInput
-      required
-      name="coverUrl"
-      [(ngModel)]="workoutBasicInfo.coverUrl"
-    />
-  </mat-form-field>
+      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+        <input
+          placeholder="{{ 'basicInformation.coverUrl' | translate }}"
+          matInput
+          required
+          name="coverUrl"
+          [(ngModel)]="workoutBasicInfo.coverUrl"
+          />
+      </mat-form-field>
 
-  <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-    <input
-      placeholder="{{ 'basicInformation.avatarUrl' | translate }}"
-      matInput
-      name="avatarUrl"
-      required
-      [(ngModel)]="workoutBasicInfo.avatarUrl"
-    />
-  </mat-form-field>
-</div>
+      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+        <input
+          placeholder="{{ 'basicInformation.avatarUrl' | translate }}"
+          matInput
+          name="avatarUrl"
+          required
+          [(ngModel)]="workoutBasicInfo.avatarUrl"
+          />
+      </mat-form-field>
+    </div>

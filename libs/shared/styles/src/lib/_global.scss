@@ -8,8 +8,9 @@
   --ft-primary-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   --ft-primary-font-size: 12px;
 
-  --ft-accent-color: #{mat.get-color-from-palette(
-      pallets.$ft-app-dark-primary,
+  --ft-accent-color: #{mat.get-theme-color(
+      pallets.$ft-app-dark-theme,
+      primary,
       500
     )};
 
@@ -22,8 +23,9 @@
   }
 
   body:not(.dark-theme) {
-    --ft--accent-color: #{mat.get-color-from-palette(
-        pallets.$ft-app-light-primary,
+    --ft--accent-color: #{mat.get-theme-color(
+        pallets.$ft-app-light-theme,
+        primary,
         600
       )};
   }

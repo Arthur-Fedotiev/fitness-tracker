@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/shared/ui/components/src",
   "prefix": "ft",
+  "tags": ["domain:shared", "type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:shared", "type:ui"]
+  }
 }

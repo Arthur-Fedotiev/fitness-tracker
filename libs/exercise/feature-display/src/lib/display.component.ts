@@ -222,16 +222,26 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   }
 
   protected addToComposedWorkout(id: string) {
-    this.selectedForWorkoutIds.mutate((ids) => ids.add(id));
+    this.selectedForWorkoutIds.update((ids) => {
+      const newIds = new Set(ids);
+      newIds.add(id);
+      return newIds;
+    });
   }
 
   protected removeFromComposedWorkout(id: string) {
-    this.selectedForWorkoutIds.mutate((ids) => ids.delete(id));
+    this.selectedForWorkoutIds.update((ids) => {
+      const newIds = new Set(ids);
+      newIds.delete(id);
+      return newIds;
+    });
   }
+
   protected cancelComposing() {
     this.isWorkoutCreationMode = false;
-    this.selectedForWorkoutIds.mutate((ids) => ids.clear());
+    this.selectedForWorkoutIds.update(() => new Set<string>());
   }
+
 
   protected showExerciseDetails(id: string) {
     this.exerciseFacade.openExerciseDetailsDialog(id);

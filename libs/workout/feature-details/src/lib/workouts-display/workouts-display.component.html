@@ -10,28 +10,27 @@
     aria-label="Exercise by"
     [value]="workoutOwner()"
     (change)="workoutOwner.set($event.value)"
-  >
+    >
     <mat-button-toggle [value]="ExerciseOwner.FitnessTracker"
       >FitnessTracker</mat-button-toggle
-    >
-    <mat-button-toggle [value]="ExerciseOwner.User">Mine</mat-button-toggle>
-    <mat-button-toggle [value]="ExerciseOwner.All">All</mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
+      >
+      <mat-button-toggle [value]="ExerciseOwner.User">Mine</mat-button-toggle>
+      <mat-button-toggle [value]="ExerciseOwner.All">All</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 
-<ng-container *ngIf="!areWorkoutsLoading(); else loaderTpl">
-  <ft-workout-list [listData]="workouts()">
-    <ng-template let-workoutItem>
-      <ft-workout-preview
-        class="workout-preview"
-        [workout]="workoutItem"
-        (workoutEdited)="editWorkout($event)"
-        (workoutDeleted)="deleteWorkout($event)"
-      ></ft-workout-preview>
-    </ng-template>
-  </ft-workout-list>
-</ng-container>
+  @if (!areWorkoutsLoading()) {
+    <ft-workout-list [listData]="workouts()">
+      <ng-template let-workoutItem>
+        <ft-workout-preview
+          class="workout-preview"
+          [workout]="workoutItem"
+          (workoutEdited)="editWorkout($event)"
+          (workoutDeleted)="deleteWorkout($event)"
+        ></ft-workout-preview>
+      </ng-template>
+    </ft-workout-list>
+  } @else {
+    <mat-spinner class="loader" diameter="100"></mat-spinner>
+  }
 
-<ng-template #loaderTpl>
-  <mat-spinner class="loader" diameter="100"></mat-spinner>
-</ng-template>

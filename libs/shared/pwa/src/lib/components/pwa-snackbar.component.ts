@@ -10,7 +10,7 @@ import {
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'ft-pwa-snackbar',
@@ -18,7 +18,7 @@ import { NgIf } from '@angular/common';
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, MatButtonModule, MatSnackBarModule],
+  imports: [MatButtonModule, MatSnackBarModule],
 })
 export class PwaSnackbarComponent {
   @Output() confirm = new EventEmitter<void>();

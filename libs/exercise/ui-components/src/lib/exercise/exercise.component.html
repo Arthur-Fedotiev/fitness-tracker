@@ -2,7 +2,7 @@
   class="card mat-elevation-z8"
   tabindex="0"
   [class]="exercise.isSelected ? ['contrast', 'accent'] : []"
->
+  >
   <mat-card-title-group>
     <img
       class="avatar"
@@ -12,7 +12,7 @@
       width="80"
       height="80"
       alt="{{ exercise.name }} primary image"
-    />
+      />
     <img
       class="avatar avatar--secondary"
       mat-card-sm-image
@@ -22,7 +22,7 @@
       alt="{{ exercise.name }} secondary image"
       width="80"
       height="80"
-    />
+      />
     <mat-card-title class="card__title">
       <span ftE2e="exerciseName">{{ exercise.name }}</span>
     </mat-card-title>
@@ -49,27 +49,29 @@
       color="accent"
       ftE2e="exerciseViewBtn"
       (click)="viewExercise(exercise)"
-    >
+      >
       {{ 'EXERCISE.viewBtn' | translate }}
     </button>
 
-    <button
-      *ngIf="exercise.canEdit"
-      mat-stroked-button
-      color="primary"
-      ftE2e="editExerciseBtn"
-      (click)="editExercise(exercise)"
-    >
-      {{ 'EXERCISE.editBtn' | translate }}
-    </button>
-    <button
-      *ngIf="exercise.canDelete"
-      mat-mini-fab
-      color="warn"
-      ftE2e="deleteExerciseBtn"
-      (click)="deleteExercise(exercise)"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
+    @if (exercise.canEdit) {
+      <button
+        mat-stroked-button
+        color="primary"
+        ftE2e="editExerciseBtn"
+        (click)="editExercise(exercise)"
+        >
+        {{ 'EXERCISE.editBtn' | translate }}
+      </button>
+    }
+    @if (exercise.canDelete) {
+      <button
+        mat-mini-fab
+        color="warn"
+        ftE2e="deleteExerciseBtn"
+        (click)="deleteExercise(exercise)"
+        >
+        <mat-icon>delete</mat-icon>
+      </button>
+    }
   </mat-card-actions>
 </mat-card>

@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/fitness-tracker-e2e/src",
   "projectType": "application",
+  "tags": ["type:e2e"],
+  "implicitDependencies": ["fitness-tracker"],
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
@@ -23,7 +25,5 @@
         "lintFilePatterns": ["apps/fitness-tracker-e2e/**/*.{js,ts}"]
       }
     }
-  },
-  "tags": ["type:e2e"],
-  "implicitDependencies": ["fitness-tracker"]
+  }
 }

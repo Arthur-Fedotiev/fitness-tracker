@@ -4,6 +4,7 @@
   "sourceRoot": "libs/workout/shell/src",
   "prefix": "fitness-tracker",
   "projectType": "library",
+  "tags": ["domain:workout", "type:shell"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -29,6 +30,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:workout", "type:shell"]
+  }
 }

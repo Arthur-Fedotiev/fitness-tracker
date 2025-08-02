@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/workout/feature-compose-workout/src",
   "prefix": "fitness-tracker",
+  "tags": ["domain:workout", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -24,6 +25,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:workout", "type:feature"]
+  }
 }

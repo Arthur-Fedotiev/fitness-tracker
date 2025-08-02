@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/auth/domain/src",
   "selector": "ft",
+  "tags": ["domain:shared", "domain:auth", "type:domain-logic"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:shared", "domain:auth", "type:domain-logic"]
+  }
 }

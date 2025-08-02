@@ -9,13 +9,7 @@ import { ROLES } from 'shared-package';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  NgIf,
-  NgFor,
-  LowerCasePipe,
-  TitleCasePipe,
-  NgOptimizedImage,
-} from '@angular/common';
+import { LowerCasePipe, TitleCasePipe, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import {
@@ -37,17 +31,13 @@ import { WorkoutPreviewVM } from './models';
     MatCardModule,
     ImgFallbackDirective,
     RouterLink,
-    NgIf,
-    NgFor,
-    RolesDirective,
     MatButtonModule,
     MatIconModule,
-    LowerCasePipe,
     TitleCasePipe,
     TranslateModule,
     MatMenuModule,
     MatChipsModule,
-    NgOptimizedImage,
+    NgOptimizedImage
   ],
 })
 export class WorkoutPreviewComponent {

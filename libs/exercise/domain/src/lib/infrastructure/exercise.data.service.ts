@@ -108,7 +108,7 @@ export class FirebaseExerciseDataService {
         ? this.toRefOfWorkoutList(this.exerciseCollectionRef, req.searchOptions)
         : this.toExerciseSearchRef(this.exerciseCollectionRef, req);
 
-    return from(getDocs<ExerciseResponseDto>(query)).pipe(
+    return from(getDocs<ExerciseResponseDto, any>(query)).pipe(
       tap(
         (snaps: QuerySnapshot<ExerciseResponseDto>) =>
           (this.exerciseDocCash =

@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/layout/ui/src",
   "selector": "ft",
+  "tags": ["domain:layout", "type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:layout", "type:ui"]
+  }
 }

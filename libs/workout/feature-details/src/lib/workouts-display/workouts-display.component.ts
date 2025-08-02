@@ -31,7 +31,7 @@ import {
   WorkoutListComponent,
   WorkoutPreviewComponent,
 } from '@fitness-tracker/workout/ui';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
@@ -58,14 +58,13 @@ enum WorkoutOwner {
   standalone: true,
   imports: [
     MuscleMultiSelectComponent,
-    NgIf,
     WorkoutListComponent,
     WorkoutPreviewComponent,
     TranslateModule,
     AsyncPipe,
     MatButtonToggleModule,
-    MatProgressSpinnerModule,
-  ],
+    MatProgressSpinnerModule
+],
 })
 export class WorkoutsDisplayComponent implements OnInit, OnDestroy {
   protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;

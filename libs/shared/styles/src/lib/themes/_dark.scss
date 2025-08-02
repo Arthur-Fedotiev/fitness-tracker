@@ -1,31 +1,32 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+// @use '../components';
 
-@use './pallets' as *;
-@use '../components';
-@use '../mixins/contrast';
-@use './typography' as *;
-@use '../components/material/button-toggle' as *;
-@use '../components/material/sidenav' as *;
+$ft-app-dark-primary: mat.m2-define-palette(mat.$m2-deep-orange-palette);
+$ft-app-dark-accent: mat.m2-define-palette(mat.$m2-yellow-palette, A200, A100, A400);
+$ft-app-dark-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$ft-app-dark-theme: mat.define-dark-theme(
+$ft-app-dark-theme: mat.m2-define-dark-theme(
   (
     color: (
       primary: $ft-app-dark-primary,
       accent: $ft-app-dark-accent,
       warn: $ft-app-dark-warn,
     ),
-    typography: $ft-typography,
-    density: -2,
   )
 );
 
-@include mat.all-component-themes($ft-app-dark-theme);
-@include include-button-toggle-theme($ft-app-dark-primary);
-@include include-sidenav-theme($ft-app-dark-warn, 500);
-
-@include contrast.contrast(
-  $ft-app-dark-primary,
-  $ft-app-dark-accent,
-  $ft-app-dark-warn
+$ft-app-dark-success: mat.m2-define-palette(mat.$m2-light-green-palette);
+$ft-app-dark-info: mat.m2-define-palette(mat.$m2-light-blue-palette);
+$ft-app-dark-variants: (
+  success: $ft-app-dark-success,
+  info: $ft-app-dark-info,
 );
+
+body.dark-theme {
+@include mat.all-component-colors($ft-app-dark-theme);
+  @include mat.all-component-typographies($ft-app-dark-theme);
+  @include mat.all-component-densities($ft-app-dark-theme);
+  // @include mat.all-component-themes($ft-app-dark-theme);
+  // @include components.theme($ft-app-dark-theme, null, $ft-app-dark-variants);
+}

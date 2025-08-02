@@ -1,32 +1,33 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@use './typography' as *;
-@use '../components';
-@use '../mixins/contrast';
-@use '../components/material/button-toggle' as *;
-@use '../components/material/sidenav' as *;
-@use './pallets' as *;
+// @use '../components';
 
-$ft-app-light-theme: mat.define-light-theme(
+$ft-app-light-primary: mat.m2-define-palette(mat.$m2-amber-palette);
+$ft-app-light-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+$ft-app-light-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$ft-app-light-theme: mat.m2-define-light-theme(
   (
     color: (
       primary: $ft-app-light-primary,
       accent: $ft-app-light-accent,
       warn: $ft-app-light-warn,
     ),
-    typography: $ft-typography,
-    density: -2,
   )
+);
+
+$ft-app-light-success: mat.m2-define-palette(mat.$m2-green-palette);
+$ft-app-light-info: mat.m2-define-palette(mat.$m2-blue-palette);
+
+$ft-app-light-variants: (
+  success: $ft-app-light-success,
+  info: $ft-app-light-info,
 );
 
 body:not(.dark-theme) {
   @include mat.all-component-colors($ft-app-light-theme);
-  @include include-button-toggle-theme($ft-app-light-primary);
-  @include include-sidenav-theme($ft-app-light-warn, 500);
-
-  @include contrast.contrast(
-    $ft-app-light-primary,
-    $ft-app-light-accent,
-    $ft-app-light-warn
-  );
+  @include mat.all-component-typographies($ft-app-light-theme);
+  @include mat.all-component-densities($ft-app-light-theme);
+  // @include mat.all-component-themes($ft-app-light-theme);
+  // @include components.theme($ft-app-light-theme, null, $ft-app-light-variants);
 }

@@ -1,16 +1,17 @@
 <article>
   <div class="content">
     <div class="list">
-      <div
-        *ngFor="let item of listData; trackBy: trackById; let i = index"
-        class="item item--animated"
-        [style.--animation-order]="i"
-      >
-        <ng-template
-          [ngTemplateOutlet]="workoutTemplate"
-          [ngTemplateOutletContext]="{ $implicit: item }"
-        ></ng-template>
-      </div>
+      @for (item of listData; track trackById(i, item); let i = $index) {
+        <div
+          class="item item--animated"
+          [style.--animation-order]="i"
+          >
+          <ng-template
+            [ngTemplateOutlet]="workoutTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-template>
+        </div>
+      }
     </div>
   </div>
 </article>

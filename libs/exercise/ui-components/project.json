@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/exercise/ui-components/src",
   "prefix": "components",
+  "tags": ["domain:exercise", "type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:exercise", "type:ui"]
+  }
 }

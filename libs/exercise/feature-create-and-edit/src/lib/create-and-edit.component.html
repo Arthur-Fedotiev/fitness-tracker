@@ -5,7 +5,7 @@
       #exerciseForm="ngForm"
       ftE2e="exerciseCreateAndEditForm"
       class="exercise-form"
-    >
+      >
       <mat-form-field appearance="outline">
         <mat-label>{{ 'label.name' | translate }}</mat-label>
         <input
@@ -14,7 +14,7 @@
           name="name"
           ftE2e="exerciseNameInput"
           [(ngModel)]="exerciseFormModel.name"
-        />
+          />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -24,135 +24,136 @@
           name="exerciseType"
           [(ngModel)]="exerciseFormModel.exerciseType"
           ftE2e="exerciseTypeSelect"
-        >
-          <mat-option
-            *ngFor="let exerciseType of exerciseDescriptors.exerciseTypes"
-            [value]="exerciseType"
-            >{{
+          >
+          @for (exerciseType of exerciseDescriptors.exerciseTypes; track exerciseType) {
+            <mat-option
+              [value]="exerciseType"
+              >{{
               'EXERCISE-TYPES.' + exerciseType | translate | titlecase
-            }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
+              }}</mat-option
+              >
+            }
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'label.targetMuscle' | translate }}</mat-label>
-        <mat-select
-          required
-          name="targetMuscle"
-          [(ngModel)]="exerciseFormModel.targetMuscle"
-          ftE2e="exerciseTargetMuscleSelect"
-        >
-          <mat-option
-            *ngFor="let muscle of exerciseDescriptors.muscles"
-            [value]="muscle"
-            >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'label.equipment' | translate }}</mat-label>
-
-        <mat-select
-          required
-          name="equipment"
-          [(ngModel)]="exerciseFormModel.equipment"
-          ftE2e="exerciseEquipmentSelect"
-        >
-          <mat-option
-            *ngFor="let equipmentItem of exerciseDescriptors.equipment"
-            [value]="equipmentItem"
-            >{{
-              'EQUIPMENT.' + equipmentItem | translate | titlecase
-            }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-        <mat-label>{{ 'label.avatarUrl' | translate }}</mat-label>
-
-        <input
-          matInput
-          name="avatarUrl"
-          [(ngModel)]="exerciseFormModel.avatarUrl"
-          ftE2e="exerciseAvatarUrlInput"
-        />
-      </mat-form-field>
-
-      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-        <mat-label>{{ 'label.avatarSecondaryUrl' | translate }}</mat-label>
-        <input
-          matInput
-          name="avatarSecondaryUrl"
-          ftE2e="exerciseAvatarSecondaryUrlInput"
-          [(ngModel)]="exerciseFormModel.avatarSecondaryUrl"
-        />
-      </mat-form-field>
-      <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-        <mat-label>{{ 'label.instructionVideo' | translate }}</mat-label>
-        <input
-          matInput
-          name="instructionVideo"
-          [(ngModel)]="exerciseFormModel.instructionVideo"
-          ftE2e="exerciseInstructionVideoInput"
-        />
-      </mat-form-field>
-
-      <div ngModelGroup="instructions" class="instructions-container">
-        <h2>{{ 'label.instructions' | translate }}</h2>
-
-        <div
-          class="instructions-group"
-          *ngFor="
-            let instruction of exerciseFormModel.instructions;
-            let i = index;
-            trackBy: trackByFn
-          "
-        >
-          <mat-form-field class="instruction-input" appearance="outline">
-            <mat-label>
-              {{ 'label.instruction' | translate }} {{ i + 1 }}</mat-label
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'label.targetMuscle' | translate }}</mat-label>
+          <mat-select
+            required
+            name="targetMuscle"
+            [(ngModel)]="exerciseFormModel.targetMuscle"
+            ftE2e="exerciseTargetMuscleSelect"
             >
-            <textarea
-              matInput
-              name="{{ i }}"
-              cdkTextareaAutosize
-              ftE2e="exerciseInstructionInput"
-              [(ngModel)]="exerciseFormModel.instructions[i]"
-            ></textarea>
+            @for (muscle of exerciseDescriptors.muscles; track muscle) {
+              <mat-option
+                [value]="muscle"
+                >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+                >
+              }
+            </mat-select>
           </mat-form-field>
-          <button
-            mat-icon-button
-            color="warn"
-            attr.aria-labelledby="{{ 'actions.removeInstruction' | translate }}"
-            (click)="removeInstruction(i)"
-            ftE2e="removeExerciseInstructionBtn"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </div>
-    </form>
-    <div class="form-actions">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="exerciseFormModel.instructions.push('')"
-        ftE2e="addExerciseInstructionBtn"
-      >
-        {{ 'actions.addInstruction' | translate }}
-      </button>
-      <button
-        mat-raised-button
-        color="warn"
-        ftE2e="saveExerciseBtn"
-        [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
-        (click)="onSave()"
-      >
-        {{ 'actions.save' | translate }}
-      </button>
-    </div>
-  </section>
-</main>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'label.equipment' | translate }}</mat-label>
+
+            <mat-select
+              required
+              name="equipment"
+              [(ngModel)]="exerciseFormModel.equipment"
+              ftE2e="exerciseEquipmentSelect"
+              >
+              @for (equipmentItem of exerciseDescriptors.equipment; track equipmentItem) {
+                <mat-option
+                  [value]="equipmentItem"
+                  >{{
+                  'EQUIPMENT.' + equipmentItem | translate | titlecase
+                  }}</mat-option
+                  >
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+              <mat-label>{{ 'label.avatarUrl' | translate }}</mat-label>
+
+              <input
+                matInput
+                name="avatarUrl"
+                [(ngModel)]="exerciseFormModel.avatarUrl"
+                ftE2e="exerciseAvatarUrlInput"
+                />
+            </mat-form-field>
+
+            <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+              <mat-label>{{ 'label.avatarSecondaryUrl' | translate }}</mat-label>
+              <input
+                matInput
+                name="avatarSecondaryUrl"
+                ftE2e="exerciseAvatarSecondaryUrlInput"
+                [(ngModel)]="exerciseFormModel.avatarSecondaryUrl"
+                />
+            </mat-form-field>
+            <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
+              <mat-label>{{ 'label.instructionVideo' | translate }}</mat-label>
+              <input
+                matInput
+                name="instructionVideo"
+                [(ngModel)]="exerciseFormModel.instructionVideo"
+                ftE2e="exerciseInstructionVideoInput"
+                />
+            </mat-form-field>
+
+            <div ngModelGroup="instructions" class="instructions-container">
+              <h2>{{ 'label.instructions' | translate }}</h2>
+
+              @for (
+                instruction of exerciseFormModel.instructions; track instruction; let i = $index) {
+                <div
+                  class="instructions-group"
+                  >
+                  <mat-form-field class="instruction-input" appearance="outline">
+                    <mat-label>
+                      {{ 'label.instruction' | translate }} {{ i + 1 }}</mat-label
+                      >
+                      <textarea
+                        matInput
+                        name="{{ i }}"
+                        cdkTextareaAutosize
+                        ftE2e="exerciseInstructionInput"
+                        [(ngModel)]="exerciseFormModel.instructions[i]"
+                      ></textarea>
+                    </mat-form-field>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      attr.aria-labelledby="{{ 'actions.removeInstruction' | translate }}"
+                      (click)="removeInstruction(i)"
+                      ftE2e="removeExerciseInstructionBtn"
+                      >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                }
+              </div>
+            </form>
+            <div class="form-actions">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="exerciseFormModel.instructions.push('')"
+                ftE2e="addExerciseInstructionBtn"
+                >
+                {{ 'actions.addInstruction' | translate }}
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                ftE2e="saveExerciseBtn"
+                [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
+                (click)="onSave()"
+                >
+                {{ 'actions.save' | translate }}
+              </button>
+            </div>
+          </section>
+        </main>

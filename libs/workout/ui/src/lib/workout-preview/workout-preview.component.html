@@ -1,7 +1,7 @@
 <mat-card
   class="mat-elevation-z4 card"
   [routerLink]="['/workouts', 'details', workout.id]"
->
+  >
   <img
     class="card-avatar"
     mat-card-image
@@ -11,45 +11,49 @@
     height="720"
     [priority]="workout.hasPriority"
     [ftWithFallback]="fallbackImg"
-  />
+    />
 
   <mat-card-header class="header">
     <mat-card-title class="title">
       <div>{{ workout.name }}</div>
-      <button
-        *ngIf="workout.canDelete && workout.canEdit"
-        mat-icon-button
-        aria-label="Workout actions"
-        [matMenuTriggerFor]="menu"
-        (click)="$event.stopPropagation()"
-      >
-        <mat-icon>more_vert</mat-icon>
-      </button></mat-card-title
-    >
-  </mat-card-header>
-  <mat-card-subtitle class="subtitle">
-    <mat-chip-listbox>
-      <mat-chip-option
-        *ngFor="let muscle of workout.targetMuscles"
-        highlighted
-        color="accent"
-      >
-        {{ 'MUSCLES.' + muscle | translate | titlecase }}
-      </mat-chip-option>
-    </mat-chip-listbox>
-  </mat-card-subtitle>
-  <p *ngIf="workout.level as lvl" class="level-paragraph">
-    {{ 'LEVELS.' + lvl | translate | titlecase }}
-  </p>
-</mat-card>
+      @if (workout.canDelete && workout.canEdit) {
+        <button
+          mat-icon-button
+          aria-label="Workout actions"
+          [matMenuTriggerFor]="menu"
+          (click)="$event.stopPropagation()"
+          >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        }</mat-card-title
+        >
+      </mat-card-header>
+      <mat-card-subtitle class="subtitle">
+        <mat-chip-listbox>
+          @for (muscle of workout.targetMuscles; track muscle) {
+            <mat-chip-option
+              highlighted
+              color="accent"
+              >
+              {{ 'MUSCLES.' + muscle | translate | titlecase }}
+            </mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </mat-card-subtitle>
+      @if (workout.level; as lvl) {
+        <p class="level-paragraph">
+          {{ 'LEVELS.' + lvl | translate | titlecase }}
+        </p>
+      }
+    </mat-card>
 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="workoutEdited.emit(workout.id)">
-    <mat-icon>edit</mat-icon>
-    <span>Edit workout</span>
-  </button>
-  <button mat-menu-item (click)="workoutDeleted.emit(workout.id)">
-    <mat-icon>delete</mat-icon>
-    <span>Delete Workout</span>
-  </button>
-</mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="workoutEdited.emit(workout.id)">
+        <mat-icon>edit</mat-icon>
+        <span>Edit workout</span>
+      </button>
+      <button mat-menu-item (click)="workoutDeleted.emit(workout.id)">
+        <mat-icon>delete</mat-icon>
+        <span>Delete Workout</span>
+      </button>
+    </mat-menu>

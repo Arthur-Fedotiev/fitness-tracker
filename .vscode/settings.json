@@ -12,6 +12,7 @@
     "Subcollection",
     "supersets"
   ],
+  "angular.enable-strict-mode-prompt": false,
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#f2e8dd",
     "activityBar.background": "#f2e8dd",
@@ -30,6 +31,5 @@
     "titleBar.activeForeground": "#15202b",
     "titleBar.inactiveBackground": "#e3d0b999",
     "titleBar.inactiveForeground": "#15202b99"
-  },
-  "angular.enable-strict-mode-prompt": false
+  }
 }

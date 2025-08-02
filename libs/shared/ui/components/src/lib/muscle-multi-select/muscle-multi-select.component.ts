@@ -4,7 +4,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { NgFor, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,
@@ -26,28 +26,28 @@ import { TranslateModule } from '@ngx-translate/core';
     MatFormFieldModule,
     MatSelectModule,
     E2eDirective,
-    NgFor,
     MatOptionModule,
     TitleCasePipe,
-    TranslateModule,
+    TranslateModule
   ],
   template: `<form class="filters" [formGroup]="workoutFilters">
-    <mat-form-field class="filters__item" appearance="outline">
-      <mat-select
-        formControlName="targetMuscles"
-        multiple
-        [placeholder]="'CONTROL_PLACEHOLDERS.selectMuscles' | translate"
-        ftE2e="targetMuscles"
-      >
-        <mat-option
-          *ngFor="let muscle of muscleList; trackBy: trackByIndex"
-          [value]="muscle"
-          ftE2e="muscle"
-          >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
-  </form> `,
+      <mat-form-field class="filters__item" appearance="outline">
+        <mat-select
+          formControlName="targetMuscles"
+          multiple
+          [placeholder]="'CONTROL_PLACEHOLDERS.selectMuscles' | translate"
+          ftE2e="targetMuscles"
+          >
+          @for (muscle of muscleList; track muscle) {
+            <mat-option
+              [value]="muscle"
+              ftE2e="muscle"
+              >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+              >
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>`,
   styles: [
     `
       .filters {
@@ -89,7 +89,7 @@ export class MuscleMultiSelectComponent {
     return this.workoutFilters.get('targetMuscles') as AbstractControl;
   }
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor(private readonly fb: FormBuilder) { }
 
   public trackByIndex(index: number): number {
     return index;

@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/workout/public-api/src",
   "prefix": "fitness-tracker",
+  "tags": ["domain:workout", "domain:workout/api-public", "type:public-api"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -22,6 +23,5 @@
         ]
       }
     }
-  },
-  "tags": ["domain:workout", "domain:workout/api-public", "type:public-api"]
+  }
 }

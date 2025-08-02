@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/fitness-tracker/src",
   "selector": "ft",
+  "tags": ["type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -137,21 +138,22 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "fitness-tracker:build:production"
+          "buildTarget": "fitness-tracker:build:production"
         },
         "development": {
-          "browserTarget": "fitness-tracker:build:development"
+          "buildTarget": "fitness-tracker:build:development"
         },
         "staging": {
-          "browserTarget": "fitness-tracker:build:staging"
+          "buildTarget": "fitness-tracker:build:staging"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "fitness-tracker:build"
+        "buildTarget": "fitness-tracker:build"
       }
     },
     "lint": {
@@ -181,6 +183,5 @@
         "firebaseHostingSite": "fitness-tracker-de06b"
       }
     }
-  },
-  "tags": ["type:app"]
+  }
 }

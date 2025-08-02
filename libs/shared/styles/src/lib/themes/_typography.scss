@@ -1,86 +1,71 @@
 @use '@angular/material' as mat;
-@use './themes//typography-overrides' as *;
 
-$ft-typography: mat.define-typography-config(
+$ft-typography: mat.m2-define-typography-config(
   $font-family: var(--ft-primary-font-family),
-  $headline-1:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 2.5),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $headline-2:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 2),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $headline-3:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 1.75),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $headline-4:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 1.5),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $headline-5:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 1.25),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $subtitle-1:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 1.15),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $subtitle-2:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 1.1),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $body-1:
-    mat.define-typography-level(
-      var(--ft-primary-font-size),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $body-2:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 0.9),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $caption:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 0.8),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
-  $button:
-    mat.define-typography-level(
-      calc(var(--ft-primary-font-size) * 0.9),
-      1,
-      500,
-      $letter-spacing: 0
-    ),
+  $headline-1: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 2.5),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $headline-2: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 2),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $headline-3: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 1.75),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $headline-4: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 1.5),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $headline-5: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 1.25),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $subtitle-1: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 1.15),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $subtitle-2: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 1.1),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $body-1: mat.m2-define-typography-level(
+    var(--ft-primary-font-size),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $body-2: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 0.9),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $caption: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 0.8),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
+  $button: mat.m2-define-typography-level(
+    calc(var(--ft-primary-font-size) * 0.9),
+    1,
+    500,
+    $letter-spacing: 0
+  ),
 );
-
-@include mat.typography-hierarchy($ft-typography);
-@include override-mat-typography();
