@@ -77,9 +77,6 @@
       "@fitness-tracker/workout/feature-details": [
         "libs/workout/feature-details/src/index.ts"
       ],
-      "@fitness-tracker/workout/public-api": [
-        "libs/workout/public-api/src/index.ts"
-      ],
       "@fitness-tracker/workout/shell": ["libs/workout/shell/src/index.ts"],
       "@fitness-tracker/workout/ui": ["libs/workout/ui/src/index.ts"]
     }
