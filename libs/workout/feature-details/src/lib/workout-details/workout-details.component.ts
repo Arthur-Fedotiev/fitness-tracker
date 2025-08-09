@@ -72,7 +72,7 @@ export class WorkoutDetailsComponent implements OnInit {
   }
 
   private initData(): void {
-    this.workoutId = this.route.snapshot.paramMap.get('id') as string;
+    this.workoutId = this.route.snapshot.paramMap.get('id');
     this.workoutFacade.loadWorkoutDetails(this.workoutId);
   }
 

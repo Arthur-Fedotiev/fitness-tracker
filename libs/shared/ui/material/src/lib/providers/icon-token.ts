@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 export interface IconProvider {
-  iconKeys: ReadonlyArray<string> | string[];
+  iconKeys: readonly string[] | string[];
   iconUrl: string;
 }
 

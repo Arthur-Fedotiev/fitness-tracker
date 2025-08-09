@@ -1,9 +1,9 @@
 import { WorkoutItem, WorkoutBasicInfo } from './classes';
 
-export type WorkoutExercise = {
+export interface WorkoutExercise {
   readonly id: string;
   readonly name: string;
-};
+}
 
 export interface ComposeWorkoutData {
   workoutContent: WorkoutItem[];

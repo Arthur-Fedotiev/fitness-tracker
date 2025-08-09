@@ -35,11 +35,11 @@ export const getExercisesEntities = createSelector(
 export const selectExercisePreview = (exerciseIds: Set<string>) =>
   createSelector(
     getExercisesEntities,
-    (entities): Pick<ExerciseResponseModel, 'avatarUrl' | 'id' | 'name'>[] =>
+    (entities): Array<Pick<ExerciseResponseModel, 'avatarUrl' | 'id' | 'name'>> =>
       [...exerciseIds].map((exerciseId) => {
         const { id, name, avatarUrl } = entities[
           exerciseId
-        ] as ExerciseResponseModel;
+        ];
         return { id, name, avatarUrl };
       }),
   );

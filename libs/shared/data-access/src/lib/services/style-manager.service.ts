@@ -7,7 +7,7 @@ import { MODE_PARAMS } from '../models/theme';
 })
 export class StyleManagerService {
   private readonly styleSheetsCache: Set<string> = new Set();
-  private renderer: Renderer2;
+  private readonly renderer: Renderer2;
 
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,

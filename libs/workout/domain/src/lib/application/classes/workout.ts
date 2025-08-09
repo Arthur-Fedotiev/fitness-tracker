@@ -144,7 +144,7 @@ export class WorkoutItemComposite implements WorkoutItem {
     public name: string,
     public children: WorkoutItem[],
     public instructionStrategy: CompositeWorkoutItemInstruction,
-    private _id: string,
+    private readonly _id: string,
     public parent: WorkoutItem | null = null,
   ) {}
 

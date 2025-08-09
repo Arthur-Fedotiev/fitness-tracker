@@ -125,6 +125,6 @@ export class AuthComponent {
   }
 
   protected onSubmit() {
-    this.authTypeStrategies[this.selectedAuthFlowStrategy!].onSubmit();
+    this.authTypeStrategies[this.selectedAuthFlowStrategy].onSubmit();
   }
 }

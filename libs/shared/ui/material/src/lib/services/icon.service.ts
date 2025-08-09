@@ -11,8 +11,8 @@ export class IconService {
     @Optional()
     @Inject(ICON_PROVIDER)
     private readonly iconProviders: IconProvider[],
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
+    private readonly matIconRegistry: MatIconRegistry,
+    private readonly domSanitizer: DomSanitizer,
   ) {}
 
   public registerIcons(): void {

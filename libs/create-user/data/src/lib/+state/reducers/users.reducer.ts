@@ -4,7 +4,7 @@ import { User } from '../../user.model';
 export const usersFeatureKey = 'users';
 
 export interface State {
-  users: ReadonlyArray<User>;
+  users: readonly User[];
 }
 
 export const initialState: State = {

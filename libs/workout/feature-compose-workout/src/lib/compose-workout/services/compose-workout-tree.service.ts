@@ -57,11 +57,11 @@ export class ComposeWorkoutTreeService {
   }
 
   public getNestedNode(flatNode: WorkoutItemFlatNode): WorkoutItem {
-    return this.flatNodeMap.get(flatNode)!;
+    return this.flatNodeMap.get(flatNode);
   }
 
   public getFlatNode(nestedNode: WorkoutItem): WorkoutItemFlatNode {
-    return this.nestedNodeMap.get(nestedNode)!;
+    return this.nestedNodeMap.get(nestedNode);
   }
 
   public transformer = (
@@ -94,7 +94,7 @@ export class ComposeWorkoutTreeService {
   }
 
   public insertItem(node: WorkoutItemFlatNode, parent: WorkoutItem): void {
-    this.workoutDB.insertItem(parent, this.flatNodeMap.get(node)!);
+    this.workoutDB.insertItem(parent, this.flatNodeMap.get(node));
   }
 
   public addItem(set: WorkoutItem): WorkoutItem {
@@ -108,18 +108,18 @@ export class ComposeWorkoutTreeService {
         this.workoutDB.addItem(child.setParent(null)),
       );
 
-    this.workoutDB.deleteItem(this.flatNodeMap.get(decomposedNode)!);
+    this.workoutDB.deleteItem(this.flatNodeMap.get(decomposedNode));
   }
 
   public removeFromSuperset(node: WorkoutItemFlatNode): void {
-    const item: WorkoutItem = this.flatNodeMap.get(node)!;
+    const item: WorkoutItem = this.flatNodeMap.get(node);
 
     this.workoutDB.deleteItem(item);
     this.workoutDB.addItem(item.setParent(null));
   }
 
   public removeFromWorkout(node: WorkoutItemFlatNode): void {
-    const item: WorkoutItem = this.flatNodeMap.get(node)!;
+    const item: WorkoutItem = this.flatNodeMap.get(node);
 
     this.workoutDB.deleteItem(item);
   }

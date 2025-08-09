@@ -47,7 +47,7 @@ export class CreateUserFormComponent {
     admin: [false],
   });
 
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor(private readonly fb: UntypedFormBuilder) {}
 
   public onCreateUser(): void {
     this.userCreated.emit(this.createUserForm.value);

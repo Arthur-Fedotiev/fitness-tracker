@@ -44,7 +44,7 @@ export class PwaService {
         this.localStorage.setItem(IS_PROMPTED_KEY, JSON.stringify(true)),
       ),
       map(({ snackBarData, pwaEvent }: Required<LoadPwaPayload>) => ({
-        pwaEvent: pwaEvent as Event,
+        pwaEvent: pwaEvent,
         snackbarRef: this.openSnackbar({
           ...snackBarData,
           message: this.sanitizer.bypassSecurityTrustHtml(snackBarData.message),

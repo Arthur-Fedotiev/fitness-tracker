@@ -17,7 +17,7 @@ const calcWorkoutTotalSets = (workout: SerializedWorkoutItem[]): number =>
   workout.reduce((sum, node) => sum + calcNodeTotalSets(node), 0);
 
 const calculateExerciseReps = (exercise: SerializedWorkoutItem) =>
-  exercise.type === InstructionType.REPS ? exercise.load! : 1;
+  exercise.type === InstructionType.REPS ? exercise.load : 1;
 
 const calculateTotalReps = (workoutContent: WorkoutDetails['content']) =>
   workoutContent.reduce((totalReps, node) => {
@@ -62,7 +62,7 @@ const calculateTotalTimeForDurationExercisesSec = (
         ? node
         : [],
     )
-    .reduce((sum, node) => sum + node.load!, 0);
+    .reduce((sum, node) => sum + node.load, 0);
 
 export const toWorkoutDetailsVm = (workoutDetails: WorkoutDetails) => {
   const totalSets = calcWorkoutTotalSets(workoutDetails.content);

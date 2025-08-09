@@ -117,7 +117,7 @@ export class FirebaseExerciseDataService {
       map((exerciseResponseSnaps) =>
         convertSnaps<ExerciseResponseDto>(exerciseResponseSnaps),
       ),
-      map((exerciseResponseList: WithId<ExerciseResponseDto>[]) =>
+      map((exerciseResponseList: Array<WithId<ExerciseResponseDto>>) =>
         exerciseResponseList.map(this.toBaseDataWithId),
       ),
       switchMap((exercisesBaseData) => {

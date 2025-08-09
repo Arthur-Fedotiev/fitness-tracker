@@ -17,7 +17,7 @@ import { NgTemplateOutlet } from '@angular/common';
   imports: [NgTemplateOutlet],
 })
 export class WorkoutListComponent {
-  @Input() listData: WithId<unknown>[] = [];
+  @Input() listData: Array<WithId<unknown>> = [];
   @ContentChild(TemplateRef) workoutTemplate!: TemplateRef<unknown>;
 
   protected trackById(index: number, item: WithId<unknown>): string | number {

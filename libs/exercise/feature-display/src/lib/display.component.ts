@@ -292,7 +292,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     this.exerciseFacade.refreshExercises(paginationData);
   }
 
-  private byExerciseOwner = ({ userId }: ExerciseVM) => {
+  private readonly byExerciseOwner = ({ userId }: ExerciseVM) => {
     switch (this.exerciseOwner()) {
       case ExerciseOwner.FitnessTracker:
         return !userId || userId !== this.userInfo()?.uid;
@@ -303,7 +303,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     }
   };
 
-  private bySearchQuery: (value: ExerciseVM) => boolean = ({ name }) =>
+  private readonly bySearchQuery: (value: ExerciseVM) => boolean = ({ name }) =>
     name.toLowerCase().includes(this.searchQuery().toLowerCase());
 
   private releaseResources() {

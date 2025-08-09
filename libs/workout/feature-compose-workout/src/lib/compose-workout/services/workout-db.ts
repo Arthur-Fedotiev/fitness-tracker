@@ -22,7 +22,7 @@ export class WorkoutDatabase {
   }
 
   public buildFileTree(
-    initialData: Pick<any, 'avatarUrl' | 'id' | 'name'>[],
+    initialData: Array<Pick<any, 'avatarUrl' | 'id' | 'name'>>,
   ): WorkoutItem[] {
     return initialData.map(
       ({ name, id }) =>
@@ -139,6 +139,6 @@ export class WorkoutDatabase {
 export const getLevel = (node: WorkoutItemFlatNode) => node.level;
 export const isExpandable = (node: WorkoutItemFlatNode) => node.expandable;
 export const getChildren = (node: WorkoutItem): Observable<WorkoutItem[]> =>
-  of(node.children!);
+  of(node.children);
 export const hasChild = (_: number, nodeData: WorkoutItemFlatNode) =>
   nodeData.expandable;
