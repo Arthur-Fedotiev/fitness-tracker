@@ -36,31 +36,15 @@
               },
               {
                 "sourceTag": "public-api",
-                "onlyDependOnLibsWithTags": [
-                  "type:api",
-                  "type:feature",
-                  "type:ui",
-                  "type:domain-logic",
-                  "type:util"
-                ]
+                "onlyDependOnLibsWithTags": ["type:api", "type:feature", "type:ui", "type:domain-logic", "type:util"]
               },
               {
                 "sourceTag": "type:api",
-                "onlyDependOnLibsWithTags": [
-                  "type:ui",
-                  "type:domain-logic",
-                  "type:util",
-                  "type:feature"
-                ]
+                "onlyDependOnLibsWithTags": ["type:ui", "type:domain-logic", "type:util", "type:feature"]
               },
               {
                 "sourceTag": "type:feature",
-                "onlyDependOnLibsWithTags": [
-                  "type:ui",
-                  "type:domain-logic",
-                  "type:util",
-                  "type:api"
-                ]
+                "onlyDependOnLibsWithTags": ["type:ui", "type:domain-logic", "type:util", "type:api"]
               },
               {
                 "sourceTag": "type:ui",
@@ -68,21 +52,11 @@
               },
               {
                 "sourceTag": "type:domain-logic",
-                "onlyDependOnLibsWithTags": [
-                  "type:util",
-                  "type:api",
-                  "type:domain-logic"
-                ]
+                "onlyDependOnLibsWithTags": ["type:util", "type:api", "type:domain-logic"]
               },
               {
                 "sourceTag": "type:shell",
-                "onlyDependOnLibsWithTags": [
-                  "type:api",
-                  "type:feature",
-                  "type:ui",
-                  "type:domain-logic",
-                  "type:util"
-                ]
+                "onlyDependOnLibsWithTags": ["type:api", "type:feature", "type:ui", "type:domain-logic", "type:util"]
               },
               {
                 "sourceTag": "domain:shared",
@@ -94,11 +68,7 @@
               },
               {
                 "sourceTag": "domain:exercise",
-                "onlyDependOnLibsWithTags": [
-                  "domain:exercise",
-                  "domain:shared",
-                  "domain:workout/api-public"
-                ]
+                "onlyDependOnLibsWithTags": ["domain:exercise", "domain:shared", "domain:workout/api-public"]
               },
               {
                 "sourceTag": "domain:workout/api-public",
@@ -110,19 +80,60 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
+      "files": ["*.ts"],
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-type-checked"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["tsconfig.base.json"],
+        "sourceType": "module",
+        "ecmaVersion": 2022
+      },
       "rules": {
-        "@typescript-eslint/no-extra-semi": "error",
-        "no-extra-semi": "off"
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "ft",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "ft",
+            "style": "kebab-case"
+          }
+        ],
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/prefer-readonly": "error",
+        "@typescript-eslint/array-type": ["error", { "default": "array-simple" }],
+        "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "explicit",
+            "overrides": {
+              "constructors": "no-public"
+            }
+          }
+        ]
       }
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:@angular-eslint/template/accessibility"],
       "rules": {
-        "@typescript-eslint/no-extra-semi": "error",
-        "no-extra-semi": "off"
+        "@angular-eslint/template/click-events-have-key-events": "error",
+        "@angular-eslint/template/interactive-supports-focus": "error",
+        "@angular-eslint/template/no-autofocus": "error"
       }
     }
   ]

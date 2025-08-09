@@ -87,12 +87,21 @@ export class ComposeWorkoutComponentService {
   }
 
   saveSuperset() {
-    const parent = this.treeService.addItem(this.createSuperset());
+    const superset = this.createSuperset();
+    const parent = this.treeService.addItem(superset);
+
+    console.log('%c Superset created:', 'color: green; font-weight: bold;', {
+      superset,
+      parent,
+      temporarySuperset: this.temporarySuperset(),
+    });
 
     this.temporarySuperset().forEach((node: WorkoutItemFlatNode) => {
       this.treeService.deleteItem(this.treeService.getNestedNode(node));
       this.treeService.insertItem(node, parent);
     });
+
+    console.log('Superset saved:', parent);
 
     this.resetSuperset();
   }
@@ -102,9 +111,7 @@ export class ComposeWorkoutComponentService {
   }
 
   removeFromTemporarySuperset(node: WorkoutItemFlatNode) {
-    this.temporarySuperset.update((superset) =>
-      superset.filter((item) => item !== node),
-    );
+    this.temporarySuperset.update((superset) => superset.filter((item) => item !== node));
   }
 
   drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
