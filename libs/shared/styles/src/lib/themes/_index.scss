@@ -1,7 +1,8 @@
 @use '@angular/material' as mat;
 
-@use './themes/light' as *;
-@use './themes/dark' as *;
+// these files should include mat.all-component-* mixins scoped to body/.dark-theme
+@use './light' as *;
+@use './dark' as *;
 
 @include mat.core();
-@include mat.core-theme($ft-app-dark-theme);
+// no core-theme here; light/dark files handle applying themes

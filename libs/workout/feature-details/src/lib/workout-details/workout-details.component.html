@@ -1,11 +1,7 @@
 @if (workoutDetails$ | async; as workout) {
   <article class="wrapper">
     <header class="workout-header">
-      <img
-        class="workout-avatar"
-        [src]="workout.avatarUrl"
-        alt="{{ workout.name }}"
-        />
+      <img class="workout-avatar" [src]="workout.avatarUrl" alt="{{ workout.name }}" />
       <div class="workout-info">
         <h1 class="workout-name mat-headline-2">
           {{ workout.name | uppercase }}
@@ -44,10 +40,7 @@
     <mat-divider></mat-divider>
     <section class="workout-wrapper">
       @for (workoutItem of workout.content; track workoutItem; let first = $first) {
-        <ng-template
-          [ngTemplateOutlet]="workoutTpl"
-          [ngTemplateOutletContext]="{ $implicit: workoutItem, first }"
-        ></ng-template>
+        <ng-template [ngTemplateOutlet]="workoutTpl" [ngTemplateOutletContext]="{ $implicit: workoutItem, first }"></ng-template>
       }
     </section>
   </article>
@@ -62,9 +55,7 @@
     <div class="superset-container">
       <div class="mat-body-strong superset-description">
         <div class="compound-title">
-          <span class="name"
-            >{{ 'compoundTypes.superset' | translate | uppercase }}
-          </span>
+          <span class="name">{{ 'compoundTypes.superset' | translate | uppercase }} </span>
           <button
             #infoTooltip="matTooltip"
             mat-icon-button
@@ -72,7 +63,7 @@
             matTooltipPosition="right"
             aria-tooltip="Show superset notes"
             (click)="infoTooltip.toggle()"
-            >
+          >
             <mat-icon>info</mat-icon>
           </button>
         </div>
@@ -107,41 +98,26 @@
       </div>
       @if (item.children?.length) {
         @for (item of item.children; track item; let idx = $index) {
-          <ng-template
-            [ngTemplateOutlet]="workoutSingleItem"
-            [ngTemplateOutletContext]="{ $implicit: item, isChild: true }"
-          ></ng-template>
+          <ng-template [ngTemplateOutlet]="workoutSingleItem" [ngTemplateOutletContext]="{ $implicit: item, isChild: true }"></ng-template>
         }
       }
     </div>
   }
 
   @if (!item.children) {
-    <ng-template
-      [ngTemplateOutlet]="workoutSingleItem"
-      [ngTemplateOutletContext]="{ $implicit: item, isChild: false }"
-    ></ng-template>
+    <ng-template [ngTemplateOutlet]="workoutSingleItem" [ngTemplateOutletContext]="{ $implicit: item, isChild: false }"></ng-template>
   }
 </ng-template>
 
 <ng-template #workoutSingleItem let-item let-isChild="isChild">
   <mat-card class="card mat-elevation-z8" tabindex="0">
     <mat-card-title-group>
-      <img
-        class="card__avatar"
-        mat-card-md-image
-        alt="{{ item.name }} avatar"
-        [src]="item.avatarUrl"
-        />
+      <img class="card__avatar" mat-card-md-image alt="{{ item.name }} avatar" [src]="item.avatarUrl" />
 
       <mat-card-title class="mat-headline-5">
         <div class="title-container">
           <span>{{ item.name }}</span>
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="showExerciseDetails(item.id)"
-            >
+          <button mat-icon-button color="primary" (click)="showExerciseDetails(item.id)">
             <mat-icon>info</mat-icon>
           </button>
         </div>

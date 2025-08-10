@@ -42,7 +42,7 @@ export class WorkoutDetailsComponent implements OnInit {
   private readonly settingsFacade = inject(SettingsFacadeService);
   private readonly exercisesFacade = inject(ExerciseFacade);
 
-  workoutId = input.required<string>();
+  workoutId = input.required<string>({ alias: 'id' });
 
   public readonly workoutDetails$ = this.workoutFacade.workoutDetails$.pipe(filter(Boolean));
 
