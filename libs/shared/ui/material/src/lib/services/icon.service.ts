@@ -1,16 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IconProvider, ICON_PROVIDER } from '../providers/icon-token';
+import { ICON_PROVIDER, IconProvider } from '../providers/icon-token';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IconService {
-  private readonly iconProviders = inject(ICON_PROVIDER, { optional: true });
+  private readonly iconProviders = inject<IconProvider[]>(ICON_PROVIDER);
   private readonly matIconRegistry = inject(MatIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
-
 
   public registerIcons(): void {
     if (!this.iconProviders) {
@@ -21,12 +20,7 @@ export class IconService {
 
   private loadIcons({ iconKeys, iconUrl }: IconProvider): void {
     iconKeys.forEach((key) => {
-      this.matIconRegistry.addSvgIcon(
-        key,
-        this.domSanitizer.bypassSecurityTrustResourceUrl(
-          `${iconUrl}/${key}.svg`,
-        ),
-      );
+      this.matIconRegistry.addSvgIcon(key, this.domSanitizer.bypassSecurityTrustResourceUrl(`${iconUrl}/${key}.svg`));
     });
   }
 }

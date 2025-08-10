@@ -21,13 +21,7 @@
     </article>
 
     <section class="exercise-tree-section">
-      <mat-tree
-        class="exercise-tree"
-        [dataSource]="dataSource"
-        [treeControl]="treeControl"
-        cdkDropList
-        (cdkDropListDropped)="drop($event)"
-        >
+      <mat-tree class="exercise-tree" [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)">
         <mat-tree-node
           *matTreeNodeDef="let node"
           matTreeNodeToggle
@@ -35,26 +29,21 @@
           [cdkDragData]="node"
           [style.padding-left]="node.level * 24 + 'px'"
           cdkDrag
-          >
+        >
           <mat-accordion class="exercise__accordion">
             <mat-expansion-panel
               class="accent"
               [class.contrast]="temporarySupersetNodeIds().has(node.id)"
               [disabled]="isSupersetComposeUnderway"
-              >
+            >
               <mat-expansion-panel-header>
                 <mat-panel-title class="exercise-title-panel">
                   <button
                     mat-icon-button
                     color="accent"
-                    (click)="
-                      showExerciseDetails(node.workoutItem.id);
-                      $event.stopPropagation()
-                    "
-                    [attr.aria-label]="
-                      'See details for ' + node.workoutItem.name
-                    "
-                    >
+                    (click)="showExerciseDetails(node.workoutItem.id); $event.stopPropagation()"
+                    [attr.aria-label]="'See details for ' + node.workoutItem.name"
+                  >
                     <mat-icon class="mat-icon-rtl-mirror"> search </mat-icon>
                   </button>
                   <h4>
@@ -62,16 +51,9 @@
                   </h4>
                 </mat-panel-title>
                 <mat-panel-description class="exercise-description-panel">
-                  @if (
-                    isSupersetComposeUnderway && !node.workoutItem.parent
-                    ) {
+                  @if (isSupersetComposeUnderway && !node.workoutItem.parent) {
                     @if (!temporarySupersetNodeIds().has(node.id)) {
-                      <button
-                        mat-flat-button
-                        class="add-btn"
-                        color="primary"
-                        (click)="addToSuperset(node); $event.stopPropagation()"
-                        >
+                      <button mat-flat-button class="add-btn" color="primary" (click)="addToSuperset(node); $event.stopPropagation()">
                         {{ 'actionButtons.add' | translate }}
                       </button>
                     }
@@ -80,39 +62,24 @@
                         mat-flat-button
                         class="add-btn"
                         color="primary"
-                      (click)="
-                        removeFromTemporarySuperset(node);
-                        $event.stopPropagation()
-                      "
-                        >
+                        (click)="removeFromTemporarySuperset(node); $event.stopPropagation()"
+                      >
                         {{ 'actionButtons.remove' | translate }}
                       </button>
                     }
                   }
 
                   @if (!isSupersetComposeUnderway) {
-                    <button
-                      mat-icon-button
-                      color="warn"
-                      (click)="remove(node); $event.stopPropagation()"
-                      >
+                    <button mat-icon-button color="warn" (click)="remove(node); $event.stopPropagation()">
                       <mat-icon>delete</mat-icon>
                     </button>
                   }
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <div
-                class="instruction-form"
-                ngModelGroup="{{ node.id }}"
-                #instructionsForm="ngModelGroup"
-                >
-                <ft-workout-item-load
-                  [instruction]="node.workoutItem.instructionStrategy"
-                ></ft-workout-item-load>
+              <div class="instruction-form" ngModelGroup="{{ node.id }}" #instructionsForm="ngModelGroup">
+                <ft-workout-item-load [instruction]="node.workoutItem.instructionStrategy"></ft-workout-item-load>
                 @if (!node.workoutItem.parent) {
-                  <ft-workout-item-rest
-                    [instruction]="node.workoutItem.instructionStrategy"
-                  ></ft-workout-item-rest>
+                  <ft-workout-item-rest [instruction]="node.workoutItem.instructionStrategy"></ft-workout-item-rest>
                 }
               </div>
             </mat-expansion-panel>
@@ -125,7 +92,7 @@
           [style.padding-left]="node.level * 40 + 'px'"
           cdkDrag
           [cdkDragData]="node"
-          >
+        >
           <mat-accordion class="superset__accordion">
             <mat-expansion-panel #expansionPanel>
               <mat-expansion-panel-header class="superset-panel-header">
@@ -134,40 +101,24 @@
                     mat-icon-button
                     matTreeNodeToggle
                     color="accent"
-                    (click)="
-                      treeExpansionModel.toggle(node.id); expansionPanel.close()
-                    "
-                    [attr.aria-label]="
-                      'See details for ' + node.workoutItem.name
-                    "
-                    >
+                    (click)="treeExpansionModel.toggle(node.id); expansionPanel.close()"
+                    [attr.aria-label]="'See details for ' + node.workoutItem.name"
+                  >
                     <mat-icon class="mat-icon-rtl-mirror"> search </mat-icon>
                   </button>
 
                   <h4>{{ node.workoutItem.name }}</h4>
                 </mat-panel-title>
                 <mat-panel-description class="superset-panel-description">
-                  <button
-                    mat-stroked-button
-                    color="primary"
-                    (click)="decompose(node)"
-                    >
+                  <button mat-stroked-button color="primary" (click)="decompose(node)">
                     {{ 'actionButtons.decompose' | translate }}
                   </button>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <div
-                class="superset-form"
-                ngModelGroup="{{ node.id }}"
-                #supersetInstructionsForm="ngModelGroup"
-                >
-                <ft-workout-item-load
-                  [instruction]="node.workoutItem.instructionStrategy"
-                ></ft-workout-item-load>
+              <div class="superset-form" ngModelGroup="{{ node.id }}" #supersetInstructionsForm="ngModelGroup">
+                <ft-workout-item-load [instruction]="node.workoutItem.instructionStrategy"></ft-workout-item-load>
                 <mat-divider></mat-divider>
-                <ft-workout-item-rest
-                  [instruction]="node.workoutItem.instructionStrategy"
-                ></ft-workout-item-rest>
+                <ft-workout-item-rest [instruction]="node.workoutItem.instructionStrategy"></ft-workout-item-rest>
               </div>
             </mat-expansion-panel>
           </mat-accordion>
@@ -178,40 +129,16 @@
 </main>
 
 <footer class="compose-workout-actions">
-  <button
-    mat-stroked-button
-    class="workout-btn"
-    color="primary"
-    (click)="toggleComposeSuperset()"
-    >
-    {{
-    (isSupersetComposeUnderway
-    ? 'actionButtons.discardSuperset'
-    : 'actionButtons.composeSuperset'
-    ) | translate
-    }}
+  <button mat-stroked-button class="workout-btn" color="primary" (click)="toggleComposeSuperset()">
+    {{ (isSupersetComposeUnderway ? 'actionButtons.discardSuperset' : 'actionButtons.composeSuperset') | translate }}
   </button>
   @if (isSupersetComposeUnderway) {
-    <button
-      mat-stroked-button
-      class="workout-btn"
-      color="accent"
-      [disabled]="temporarySupersetNodeIds().size < 2"
-      (click)="saveSuperset()"
-      >
+    <button mat-stroked-button class="workout-btn" color="accent" [disabled]="temporarySupersetNodeIds().size < 2" (click)="saveSuperset()">
       {{ 'actionButtons.saveSuperset' | translate }}
     </button>
   }
-  <div
-    matTooltip="{{ 'actionButtons.saveWorkoutDisabledTooltip' | translate }}"
-    [matTooltipDisabled]="!workoutForm.invalid"
-    >
-    <button
-      mat-raised-button
-      color="accent"
-      [disabled]="workoutForm.invalid"
-      (click)="saveWorkout()"
-      >
+  <div matTooltip="{{ 'actionButtons.saveWorkoutDisabledTooltip' | translate }}" [matTooltipDisabled]="!workoutForm.invalid">
+    <button mat-raised-button color="accent" [disabled]="workoutForm.invalid" (click)="saveWorkout()">
       {{ 'actionButtons.saveWorkout' | translate }}
     </button>
   </div>

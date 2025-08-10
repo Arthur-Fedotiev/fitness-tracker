@@ -60,7 +60,7 @@ export class ComposeWorkoutDropService {
     const isDraggedBetweenSets =
       nodeAtDest.parent &&
       visibleNodes[event.currentIndex].parent &&
-      nodeAtDest.parent.id !== visibleNodes[event.currentIndex].parent.id;
+      nodeAtDest.parent.id !== visibleNodes[event.currentIndex]?.parent?.id;
 
     const isDraggedAcrossLevels = flatNodeAtDest.level !== nodeDragged.level || isDraggedBetweenSets;
 
