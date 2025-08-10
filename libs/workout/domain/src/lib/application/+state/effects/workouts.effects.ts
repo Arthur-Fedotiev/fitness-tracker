@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, withLatestFrom } from 'rxjs/operators';
 import { Observable, of, pipe, switchMap, UnaryFunction, filter } from 'rxjs';
@@ -26,6 +26,11 @@ import {
 
 @Injectable()
 export class WorkoutsEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly workoutAPI = inject(WorkoutService);
+  private readonly exercisesService = inject(FirebaseExerciseDataService);
+
   public readonly createWorkout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActions.createWorkout),
@@ -111,13 +116,6 @@ export class WorkoutsEffects {
       ),
     { dispatch: false },
   );
-
-  constructor(
-    private readonly actions$: Actions,
-    private readonly store: Store,
-    private readonly workoutAPI: WorkoutService,
-    private readonly exercisesService: FirebaseExerciseDataService,
-  ) {}
 
   private getWorkoutDetailsLocalized$(): UnaryFunction<
     Observable<WithPayload<string>>,

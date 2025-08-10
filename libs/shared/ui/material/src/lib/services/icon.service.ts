@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconProvider, ICON_PROVIDER } from '../providers/icon-token';
@@ -7,13 +7,10 @@ import { IconProvider, ICON_PROVIDER } from '../providers/icon-token';
   providedIn: 'root',
 })
 export class IconService {
-  constructor(
-    @Optional()
-    @Inject(ICON_PROVIDER)
-    private readonly iconProviders: IconProvider[],
-    private readonly matIconRegistry: MatIconRegistry,
-    private readonly domSanitizer: DomSanitizer,
-  ) {}
+  private readonly iconProviders = inject(ICON_PROVIDER, { optional: true });
+  private readonly matIconRegistry = inject(MatIconRegistry);
+  private readonly domSanitizer = inject(DomSanitizer);
+
 
   public registerIcons(): void {
     if (!this.iconProviders) {

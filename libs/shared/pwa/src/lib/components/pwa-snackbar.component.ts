@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
-  Inject,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, inject } from '@angular/core';
 import {
   MAT_SNACK_BAR_DATA,
   MatSnackBarModule,
@@ -21,13 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatButtonModule, MatSnackBarModule],
 })
 export class PwaSnackbarComponent {
+  readonly data = inject(MAT_SNACK_BAR_DATA);
+
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
-
-  constructor(
-    @Inject(MAT_SNACK_BAR_DATA)
-    public readonly data: any,
-  ) {}
 
   public onConfirm(): void {
     this.confirm.emit();

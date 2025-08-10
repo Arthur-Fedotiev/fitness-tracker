@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -12,6 +12,9 @@ import { User } from '../../user.model';
 
 @Injectable()
 export class UsersEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly usersService = inject(UsersService);
+
   public createUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(USERS_ACTION_NAMES.CREATE_USER),
@@ -23,9 +26,4 @@ export class UsersEffects {
       ),
     );
   });
-
-  constructor(
-    private readonly actions$: Actions,
-    private readonly usersService: UsersService,
-  ) {}
 }

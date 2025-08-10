@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 
 import {
@@ -24,6 +24,12 @@ import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
 @UntilDestroy()
 @Injectable()
 export class ComposeWorkoutComponentService {
+  private readonly treeService = inject(ComposeWorkoutTreeService);
+  private readonly workoutItemSerializeStrategy = inject(ConcreteWorkoutItemSerializer);
+  private readonly workoutFacade = inject(WorkoutFacadeService);
+  private readonly dropService = inject(ComposeWorkoutDropService);
+  private readonly exercisesFacade = inject(ExerciseFacade);
+
   treeControl!: FlatTreeControl<WorkoutItemFlatNode>;
   dataSource!: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
   expansionModel!: SelectionModel<string>;
@@ -31,14 +37,6 @@ export class ComposeWorkoutComponentService {
   readonly instructionType = InstructionType;
 
   readonly temporarySuperset = signal<WorkoutItemFlatNode[]>([]);
-
-  constructor(
-    private readonly treeService: ComposeWorkoutTreeService,
-    private readonly workoutItemSerializeStrategy: ConcreteWorkoutItemSerializer,
-    private readonly workoutFacade: WorkoutFacadeService,
-    private readonly dropService: ComposeWorkoutDropService,
-    private readonly exercisesFacade: ExerciseFacade,
-  ) {}
 
   init(composedWorkoutData: ComposeWorkoutData) {
     this.treeService.initialize(composedWorkoutData.workoutContent);

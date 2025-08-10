@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  WorkoutItem,
-  SingleWorkoutItem,
-  ConcreteSingleWorkoutItemInstruction,
-  WorkoutItemFlatNode,
   ComposeWorkoutData,
+  ConcreteSingleWorkoutItemInstruction,
+  SingleWorkoutItem,
+  WorkoutItem,
+  WorkoutItemFlatNode,
 } from '@fitness-tracker/workout-domain';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -21,16 +21,9 @@ export class WorkoutDatabase {
     this.dataChange.next(initialData);
   }
 
-  public buildFileTree(
-    initialData: Array<Pick<any, 'avatarUrl' | 'id' | 'name'>>,
-  ): WorkoutItem[] {
+  public buildFileTree(initialData: Array<Pick<any, 'avatarUrl' | 'id' | 'name'>>): WorkoutItem[] {
     return initialData.map(
-      ({ name, id }) =>
-        new SingleWorkoutItem(
-          name,
-          id,
-          new ConcreteSingleWorkoutItemInstruction(),
-        ),
+      ({ name, id }) => new SingleWorkoutItem(name, id, new ConcreteSingleWorkoutItemInstruction()),
     );
   }
 
@@ -47,11 +40,7 @@ export class WorkoutDatabase {
   public insertItemAbove(node: WorkoutItem, item: WorkoutItem): WorkoutItem {
     const parentNode = this.getParentFromNodes(node);
     if (parentNode?.children) {
-      parentNode.children.splice(
-        parentNode.children.indexOf(node),
-        0,
-        item.setParent(parentNode),
-      );
+      parentNode.children.splice(parentNode.children.indexOf(node), 0, item.setParent(parentNode));
     } else {
       this.data.splice(this.data.indexOf(node), 0, item.setParent(parentNode));
     }
@@ -63,17 +52,9 @@ export class WorkoutDatabase {
     const parentNode = this.getParentFromNodes(node);
 
     if (parentNode?.children) {
-      parentNode.children.splice(
-        parentNode.children.indexOf(node) + 1,
-        0,
-        item.setParent(parentNode),
-      );
+      parentNode.children.splice(parentNode.children.indexOf(node) + 1, 0, item.setParent(parentNode));
     } else {
-      this.data.splice(
-        this.data.indexOf(node) + 1,
-        0,
-        item.setParent(parentNode),
-      );
+      this.data.splice(this.data.indexOf(node) + 1, 0, item.setParent(parentNode));
     }
     this.dataChange.next(this.data);
     return item;
@@ -102,10 +83,7 @@ export class WorkoutDatabase {
     return null;
   }
 
-  private getParent(
-    currentRoot: WorkoutItem,
-    node: WorkoutItem,
-  ): WorkoutItem | null {
+  private getParent(currentRoot: WorkoutItem, node: WorkoutItem): WorkoutItem | null {
     if (currentRoot.children && currentRoot.children.length > 0) {
       for (const element of currentRoot.children) {
         const child = element;
@@ -138,7 +116,5 @@ export class WorkoutDatabase {
 
 export const getLevel = (node: WorkoutItemFlatNode) => node.level;
 export const isExpandable = (node: WorkoutItemFlatNode) => node.expandable;
-export const getChildren = (node: WorkoutItem): Observable<WorkoutItem[]> =>
-  of(node.children);
-export const hasChild = (_: number, nodeData: WorkoutItemFlatNode) =>
-  nodeData.expandable;
+export const getChildren = (node: WorkoutItem): Observable<WorkoutItem[]> => of(node.children ?? []);
+export const hasChild = (_: number, nodeData: WorkoutItemFlatNode) => nodeData.expandable;

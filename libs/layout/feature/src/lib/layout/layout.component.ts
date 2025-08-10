@@ -1,8 +1,4 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import { filter, map } from 'rxjs';
@@ -22,6 +18,9 @@ import { LANGUAGES_LABELS_LIST } from '@fitness-tracker/shared/i18n/utils';
   imports: [LayoutUiComponent, RouterOutlet, AsyncPipe],
 })
 export class LayoutComponent {
+  private readonly authFacade = inject(AuthFacadeService);
+  private readonly settingsFacade = inject(SettingsFacadeService);
+
   public readonly isLoggedIn$ = this.authFacade.isLoggedIn$;
   public readonly isLoggedOut$ = this.authFacade.isLoggedOut$;
   public readonly photoUrl$ = this.authFacade.photoUrl$;
@@ -32,11 +31,6 @@ export class LayoutComponent {
     filter(Boolean),
   );
   public readonly isDarkMode$ = this.settingsFacade.isDarkMode$;
-
-  constructor(
-    private readonly authFacade: AuthFacadeService,
-    private readonly settingsFacade: SettingsFacadeService,
-  ) {}
 
   public logOut(): void {
     this.authFacade.logOut();

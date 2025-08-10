@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -23,6 +23,9 @@ export class ExerciseFacade
     ReleaseExerciseDetailsCommand,
     ExerciseSavedCommand
 {
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+
   private readonly exercisesList$ = this.store
     .select(ExercisesSelectors.getAllExercises)
     .pipe(map((exercises) => exercises.filter(({ name }) => name)));
@@ -36,8 +39,6 @@ export class ExerciseFacade
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,
   );
-
-  constructor(private readonly store: Store, private readonly router: Router) {}
 
   public exercisePreviews$(
     ids: Set<string>,

@@ -1,6 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import { inject, InjectionToken } from '@angular/core';
-import { WINDOW } from '@ng-web-apis/common';
+import { WA_WINDOW } from '@ng-web-apis/common';
 import {
   AndroidAddToHomeScreenStrategy,
   IOSAddToHomeScreenStrategy,
@@ -12,17 +12,16 @@ export type AddToHomeScreenProvider =
   | IOSAddToHomeScreenStrategy
   | NullAddToHomeStrategy;
 
-export const ADD_TO_HOME_SCREEN_TOKEN =
-  new InjectionToken<AddToHomeScreenProvider>('Add to Home Screen provider', {
-    providedIn: 'root',
-    factory: () => {
-      const platform = inject(Platform);
-      const windowRef = inject(WINDOW);
+export const ADD_TO_HOME_SCREEN_TOKEN = new InjectionToken<AddToHomeScreenProvider>('Add to Home Screen provider', {
+  providedIn: 'root',
+  factory: () => {
+    const platform = inject(Platform);
+    const windowRef = inject(WA_WINDOW);
 
-      return platform.ANDROID
-        ? new AndroidAddToHomeScreenStrategy(windowRef)
-        : platform.IOS && platform.SAFARI
+    return platform.ANDROID
+      ? new AndroidAddToHomeScreenStrategy(windowRef)
+      : platform.IOS && platform.SAFARI
         ? new IOSAddToHomeScreenStrategy()
         : new NullAddToHomeStrategy();
-    },
-  });
+  },
+});

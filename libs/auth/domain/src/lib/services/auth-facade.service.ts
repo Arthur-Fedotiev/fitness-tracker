@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { UserDataQuery } from '@fitness-tracker/shared/models';
 import { Store } from '@ngrx/store';
+import { filter, map } from 'rxjs';
 import {
   loginFailure,
   loginSuccess,
+  loginWithEmail,
+  loginWithGoogle,
   logout,
   setDestinationURL,
-  loginWithGoogle,
-  loginWithEmail,
   signUpWithEmail,
 } from '../application/+state/actions/auth.actions';
 import {
@@ -18,14 +20,14 @@ import {
   selectPhotoUrl,
   selectUserInfo,
 } from '../application/+state/selectors/auth.selectors';
-import { toUserInfo } from '../functions';
-import { UserDataQuery } from '@fitness-tracker/shared/models';
 import { UserInfo } from '../application/models';
 import { AuthFormModel } from '../application/models/auth-form.models';
-import { filter, map } from 'rxjs';
+import { toUserInfo } from '../functions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacadeService implements UserDataQuery {
+  private readonly store = inject(Store);
+
   readonly userInfo = this.store.selectSignal(selectUserInfo);
   readonly isLoggedIn$ = this.store.select(selectIsLoggedIn);
   readonly isLoggedOut$ = this.store.select(selectIsLoggedOut);
@@ -37,8 +39,6 @@ export class AuthFacadeService implements UserDataQuery {
     filter(Boolean),
     map((userInfo) => userInfo?.uid),
   );
-
-  constructor(private readonly store: Store) {}
 
   loggedIn(user: UserInfo): void {
     this.store.dispatch(loginSuccess({ payload: toUserInfo(user) }));

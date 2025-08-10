@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { AuthFacadeService, AuthFormModel } from '@fitness-tracker/auth/domain';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthFacadeService, AuthFormModel } from '@fitness-tracker/auth/domain';
 
-import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,26 +13,11 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    MatIconModule,
-    MatButtonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    TranslateModule
-],
+  imports: [MatIconModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, TranslateModule],
   template: `
-    <mat-icon
-      class="welcome-icon"
-      width="50%"
-      svgIcon="sign-up"
-      [color]="'accent'"
-    ></mat-icon>
+    <mat-icon class="welcome-icon" width="50%" svgIcon="sign-up" [color]="'accent'"></mat-icon>
     @if (selectedAuthFlowStrategy) {
-      <form
-        #authForm="ngForm"
-        class="sing-in-form"
-        >
+      <form #authForm="ngForm" class="sing-in-form">
         <mat-form-field appearance="outline">
           <mat-label>{{ 'auth.emailLabel' | translate }}</mat-label>
           <input
@@ -40,7 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
             placeholder="{{ 'auth.emailLabel' | translate }}"
             name="email"
             [(ngModel)]="authFormModel.email"
-            />
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{ 'auth.passwordLabel' | translate }}</mat-label>
@@ -49,7 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
             placeholder="{{ 'auth.passwordLabel' | translate }}"
             name="password"
             [(ngModel)]="authFormModel.password"
-            />
+          />
         </mat-form-field>
         <div class="sign-in-actions">
           <button mat-button (click)="cancelEmailLogin()">Cancel</button>
@@ -72,10 +57,11 @@ import { TranslateModule } from '@ngx-translate/core';
         </button>
       </div>
     }
-    
-    `,
+  `,
 })
 export class AuthComponent {
+  private readonly authFacade = inject(AuthFacadeService);
+
   protected authFormModel: AuthFormModel = {
     email: '',
     password: '',
@@ -94,11 +80,7 @@ export class AuthComponent {
     },
   } as const;
 
-  protected selectedAuthFlowStrategy:
-    | keyof typeof this.authTypeStrategies
-    | null = null;
-
-  constructor(private readonly authFacade: AuthFacadeService) {}
+  protected selectedAuthFlowStrategy: keyof typeof this.authTypeStrategies | null = null;
 
   protected loginWithGoogle() {
     this.authFacade.loginWithGoogle();
@@ -125,6 +107,9 @@ export class AuthComponent {
   }
 
   protected onSubmit() {
+    if (!this.selectedAuthFlowStrategy) {
+      throw new Error('No authentication flow strategy selected');
+    }
     this.authTypeStrategies[this.selectedAuthFlowStrategy].onSubmit();
   }
 }

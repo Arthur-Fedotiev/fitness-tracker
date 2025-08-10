@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import {
   LOAD_EXERCISE_DETAILS_COMMAND,
@@ -9,10 +9,8 @@ import {
   providedIn: 'root',
 })
 export class ExerciseResolver  {
-  constructor(
-    @Inject(LOAD_EXERCISE_DETAILS_COMMAND)
-    private readonly exerciseCommand: LoadExerciseDetailsCommand,
-  ) {}
+  private readonly exerciseCommand = inject<LoadExerciseDetailsCommand>(LOAD_EXERCISE_DETAILS_COMMAND);
+
   resolve(route: ActivatedRouteSnapshot): void {
     const id = route.paramMap.get('id');
 

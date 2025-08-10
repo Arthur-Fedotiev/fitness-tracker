@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { User, UsersFacadeService } from '@fitness-tracker/create-user/data';
 import { CreateUserFormComponent } from '@fitness-tracker/create-user/ui';
 
@@ -11,7 +11,8 @@ import { CreateUserFormComponent } from '@fitness-tracker/create-user/ui';
   imports: [CreateUserFormComponent],
 })
 export class CreateUserDisplayComponent {
-  constructor(private readonly usersFacade: UsersFacadeService) {}
+  private readonly usersFacade = inject(UsersFacadeService);
+
 
   public createUser({ password, email, admin }: Omit<User, 'role'>): void {
     this.usersFacade.createUser(new User(password, email, admin));

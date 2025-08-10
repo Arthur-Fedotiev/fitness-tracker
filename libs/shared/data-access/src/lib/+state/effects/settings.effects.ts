@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   Actions,
   createEffect,
@@ -22,6 +22,11 @@ import { LANG_STORAGE_KEY } from '@fitness-tracker/shared/i18n/utils';
 
 @Injectable()
 export class SettingsEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly styleManager = inject(StyleManagerService);
+  private readonly store = inject(Store);
+  private readonly translateService = inject(TranslateService);
+
   public loadInitialTheme$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -82,11 +87,4 @@ export class SettingsEffects {
       ),
     { dispatch: false },
   );
-
-  constructor(
-    private readonly actions$: Actions,
-    private readonly styleManager: StyleManagerService,
-    private readonly store: Store,
-    private readonly translateService: TranslateService,
-  ) {}
 }

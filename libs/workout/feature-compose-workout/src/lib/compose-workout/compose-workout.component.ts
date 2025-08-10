@@ -2,16 +2,7 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject,
-  Input,
-  OnDestroy,
-  computed,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnDestroy, computed, ViewChild, inject } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeModule } from '@angular/material/tree';
 import {
   ExerciseDescriptors,
@@ -79,6 +70,11 @@ import { ConfirmationDialogService } from '@fitness-tracker/shared/ui/components
 ],
 })
 export class ComposeWorkoutComponent implements OnInit, OnDestroy {
+  protected readonly exerciseDescriptors = inject<ExerciseDescriptors>(EXERCISE_DESCRIPTORS_TOKEN);
+  private readonly composeWorkoutPresenter = inject(ComposeWorkoutComponentService);
+  private readonly router = inject(Router);
+  private readonly confirmationDialogService = inject(ConfirmationDialogService);
+
   @ViewChild(WorkoutBasicInfoComponent, { static: true })
   basicInfoProvider!: WorkoutBasicInfoComponent;
 
@@ -100,13 +96,7 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
       ),
   );
 
-  constructor(
-    @Inject(EXERCISE_DESCRIPTORS_TOKEN)
-    protected readonly exerciseDescriptors: ExerciseDescriptors,
-    private readonly composeWorkoutPresenter: ComposeWorkoutComponentService,
-    private readonly router: Router,
-    private readonly confirmationDialogService: ConfirmationDialogService,
-  ) {
+  constructor() {
     getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
 

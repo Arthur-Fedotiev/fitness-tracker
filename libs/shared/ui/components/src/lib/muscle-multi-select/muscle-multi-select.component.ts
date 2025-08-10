@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, inject } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import {
   AbstractControl,
@@ -70,6 +65,8 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MuscleMultiSelectComponent {
+  private readonly fb = inject(FormBuilder);
+
   @Input() public muscleList: string[] = [];
   @Input()
   public set initialTargetMuscles(targetMuscles: string[]) {
@@ -88,8 +85,6 @@ export class MuscleMultiSelectComponent {
   get targetMuscles(): AbstractControl {
     return this.workoutFilters.get('targetMuscles') as AbstractControl;
   }
-
-  constructor(private readonly fb: FormBuilder) { }
 
   public trackByIndex(index: number): number {
     return index;

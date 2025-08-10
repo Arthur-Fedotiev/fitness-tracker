@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, inject } from '@angular/core';
 import {
   Validators,
   UntypedFormBuilder,
@@ -38,6 +33,8 @@ interface User {
   ],
 })
 export class CreateUserFormComponent {
+  private readonly fb = inject(UntypedFormBuilder);
+
   @Output() private readonly userCreated: EventEmitter<User> =
     new EventEmitter<User>();
 
@@ -46,8 +43,6 @@ export class CreateUserFormComponent {
     password: ['', [Validators.required, Validators.minLength(5)]],
     admin: [false],
   });
-
-  constructor(private readonly fb: UntypedFormBuilder) {}
 
   public onCreateUser(): void {
     this.userCreated.emit(this.createUserForm.value);

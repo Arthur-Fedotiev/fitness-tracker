@@ -1,4 +1,4 @@
-import { Inject, Injectable, Type } from '@angular/core';
+import { Injectable, Type, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import * as ExercisesActions from './exercise.actions';
@@ -33,6 +33,12 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class ExerciseEffects {
+  private readonly detailsDialogFactory = inject<Observable<Type<unknown>>>(ExerciseDetailsDialogComponent);
+  private readonly actions$ = inject(Actions);
+  private readonly exercisesService = inject(FirebaseExerciseDataService);
+  private readonly store = inject(Store);
+  private readonly dialog = inject(MatDialog);
+
   public readonly findExercises$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ExercisesActions.findExercises, ExercisesActions.refreshExercises),
@@ -189,15 +195,6 @@ export class ExerciseEffects {
       ),
     { dispatch: false },
   );
-
-  constructor(
-    @Inject(ExerciseDetailsDialogComponent)
-    private readonly detailsDialogFactory: Observable<Type<unknown>>,
-    private readonly actions$: Actions,
-    private readonly exercisesService: FirebaseExerciseDataService,
-    private readonly store: Store,
-    private readonly dialog: MatDialog,
-  ) {}
 
   private normalizeSearchOptions({
     sortOrder = ORDER_BY.DESC,

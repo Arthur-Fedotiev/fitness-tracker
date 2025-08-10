@@ -1,29 +1,22 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Injectable } from '@angular/core';
-import {
-  WorkoutItemFlatNode,
-  WorkoutItem,
-} from '@fitness-tracker/workout-domain';
+import { Injectable, inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { WorkoutItem, WorkoutItemFlatNode } from '@fitness-tracker/workout-domain';
 
 import { ComposeWorkoutTreeService } from './compose-workout-tree.service';
 
 @Injectable()
 export class ComposeWorkoutDropService {
-  constructor(
-    private readonly treeService: ComposeWorkoutTreeService,
-    private readonly snackBar: MatSnackBar,
-  ) {}
+  private readonly treeService = inject(ComposeWorkoutTreeService);
+  private readonly snackBar = inject(MatSnackBar);
+
   public drop(event: CdkDragDrop<unknown, unknown, WorkoutItemFlatNode>) {
     if (!event.isPointerOverContainer) return;
 
     const visibleNodes: WorkoutItem[] = this.visibleNodes();
 
     // recursive find function to find siblings of node
-    function findNodeSiblings(
-      currentFlatData: WorkoutItem[],
-      destNodeId: string,
-    ): WorkoutItem[] | null {
+    function findNodeSiblings(currentFlatData: WorkoutItem[], destNodeId: string): WorkoutItem[] | null {
       let result = null;
       let subResult;
 
@@ -40,24 +33,18 @@ export class ComposeWorkoutDropService {
 
     // determine where to insert the node
     const nodeAtDest: WorkoutItem = visibleNodes[event.currentIndex];
-    const flatNodeAtDest: WorkoutItemFlatNode =
-      this.treeService.getFlatNode(nodeAtDest);
+    const flatNodeAtDest: WorkoutItemFlatNode = this.treeService.getFlatNode(nodeAtDest);
 
     const nodeDragged: WorkoutItemFlatNode = event.item.data;
     const nodeToInsert = this.treeService.getNestedNode(nodeDragged);
 
     if (nodeAtDest === nodeToInsert) return;
 
-    const newSiblings: WorkoutItem[] | null = findNodeSiblings(
-      this.treeService.dataSource.data,
-      nodeAtDest?.id,
-    );
+    const newSiblings: WorkoutItem[] | null = findNodeSiblings(this.treeService.dataSource.data, nodeAtDest?.id);
 
     if (!newSiblings) return;
 
-    const nodeAtDestFlatNode = this.treeService.treeControl.dataNodes.find(
-      ({ id }) => nodeAtDest.id === id,
-    );
+    const nodeAtDestFlatNode = this.treeService.treeControl.dataNodes.find(({ id }) => nodeAtDest.id === id)!;
 
     if (this.isSupersetDroppedIntoSuperset(nodeDragged, nodeAtDestFlatNode)) {
       this.showCannotDropIntoSupersetMessage();
@@ -75,17 +62,10 @@ export class ComposeWorkoutDropService {
       visibleNodes[event.currentIndex].parent &&
       nodeAtDest.parent.id !== visibleNodes[event.currentIndex].parent.id;
 
-    const isDraggedAcrossLevels =
-      flatNodeAtDest.level !== nodeDragged.level || isDraggedBetweenSets;
+    const isDraggedAcrossLevels = flatNodeAtDest.level !== nodeDragged.level || isDraggedBetweenSets;
 
     if (isDraggedAcrossLevels) {
-      this.insertNodeIntoAnotherLevel(
-        nodeDragged,
-        flatNodeAtDest,
-        nodeToInsert,
-        nodeAtDest,
-        event,
-      );
+      this.insertNodeIntoAnotherLevel(nodeDragged, flatNodeAtDest, nodeToInsert, nodeAtDest, event);
 
       return;
     }
@@ -140,12 +120,8 @@ export class ComposeWorkoutDropService {
   }
 
   private showCannotDropIntoSupersetMessage(): void {
-    this.snackBar.open(
-      'You cannot drop a superset into another superset',
-      'OK',
-      {
-        duration: Infinity,
-      },
-    );
+    this.snackBar.open('You cannot drop a superset into another superset', 'OK', {
+      duration: Infinity,
+    });
   }
 }

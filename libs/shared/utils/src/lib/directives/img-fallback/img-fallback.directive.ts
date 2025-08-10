@@ -1,10 +1,4 @@
-import {
-  Directive,
-  Input,
-  Renderer2,
-  ElementRef,
-  HostListener,
-} from '@angular/core';
+import { Directive, Input, Renderer2, ElementRef, HostListener, inject } from '@angular/core';
 import { DEFAULT_FALLBACK_IMG } from './fallback.constants';
 
 @Directive({
@@ -12,6 +6,9 @@ import { DEFAULT_FALLBACK_IMG } from './fallback.constants';
   standalone: true,
 })
 export class ImgFallbackDirective {
+  private readonly renderer = inject(Renderer2);
+  private readonly el = inject(ElementRef);
+
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ftWithFallback') public withFallback: string | null = null;
 
@@ -24,9 +21,4 @@ export class ImgFallbackDirective {
       this.withFallback || this.default,
     );
   }
-
-  constructor(
-    private readonly renderer: Renderer2,
-    private readonly el: ElementRef,
-  ) {}
 }

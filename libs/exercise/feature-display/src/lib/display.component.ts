@@ -1,14 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  Inject,
-  computed,
-  signal,
-  effect,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, computed, signal, effect, ViewChild, inject } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { DEFAULT_PAGINATION_STATE } from '@fitness-tracker/shared/utils';
@@ -105,6 +95,12 @@ enum ExerciseOwner {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisplayPageComponent implements OnInit, OnDestroy {
+  protected readonly exerciseDescriptors = inject<ExerciseDescriptors>(EXERCISE_DESCRIPTORS_TOKEN);
+  private readonly exerciseFacade = inject(ExerciseFacade);
+  private readonly authFacade = inject(AuthFacadeService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   @ViewChild(MatExpansionPanel) composedWorkoutPanel: MatExpansionPanel | null =
     null;
 
@@ -185,14 +181,7 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   protected exerciseOwner = signal(ExerciseOwner.All);
   protected isWorkoutCreationMode = false;
 
-  constructor(
-    @Inject(EXERCISE_DESCRIPTORS_TOKEN)
-    protected readonly exerciseDescriptors: ExerciseDescriptors,
-    private readonly exerciseFacade: ExerciseFacade,
-    private readonly authFacade: AuthFacadeService,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-  ) {
+  constructor() {
     effect(
       () =>
         this.selectedForWorkoutIds().size === 0 &&

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap, first, withLatestFrom } from 'rxjs/operators';
 import * as AuthActions from '../actions/auth.actions';
@@ -22,6 +22,11 @@ import { selectDestinationUrl } from '../selectors/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly router = inject(Router);
+  private readonly afAuth = inject(Auth);
+  private readonly store = inject(Store);
+
   readonly loginWithGoogle$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -130,10 +135,8 @@ export class AuthEffects {
     { dispatch: false },
   );
 
-  constructor(
-    private readonly actions$: Actions,
-    private readonly router: Router,
-    private readonly afAuth: Auth,
-    private readonly store: Store,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 }

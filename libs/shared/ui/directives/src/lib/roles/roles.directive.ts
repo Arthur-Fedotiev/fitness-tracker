@@ -24,6 +24,9 @@ import { USER_DATA_QUERY_TOKEN } from '@fitness-tracker/shared/models';
   standalone: true,
 })
 export class RolesDirective implements OnInit {
+  private readonly template = inject<TemplateRef<unknown>>(TemplateRef);
+  private readonly vcRef = inject(ViewContainerRef);
+
   @Input('ftRoles') set allowedRole(role: ROLES) {
     this.allowedRole$$.next(role);
   }
@@ -43,11 +46,6 @@ export class RolesDirective implements OnInit {
     tap(() => this.vcRef.createEmbeddedView(this.template)),
     untilDestroyed(this),
   );
-
-  constructor(
-    private readonly template: TemplateRef<unknown>,
-    private readonly vcRef: ViewContainerRef,
-  ) {}
 
   public ngOnInit(): void {
     this.show$.subscribe();

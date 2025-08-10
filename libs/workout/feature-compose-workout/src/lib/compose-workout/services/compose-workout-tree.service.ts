@@ -1,28 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Injectable } from '@angular/core';
-import {
-  MatTreeFlattener,
-  MatTreeFlatDataSource,
-} from '@angular/material/tree';
-import {
-  WorkoutItemFlatNode,
-  WorkoutItem,
-  ComposeWorkoutData,
-} from '@fitness-tracker/workout-domain';
+import { Injectable, inject } from '@angular/core';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ComposeWorkoutData, WorkoutItem, WorkoutItemFlatNode } from '@fitness-tracker/workout-domain';
 
-import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import {
-  WorkoutDatabase,
-  getLevel,
-  isExpandable,
-  getChildren,
-} from './workout-db';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { WorkoutDatabase, getChildren, getLevel, isExpandable } from './workout-db';
 
 @UntilDestroy()
 @Injectable()
 export class ComposeWorkoutTreeService {
+  private readonly workoutDB = inject(WorkoutDatabase);
+
   private readonly flatNodeMap = new Map<WorkoutItemFlatNode, WorkoutItem>();
   private readonly nestedNodeMap = new Map<WorkoutItem, WorkoutItemFlatNode>();
 
@@ -31,23 +21,10 @@ export class ComposeWorkoutTreeService {
   public dataSource!: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
   public expansionModel = new SelectionModel<string>(true);
 
-  constructor(private readonly workoutDB: WorkoutDatabase) {}
-
   public initialize(initialData: ComposeWorkoutData['workoutContent']) {
-    this.treeFlattener = new MatTreeFlattener(
-      this.transformer,
-      getLevel,
-      isExpandable,
-      getChildren,
-    );
-    this.treeControl = new FlatTreeControl<WorkoutItemFlatNode>(
-      getLevel,
-      isExpandable,
-    );
-    this.dataSource = new MatTreeFlatDataSource(
-      this.treeControl,
-      this.treeFlattener,
-    );
+    this.treeFlattener = new MatTreeFlattener(this.transformer, getLevel, isExpandable, getChildren);
+    this.treeControl = new FlatTreeControl<WorkoutItemFlatNode>(getLevel, isExpandable);
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     this.workoutDB.initialize(initialData);
 
@@ -57,22 +34,17 @@ export class ComposeWorkoutTreeService {
   }
 
   public getNestedNode(flatNode: WorkoutItemFlatNode): WorkoutItem {
-    return this.flatNodeMap.get(flatNode);
+    return this.flatNodeMap.get(flatNode)!;
   }
 
   public getFlatNode(nestedNode: WorkoutItem): WorkoutItemFlatNode {
-    return this.nestedNodeMap.get(nestedNode);
+    return this.nestedNodeMap.get(nestedNode)!;
   }
 
-  public transformer = (
-    nodeItem: WorkoutItem,
-    level: number,
-  ): WorkoutItemFlatNode => {
+  public transformer = (nodeItem: WorkoutItem, level: number): WorkoutItemFlatNode => {
     const existingNode = this.nestedNodeMap.get(nodeItem);
     const flatNode =
-      existingNode?.workoutItem === nodeItem
-        ? existingNode
-        : new WorkoutItemFlatNode(nodeItem, Boolean(level), level);
+      existingNode?.workoutItem === nodeItem ? existingNode : new WorkoutItemFlatNode(nodeItem, Boolean(level), level);
     flatNode.workoutItem = nodeItem;
     flatNode.level = level;
     flatNode.expandable = Boolean(nodeItem.children);
@@ -94,7 +66,7 @@ export class ComposeWorkoutTreeService {
   }
 
   public insertItem(node: WorkoutItemFlatNode, parent: WorkoutItem): void {
-    this.workoutDB.insertItem(parent, this.flatNodeMap.get(node));
+    this.workoutDB.insertItem(parent, this.flatNodeMap.get(node)!);
   }
 
   public addItem(set: WorkoutItem): WorkoutItem {
@@ -102,24 +74,20 @@ export class ComposeWorkoutTreeService {
   }
 
   public decompose(decomposedNode: WorkoutItemFlatNode): void {
-    this.flatNodeMap
-      .get(decomposedNode)
-      ?.children?.forEach((child) =>
-        this.workoutDB.addItem(child.setParent(null)),
-      );
+    this.flatNodeMap.get(decomposedNode)?.children?.forEach((child) => this.workoutDB.addItem(child.setParent(null)));
 
-    this.workoutDB.deleteItem(this.flatNodeMap.get(decomposedNode));
+    this.workoutDB.deleteItem(this.flatNodeMap.get(decomposedNode)!);
   }
 
   public removeFromSuperset(node: WorkoutItemFlatNode): void {
-    const item: WorkoutItem = this.flatNodeMap.get(node);
+    const item = this.flatNodeMap.get(node)!;
 
     this.workoutDB.deleteItem(item);
     this.workoutDB.addItem(item.setParent(null));
   }
 
   public removeFromWorkout(node: WorkoutItemFlatNode): void {
-    const item: WorkoutItem = this.flatNodeMap.get(node);
+    const item = this.flatNodeMap.get(node)!;
 
     this.workoutDB.deleteItem(item);
   }

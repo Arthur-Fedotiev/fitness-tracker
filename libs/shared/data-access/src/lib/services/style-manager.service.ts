@@ -1,18 +1,20 @@
 
-import { Inject, Injectable, Renderer2, RendererFactory2, DOCUMENT } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, DOCUMENT, inject } from '@angular/core';
 import { MODE_PARAMS } from '../models/theme';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StyleManagerService {
+  private readonly document = inject<Document>(DOCUMENT);
+  readonly rendererFactory = inject(RendererFactory2);
+
   private readonly styleSheetsCache: Set<string> = new Set();
   private readonly renderer: Renderer2;
 
-  constructor(
-    @Inject(DOCUMENT) private readonly document: Document,
-    readonly rendererFactory: RendererFactory2,
-  ) {
+  constructor() {
+    const rendererFactory = this.rendererFactory;
+
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 

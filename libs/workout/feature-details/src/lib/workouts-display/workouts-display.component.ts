@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject,
-  signal,
-  computed,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal, computed, OnDestroy, inject } from '@angular/core';
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
 import { WorkoutPreview } from '@fitness-tracker/workout-domain';
 import {
@@ -67,6 +59,12 @@ enum WorkoutOwner {
 ],
 })
 export class WorkoutsDisplayComponent implements OnInit, OnDestroy {
+  protected readonly exerciseDescriptors = inject<ExerciseDescriptors>(EXERCISE_DESCRIPTORS_TOKEN);
+  private readonly workoutFacade = inject(WorkoutFacadeService);
+  private readonly authFacade = inject(AuthFacadeService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+
   protected readonly workoutPreviews = this.workoutFacade.workoutPreviews;
   protected readonly areWorkoutsLoading = this.workoutFacade.areWorkoutsLoading;
   protected readonly userInfo = this.authFacade.userInfo;
@@ -111,15 +109,6 @@ export class WorkoutsDisplayComponent implements OnInit, OnDestroy {
   protected readonly targetMuscles$ = this.targetMusclesSubj
     .asObservable()
     .pipe(skip(1), first());
-
-  constructor(
-    @Inject(EXERCISE_DESCRIPTORS_TOKEN)
-    protected readonly exerciseDescriptors: ExerciseDescriptors,
-    private readonly workoutFacade: WorkoutFacadeService,
-    private readonly authFacade: AuthFacadeService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-  ) {}
 
   ngOnInit() {
     this.initListeners();

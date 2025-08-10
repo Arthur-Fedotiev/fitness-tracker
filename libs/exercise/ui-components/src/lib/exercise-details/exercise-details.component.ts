@@ -1,14 +1,8 @@
-
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Inject,
-  Optional,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
-import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface ExerciseDetailsVM {
   readonly name: string;
@@ -25,11 +19,7 @@ interface ExerciseDetailsVM {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {
-  public readonly exercise: ExerciseDetailsVM = this.dialogData.exercise;
+  dialogData = inject<{ exercise: ExerciseDetailsVM }>(MAT_DIALOG_DATA);
 
-  constructor(
-    @Optional()
-    @Inject(MAT_DIALOG_DATA)
-    public dialogData: { exercise: ExerciseDetailsVM },
-  ) {}
+  public readonly exercise: ExerciseDetailsVM = this.dialogData.exercise;
 }

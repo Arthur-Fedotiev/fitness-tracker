@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import {
@@ -26,11 +26,11 @@ import {
   providedIn: 'root',
 })
 export class WorkoutFacadeService {
+  private readonly store = inject(Store);
+
   readonly areWorkoutsLoading = this.store.selectSignal(getAreWorkoutsLoading);
   readonly workoutPreviews = this.store.selectSignal(selectWorkoutPreviewsVM);
   readonly workoutDetails$ = this.store.select(workoutDetailsVm);
-
-  constructor(private readonly store: Store) {}
 
   loadWorkoutPreviews(payload?: WorkoutBasicInfo['targetMuscles']) {
     this.store.dispatch(loadWorkoutPreviews({ payload }));

@@ -1,12 +1,13 @@
 import { User } from '@angular/fire/auth';
 import { customClaims, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { map, Observable, pipe, UnaryFunction } from 'rxjs';
+import { filter, map, Observable, pipe, UnaryFunction } from 'rxjs';
 import { GLOBAL_PATHS } from '../constants/routing.consts';
 
 export const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(GLOBAL_PATHS.LOGIN);
 
-export const adminOnly: () => UnaryFunction<Observable<User>, Observable<boolean>> = () =>
+export const adminOnly: () => UnaryFunction<Observable<User | null>, Observable<boolean>> = () =>
   pipe(
+    filter(Boolean),
     customClaims,
     map((claims) => {
       // Handle both array and object cases
