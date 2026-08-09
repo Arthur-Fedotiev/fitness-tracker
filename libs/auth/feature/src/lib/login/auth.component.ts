@@ -6,32 +6,31 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-auth',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, TranslateModule],
+  imports: [MatIconModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule],
   template: `
     <mat-icon class="welcome-icon" width="50%" svgIcon="sign-up" [color]="'accent'"></mat-icon>
     @if (selectedAuthFlowStrategy) {
       <form #authForm="ngForm" class="sing-in-form">
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'auth.emailLabel' | translate }}</mat-label>
+          <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="{{ 'auth.emailLabel' | translate }}"
+            placeholder="Email"
             name="email"
             [(ngModel)]="authFormModel.email"
           />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'auth.passwordLabel' | translate }}</mat-label>
+          <mat-label>Password</mat-label>
           <input
             matInput
-            placeholder="{{ 'auth.passwordLabel' | translate }}"
+            placeholder="Password"
             name="password"
             [(ngModel)]="authFormModel.password"
           />
@@ -39,7 +38,7 @@ import { TranslateModule } from '@ngx-translate/core';
         <div class="sign-in-actions">
           <button mat-button (click)="cancelEmailLogin()">Cancel</button>
           <button color="primary" mat-raised-button (click)="onSubmit()">
-            {{ authTypeStrategies[selectedAuthFlowStrategy].label | translate }}
+            {{ authTypeStrategies[selectedAuthFlowStrategy].label }}
           </button>
         </div>
       </form>
@@ -47,13 +46,13 @@ import { TranslateModule } from '@ngx-translate/core';
       <div class="auth-flow-actions">
         <button mat-raised-button (click)="loginWithGoogle()">
           <mat-icon class="google-icon" svgIcon="google-logo"></mat-icon>
-          {{ 'auth.loginWithGoogle' | translate }}
+          Login with Google
         </button>
         <button color="accent" mat-raised-button (click)="startEmailLogin()">
-          {{ 'auth.loginWithEmail' | translate }}
+          Login with Email
         </button>
         <button mat-raised-button color="warn" (click)="startEmailSignup()">
-          {{ 'auth.signUpWithEmail' | translate }}
+          Sign up with Email
         </button>
       </div>
     }
@@ -70,12 +69,12 @@ export class AuthComponent {
   protected authTypeStrategies = {
     signin: {
       type: 'signin',
-      label: 'auth.login',
+      label: 'Login',
       onSubmit: this.signInWithEmailAndPassword.bind(this),
     },
     signup: {
       type: 'signup',
-      label: 'auth.signUp',
+      label: 'Sign up',
       onSubmit: this.signUpWithEmailAndPassword.bind(this),
     },
   } as const;

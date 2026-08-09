@@ -1,6 +1,4 @@
-import { LanguagesISO } from '@fitness-tracker/shared/i18n/utils';
 import { ORDER_BY, Pagination } from '@fitness-tracker/shared/utils';
-import { LanguageCodes } from 'shared-package';
 
 export interface SearchOptionsDto extends Pagination {
   readonly sortOrder: ORDER_BY;
@@ -14,7 +12,6 @@ export class GetExerciseRequestDto {
 
   constructor(
     public readonly searchOptions: SearchOptionsDto,
-    public readonly lang: LanguageCodes = LanguagesISO.ENGLISH,
     public readonly refresh: boolean = false,
   ) {}
 }
@@ -28,10 +25,7 @@ export interface WorkoutExercisesSearchOptions {
 export class GetWorkoutExercisesRequestDto {
   readonly type = ExerciseSearchType.WorkoutExerciseSearch;
 
-  constructor(
-    public readonly searchOptions: WorkoutExercisesSearchOptions,
-    public readonly lang: LanguageCodes = LanguagesISO.ENGLISH,
-  ) {}
+  constructor(public readonly searchOptions: WorkoutExercisesSearchOptions) {}
 }
 
 export enum ExerciseSearchType {

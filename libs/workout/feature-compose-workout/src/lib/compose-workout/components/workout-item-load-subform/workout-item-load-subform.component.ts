@@ -9,7 +9,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TranslateModule } from '@ngx-translate/core';
+import { INSTRUCTION_TYPE_LABELS, LOAD_LABELS } from '@fitness-tracker/shared/utils';
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
@@ -25,11 +25,12 @@ import { TitleCasePipe } from '@angular/common';
     FormsModule,
     MatOptionModule,
     MatInputModule,
-    TranslateModule,
     TitleCasePipe
 ],
 })
 export class WorkoutItemLoadSubformComponent {
   @Input() instruction!: WorkoutItemInstruction;
   protected readonly instructionType = InstructionType;
+  protected readonly instructionTypeLabels = INSTRUCTION_TYPE_LABELS;
+  protected readonly loadLabels = LOAD_LABELS;
 }

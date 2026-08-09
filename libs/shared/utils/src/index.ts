@@ -1,5 +1,6 @@
 export * from './lib/constants/common.constants';
 export * from './lib/constants/routing.consts';
+export * from './lib/constants/display-labels.consts';
 export * from './lib/directives';
 export * from './lib/enums/collections.enum';
 export * from './lib/enums/common.enums';

@@ -8,7 +8,6 @@ import { WorkoutService } from '../../services/workout.service';
 import { WorkoutPreview } from '../../../workout-preview';
 
 import { Store } from '@ngrx/store';
-import { selectLanguage } from '@fitness-tracker/shared/data-access';
 
 import { WithPayload, WithId } from '@fitness-tracker/shared/utils';
 import { selectIsAdmin, selectUserInfo } from '@fitness-tracker/auth/domain';
@@ -80,7 +79,7 @@ export class WorkoutsEffects {
   public readonly loadWorkoutDetails = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkoutActions.loadWorkoutDetails),
-      this.getWorkoutDetailsLocalized$(),
+      this.getWorkoutDetails$(),
       map((payload) => WorkoutActions.loadWorkoutDetailsSuccess({ payload })),
       catchError((payload) => [
         WorkoutActions.loadWorkoutDetailsFailure({ payload }),
@@ -117,17 +116,16 @@ export class WorkoutsEffects {
     { dispatch: false },
   );
 
-  private getWorkoutDetailsLocalized$(): UnaryFunction<
+  private getWorkoutDetails$(): UnaryFunction<
     Observable<WithPayload<string>>,
     Observable<WorkoutDetails>
   > {
     return pipe(
       withLatestFrom(
-        this.store.select(selectLanguage),
         this.store.select(selectUserInfo).pipe(filter(Boolean)),
         this.store.select(selectIsAdmin),
       ),
-      switchMap(([{ payload }, lang, { uid: userId }, isAdmin]) =>
+      switchMap(([{ payload }, { uid: userId }, isAdmin]) =>
         this.workoutAPI.getWorkout(payload).pipe(
           map((serializedWorkout) => ({
             serializedWorkout,
@@ -136,10 +134,7 @@ export class WorkoutsEffects {
           switchMap(({ ids, serializedWorkout }) =>
             this.exercisesService
               .findExercisesForWorkout(
-                new GetWorkoutExercisesRequestDto(
-                  { ids, userId, isAdmin },
-                  lang,
-                ),
+                new GetWorkoutExercisesRequestDto({ ids, userId, isAdmin }),
               )
               .pipe(
                 map((exercises) => ({

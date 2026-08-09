@@ -1,13 +1,13 @@
 <main class="main-container">
   <section class="create-exercise-section">
-    <h3>{{ 'title' | translate }}</h3>
+    <h3>Create New Exercise</h3>
     <form
       #exerciseForm="ngForm"
       ftE2e="exerciseCreateAndEditForm"
       class="exercise-form"
       >
       <mat-form-field appearance="outline">
-        <mat-label>{{ 'label.name' | translate }}</mat-label>
+        <mat-label>Exercise name</mat-label>
         <input
           matInput
           required
@@ -18,7 +18,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>{{ 'label.type' | translate }}</mat-label>
+        <mat-label>Exercise type</mat-label>
         <mat-select
           required
           name="exerciseType"
@@ -29,7 +29,7 @@
             <mat-option
               [value]="exerciseType"
               >{{
-              'EXERCISE-TYPES.' + exerciseType | translate | titlecase
+              exerciseTypeLabels[exerciseType] | titlecase
               }}</mat-option
               >
             }
@@ -37,7 +37,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'label.targetMuscle' | translate }}</mat-label>
+          <mat-label>Target muscle</mat-label>
           <mat-select
             required
             name="targetMuscle"
@@ -47,14 +47,14 @@
             @for (muscle of exerciseDescriptors.muscles; track muscle) {
               <mat-option
                 [value]="muscle"
-                >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+                >{{ muscleLabels[muscle] | titlecase }}</mat-option
                 >
               }
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>{{ 'label.equipment' | translate }}</mat-label>
+            <mat-label>Equipment</mat-label>
 
             <mat-select
               required
@@ -66,7 +66,7 @@
                 <mat-option
                   [value]="equipmentItem"
                   >{{
-                  'EQUIPMENT.' + equipmentItem | translate | titlecase
+                  equipmentLabels[equipmentItem] | titlecase
                   }}</mat-option
                   >
                 }
@@ -74,7 +74,7 @@
             </mat-form-field>
 
             <div ngModelGroup="instructions" class="instructions-container">
-              <h2>{{ 'label.instructions' | translate }}</h2>
+              <h2>Instructions</h2>
 
               @for (
                 instruction of exerciseFormModel.instructions; track instruction; let i = $index) {
@@ -83,7 +83,7 @@
                   >
                   <mat-form-field class="instruction-input" appearance="outline">
                     <mat-label>
-                      {{ 'label.instruction' | translate }} {{ i + 1 }}</mat-label
+                      Instruction {{ i + 1 }}</mat-label
                       >
                       <textarea
                         matInput
@@ -96,7 +96,7 @@
                     <button
                       mat-icon-button
                       color="warn"
-                      attr.aria-labelledby="{{ 'actions.removeInstruction' | translate }}"
+                      aria-labelledby="Remove instruction"
                       (click)="removeInstruction(i)"
                       ftE2e="removeExerciseInstructionBtn"
                       >
@@ -113,7 +113,7 @@
                 (click)="exerciseFormModel.instructions.push('')"
                 ftE2e="addExerciseInstructionBtn"
                 >
-                {{ 'actions.addInstruction' | translate }}
+                Add instruction
               </button>
               <button
                 mat-raised-button
@@ -122,7 +122,7 @@
                 [disabled]="!exerciseForm.valid || !exerciseForm.dirty"
                 (click)="onSave()"
                 >
-                {{ 'actions.save' | translate }}
+                Save
               </button>
             </div>
           </section>

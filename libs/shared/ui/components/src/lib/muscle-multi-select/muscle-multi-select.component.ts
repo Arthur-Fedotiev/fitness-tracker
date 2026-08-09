@@ -9,8 +9,7 @@ import {
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { E2eDirective } from '@fitness-tracker/shared/utils';
-import { TranslateModule } from '@ngx-translate/core';
+import { E2eDirective, MUSCLE_LABELS } from '@fitness-tracker/shared/utils';
 
 @Component({
   selector: 'ft-muscle-multi-select',
@@ -23,21 +22,20 @@ import { TranslateModule } from '@ngx-translate/core';
     E2eDirective,
     MatOptionModule,
     TitleCasePipe,
-    TranslateModule
   ],
   template: `<form class="filters" [formGroup]="workoutFilters">
       <mat-form-field class="filters__item" appearance="outline">
         <mat-select
           formControlName="targetMuscles"
           multiple
-          [placeholder]="'CONTROL_PLACEHOLDERS.selectMuscles' | translate"
+          placeholder="Select target muscles"
           ftE2e="targetMuscles"
           >
           @for (muscle of muscleList; track muscle) {
             <mat-option
               [value]="muscle"
               ftE2e="muscle"
-              >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+              >{{ muscleLabels[muscle] | titlecase }}</mat-option
               >
             }
           </mat-select>
@@ -66,6 +64,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class MuscleMultiSelectComponent {
   private readonly fb = inject(FormBuilder);
+  protected readonly muscleLabels = MUSCLE_LABELS;
 
   @Input() public muscleList: string[] = [];
   @Input()

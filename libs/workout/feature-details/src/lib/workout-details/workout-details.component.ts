@@ -1,20 +1,22 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 
-import { filter, skip, tap } from 'rxjs';
+import { filter } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
-import { SettingsFacadeService } from '@fitness-tracker/shared/data-access';
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { TranslateModule } from '@ngx-translate/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { AsyncPipe, NgTemplateOutlet, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
+import {
+  INSTRUCTION_TYPE_LABELS,
+  INSTRUCTION_UNIT_LABELS,
+  PROFICIENCY_LEVEL_LABELS,
+} from '@fitness-tracker/shared/utils';
 
 @UntilDestroy()
 @Component({
@@ -28,7 +30,6 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
     MatDividerModule,
     MatIconModule,
     MatTooltipModule,
-    TranslateModule,
     MatCardModule,
     MatDividerModule,
     MatButtonModule,
@@ -39,23 +40,18 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 })
 export class WorkoutDetailsComponent implements OnInit {
   private readonly workoutFacade = inject(WorkoutFacadeService);
-  private readonly settingsFacade = inject(SettingsFacadeService);
   private readonly exercisesFacade = inject(ExerciseFacade);
 
   workoutId = input.required<string>({ alias: 'id' });
 
   public readonly workoutDetails$ = this.workoutFacade.workoutDetails$.pipe(filter(Boolean));
 
-  public readonly updateWorkoutDetails$ = this.settingsFacade.language$.pipe(
-    skip(1),
-    tap(() => this.workoutFacade.loadWorkoutDetails(this.workoutId())),
-  );
-
-  private readonly refreshLang$ = getLanguageRefresh$().pipe(untilDestroyed(this));
+  protected readonly levelLabels = PROFICIENCY_LEVEL_LABELS;
+  protected readonly instructionTypeLabels = INSTRUCTION_TYPE_LABELS;
+  protected readonly instructionUnitLabels = INSTRUCTION_UNIT_LABELS;
 
   ngOnInit(): void {
     this.initData();
-    this.initListeners();
   }
 
   public showExerciseDetails(id: string): void {
@@ -64,10 +60,5 @@ export class WorkoutDetailsComponent implements OnInit {
 
   private initData(): void {
     this.workoutFacade.loadWorkoutDetails(this.workoutId());
-  }
-
-  private initListeners(): void {
-    this.updateWorkoutDetails$.subscribe();
-    this.refreshLang$.subscribe();
   }
 }

@@ -13,11 +13,9 @@ import {
 } from '@fitness-tracker/exercise/domain';
 
 import { filter, take } from 'rxjs';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
-
-import { TranslateModule } from '@ngx-translate/core';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +23,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
+import {
+  EQUIPMENT_LABELS,
+  EXERCISE_TYPE_LABELS,
+  MUSCLE_LABELS,
+} from '@fitness-tracker/shared/utils';
 
 @UntilDestroy()
 @Component({
@@ -36,7 +38,6 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule,
     MatSliderModule,
     MatInputModule,
     MatIconModule,
@@ -48,6 +49,9 @@ import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 })
 export class CreateAndEditComponent implements OnDestroy {
   readonly exerciseDescriptors = inject<ExerciseDescriptors>(EXERCISE_DESCRIPTORS_TOKEN);
+  protected readonly muscleLabels = MUSCLE_LABELS;
+  protected readonly equipmentLabels = EQUIPMENT_LABELS;
+  protected readonly exerciseTypeLabels = EXERCISE_TYPE_LABELS;
   private readonly exerciseQuery = inject<ExerciseDetailsQuery>(EXERCISE_DETAILS_QUERY);
   private readonly releaseExerciseDetailsCommand = inject<ReleaseExerciseDetailsCommand>(RELEASE_EXERCISE_DETAILS_COMMAND);
   private readonly exerciseSavedCommand = inject<ExerciseSavedCommand>(EXERCISE_SAVED_COMMAND);
@@ -74,8 +78,6 @@ export class CreateAndEditComponent implements OnDestroy {
 
       this.cdr.markForCheck();
     });
-
-    getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
   }
 
   ngOnDestroy(): void {

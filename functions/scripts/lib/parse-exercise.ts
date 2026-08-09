@@ -28,10 +28,8 @@ request(URL, (error, response, body) => {
       equipment,
       userId: null,
       admin: true,
-    },
-    translatableData: {
       name,
-      instructions: instructions.filter(Boolean).join('___'),
+      instructions: instructions.filter(Boolean),
     },
   };
 

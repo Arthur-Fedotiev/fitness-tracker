@@ -6,16 +6,15 @@ import {
 } from '@angular/material/dialog';
 import { ConfirmationDialogData } from './models';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-confirmation-dialog',
   standalone: true,
-  imports: [TranslateModule, MatButtonModule, MatDialogModule],
+  imports: [MatButtonModule, MatDialogModule],
   template: `
-    <h2 class="header" mat-dialog-title>{{ data.title | translate }}</h2>
+    <h2 class="header" mat-dialog-title>{{ data.title }}</h2>
     <mat-dialog-content class="content">{{
-      data.message | translate
+      data.message
     }}</mat-dialog-content>
     <mat-dialog-actions align="end">
       <button
@@ -25,7 +24,7 @@ import { TranslateModule } from '@ngx-translate/core';
         [mat-dialog-close]="true"
         (click)="dialogRef.close(true)"
       >
-        {{ data.confirmLabel | translate }}
+        {{ data.confirmLabel }}
       </button>
       <button
         mat-stroked-button
@@ -34,7 +33,7 @@ import { TranslateModule } from '@ngx-translate/core';
         [mat-dialog-close]="false"
         (click)="dialogRef.close(false)"
       >
-        {{ data.cancelLabel | translate }}
+        {{ data.cancelLabel }}
       </button>
     </mat-dialog-actions>
   `,

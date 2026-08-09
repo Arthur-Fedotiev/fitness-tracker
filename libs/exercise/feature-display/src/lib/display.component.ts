@@ -1,9 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, computed, signal, effect, ViewChild, inject } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { DEFAULT_PAGINATION_STATE } from '@fitness-tracker/shared/utils';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   debounceTime,
@@ -44,7 +42,6 @@ import {
 } from '@fitness-tracker/exercise/ui-components';
 import { MatButtonModule } from '@angular/material/button';
 import { MuscleMultiSelectComponent } from '@fitness-tracker/shared/ui/components';
-import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 import { MatIconModule } from '@angular/material/icon';
 import {
   MatExpansionModule,
@@ -86,7 +83,6 @@ enum ExerciseOwner {
     MatBadgeModule,
     MatCardModule,
     ExerciseListComponent,
-    TranslateModule,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -162,12 +158,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
     scan(toExerciseLoadState, {} as SearchExercisesState),
     skip(1),
     tap(this.findExercises.bind(this)),
-    untilDestroyed(this),
-  );
-
-  private readonly refreshExercises$ = getLanguageRefresh$().pipe(
-    skip(1),
-    tap(() => this.refreshExercises(DEFAULT_PAGINATION_STATE)),
     untilDestroyed(this),
   );
 
@@ -259,7 +249,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
   }, 100);
 
   private initListeners() {
-    this.refreshExercises$.subscribe();
     this.loadExercises$.subscribe();
   }
 
@@ -275,10 +264,6 @@ export class DisplayPageComponent implements OnInit, OnDestroy {
 
   private findExercises(paginationData: FindExercisesSearchOptions) {
     this.exerciseFacade.findExercises(paginationData);
-  }
-
-  private refreshExercises(paginationData: FindExercisesSearchOptions) {
-    this.exerciseFacade.refreshExercises(paginationData);
   }
 
   private readonly byExerciseOwner = ({ userId }: ExerciseVM) => {

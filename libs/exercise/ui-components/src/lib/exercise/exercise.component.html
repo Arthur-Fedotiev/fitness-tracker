@@ -10,18 +10,18 @@
   </mat-card-title-group>
   <mat-card-content>
     <div class="subtitle-item">
-      <p translate>EXERCISE.targetMuscle</p>
+      <p>Muscle</p>
       <p ftE2e="exerciseTargetMuscle">
-        {{ 'MUSCLES.' + exercise.targetMuscle | translate | titlecase }}
+        {{ muscleLabels[exercise.targetMuscle] | titlecase }}
       </p>
     </div>
     <div class="subtitle-item">
-      <p translate>EXERCISE.equipment</p>
-      <p>{{ 'EQUIPMENT.' + exercise.equipment | translate }}</p>
+      <p>Equipment</p>
+      <p>{{ equipmentLabels[exercise.equipment] }}</p>
     </div>
     <div class="subtitle-item">
-      <p translate>EXERCISE.exerciseType</p>
-      <p>{{ 'EXERCISE-TYPES.' + exercise.exerciseType | translate }}</p>
+      <p>Type</p>
+      <p>{{ exerciseTypeLabels[exercise.exerciseType] }}</p>
     </div>
   </mat-card-content>
   <mat-card-actions class="exercise-actions" (click)="$event.stopPropagation()">
@@ -31,7 +31,7 @@
       ftE2e="exerciseViewBtn"
       (click)="viewExercise(exercise)"
       >
-      {{ 'EXERCISE.viewBtn' | translate }}
+      View
     </button>
 
     @if (exercise.canEdit) {
@@ -41,7 +41,7 @@
         ftE2e="editExerciseBtn"
         (click)="editExercise(exercise)"
         >
-        {{ 'EXERCISE.editBtn' | translate }}
+        Edit
       </button>
     }
     @if (exercise.canDelete) {

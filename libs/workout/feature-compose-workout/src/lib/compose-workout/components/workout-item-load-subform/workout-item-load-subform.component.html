@@ -1,16 +1,16 @@
 <mat-form-field class="load-control" appearance="outline">
-  <mat-label> {{ 'loadLabel.selectLoad' | translate }} </mat-label>
+  <mat-label> Load type </mat-label>
   <mat-select
-    placeholder="{{ 'loadLabel.selectLoad' | translate }}"
+    placeholder="Load type"
     [(ngModel)]="instruction.type"
     name="type"
     required
     >
     <mat-option [value]="instructionType.REPS">{{
-      'instructions.' + instructionType.REPS | translate | titlecase
+      instructionTypeLabels[instructionType.REPS] | titlecase
     }}</mat-option>
     <mat-option [value]="instructionType.DURATION">
-      {{ 'instructions.' + instructionType.DURATION | translate | titlecase }}
+      {{ instructionTypeLabels[instructionType.DURATION] | titlecase }}
     </mat-option>
   </mat-select>
 </mat-form-field>
@@ -20,7 +20,7 @@
     class="load-control"
     appearance="outline"
     >
-    <mat-label> {{ 'loadLabel.' + instruction.type | translate }} </mat-label>
+    <mat-label> {{ loadLabels[instruction.type] }} </mat-label>
     <input
       type="number"
       step="1"

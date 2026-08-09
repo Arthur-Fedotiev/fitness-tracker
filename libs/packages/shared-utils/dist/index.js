@@ -15,6 +15,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./lib/models"), exports);
-__exportStar(require("./lib/constants/translation.consts"), exports);
-__exportStar(require("./lib/functions/translation-mappers"), exports);
 //# sourceMappingURL=index.js.map

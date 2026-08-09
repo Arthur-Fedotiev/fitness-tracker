@@ -4,7 +4,6 @@ import { WorkoutItemInstruction } from '@fitness-tracker/workout-domain';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ft-workout-item-rest',
@@ -13,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [formViewProvider],
   standalone: true,
-  imports: [MatFormFieldModule, FormsModule, MatInputModule, TranslateModule],
+  imports: [MatFormFieldModule, FormsModule, MatInputModule],
 })
 export class WorkoutItemRestComponent {
   @Input() instruction!: WorkoutItemInstruction;

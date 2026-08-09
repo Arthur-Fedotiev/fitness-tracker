@@ -5,13 +5,12 @@ var ROLES;
 (function (ROLES) {
     ROLES["TRAINEE"] = "TRAINEE";
     ROLES["ADMIN"] = "ADMIN";
-})(ROLES = exports.ROLES || (exports.ROLES = {}));
+})(ROLES || (exports.ROLES = ROLES = {}));
 var COLLECTIONS;
 (function (COLLECTIONS) {
     COLLECTIONS["EXERCISES"] = "exercises";
-    COLLECTIONS["TRANSLATIONS"] = "translations";
     COLLECTIONS["EXERCISE_TYPES"] = "exercise-types";
     COLLECTIONS["EQUIPMENT"] = "equipment";
     COLLECTIONS["MUSCLES"] = "muscles";
-})(COLLECTIONS = exports.COLLECTIONS || (exports.COLLECTIONS = {}));
+})(COLLECTIONS || (exports.COLLECTIONS = COLLECTIONS = {}));
 //# sourceMappingURL=enums.js.map

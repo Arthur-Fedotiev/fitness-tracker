@@ -1,10 +1,7 @@
-import { INSTRUCTIONS_DELIMITER } from 'shared-package';
 import { BaseDataRequest } from './base-data-request';
-import { TranslatableExerciseDataRequest } from './translatable-data-request';
 
 export class CreateUpdateExerciseRequestDTO {
   public baseData!: BaseDataRequest;
-  public translatableData!: TranslatableExerciseDataRequest;
 
   constructor(
     {
@@ -15,7 +12,7 @@ export class CreateUpdateExerciseRequestDTO {
       admin,
       instructions,
       name,
-    }: BaseDataRequest & TranslatableExerciseDataRequest,
+    }: BaseDataRequest,
     public readonly id?: string,
   ) {
     this.baseData = {
@@ -24,22 +21,8 @@ export class CreateUpdateExerciseRequestDTO {
       equipment,
       userId,
       admin,
-    };
-    this.translatableData = {
       instructions,
       name,
-    };
-  }
-
-  public serialize() {
-    return {
-      ...this,
-      translatableData: {
-        ...this.translatableData,
-        instructions: this.translatableData.instructions
-          .filter(Boolean)
-          .join(INSTRUCTIONS_DELIMITER),
-      },
     };
   }
 }

@@ -27,7 +27,7 @@ const jsdom_1 = __importDefault(require("jsdom"));
 const request_1 = __importDefault(require("request"));
 const admin = __importStar(require("firebase-admin"));
 const { JSDOM } = jsdom_1.default;
-const [URL, instructionVideo] = process.argv.slice(2);
+const [URL] = process.argv.slice(2);
 (0, request_1.default)(URL, (error, response, body) => {
     if (error) {
         console.error(error);
@@ -38,15 +38,11 @@ const [URL, instructionVideo] = process.argv.slice(2);
     const instructions = extractInstructions(document);
     const name = extractName(document);
     const { targetMuscle, exerciseType, equipment } = extractExerciseInfo(document);
-    const { avatarUrl, avatarSecondaryUrl } = extractImageUrls(document);
     const exercise = {
         baseData: {
-            avatarUrl,
-            avatarSecondaryUrl,
             targetMuscle,
             exerciseType,
             equipment,
-            instructionVideo: instructionVideo ?? null,
             userId: null,
             admin: true,
         },
@@ -140,45 +136,6 @@ function extractExerciseInfo(document) {
         exerciseType: exerciseInfo.exerciseType ?? DEFAULT_DESCRIPTOR,
     };
     return normalized;
-}
-function extractImageUrls(document) {
-    // Select all elements with the class "ExDetail-imgWrap"
-    const imageWrapElements = document.querySelectorAll('.ExDetail-imgWrap');
-    // Extract and map the image URLs using the `map` function
-    const imageUrls = Array.from(imageWrapElements).map((imageWrap) => {
-        // Find the image element within the container
-        const imgElement = imageWrap.querySelector('.ExImg');
-        // Extract the image URL from the "data-large-photo" attribute
-        return imgElement?.getAttribute('data-large-photo');
-    });
-    return {
-        avatarUrl: imageUrls[0],
-        avatarSecondaryUrl: imageUrls[1],
-    };
-}
-function extractVideoSrc(document) {
-    // Get the video element by its class name
-    const videoElement = document.querySelector('.jw-video');
-    // Check if the video element exists
-    if (videoElement) {
-        // Get the "src" attribute of the video element
-        const videoSrc = videoElement.getAttribute('src');
-        // Check if the "src" attribute is not null or empty
-        if (videoSrc) {
-            // Return the video source URL
-            return videoSrc;
-        }
-        else {
-            // If "src" attribute is empty, log an error message
-            console.error('Video source URL is empty.');
-        }
-    }
-    else {
-        // If video element is not found, log an error message
-        console.error('Video element not found.');
-    }
-    // Return null if video source cannot be extracted
-    return null;
 }
 exports.EXERCISE_DESCRIPTORS = {
     muscles: [

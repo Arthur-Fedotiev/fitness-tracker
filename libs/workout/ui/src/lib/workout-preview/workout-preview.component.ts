@@ -6,7 +6,6 @@ import {
   Output,
 } from '@angular/core';
 import { ROLES } from 'shared-package';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LowerCasePipe, TitleCasePipe, NgOptimizedImage } from '@angular/common';
@@ -14,6 +13,8 @@ import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import {
   ImgFallbackDirective,
+  MUSCLE_LABELS,
+  PROFICIENCY_LEVEL_LABELS,
   WORKOUT_PREVIEW_FALLBACK_IMG,
 } from '@fitness-tracker/shared/utils';
 import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
@@ -34,7 +35,6 @@ import { WorkoutPreviewVM } from './models';
     MatButtonModule,
     MatIconModule,
     TitleCasePipe,
-    TranslateModule,
     MatMenuModule,
     MatChipsModule,
     NgOptimizedImage
@@ -48,4 +48,6 @@ export class WorkoutPreviewComponent {
 
   protected readonly roles = ROLES;
   protected fallbackImg = WORKOUT_PREVIEW_FALLBACK_IMG;
+  protected readonly muscleLabels = MUSCLE_LABELS;
+  protected readonly levelLabels = PROFICIENCY_LEVEL_LABELS;
 }

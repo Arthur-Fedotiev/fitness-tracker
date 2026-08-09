@@ -35,14 +35,14 @@
               highlighted
               color="accent"
               >
-              {{ 'MUSCLES.' + muscle | translate | titlecase }}
+              {{ muscleLabels[muscle] | titlecase }}
             </mat-chip-option>
           }
         </mat-chip-listbox>
       </mat-card-subtitle>
       @if (workout.level; as lvl) {
         <p class="level-paragraph">
-          {{ 'LEVELS.' + lvl | translate | titlecase }}
+          {{ levelLabels[lvl] | titlecase }}
         </p>
       }
     </mat-card>

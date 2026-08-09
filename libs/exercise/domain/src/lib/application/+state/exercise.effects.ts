@@ -24,7 +24,6 @@ import {
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { FirebaseExerciseDataService } from '../../infrastructure/exercise.data.service';
-import { selectLanguage } from '@fitness-tracker/shared/data-access';
 import { GetExerciseRequestDto } from '../../entities/dto/request/get/get-exercise-request.dto';
 import { CreateUpdateExerciseRequestDTO } from '../../entities/dto/request/update/exercise-create-update-request.dto';
 import { ExerciseDetailsDialogComponent } from '../../application/providers/exercise-details-dialog.provider';
@@ -43,16 +42,14 @@ export class ExerciseEffects {
     this.actions$.pipe(
       ofType(ExercisesActions.findExercises, ExercisesActions.refreshExercises),
       withLatestFrom(
-        this.store.select(selectLanguage),
         this.store.select(selectUserInfo).pipe(filter(Boolean)),
         this.store.select(selectIsAdmin),
       ),
-      concatMap(([{ payload, type }, language, { uid: userId }, isAdmin]) =>
+      concatMap(([{ payload, type }, { uid: userId }, isAdmin]) =>
         this.exercisesService
           .findExercisesPaginated(
             new GetExerciseRequestDto(
               this.normalizeSearchOptions({ ...payload, userId, isAdmin }),
-              language,
               type === EXERCISES_ACTION_NAMES.REFRESH_EXERCISES,
             ),
           )
@@ -102,7 +99,7 @@ export class ExerciseEffects {
                   admin,
                 },
                 id,
-              ).serialize(),
+              ),
             )
             .pipe(
               map(() => ExercisesActions.exerciseSavedSuccess()),
@@ -131,9 +128,8 @@ export class ExerciseEffects {
   public readonly loadExerciseDetails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ExercisesActions.loadExerciseDetails),
-      withLatestFrom(this.store.select(selectLanguage)),
-      switchMap(([{ payload }, lang]) =>
-        this.exercisesService.getExerciseDetails(payload, lang).pipe(
+      switchMap(({ payload }) =>
+        this.exercisesService.getExerciseDetails(payload).pipe(
           map((payload) =>
             ExercisesActions.loadExerciseDetailsSuccess({ payload }),
           ),

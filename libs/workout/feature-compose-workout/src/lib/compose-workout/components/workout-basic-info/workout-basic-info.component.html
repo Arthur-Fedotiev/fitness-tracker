@@ -5,7 +5,7 @@
   >
   <mat-form-field appearance="outline">
     <input
-      placeholder="{{ 'basicInformation.name' | translate }}"
+      placeholder="Workout name"
       matInput
       required
       name="name"
@@ -15,7 +15,7 @@
 
   <mat-form-field appearance="outline">
     <mat-select
-      placeholder="{{ 'basicInformation.targetMuscles' | translate }}"
+      placeholder="Target muscles"
       multiple
       name="targetMuscles"
       required
@@ -24,7 +24,7 @@
       @for (muscle of exerciseDescriptors.muscles; track muscle) {
         <mat-option
           [value]="muscle"
-          >{{ 'MUSCLES.' + muscle | translate | titlecase }}</mat-option
+          >{{ muscleLabels[muscle] | titlecase }}</mat-option
           >
         }
       </mat-select>
@@ -32,7 +32,7 @@
 
     <mat-form-field appearance="outline">
       <mat-select
-        placeholder="{{ 'basicInformation.level' | translate }}"
+        placeholder="Level"
         name="level"
         required=""
         [(ngModel)]="workoutBasicInfo.level"
@@ -40,7 +40,7 @@
         @for (lvl of exerciseDescriptors.proficiencyLvls; track lvl) {
           <mat-option
             [value]="lvl"
-            >{{ 'PROFICIENCY_LVL.' + lvl | translate | titlecase }}</mat-option
+            >{{ levelLabels[lvl] | titlecase }}</mat-option
             >
           }
         </mat-select>
@@ -48,7 +48,7 @@
 
       <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
         <input
-          placeholder="{{ 'basicInformation.coverUrl' | translate }}"
+          placeholder="Cover image URL"
           matInput
           required
           name="coverUrl"
@@ -58,7 +58,7 @@
 
       <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
         <input
-          placeholder="{{ 'basicInformation.avatarUrl' | translate }}"
+          placeholder="Avatar image URL"
           matInput
           name="avatarUrl"
           required

@@ -23,10 +23,9 @@ import {
   where,
 } from '@angular/fire/firestore';
 
-import { combineLatest, first, forkJoin, from, map, Observable, of, switchMap, tap } from 'rxjs';
-import { COLLECTIONS, LanguageCodes } from 'shared-package';
+import { first, forkJoin, from, map, Observable, tap } from 'rxjs';
+import { COLLECTIONS } from 'shared-package';
 
-import { LanguagesISO } from '@fitness-tracker/shared/i18n/utils';
 import { convertOneSnap, convertSnaps, Pagination, WithId } from '@fitness-tracker/shared/utils';
 import { chunk } from 'lodash-es';
 import { ExerciseResponseModel } from '../application/models/exercise-response.model';
@@ -41,10 +40,8 @@ import {
 import { CreateUpdateExerciseRequestDTO } from '../entities/dto/request/update/exercise-create-update-request.dto';
 import { EXERCISE_FIELD_NAMES } from '../entities/exercise.enums';
 import { ExerciseResponseDto } from '../entities/response/exercise-response';
-import { ExerciseTranslationResponse } from '../entities/response/exercise-translation-response';
 
 export type ExerciseCollection = CollectionReference<ExerciseResponseDto>;
-export type ExerciseTranslationSubCollection = CollectionReference<ExerciseTranslationResponse>;
 
 @Injectable({
   providedIn: 'root',
@@ -69,11 +66,10 @@ export class FirebaseExerciseDataService {
 
   findExercisesForWorkout({
     searchOptions: { ids, ...restSearchOptions },
-    lang,
   }: GetWorkoutExercisesRequestDto): Observable<ExerciseResponseModel[]> {
     return forkJoin(
       chunk(ids, 10).map((ids) =>
-        this.findExercisesPaginated(new GetWorkoutExercisesRequestDto({ ids, ...restSearchOptions }, lang)),
+        this.findExercisesPaginated(new GetWorkoutExercisesRequestDto({ ids, ...restSearchOptions })),
       ),
     ).pipe(map((exercises) => exercises.flat()));
   }
@@ -91,14 +87,7 @@ export class FirebaseExerciseDataService {
       ),
       map((exerciseResponseSnaps) => convertSnaps<ExerciseResponseDto>(exerciseResponseSnaps)),
       map((exerciseResponseList: Array<WithId<ExerciseResponseDto>>) =>
-        exerciseResponseList.map(this.toBaseDataWithId),
-      ),
-      switchMap((exercisesBaseData) => {
-        const exercisesTranslationsObs = exercisesBaseData.map(this.toExerciseTranslation$(req.lang));
-        return exercisesBaseData?.length ? combineLatest(exercisesTranslationsObs) : of([]);
-      }),
-      map((translatedExercises) =>
-        translatedExercises.map((translatedExercise) => new ExerciseResponseModel(translatedExercise)),
+        exerciseResponseList.map(this.toBaseDataWithId).map((exercise) => new ExerciseResponseModel(exercise)),
       ),
       first(),
     );
@@ -108,12 +97,11 @@ export class FirebaseExerciseDataService {
     return from(deleteDoc(doc(this.exerciseCollectionRef, exerciseId)));
   }
 
-  getExerciseDetails(exerciseId: string, lang: LanguageCodes = LanguagesISO.ENGLISH) {
+  getExerciseDetails(exerciseId: string) {
     return from(getDoc(doc(this.exerciseCollectionRef, exerciseId))).pipe(
       map(convertOneSnap),
       map(this.toBaseDataWithId),
-      switchMap((exercise) => this.toExerciseTranslation$(lang)(exercise)),
-      map((translatedExercise) => new ExerciseResponseModel(translatedExercise)),
+      map((exercise) => new ExerciseResponseModel(exercise)),
     );
   }
 
@@ -165,28 +153,7 @@ export class FirebaseExerciseDataService {
     );
   }
 
-  private toExerciseTranslation$(lang: LanguageCodes) {
-    return <TExerciseBase extends { id: string }>(exercise: TExerciseBase) =>
-      from(
-        runInInjectionContext(this.injector, () => getDoc(doc(this.getTranslationsSubcollection(exercise.id), lang))),
-      ).pipe(
-        map(convertOneSnap),
-        map((translation) => ({
-          ...translation,
-          ...exercise,
-        })),
-        first(),
-      );
-  }
-
   private toBaseDataWithId({ baseData, id }: WithId<ExerciseResponseDto>) {
     return { ...baseData, id };
-  }
-
-  private getTranslationsSubcollection(id: string) {
-    return collection(
-      doc(this.exerciseCollectionRef, id),
-      COLLECTIONS.TRANSLATIONS,
-    ) as ExerciseTranslationSubCollection;
   }
 }

@@ -12,7 +12,6 @@ import {
   WorkoutLevel,
 } from '@fitness-tracker/workout-domain';
 import { ExerciseDescriptors } from '@fitness-tracker/exercise/public-api';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatOptionModule } from '@angular/material/core';
@@ -20,7 +19,11 @@ import { TitleCasePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { formViewProvider } from '@fitness-tracker/shared/utils';
+import {
+  formViewProvider,
+  MUSCLE_LABELS,
+  PROFICIENCY_LEVEL_LABELS,
+} from '@fitness-tracker/shared/utils';
 import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
 import { ROLES } from 'shared-package';
 
@@ -40,7 +43,6 @@ import { ROLES } from 'shared-package';
     TextFieldModule,
     MatButtonModule,
     TitleCasePipe,
-    TranslateModule,
     RolesDirective
 ],
   viewProviders: [formViewProvider],
@@ -60,6 +62,8 @@ export class WorkoutBasicInfoComponent {
 
   protected readonly parentForm = inject(ControlContainer).control;
   protected readonly workoutLevels = WorkoutLevel;
+  protected readonly muscleLabels = MUSCLE_LABELS;
+  protected readonly levelLabels = PROFICIENCY_LEVEL_LABELS;
 
   workoutBasicInfo: WorkoutBasicInfoFormModel = {
     name: '',

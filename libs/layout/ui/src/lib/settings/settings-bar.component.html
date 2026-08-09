@@ -1,43 +1,6 @@
 <mat-list class="list">
   <mat-list-item>
     <button
-      #menuTrigger="matMenuTrigger"
-      type="button"
-      mat-button
-      [matMenuTriggerFor]="settingsMenu"
-      (click)="$event.stopPropagation()"
-      >
-      <mat-icon
-        class="setting-icon"
-        attr.aria-labelledby="{{ language!.value }}"
-        matListIcon
-        [svgIcon]="language!.value"
-      ></mat-icon>
-    </button>
-
-    <mat-menu #settingsMenu>
-      @for (opt of languages; track opt) {
-        <button
-          mat-menu-item
-        (click)="
-          $event.stopPropagation();
-          selectLanguage(opt.value);
-          menuTrigger.closeMenu()
-        "
-          >
-          <mat-icon
-            class="setting-icon"
-            matListIcon
-            [svgIcon]="opt.value"
-          ></mat-icon>
-          <span>{{ opt.label }}</span>
-        </button>
-      }
-    </mat-menu>
-  </mat-list-item>
-
-  <mat-list-item>
-    <button
       matListItemTitle
       mat-button
       class="action"

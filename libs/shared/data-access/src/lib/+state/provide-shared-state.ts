@@ -4,7 +4,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SettingsEffects } from './effects/settings.effects';
 import { darkMode } from './meta-reducers/dark-mode.reducer';
-import { languageMetaReducer } from './meta-reducers/language-meta-reducer.reducer';
 import { FtState, appReduceMap } from './reducers/app.reduce-map';
 
 interface ProvideSharedStateSettings {
@@ -16,7 +15,7 @@ export const provideSharedState = ({
 }: ProvideSharedStateSettings) => [
     importProvidersFrom(
       StoreModule.forRoot<FtState>(appReduceMap, {
-        metaReducers: [languageMetaReducer, darkMode],
+        metaReducers: [darkMode],
         runtimeChecks: {
           strictActionImmutability: true,
           strictStateImmutability: true,

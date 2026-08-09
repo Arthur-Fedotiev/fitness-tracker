@@ -5,7 +5,6 @@ import {
   HostBinding,
 } from '@angular/core';
 import { ROLES } from 'shared-package';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
@@ -27,7 +26,6 @@ import { RolesDirective } from '@fitness-tracker/shared/ui/directives';
     RouterLink,
     MatIconModule,
     MatButtonModule,
-    TranslateModule,
     RolesDirective,
     MatTooltipModule,
   ],

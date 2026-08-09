@@ -1,4 +1,3 @@
-import { getLanguageRefresh$ } from '@fitness-tracker/shared/i18n/domain';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -29,7 +28,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { WorkoutBasicInfoComponent } from './components/workout-basic-info/workout-basic-info.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from '@fitness-tracker/exercise/domain';
-import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -65,7 +63,6 @@ import { ConfirmationDialogService } from '@fitness-tracker/shared/ui/components
     FormsModule,
     WorkoutItemLoadSubformComponent,
     WorkoutItemRestComponent,
-    TranslateModule,
     MatDividerModule
 ],
 })
@@ -95,10 +92,6 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
         this.composeWorkoutPresenter.temporarySuperset().map((node) => node.id),
       ),
   );
-
-  constructor() {
-    getLanguageRefresh$().pipe(untilDestroyed(this)).subscribe();
-  }
 
   ngOnInit() {
     const { treeControl, dataSource, expansionModel } =
@@ -130,10 +123,10 @@ export class ComposeWorkoutComponent implements OnInit, OnDestroy {
   protected remove(node: WorkoutItemFlatNode) {
     this.confirmationDialogService
       .open({
-        title: 'removalConfirmation.title',
-        message: 'removalConfirmation.message',
-        confirmLabel: 'removalConfirmation.confirmLabel',
-        cancelLabel: 'removalConfirmation.cancelLabel',
+        title: 'Exercise removal',
+        message: 'Are you sure you want to remove this exercise? You will not be able to add it back.',
+        confirmLabel: 'Remove',
+        cancelLabel: 'Cancel',
       })
       .pipe(untilDestroyed(this))
       .subscribe((confirmed) => {

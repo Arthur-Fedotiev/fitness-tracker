@@ -62,7 +62,7 @@
                   color="accent"
                   (click)="isWorkoutCreationMode = true"
                   >
-                  {{ 'composedWorkout.createWorkout' | translate }}
+                  Create Workout
                 </button>
               }
               @if (isWorkoutCreationMode) {
@@ -73,7 +73,7 @@
                   [disabled]="!selectedForWorkoutIds().size"
                   (click)="finishComposing()"
                   >
-                  {{ 'composedWorkout.proceed' | translate }}
+                  Proceed
                 </button>
                 <button
                   mat-stroked-button
@@ -81,7 +81,7 @@
                   color="warn"
                   (click)="cancelComposing()"
                   >
-                  {{ 'composedWorkout.cancel' | translate }}
+                  Cancel
                 </button>
               }
             </mat-panel-title>

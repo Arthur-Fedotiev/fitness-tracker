@@ -18,7 +18,6 @@ import {
   ExerciseDescriptors,
   EXERCISE_DESCRIPTORS_TOKEN,
 } from '@fitness-tracker/exercise/public-api';
-import { TranslateModule } from '@ngx-translate/core';
 import {
   WorkoutListComponent,
   WorkoutPreviewComponent,
@@ -52,7 +51,6 @@ enum WorkoutOwner {
     MuscleMultiSelectComponent,
     WorkoutListComponent,
     WorkoutPreviewComponent,
-    TranslateModule,
     AsyncPipe,
     MatButtonToggleModule,
     MatProgressSpinnerModule

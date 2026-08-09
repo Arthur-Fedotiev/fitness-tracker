@@ -1,6 +1,5 @@
 import { WithId } from '@fitness-tracker/shared/utils';
 import { ExerciseResponseDto } from '../../entities/response/exercise-response';
-import { ExerciseTranslationResponse } from '../../entities/response/exercise-translation-response';
 
 export class ExerciseResponseModel {
   public static readonly TARGET_MUSCLES = [
@@ -73,7 +72,7 @@ export class ExerciseResponseModel {
     instructions,
     userId,
     admin,
-  }: WithId<ExerciseResponseDto['baseData']> & ExerciseTranslationResponse) {
+  }: WithId<ExerciseResponseDto['baseData']>) {
     this.id = id;
     this.name = name;
     this.equipment = equipment;

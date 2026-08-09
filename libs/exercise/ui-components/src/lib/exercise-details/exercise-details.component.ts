@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 
 interface ExerciseDetailsVM {
   readonly name: string;
@@ -14,7 +13,7 @@ interface ExerciseDetailsVM {
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
   standalone: true,
-  imports: [TranslateModule, MatDialogModule, MatButtonModule],
+  imports: [MatDialogModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseDetailsComponent {

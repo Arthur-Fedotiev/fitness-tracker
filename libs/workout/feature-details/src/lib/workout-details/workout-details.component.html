@@ -11,29 +11,23 @@
           <div>
             <p class="mat-subtitle-1 stat-item">
               {{ workout.estimatedDurationMin }}
-              {{ 'instructions.units.MINUTES' | translate }}
+              {{ instructionUnitLabels.MINUTES }}
             </p>
-            <p class="mat-caption">
-              {{ 'workoutStats.estimatedDuration' | translate | uppercase }}
-            </p>
+            <p class="mat-caption">EST. DURATION</p>
           </div>
           <div>
             <p class="mat-subtitle-1 stat-item">{{ workout.totalExercises }}</p>
-            <p class="mat-caption">
-              {{ 'workoutStats.totalExercises' | translate | uppercase }}
-            </p>
+            <p class="mat-caption">EXERCISES</p>
           </div>
           <div>
             <p class="mat-subtitle-1 stat-item">{{ workout.totalReps }}</p>
-            <p class="mat-caption">
-              {{ 'workoutStats.totalReps' | translate | uppercase }}
-            </p>
+            <p class="mat-caption">REPS</p>
           </div>
         </div>
       </div>
       @if (workout.level; as lvl) {
         <p class="level-paragraph">
-          {{ 'LEVELS.' + lvl | translate | titlecase }}
+          {{ levelLabels[lvl] | titlecase }}
         </p>
       }
     </header>
@@ -55,11 +49,11 @@
     <div class="superset-container">
       <div class="mat-body-strong superset-description">
         <div class="compound-title">
-          <span class="name">{{ 'compoundTypes.superset' | translate | uppercase }} </span>
+          <span class="name">SUPERSET </span>
           <button
             #infoTooltip="matTooltip"
             mat-icon-button
-            [matTooltip]="'supersetNotes' | translate"
+            matTooltip="Perform the exercises in order, without or as little rest between."
             matTooltipPosition="right"
             aria-tooltip="Show superset notes"
             (click)="infoTooltip.toggle()"
@@ -72,27 +66,21 @@
             <p class="mat-subtitle-1 stat-item">
               {{ item.totalSets }}
             </p>
-            <p class="mat-caption">
-              {{ 'totalRounds' | translate }}
-            </p>
+            <p class="mat-caption">Total rounds</p>
           </div>
           <div>
             <p class="mat-subtitle-1 stat-item">
               {{ item.restPauseBetween }}
-              {{ 'instructions.units.DURATION' | translate }}
+              {{ instructionUnitLabels.DURATION }}
             </p>
-            <p class="mat-caption">
-              {{ 'restPause.betweenRounds' | translate }}
-            </p>
+            <p class="mat-caption">Rest between rounds</p>
           </div>
           <div>
             <p class="mat-subtitle-1 stat-item">
               {{ item.restPauseAfterComplete }}
-              {{ 'instructions.units.DURATION' | translate }}
+              {{ instructionUnitLabels.DURATION }}
             </p>
-            <p class="mat-caption">
-              {{ 'restPause.afterSupersetComplete' | translate }}
-            </p>
+            <p class="mat-caption">Rest after superset done</p>
           </div>
         </div>
       </div>
@@ -125,9 +113,7 @@
           @if (!isChild) {
             <div>
               <p class="mat-subtitle-1 stat-item">{{ item.totalSets }}</p>
-              <p class="mat-caption">
-                {{ 'totalSets' | translate }}
-              </p>
+              <p class="mat-caption">Total sets</p>
             </div>
           }
           <div>
@@ -135,27 +121,23 @@
               {{ item.load }}
             </p>
             <p class="mat-caption">
-              {{ 'instructions.' + item.type | translate }}
+              {{ instructionTypeLabels[item.type] }}
             </p>
           </div>
           @if (!isChild) {
             <div>
               <p class="mat-subtitle-1 stat-item">
                 {{ item.restPauseBetween }}
-                {{ 'instructions.units.DURATION' | translate }}
+                {{ instructionUnitLabels.DURATION }}
               </p>
-              <p class="mat-caption">
-                {{ 'restPause.betweenSets' | translate }}
-              </p>
+              <p class="mat-caption">Rest between sets</p>
             </div>
             <div>
               <p class="mat-subtitle-1 stat-item">
                 {{ item.restPauseAfterComplete }}
-                {{ 'instructions.units.DURATION' | translate }}
+                {{ instructionUnitLabels.DURATION }}
               </p>
-              <p class="mat-caption">
-                {{ 'restPause.afterExerciseComplete' | translate }}
-              </p>
+              <p class="mat-caption">Rest after exercise done</p>
             </div>
           }
         </div>

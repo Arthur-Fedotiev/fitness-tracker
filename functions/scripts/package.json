@@ -8,7 +8,9 @@
     "start:migrate-instructions": "npx tsc && node dist/lib/migrate-instructions.js",
     "start:update-user-role": "npx tsc && node dist/lib/update-user-role.js",
     "start:update-exercise-ownership": "npx tsc && node dist/lib/update-exercise-ownership.js",
-    "start:parse-exercise": "npx tsc && node dist/lib/parse-exercise.js"
+    "start:parse-exercise": "npx tsc && node dist/lib/parse-exercise.js",
+    "start:flatten-exercise-translations:dev": "npx tsc && node dist/lib/flatten-exercise-translations.js ./sa.json",
+    "start:flatten-exercise-translations:prod": "npx tsc && node dist/lib/flatten-exercise-translations.js ./sa.prod.json"
   },
   "devDependencies": {
     "@types/node": "^16.11.11",

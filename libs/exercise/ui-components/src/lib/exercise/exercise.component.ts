@@ -9,10 +9,14 @@ import { ROLES } from 'shared-package';
 import { ExerciseVM } from '../models/exercise-vm';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 import { TitleCasePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { E2eDirective } from '@fitness-tracker/shared/utils';
+import {
+  E2eDirective,
+  EQUIPMENT_LABELS,
+  EXERCISE_TYPE_LABELS,
+  MUSCLE_LABELS,
+} from '@fitness-tracker/shared/utils';
 
 @Component({
   selector: 'components-exercise',
@@ -23,7 +27,6 @@ import { E2eDirective } from '@fitness-tracker/shared/utils';
   imports: [
     MatCardModule,
     E2eDirective,
-    TranslateModule,
     MatButtonModule,
     MatIconModule,
     TitleCasePipe
@@ -45,6 +48,9 @@ export class ExerciseComponent {
   public readonly exerciseAddedToWorkout = new EventEmitter<string>();
 
   protected readonly roles = ROLES;
+  protected readonly muscleLabels = MUSCLE_LABELS;
+  protected readonly equipmentLabels = EQUIPMENT_LABELS;
+  protected readonly exerciseTypeLabels = EXERCISE_TYPE_LABELS;
 
   public viewExercise({ id }: ExerciseVM): void {
     this.exerciseViewed.emit(id);

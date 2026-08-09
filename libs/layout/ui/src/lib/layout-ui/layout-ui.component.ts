@@ -5,7 +5,6 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { LanguageCodes } from 'shared-package';
 import { SettingsBarComponent } from '../settings/settings-bar.component';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { Language } from '@fitness-tracker/shared/i18n/utils';
 
 @Component({
   selector: 'ft-layout-ui',
@@ -35,20 +33,13 @@ export class LayoutUiComponent {
   @Input() public isLoggedIn: boolean | null = false;
   @Input() public isLoggedOut: boolean | null = false;
   @Input() public photoUrl: string | null = null;
-  @Input() public language: Language | null = null;
   @Input() public isDarkMode = false;
 
   @Output() public readonly loggedOutChange = new EventEmitter<void>();
-  @Output() public readonly languageSelected =
-    new EventEmitter<LanguageCodes>();
   @Output() public readonly darkModeChanged = new EventEmitter<void>();
 
   public logOut(): void {
     this.loggedOutChange.emit();
-  }
-
-  public selectLanguage(language: LanguageCodes) {
-    this.languageSelected.emit(language);
   }
 
   public toggleDarkMode(): void {
