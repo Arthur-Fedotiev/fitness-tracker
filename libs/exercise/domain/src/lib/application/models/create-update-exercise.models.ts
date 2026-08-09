@@ -2,14 +2,7 @@ import { Exercise } from 'shared-package';
 
 export type ExerciseFromModel = Pick<
   Exercise,
-  | 'avatarUrl'
-  | 'avatarSecondaryUrl'
-  | 'targetMuscle'
-  | 'exerciseType'
-  | 'equipment'
-  | 'instructionVideo'
-  | 'name'
-  | 'instructions'
+  'targetMuscle' | 'exerciseType' | 'equipment' | 'name' | 'instructions'
 >;
 
 export interface SaveExerciseCommandModel {

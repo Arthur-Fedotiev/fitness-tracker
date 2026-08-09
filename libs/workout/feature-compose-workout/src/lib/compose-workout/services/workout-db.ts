@@ -21,7 +21,7 @@ export class WorkoutDatabase {
     this.dataChange.next(initialData);
   }
 
-  public buildFileTree(initialData: Array<Pick<any, 'avatarUrl' | 'id' | 'name'>>): WorkoutItem[] {
+  public buildFileTree(initialData: Array<Pick<any, 'id' | 'name'>>): WorkoutItem[] {
     return initialData.map(
       ({ name, id }) => new SingleWorkoutItem(name, id, new ConcreteSingleWorkoutItemInstruction()),
     );

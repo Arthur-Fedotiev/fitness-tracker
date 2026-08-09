@@ -5,9 +5,6 @@
     "type": "Rodzaj ćwiczenia",
     "targetMuscle": "Mięsień docelowy",
     "sprzęt": "sprzęt",
-    "avatarUrl": "Adres URL awatara",
-    "avatarSecondaryUrl": "Dodatkowy adres URL awatara",
-    "instructionVideo": "URL wideo",
     "instrukcje": "Instrukcje",
     "instrukcja": "Instrukcja"
   },

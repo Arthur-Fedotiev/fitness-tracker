@@ -116,7 +116,7 @@ export class ComposeWorkoutComponentService {
     this.dropService.drop(event);
   }
 
-  addToWorkout(exercise: { avatarUrl: string; id: string; name: string }) {
+  addToWorkout(exercise: { id: string; name: string }) {
     this.treeService.addItem(
       this.workoutItemSerializeStrategy.deserialize({
         ...exercise,

@@ -7,8 +7,6 @@ import {
 
 import { DEFAULT_PAGINATION_STATE } from '@fitness-tracker/shared/utils';
 
-const MAX_COUNT_OF_EXERCISES_WITH_PRIORITY = 4;
-
 export const toExerciseLoadState = (
   acc: SearchExercisesState,
   { type, payload }: { type: string; payload: object },
@@ -33,32 +31,22 @@ export const toExerciseVM =
     uid: string | undefined,
     selectedForWorkoutIds: Set<string>,
   ) =>
-  (
-    {
-      id,
-      name,
-      avatarUrl,
-      avatarSecondaryUrl,
-      equipment,
-      exerciseType,
-      instructionVideo,
-      targetMuscle,
-      userId,
-      admin,
-    }: ExerciseResponseModel,
-    idx: number,
-  ) => ({
+  ({
     id,
     name,
-    avatarUrl,
-    avatarSecondaryUrl,
     equipment,
     exerciseType,
-    instructionVideo,
+    targetMuscle,
+    userId,
+    admin,
+  }: ExerciseResponseModel) => ({
+    id,
+    name,
+    equipment,
+    exerciseType,
     targetMuscle,
     isSelected: selectedForWorkoutIds.has(id),
     canDelete: admin ? isAdmin : uid === userId,
     canEdit: admin ? isAdmin : uid === userId,
     userId,
-    hasPriority: idx <= MAX_COUNT_OF_EXERCISES_WITH_PRIORITY,
   });

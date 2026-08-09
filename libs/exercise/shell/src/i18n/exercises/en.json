@@ -5,9 +5,6 @@
     "type": "Exercise type",
     "targetMuscle": "Target muscle",
     "equipment": "Equipment",
-    "avatarUrl": "Avatar URL",
-    "avatarSecondaryUrl": "Avatar secondary URL",
-    "instructionVideo": "Video URL",
     "instructions": "Instructions",
     "instruction": "Instruction"
   },

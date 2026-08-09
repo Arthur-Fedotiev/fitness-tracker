@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 
 const { JSDOM } = jsdom;
 
-const [URL, instructionVideo] = process.argv.slice(2);
+const [URL] = process.argv.slice(2);
 
 request(URL, (error, response, body) => {
   if (error) {
@@ -20,16 +20,12 @@ request(URL, (error, response, body) => {
   const { targetMuscle, exerciseType, equipment } = extractExerciseInfo(
     document,
   ) as any;
-  const { avatarUrl, avatarSecondaryUrl } = extractImageUrls(document);
 
   const exercise = {
     baseData: {
-      avatarUrl,
-      avatarSecondaryUrl,
       targetMuscle,
       exerciseType,
       equipment,
-      instructionVideo: instructionVideo ?? null,
       userId: null,
       admin: true,
     },
@@ -168,51 +164,6 @@ function extractExerciseInfo(document: Document) {
   };
 
   return normalized;
-}
-
-function extractImageUrls(document: Document) {
-  // Select all elements with the class "ExDetail-imgWrap"
-  const imageWrapElements = document.querySelectorAll('.ExDetail-imgWrap');
-
-  // Extract and map the image URLs using the `map` function
-  const imageUrls = Array.from(imageWrapElements).map((imageWrap) => {
-    // Find the image element within the container
-    const imgElement = imageWrap.querySelector('.ExImg');
-
-    // Extract the image URL from the "data-large-photo" attribute
-    return imgElement?.getAttribute('data-large-photo');
-  });
-
-  return {
-    avatarUrl: imageUrls[0],
-    avatarSecondaryUrl: imageUrls[1],
-  };
-}
-
-function extractVideoSrc(document: Document) {
-  // Get the video element by its class name
-  const videoElement = document.querySelector('.jw-video');
-
-  // Check if the video element exists
-  if (videoElement) {
-    // Get the "src" attribute of the video element
-    const videoSrc = videoElement.getAttribute('src');
-
-    // Check if the "src" attribute is not null or empty
-    if (videoSrc) {
-      // Return the video source URL
-      return videoSrc;
-    } else {
-      // If "src" attribute is empty, log an error message
-      console.error('Video source URL is empty.');
-    }
-  } else {
-    // If video element is not found, log an error message
-    console.error('Video element not found.');
-  }
-
-  // Return null if video source cannot be extracted
-  return null;
 }
 
 export const EXERCISE_DESCRIPTORS = {

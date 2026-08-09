@@ -19,10 +19,10 @@ export const getExercisesEntities = createSelector(getExercisesState, (state: St
 export const selectExercisePreview = (exerciseIds: Set<string>) =>
   createSelector(
     getExercisesEntities,
-    (entities): Array<Pick<ExerciseResponseModel, 'avatarUrl' | 'id' | 'name'>> =>
+    (entities): Array<Pick<ExerciseResponseModel, 'id' | 'name'>> =>
       [...exerciseIds].map((exerciseId) => {
-        const { id, name, avatarUrl } = entities[exerciseId] as ExerciseResponseModel;
-        return { id, name, avatarUrl };
+        const { id, name } = entities[exerciseId] as ExerciseResponseModel;
+        return { id, name };
       }),
   );
 

@@ -14,12 +14,6 @@ describe('Exercise Edit', () => {
       equipment: 'BARBELL',
       coverUrl: 'https://www.google.com',
       coverSecondaryUrl: 'https://www.google.com',
-      avatarUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9XSxNDCGzb8VnsgX0Y0eewB-cx7IyH4yLyxeWaq1hbRfGLtcwkdbtYNtVlQGHL6hjU8o&usqp=CAU',
-
-      avatarSecondaryUrl: 'https://www.google.com',
-
-      instructionVideo: 'https://www.google.com',
       muscleDiagramUrl: 'https://www.google.com',
       rating: 5,
     },
@@ -53,9 +47,6 @@ describe('Exercise Edit', () => {
     cy.get('@saveBtn').should('be.disabled');
 
     cy.selectMatOption('exerciseEquipmentSelect');
-    cy.get('@saveBtn').should('be.disabled');
-
-    cy.dataCy('exerciseAvatarUrlInput').type(exerciseStub.baseData.avatarUrl);
     cy.get('@saveBtn').should('be.disabled');
 
     cy.dataCy('exerciseCoverUrlInput')

@@ -54,11 +54,8 @@ export class ExerciseResponseModel {
   ] as const;
 
   public readonly id: string;
-  public readonly avatarUrl: string;
-  public readonly avatarSecondaryUrl: string;
   public readonly equipment: string;
   public readonly exerciseType: string;
-  public readonly instructionVideo: string | null;
   public readonly targetMuscle: string;
 
   public readonly userId: string | null;
@@ -70,11 +67,8 @@ export class ExerciseResponseModel {
   constructor({
     id,
     name,
-    avatarUrl,
-    avatarSecondaryUrl,
     equipment,
     exerciseType,
-    instructionVideo,
     targetMuscle,
     instructions,
     userId,
@@ -82,11 +76,8 @@ export class ExerciseResponseModel {
   }: WithId<ExerciseResponseDto['baseData']> & ExerciseTranslationResponse) {
     this.id = id;
     this.name = name;
-    this.avatarUrl = avatarUrl;
-    this.avatarSecondaryUrl = avatarSecondaryUrl;
     this.equipment = equipment;
     this.exerciseType = exerciseType;
-    this.instructionVideo = instructionVideo;
     this.targetMuscle = targetMuscle;
     this.instructions = (instructions ?? []).filter(Boolean);
     this.userId = userId;

@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 interface ExerciseDetailsVM {
   readonly name: string;
-  readonly instructionVideo?: string;
   readonly instructions?: string[];
 }
 

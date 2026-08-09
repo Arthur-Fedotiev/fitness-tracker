@@ -9,7 +9,7 @@
 
 ## Core domain terms
 
-- `exercise`: a reusable exercise definition used across workouts.
+- `exercise`: a reusable exercise definition used across workouts. Carries no media (no images, no instructional video) — see [ADR-0001](docs/adr/0001-drop-exercise-media.md).
 - `workout`: a composed plan of exercises and sets.
 - `user`: authenticated app user.
 - `create-user`: onboarding flow that provisions a new user profile.

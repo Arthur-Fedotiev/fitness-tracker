@@ -5,9 +5,6 @@
     "type": "Тип вправи",
     "targetMuscle": "Цільовий м'яз",
     "equipment": "Обладнання",
-    "avatarUrl": "URL-адреса аватара",
-    "avatarSecondaryUrl": "Вторинна URL-адреса аватара",
-    "instructionVideo": "URL-адреса відео",
     "instructions": "Інструкції",
     "instruction": "Інструкція"
   },

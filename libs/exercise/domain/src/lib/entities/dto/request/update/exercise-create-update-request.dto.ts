@@ -8,12 +8,9 @@ export class CreateUpdateExerciseRequestDTO {
 
   constructor(
     {
-      avatarUrl,
-      avatarSecondaryUrl,
       targetMuscle,
       exerciseType,
       equipment,
-      instructionVideo,
       userId,
       admin,
       instructions,
@@ -22,12 +19,9 @@ export class CreateUpdateExerciseRequestDTO {
     public readonly id?: string,
   ) {
     this.baseData = {
-      avatarUrl,
-      avatarSecondaryUrl,
       targetMuscle,
       exerciseType,
       equipment,
-      instructionVideo,
       userId,
       admin,
     };

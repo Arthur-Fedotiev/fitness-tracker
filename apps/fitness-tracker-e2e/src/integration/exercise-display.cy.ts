@@ -38,16 +38,12 @@ describe('Exercise', () => {
     cy.get('@exerciseTargetMuscle').should('contain', 'Quadriceps');
   });
 
-  it('should display exercise details in a dialog, containing video instructions, which could be closed', () => {
+  it('should display exercise details in a dialog, which could be closed', () => {
     cy.visit('/exercises/all');
 
     cy.dataCy('exerciseViewBtn').first().click();
 
     cy.get('components-exercise-details').should('be.visible');
-
-    cy.dataCy('exerciseInstructionsVideo')
-      .should('have.prop', 'paused', true)
-      .and('have.prop', 'ended', false);
 
     cy.dataCy('closeExerciseDetailsDialog').click();
     cy.get('components-exercise-details').should('not.exist');

@@ -37,15 +37,6 @@
 .card {
   border-radius: 1.5rem;
 
-  .avatar {
-    border-radius: 0.5rem;
-    object-fit: cover;
-
-    &--secondary {
-      display: none;
-    }
-  }
-
   &__title {
     font-size: 1rem;
     text-align: center;
@@ -53,15 +44,5 @@
 
   .subtitle-item > p:first-child {
     color: #ff5722;
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .card {
-    .avatar {
-      &--secondary {
-        display: block;
-      }
-    }
   }
 }

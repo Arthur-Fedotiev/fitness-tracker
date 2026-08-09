@@ -155,11 +155,6 @@
     align-items: center;
     gap: 1rem;
   }
-
-  &__avatar {
-    border-radius: 1rem;
-    align-self: flex-end;
-  }
 }
 
 :host ::ng-deep {
@@ -171,11 +166,5 @@
     > div:first-child {
       width: 100%;
     }
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .card__avatar--secondary {
-    display: unset;
   }
 }

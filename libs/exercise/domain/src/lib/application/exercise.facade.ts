@@ -42,7 +42,7 @@ export class ExerciseFacade
 
   public exercisePreviews$(
     ids: Set<string>,
-  ): Observable<Array<Pick<ExerciseResponseModel, 'avatarUrl' | 'id' | 'name'>>> {
+  ): Observable<Array<Pick<ExerciseResponseModel, 'id' | 'name'>>> {
     return this.store.select(ExercisesSelectors.selectExercisePreview(ids));
   }
 

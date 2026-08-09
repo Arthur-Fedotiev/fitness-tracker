@@ -73,36 +73,6 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-              <mat-label>{{ 'label.avatarUrl' | translate }}</mat-label>
-
-              <input
-                matInput
-                name="avatarUrl"
-                [(ngModel)]="exerciseFormModel.avatarUrl"
-                ftE2e="exerciseAvatarUrlInput"
-                />
-            </mat-form-field>
-
-            <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-              <mat-label>{{ 'label.avatarSecondaryUrl' | translate }}</mat-label>
-              <input
-                matInput
-                name="avatarSecondaryUrl"
-                ftE2e="exerciseAvatarSecondaryUrlInput"
-                [(ngModel)]="exerciseFormModel.avatarSecondaryUrl"
-                />
-            </mat-form-field>
-            <mat-form-field *ftRoles="Roles.ADMIN" appearance="outline">
-              <mat-label>{{ 'label.instructionVideo' | translate }}</mat-label>
-              <input
-                matInput
-                name="instructionVideo"
-                [(ngModel)]="exerciseFormModel.instructionVideo"
-                ftE2e="exerciseInstructionVideoInput"
-                />
-            </mat-form-field>
-
             <div ngModelGroup="instructions" class="instructions-container">
               <h2>{{ 'label.instructions' | translate }}</h2>
 
