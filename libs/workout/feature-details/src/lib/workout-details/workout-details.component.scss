@@ -1,10 +1,11 @@
 :host {
-  --secondary-text-color: darkgrey;
-  --highlighted-color: orange;
+  --secondary-text-color: var(--ft-text-muted, #6b4f3a);
+  --highlighted-color: var(--ft-accent-color, #c2410c);
 }
 
 .mat-caption {
   color: var(--secondary-text-color);
+  opacity: 0.95;
 }
 
 .wrapper {
@@ -15,11 +16,15 @@
 
 .level-paragraph {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  background: darkred;
-  padding: 0.4rem;
-  border-radius: 6px;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, var(--ft-surface-3, #fde6d2) 0%, var(--ft-surface-2, #fffcf8) 100%);
+  color: var(--ft-text-primary, #24150d);
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--ft-border-color, rgba(36, 21, 13, 0.12));
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .workout-header {
@@ -40,21 +45,28 @@
     align-items: flex-start;
     gap: 1rem;
 
-    width: 90%;
+    width: calc(100% - 2rem);
     margin: auto;
 
     position: absolute;
     bottom: 0;
-    left: 5%;
+    left: 1rem;
+    padding: 1rem 1rem 1.25rem;
+    border-radius: 1rem 1rem 0 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.78) 100%);
   }
 
   .by {
     color: var(--highlighted-color);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .workout-name {
-    font-style: oblique;
-    letter-spacing: 0.25em;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: white;
   }
 
   .workout-stats {
@@ -106,6 +118,7 @@
 
   .stat-item {
     color: var(--highlighted-color);
+    font-weight: 700;
   }
 }
 
@@ -141,9 +154,6 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-  }
-
-  &__avatar-container {
   }
 
   &__avatar {

@@ -25,9 +25,7 @@
 // );
 
 body:not(.dark-theme) {
-  @include mat.all-component-colors(pallets.$ft-app-light-theme);
-  @include mat.all-component-typographies(pallets.$ft-app-light-theme);
-  @include mat.all-component-densities(pallets.$ft-app-light-theme);
+  @include mat.all-component-themes(pallets.$ft-app-light-theme);
 
   @include typo.override-mat-typography();
 }

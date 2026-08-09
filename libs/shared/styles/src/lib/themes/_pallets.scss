@@ -1,31 +1,45 @@
 @use '@angular/material' as mat;
 
-// M2 palettes
-$ft-app-dark-primary: mat.m2-define-palette(mat.$m2-deep-orange-palette);
-$ft-app-dark-accent: mat.m2-define-palette(mat.$m2-yellow-palette, A200, A100, A400);
-$ft-app-dark-warn: mat.m2-define-palette(mat.$m2-red-palette);
+// Material 3 (M3) themes.
+// Note: M3 replaces "accent" with secondary/tertiary.
+//
+// Palette goal: rugged / "man" look. No green/blue.
+// We use warm orange + yellow + red.
 
-$ft-app-light-primary: mat.m2-define-palette(mat.$m2-amber-palette);
-$ft-app-light-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
-$ft-app-light-warn: mat.m2-define-palette(mat.$m2-red-palette);
-
-// M2 themes
-$ft-app-dark-theme: mat.m2-define-dark-theme(
+$ft-app-light-theme: mat.define-theme(
   (
     color: (
-      primary: $ft-app-dark-primary,
-      accent: $ft-app-dark-accent,
-      warn: $ft-app-dark-warn,
+      theme-type: light,
+      // Use a single primary palette; it includes secondary/neutral/error internally.
+      primary: mat.$orange-palette,
+      // Optional: use red as tertiary to punch highlights.
+      tertiary: mat.$red-palette,
     ),
+    typography: (
+      plain-family: Roboto,
+      brand-family: Roboto,
+      regular-weight: 400,
+      medium-weight: 500,
+      bold-weight: 700,
+    ),
+    density: (),
   )
 );
 
-$ft-app-light-theme: mat.m2-define-light-theme(
+$ft-app-dark-theme: mat.define-theme(
   (
     color: (
-      primary: $ft-app-light-primary,
-      accent: $ft-app-light-accent,
-      warn: $ft-app-light-warn,
+      theme-type: dark,
+      primary: mat.$orange-palette,
+      tertiary: mat.$red-palette,
     ),
+    typography: (
+      plain-family: Roboto,
+      brand-family: Roboto,
+      regular-weight: 400,
+      medium-weight: 500,
+      bold-weight: 700,
+    ),
+    density: (),
   )
 );

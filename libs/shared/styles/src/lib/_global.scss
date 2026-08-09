@@ -7,6 +7,14 @@
 :root {
   --ft-primary-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   --ft-primary-font-size: 12px;
+  --ft-accent-color: #c2410c;
+  --ft-accent-strong: #9a2c0c;
+  --ft-surface-1: #fff8f1;
+  --ft-surface-2: #fffcf8;
+  --ft-surface-3: #fde6d2;
+  --ft-text-primary: #24150d;
+  --ft-text-muted: #6b4f3a;
+  --ft-border-color: rgba(36, 21, 13, 0.12);
 }
 
 @media screen and (min-width: 400px) {
@@ -21,13 +29,26 @@
   }
 }
 
-// Light/Dark scoped runtime tokens (M2 accent maintained)
 body:not(.dark-theme) {
-  --ft-accent-color: #{mat.get-theme-color(pallets.$ft-app-light-theme, accent, 600)};
+  --ft-accent-color: #c2410c;
+  --ft-accent-strong: #9a2c0c;
+  --ft-surface-1: #fff8f1;
+  --ft-surface-2: #fffcf8;
+  --ft-surface-3: #fde6d2;
+  --ft-text-primary: #24150d;
+  --ft-text-muted: #6b4f3a;
+  --ft-border-color: rgba(36, 21, 13, 0.12);
 }
 
 body.dark-theme {
-  --ft-accent-color: #{mat.get-theme-color(pallets.$ft-app-dark-theme, accent, 500)};
+  --ft-accent-color: #fbbf24;
+  --ft-accent-strong: #fde68a;
+  --ft-surface-1: #140f0b;
+  --ft-surface-2: #1f1712;
+  --ft-surface-3: #2d2017;
+  --ft-text-primary: #f7efe8;
+  --ft-text-muted: #d8c6b3;
+  --ft-border-color: rgba(247, 239, 232, 0.16);
 }
 
 *,
@@ -43,10 +64,48 @@ body {
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: var(--ft-primary-font-family);
   font-size: var(--ft-primary-font-size);
+  background: radial-gradient(circle at top left, rgba(255, 166, 77, 0.16) 0, transparent 28%), var(--ft-surface-1);
+  color: var(--ft-text-primary);
+  transition:
+    background-color 180ms ease-in-out,
+    color 180ms ease-in-out;
+}
+
+body .mat-mdc-card,
+body .mat-mdc-dialog-container {
+  background: linear-gradient(145deg, var(--ft-surface-2) 0%, var(--ft-surface-3) 100%);
+  color: var(--ft-text-primary);
+  border: 1px solid var(--ft-border-color);
+}
+
+body .mat-mdc-card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+}
+
+body .mat-mdc-button,
+body .mat-mdc-raised-button,
+body .mat-mdc-outlined-button,
+body .mat-mdc-icon-button {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 
 .accent-color {
   color: var(--ft-accent-color);
+}
+
+a {
+  color: var(--ft-accent-color);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }

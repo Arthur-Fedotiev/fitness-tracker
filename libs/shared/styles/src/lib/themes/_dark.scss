@@ -24,9 +24,7 @@
 // );
 
 body.dark-theme {
-  @include mat.all-component-colors(pallets.$ft-app-dark-theme);
-  @include mat.all-component-typographies(pallets.$ft-app-dark-theme);
-  @include mat.all-component-densities(pallets.$ft-app-dark-theme);
+  @include mat.all-component-themes(pallets.$ft-app-dark-theme);
 
   @include typo.override-mat-typography();
 }
