@@ -11,11 +11,6 @@ service cloud.firestore {
       allow create: if isValidExercise();
       allow update: if withValidAccessOwnershipForWrites('exercise') && isValidExercise();
       allow delete: if withValidAccessOwnershipForWrites('exercise');
-
-      match /translations/{translationId} {
-        allow read: if withValidAccessToTranslationReads(database, 'exercises', exerciseId); // TODO: verify tomorrow
-        allow write: if isAdmin();
-      }
     }
 
     match /workouts/{workoutId} {
@@ -24,12 +19,6 @@ service cloud.firestore {
       allow create: if isValidWorkout();
       allow update: if withValidAccessOwnershipForWrites('workout') && isValidWorkout();
       allow delete: if withValidAccessOwnershipForWrites('workout');
-    }
-
-    function withValidAccessToTranslationReads(database, collectionName, docId) {
-      let exerciseData = get(/databases/$(database)/documents/$(collectionName)/$(docId)).data.baseData;
-
-      return isAdmin() && exerciseData.admin == true || (isKnownUser() && exerciseData.userId == request.auth.uid) || exerciseData.admin == true;
     }
 
     function isAdmin() {
@@ -48,15 +37,12 @@ service cloud.firestore {
 
     function isValidExercise() {
       let baseData = request.resource.data.baseData;
-      let translatableData = request.resource.data.translatableData;
 
-      return isNonEmptyString(translatableData.name) &&
+      return isNonEmptyString(baseData.name) &&
       isNonEmptyString(baseData.exerciseType) &&
       isNonEmptyString(baseData.targetMuscle) &&
       isNonEmptyString(baseData.equipment) &&
-      isNonEmptyString(baseData.avatarUrl) &&
-      isNonEmptyString(baseData.avatarSecondaryUrl) &&
-      translatableData.instructions is string &&
+      baseData.instructions is list &&
       isRequestOwnershipValid('exercise');
     }
 
