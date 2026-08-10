@@ -9,7 +9,6 @@ import {
   documentId,
   DocumentReference,
   endAt,
-  FieldPath,
   Firestore,
   getDoc,
   getDocs,
@@ -87,7 +86,7 @@ export class FirebaseExerciseDataService {
       ),
       map((exerciseResponseSnaps) => convertSnaps<ExerciseResponseDto>(exerciseResponseSnaps)),
       map((exerciseResponseList: Array<WithId<ExerciseResponseDto>>) =>
-        exerciseResponseList.map(this.toBaseDataWithId).map((exercise) => new ExerciseResponseModel(exercise)),
+        exerciseResponseList.map((exercise) => new ExerciseResponseModel(exercise)),
       ),
       first(),
     );
@@ -100,7 +99,6 @@ export class FirebaseExerciseDataService {
   getExerciseDetails(exerciseId: string) {
     return from(getDoc(doc(this.exerciseCollectionRef, exerciseId))).pipe(
       map(convertOneSnap),
-      map(this.toBaseDataWithId),
       map((exercise) => new ExerciseResponseModel(exercise)),
     );
   }
@@ -121,20 +119,17 @@ export class FirebaseExerciseDataService {
 
   private getExerciseCollectionRef(ref: ExerciseCollection, searchOptions: SearchOptionsDto) {
     const queryWithOwnership = searchOptions.isAdmin
-      ? query(ref, where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN), '==', true))
+      ? query(ref, where(EXERCISE_FIELD_NAMES.ADMIN, '==', true))
       : query(
           ref,
           or(
-            where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID), '==', searchOptions.userId),
-            where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN), '==', true),
+            where(EXERCISE_FIELD_NAMES.USER_ID, '==', searchOptions.userId),
+            where(EXERCISE_FIELD_NAMES.ADMIN, '==', true),
           ),
         );
 
     return searchOptions.targetMuscles?.length
-      ? query(
-          queryWithOwnership,
-          where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.TARGET_MUSCLE), 'in', searchOptions.targetMuscles),
-        )
+      ? query(queryWithOwnership, where(EXERCISE_FIELD_NAMES.TARGET_MUSCLE, 'in', searchOptions.targetMuscles))
       : queryWithOwnership;
   }
 
@@ -144,16 +139,9 @@ export class FirebaseExerciseDataService {
       and(
         where(documentId(), 'in', ids),
         ...(isAdmin
-          ? [where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN), '==', true)]
-          : [
-              where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.USER_ID), '==', userId),
-              where(new FieldPath('baseData', EXERCISE_FIELD_NAMES.ADMIN), '==', true),
-            ]),
+          ? [where(EXERCISE_FIELD_NAMES.ADMIN, '==', true)]
+          : [where(EXERCISE_FIELD_NAMES.USER_ID, '==', userId), where(EXERCISE_FIELD_NAMES.ADMIN, '==', true)]),
       ),
     );
-  }
-
-  private toBaseDataWithId({ baseData, id }: WithId<ExerciseResponseDto>) {
-    return { ...baseData, id };
   }
 }

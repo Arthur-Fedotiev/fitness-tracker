@@ -72,7 +72,7 @@ export class ExerciseResponseModel {
     instructions,
     userId,
     admin,
-  }: WithId<ExerciseResponseDto['baseData']>) {
+  }: WithId<ExerciseResponseDto>) {
     this.id = id;
     this.name = name;
     this.equipment = equipment;

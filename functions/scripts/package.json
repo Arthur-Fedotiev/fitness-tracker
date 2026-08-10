@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "start:update-user-role": "npx tsc && node dist/lib/update-user-role.js",
-    "start:update-exercise-ownership": "npx tsc && node dist/lib/update-exercise-ownership.js"
+    "start:flatten-exercise-basedata": "npx tsc && node dist/lib/flatten-exercise-basedata.js",
+    "start:survey-exercise-flatten-readiness": "npx tsc && node dist/lib/survey-exercise-flatten-readiness.js"
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
