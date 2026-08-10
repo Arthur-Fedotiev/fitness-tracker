@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/exercise/feature-display"],
       "options": {
         "jestConfig": "libs/exercise/feature-display/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/exercise/feature-display/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/exercise/feature-display/**/*.ts",
-          "libs/exercise/feature-display/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/exercise/feature-display/**/*.ts", "libs/exercise/feature-display/**/*.html"]
       }
     }
   }

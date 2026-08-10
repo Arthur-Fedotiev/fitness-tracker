@@ -11,7 +11,7 @@ export const darkMode = (
 
       state = state
         ? { ...state, settings: { ...state.settings, isDarkMode } }
-        : ({ settings: { isDarkMode } } as FtState);
+        : { settings: { isDarkMode } };
     }
 
     return reducer(state, action);

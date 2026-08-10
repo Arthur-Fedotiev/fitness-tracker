@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/auth/feature"],
       "options": {
         "jestConfig": "libs/auth/feature/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/auth/feature/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/auth/feature/src/**/*.ts",
-          "libs/auth/feature/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/auth/feature/src/**/*.ts", "libs/auth/feature/src/**/*.html"]
       }
     }
   }

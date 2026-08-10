@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/exercise/domain"],
       "options": {
         "jestConfig": "libs/exercise/domain/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/exercise/domain/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/exercise/domain/**/*.ts",
-          "libs/exercise/domain/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/exercise/domain/**/*.ts", "libs/exercise/domain/**/*.html"]
       }
     }
   }

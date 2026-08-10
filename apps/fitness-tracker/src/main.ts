@@ -1,4 +1,8 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import {
+  enableProdMode,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { environment } from '@fitness-tracker/shared/environments';
 
 import { AppComponent } from './app/app.component';
@@ -24,6 +28,7 @@ if (environment.production) {
 setTimeout(function scheduleAppBootstrap() {
   bootstrapApplication(AppComponent, {
     providers: [
+      provideZoneChangeDetection(),
       importProvidersFrom(BrowserModule, MatDialogModule),
       provideRouter(
         APP_ROUTES,
