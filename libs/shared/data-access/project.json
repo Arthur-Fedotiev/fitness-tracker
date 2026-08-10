@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/shared/data-access"],
       "options": {
         "jestConfig": "libs/shared/data-access/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/shared/data-access/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/data-access/src/**/*.ts",
-          "libs/shared/data-access/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/shared/data-access/src/**/*.ts", "libs/shared/data-access/src/**/*.html"]
       }
     }
   }

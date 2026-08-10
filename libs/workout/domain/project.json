@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/workout/domain"],
       "options": {
         "jestConfig": "libs/workout/domain/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/workout/domain/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/workout/domain/src/**/*.ts",
-          "libs/workout/domain/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/workout/domain/src/**/*.ts", "libs/workout/domain/src/**/*.html"]
       }
     }
   }

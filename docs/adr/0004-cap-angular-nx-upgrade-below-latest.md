@@ -1,0 +1,9 @@
+# Cap the Angular/Nx upgrade at 21/22 instead of latest
+
+The repo runs Angular 20.1.4 / Nx 21.3.11, two majors behind the latest stable releases (Angular 22.1.1, Nx 23.1.1, per research on 2026-08-10, `.scratch/angular-nx-migration/research-latest-versions.md`). We're upgrading to Angular 21 / Nx 22 only, not the literal latest. Two dependencies this repo uses directly don't have a stable release compatible with Angular 22: `@ngrx/*`'s stable line (21.1.1) peers on `@angular/core: ^21.0.0`, with Angular-22 support only as a `22.0.0-rc.0` prerelease; `@angular/fire`'s stable line (20.0.1) peers on `@angular/core: ^20.0.0`, and its Angular-21 support has been stuck as an `rc.0` prerelease since 2025-11-26 with nothing published yet, even as a prerelease, for Angular 22. Reaching literal-latest today would mean shipping either a state-management library (`ngrx`) or a Firebase integration layer (`@angular/fire`) on a release candidate, or running `@angular/fire` on an Angular major it was never tested against. We chose to stop where both core dependencies still have genuine stable support, and treat Angular 22 / Nx 23 as a fast-follow once `ngrx` and `@angular/fire` catch up.
+
+## Consequences
+
+- The workspace is intentionally *not* on the newest Angular/Nx as of this writing — don't "fix" that in a later cleanup pass without re-checking whether `@ngrx/*` and `@angular/fire` have shipped stable Angular-22 support by then.
+- `@angular/fire` still ends up on its `21.0.0-rc.0` prerelease as part of reaching Angular 21 (its stable line caps at Angular 20) — that compromise wasn't avoidable, only reduced to the smaller of the two risky dependencies.
+- Capping at Nx 22 (rather than 23.1) most likely also avoids Nx 23.1's forced ESLint 8→9 / flat-config conversion, since that requirement was introduced specifically in the 23.1 release — worth confirming at implementation time rather than assuming.

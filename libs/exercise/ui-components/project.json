@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/exercise/ui-components"],
       "options": {
         "jestConfig": "libs/exercise/ui-components/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/exercise/ui-components/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/exercise/ui-components/**/*.ts",
-          "libs/exercise/ui-components/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/exercise/ui-components/**/*.ts", "libs/exercise/ui-components/**/*.html"]
       }
     }
   }

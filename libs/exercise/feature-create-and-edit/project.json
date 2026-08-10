@@ -8,12 +8,11 @@
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/exercise/feature-create-and-edit"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/exercise/feature-create-and-edit"],
       "options": {
         "jestConfig": "libs/exercise/feature-create-and-edit/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/exercise/feature-create-and-edit/tsconfig.spec.json"
       }
     },
     "lint": {
