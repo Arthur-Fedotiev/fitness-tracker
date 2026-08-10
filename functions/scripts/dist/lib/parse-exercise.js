@@ -45,10 +45,8 @@ const [URL] = process.argv.slice(2);
             equipment,
             userId: null,
             admin: true,
-        },
-        translatableData: {
             name,
-            instructions: instructions.filter(Boolean).join('___'),
+            instructions: instructions.filter(Boolean),
         },
     };
     console.log(exercise);
