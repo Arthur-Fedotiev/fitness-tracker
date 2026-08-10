@@ -110,7 +110,7 @@
             "style": "kebab-case"
           }
         ],
-        "@angular-eslint/prefer-inject": "warning",
+        "@angular-eslint/prefer-inject": "warn",
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "error",
