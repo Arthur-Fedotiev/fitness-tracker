@@ -11,7 +11,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/shared/ui/directives/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/shared/ui/directives/tsconfig.spec.json"
       },
       "configurations": {
         "ci": {
@@ -24,10 +25,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/ui/directives/**/*.ts",
-          "libs/shared/ui/directives/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/shared/ui/directives/**/*.ts", "libs/shared/ui/directives/**/*.html"]
       }
     }
   }

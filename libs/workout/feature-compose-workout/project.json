@@ -8,12 +8,11 @@
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/workout/feature-compose-workout"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/workout/feature-compose-workout"],
       "options": {
         "jestConfig": "libs/workout/feature-compose-workout/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/workout/feature-compose-workout/tsconfig.spec.json"
       }
     },
     "lint": {

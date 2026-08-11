@@ -45,7 +45,7 @@ export const composedWorkoutDataResolver: ResolveFn<
   ComposeWorkoutData | UrlTree
 > = (route: ActivatedRouteSnapshot) => {
   const { workoutExercisesList, workoutBasicInfo } =
-    inject(Router).getCurrentNavigation()?.extras?.state ?? {};
+    inject(Router).currentNavigation()?.extras?.state ?? {};
   const workoutId = route.queryParamMap.get('workoutId');
   const deserializer = inject(SerializerStrategy);
 

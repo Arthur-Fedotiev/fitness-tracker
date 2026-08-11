@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/layout/feature"],
       "options": {
         "jestConfig": "libs/layout/feature/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/layout/feature/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/layout/feature/src/**/*.ts",
-          "libs/layout/feature/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/layout/feature/src/**/*.ts", "libs/layout/feature/src/**/*.html"]
       }
     }
   }

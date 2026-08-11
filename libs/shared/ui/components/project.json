@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/shared/ui/components"],
       "options": {
         "jestConfig": "libs/shared/ui/components/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/shared/ui/components/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/ui/components/src/**/*.ts",
-          "libs/shared/ui/components/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/shared/ui/components/src/**/*.ts", "libs/shared/ui/components/src/**/*.html"]
       }
     }
   }

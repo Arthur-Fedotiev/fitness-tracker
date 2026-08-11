@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/shared/utils"],
       "options": {
         "jestConfig": "libs/shared/utils/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/shared/utils/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/utils/src/**/*.ts",
-          "libs/shared/utils/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/shared/utils/src/**/*.ts", "libs/shared/utils/src/**/*.html"]
       }
     }
   }

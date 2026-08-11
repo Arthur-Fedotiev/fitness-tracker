@@ -11,16 +11,14 @@
       "outputs": ["{workspaceRoot}/coverage/libs/create-user/feature"],
       "options": {
         "jestConfig": "libs/create-user/feature/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/create-user/feature/tsconfig.spec.json"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/create-user/feature/src/**/*.ts",
-          "libs/create-user/feature/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/create-user/feature/src/**/*.ts", "libs/create-user/feature/src/**/*.html"]
       }
     }
   }

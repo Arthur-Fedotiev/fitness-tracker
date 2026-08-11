@@ -45,7 +45,7 @@ export const APP_ROUTES: Route[] = [
         path: 'create-user',
         loadChildren: () =>
           import('@fitness-tracker/create-user/feature').then(
-            (m) => m.CreateUserFeatureModule,
+            (m) => m.createUserFeatureRoutes,
           ),
         ...canActivate(adminOnly),
       },

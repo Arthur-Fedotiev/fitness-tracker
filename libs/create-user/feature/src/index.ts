@@ -1,1 +1,1 @@
-export * from './lib/create-user-feature.module';
+export * from './lib/create-user.routes';

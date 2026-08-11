@@ -30,10 +30,7 @@
           "apps/fitness-tracker/src/manifest.webmanifest"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/shared/styles/src/lib",
-            "libs/shared/styles/src/lib/mixins"
-          ]
+          "includePaths": ["libs/shared/styles/src/lib", "libs/shared/styles/src/lib/mixins"]
         },
         "styles": [
           {
@@ -149,10 +146,7 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "apps/fitness-tracker/src/**/*.ts",
-          "apps/fitness-tracker/src/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/fitness-tracker/src/**/*.ts", "apps/fitness-tracker/src/**/*.html"]
       }
     },
     "test": {
@@ -160,7 +154,8 @@
       "outputs": ["{workspaceRoot}/coverage/apps/fitness-tracker"],
       "options": {
         "jestConfig": "apps/fitness-tracker/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "apps/fitness-tracker/tsconfig.spec.json"
       }
     },
     "deploy": {
