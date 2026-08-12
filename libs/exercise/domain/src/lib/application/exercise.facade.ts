@@ -9,7 +9,10 @@ import { ExerciseResponseModel } from './models/exercise-response.model';
 import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query';
 import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-details.command';
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
-import { ExerciseSavedCommand } from '../entities/commands';
+import {
+  ExerciseSavedCommand,
+  OpenExerciseDetailsDialogCommand,
+} from '../entities/commands';
 import { Router } from '@angular/router';
 import { SaveExerciseCommandModel } from './models/create-update-exercise.models';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -21,7 +24,8 @@ export class ExerciseFacade
     ExerciseDetailsQuery,
     LoadExerciseDetailsCommand,
     ReleaseExerciseDetailsCommand,
-    ExerciseSavedCommand
+    ExerciseSavedCommand,
+    OpenExerciseDetailsDialogCommand
 {
   private readonly store = inject(Store);
   private readonly router = inject(Router);

@@ -5,7 +5,10 @@ import { filter } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
+import {
+  OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
+  OpenExerciseDetailsDialogCommand,
+} from '@fitness-tracker/exercise/public-api';
 import { WorkoutFacadeService } from '@fitness-tracker/workout-domain';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
@@ -40,7 +43,10 @@ import {
 })
 export class WorkoutDetailsComponent implements OnInit {
   private readonly workoutFacade = inject(WorkoutFacadeService);
-  private readonly exercisesFacade = inject(ExerciseFacade);
+  private readonly exerciseDetailsDialogCommand =
+    inject<OpenExerciseDetailsDialogCommand>(
+      OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
+    );
 
   workoutId = input.required<string>({ alias: 'id' });
 
@@ -55,7 +61,7 @@ export class WorkoutDetailsComponent implements OnInit {
   }
 
   public showExerciseDetails(id: string): void {
-    this.exercisesFacade.openExerciseDetailsDialog(id);
+    this.exerciseDetailsDialogCommand.openExerciseDetailsDialog(id);
   }
 
   private initData(): void {

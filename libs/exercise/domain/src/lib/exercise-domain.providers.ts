@@ -9,6 +9,7 @@ import { LOAD_EXERCISE_DETAILS_COMMAND } from './entities/commands/load-exercise
 import {
   EXERCISE_SAVED_COMMAND,
   RELEASE_EXERCISE_DETAILS_COMMAND,
+  OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
 } from './entities/commands';
 import { EXERCISE_DESCRIPTORS_PROVIDER } from './application/providers/exercise-descriptors.provider';
 
@@ -36,6 +37,10 @@ export const EXERCISE_DOMAIN_PROVIDERS = [
   },
   {
     provide: EXERCISE_SAVED_COMMAND,
+    useExisting: ExerciseFacade,
+  },
+  {
+    provide: OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
     useExisting: ExerciseFacade,
   },
 ];
