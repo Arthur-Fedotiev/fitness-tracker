@@ -1,0 +1,25 @@
+{
+  "name": "program-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/program/ui/src",
+  "prefix": "ft",
+  "tags": ["domain:program", "type:ui"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/program/ui"],
+      "options": {
+        "jestConfig": "libs/program/ui/jest.config.ts",
+        "passWithNoTests": true,
+        "tsConfig": "libs/program/ui/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["libs/program/ui/src/**/*.ts", "libs/program/ui/src/**/*.html"]
+      }
+    }
+  }
+}

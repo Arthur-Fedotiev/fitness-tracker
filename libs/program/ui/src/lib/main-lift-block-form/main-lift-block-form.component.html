@@ -1,0 +1,45 @@
+<form [formGroup]="form" class="test-grid" (focusout)="onFieldBlur()">
+  <mat-form-field appearance="outline">
+    <mat-label>1RM</mat-label>
+    <input matInput type="number" formControlName="oneRepMax" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Reps @ 80%1RM</mat-label>
+    <input matInput type="number" formControlName="repsAt80Percent" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Min available increment</mat-label>
+    <input matInput type="number" formControlName="increment" />
+  </mat-form-field>
+
+  <mat-button-toggle-group formControlName="roundingMode" aria-label="Rounding mode">
+    <mat-button-toggle value="nearest">Nearest</mat-button-toggle>
+    <mat-button-toggle value="down">Down</mat-button-toggle>
+    <mat-button-toggle value="up">Up</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-slide-toggle formControlName="manualOverride">Manual override</mat-slide-toggle>
+
+  @if (form.controls.manualOverride.value) {
+    <p class="manual-override-hint">1RM and Reps @ 80%1RM are optional with a manual override.</p>
+  }
+
+  @if (!form.controls.manualOverride.value) {
+    <p class="suggested-week5">Suggested Week 5: {{ suggestedWeek5() ?? '—' }}</p>
+  }
+
+  <mat-form-field appearance="outline">
+    <mat-label>Manual Week 5</mat-label>
+    <input matInput type="number" formControlName="manualWeek5" />
+  </mat-form-field>
+
+  @if (!readOnly()) {
+    <div class="actions">
+      <button mat-flat-button color="primary" type="button" [disabled]="form.invalid" (click)="onGenerate()">
+        {{ block().cycle ? 'Regenerate' : 'Generate' }}
+      </button>
+    </div>
+  }
+</form>

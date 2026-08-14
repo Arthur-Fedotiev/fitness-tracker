@@ -1,0 +1,49 @@
+.cycle-table {
+  width: 100%;
+
+  &.stale {
+    opacity: 0.6;
+  }
+}
+
+.stale-banner {
+  color: var(--mat-sys-error, #b3261e);
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+
+.retest-row {
+  font-style: italic;
+}
+
+.mat-column-load {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.retest-field {
+  width: 100px;
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  ::ng-deep input {
+    text-align: center;
+
+    // Hide the native number-input spinner — it overlaps the placeholder/value
+    // in a field this narrow.
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.empty {
+  opacity: 0.6;
+}

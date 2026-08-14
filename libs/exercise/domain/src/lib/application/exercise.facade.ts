@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -7,7 +7,9 @@ import * as ExercisesSelectors from '../application/+state/exercise.selectors';
 import { Observable, map } from 'rxjs';
 import { ExerciseResponseModel } from './models/exercise-response.model';
 import { ExerciseDetailsQuery } from '../entities/queries/exercise-details.query';
+import { ExercisePickerQuery } from '../entities/queries/exercise-picker.query';
 import { LoadExerciseDetailsCommand } from '../entities/commands/load-exercise-details.command';
+import { LoadExercisePickerListCommand } from '../entities/commands/load-exercise-picker-list.command';
 import { ReleaseExerciseDetailsCommand } from '../entities/commands/release-exercise-details.command';
 import {
   ExerciseSavedCommand,
@@ -22,7 +24,9 @@ import { FindExercisesSearchOptions } from './models';
 export class ExerciseFacade
   implements
     ExerciseDetailsQuery,
+    ExercisePickerQuery,
     LoadExerciseDetailsCommand,
+    LoadExercisePickerListCommand,
     ReleaseExerciseDetailsCommand,
     ExerciseSavedCommand,
     OpenExerciseDetailsDialogCommand
@@ -43,6 +47,9 @@ export class ExerciseFacade
   public readonly selectedExerciseDetails$ = this.store.select(
     ExercisesSelectors.getSelectedExerciseDetails,
   );
+  public readonly exercisePickerList = computed(() =>
+    this.exercisesList().map(({ id, name }) => ({ id, name })),
+  );
 
   public exercisePreviews$(
     ids: Set<string>,
@@ -51,7 +58,11 @@ export class ExerciseFacade
   }
 
   public getAllExercises(): void {
-    this.store.dispatch(ExercisesActions.loadExercises());
+    this.store.dispatch(ExercisesActions.findExercises({ payload: {} }));
+  }
+
+  public loadExercisePickerList(): void {
+    this.getAllExercises();
   }
 
   public exerciseSaved(saveExerciseCommand: SaveExerciseCommandModel) {

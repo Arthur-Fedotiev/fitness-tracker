@@ -1,0 +1,25 @@
+{
+  "name": "program-domain",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/program/domain/src",
+  "prefix": "ft",
+  "tags": ["domain:program", "type:domain-logic"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/program/domain"],
+      "options": {
+        "jestConfig": "libs/program/domain/jest.config.ts",
+        "passWithNoTests": true,
+        "tsConfig": "libs/program/domain/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["libs/program/domain/src/**/*.ts", "libs/program/domain/src/**/*.html"]
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@if (pickerOpen()) {
+  <mat-card class="block-card add-card">
+    <mat-card-content class="picker-content">
+      <mat-form-field appearance="outline" class="picker-field">
+        <mat-label>Add exercise</mat-label>
+        <input
+          type="text"
+          matInput
+          [matAutocomplete]="exercisePicker"
+          [ngModel]="pendingSelection()"
+          (ngModelChange)="pendingSelection.set($event)"
+        />
+        <mat-autocomplete
+          #exercisePicker="matAutocomplete"
+          [displayWith]="displayExercise"
+          (optionSelected)="onOptionSelected($event)"
+        >
+          @for (exercise of filteredExercises(); track exercise.id) {
+            <mat-option [value]="exercise">{{ exercise.name }}</mat-option>
+          } @empty {
+            <mat-option disabled>No exercises found</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+} @else {
+  <button mat-stroked-button class="trigger" (click)="openPicker()">
+    <mat-icon>add</mat-icon> Add Main Lift Block
+  </button>
+}

@@ -1,0 +1,11 @@
+.block-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+mat-card-title {
+  padding: 16px 16px 0;
+  margin-bottom: 12px;
+}

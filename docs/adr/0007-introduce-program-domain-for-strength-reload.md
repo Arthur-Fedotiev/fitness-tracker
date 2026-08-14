@@ -1,0 +1,12 @@
+# Introduce a `program` domain for Strength Reload training cycles
+
+We're adding a Strength Reload Calculator feature: a lifter builds a Program of one or more Exercise Blocks, each generating an 8-week Reload Cycle from an 80%RM Test, following Pavel Tsatsouline & Fabio Zonin's published _Reload: Your Barbell Strength Blueprint_ method. This is new domain territory — it doesn't extend `exercise` (a Program doesn't change what an exercise is) or `workout` (Reload Cycles are read-only reference plans, not logged workout sessions) — so it gets its own domain, `libs/program/*`, persisted to Firestore following the same data-access pattern as `exercise` and `workout`. Exercise Blocks reference existing `exercise` documents by ID (same visibility rules as the existing exercise picker) rather than storing free-text exercise names, keeping exercise identity single-sourced.
+
+Strength Reload is modeled as a `Strategy` on Program rather than hardcoded, since a second generation strategy is anticipated later — but we're deliberately not building a strategy interface/registry now; that's speculative until a second strategy actually exists.
+
+## Consequences
+
+- `domain:program`'s isolation is lint-enforced, not just conventional: `.eslintrc.json`'s `@nx/enforce-module-boundaries` restricts `domain:program` to `domain:program`, `domain:shared`, and `domain:exercise/api-public` — mirroring the constraint added for `domain:workout` at the same time, which closed a pre-existing gap (workout had no domain constraint at all before this). When Program needs something from `exercise` (e.g. exercise search for its picker), it must be exposed as its own narrow Query/Command interface + `InjectionToken` from `exercise/public-api` — never the whole `ExerciseFacade` — per the Interface Segregation convention recorded in `CONTEXT.md`'s "Architecture conventions".
+- Reload Cycles do not create or link to `workout` documents — a lifter who wants to log a Reload Cycle session does so through the existing workout feature, unconnected to the Program.
+- The full Reload method (accessory lift categories — Horizontal/Vertical Pull, Specialized Variety, Midsection — and the Heavy/Light day weekly split) is out of scope; this feature implements only the main-lift progression table per Exercise Block.
+- If a second Strategy is added later, `Program.strategy` already exists as a discriminator, but the generation logic itself will need to be extracted from wherever the Strength Reload implementation first lands.

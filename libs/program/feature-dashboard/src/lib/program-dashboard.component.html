@@ -1,0 +1,69 @@
+<div class="dashboard">
+  <div class="toolbar">
+    <button mat-flat-button color="primary" (click)="onCreateProgram()"><mat-icon>add</mat-icon> New Program</button>
+  </div>
+
+  <ft-program-status-tabs
+    [draftPrograms]="store.draftPrograms()"
+    [activePrograms]="store.activePrograms()"
+    [completedPrograms]="store.completedPrograms()"
+    [selectedProgramId]="selectedProgramId()"
+    [activeStatus]="activeStatus()"
+    (selectProgram)="onSelectProgram($event)"
+    (statusChange)="onStatusTabChange($event)"
+  />
+
+  @if (selectedProgram(); as program) {
+    <div class="name-row">
+      <ft-program-name-header
+        class="name-header"
+        [name]="program.name"
+        [readOnly]="readOnly()"
+        [existingNames]="otherProgramNames()"
+        (rename)="onRenameProgram($event)"
+      />
+
+      <div class="actions">
+        <ft-program-edit-toggle
+          [readOnly]="readOnly()"
+          [dirty]="store.dirty()"
+          [saveDisabled]="saveDisabled()"
+          (startEdit)="startEdit(program.id)"
+          (save)="saveProgram()"
+          (cancelEditing)="cancelEdit()"
+        />
+
+        <ft-program-delete-button [programName]="program.name" (delete)="onDeleteProgram(program.id)" />
+      </div>
+    </div>
+
+    @if (!readOnly()) {
+      <mat-chip-set class="editing-chip-set">
+        <mat-chip>Editing</mat-chip>
+      </mat-chip-set>
+    }
+
+    <div class="grid" [class.editing-frame]="!readOnly()">
+      @for (block of program.mainLiftBlocks; track block.id) {
+        <ft-main-lift-block-card
+          [block]="block"
+          [exerciseName]="exerciseName(block.exerciseId)"
+          [suggestWeek5]="suggestWeek5"
+          [readOnly]="readOnly()"
+          [sessionEpoch]="store.sessionEpoch()"
+          (save)="onSaveBlock(block.id, $event)"
+          (generate)="onGenerate(block.id, $event)"
+          (remove)="onRemoveBlock(block.id)"
+          (retestChange)="onRetestChange(block.id, $event)"
+          (validityChange)="onBlockValidityChange(block.id, $event)"
+        />
+      }
+
+      @if (!readOnly()) {
+        <ft-add-main-lift-block [exercises]="exercises()" (add)="onAddBlock($event)" />
+      }
+    </div>
+  } @else {
+    <p class="empty">No Program selected in this status.</p>
+  }
+</div>

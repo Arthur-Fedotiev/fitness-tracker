@@ -1,0 +1,25 @@
+{
+  "name": "program-shell",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/program/shell/src",
+  "prefix": "ft",
+  "tags": ["domain:program", "type:shell"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/program/shell"],
+      "options": {
+        "jestConfig": "libs/program/shell/jest.config.ts",
+        "passWithNoTests": true,
+        "tsConfig": "libs/program/shell/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["libs/program/shell/src/**/*.ts", "libs/program/shell/src/**/*.html"]
+      }
+    }
+  }
+}

@@ -7,6 +7,10 @@ export {
   EXERCISE_DOMAIN_PROVIDERS,
   OpenExerciseDetailsDialogCommand,
   OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
+  ExercisePickerQuery,
+  EXERCISE_PICKER_QUERY,
+  LoadExercisePickerListCommand,
+  LOAD_EXERCISE_PICKER_LIST_COMMAND,
 } from '@fitness-tracker/exercise/domain';
 
 export {
