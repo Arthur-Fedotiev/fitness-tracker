@@ -19,7 +19,10 @@ import {
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ComposeWorkoutDropService } from './compose-workout-drop.service';
 import { ComposeWorkoutTreeService } from './compose-workout-tree.service';
-import { ExerciseFacade } from '@fitness-tracker/exercise/domain';
+import {
+  OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
+  OpenExerciseDetailsDialogCommand,
+} from '@fitness-tracker/exercise/public-api';
 
 @UntilDestroy()
 @Injectable()
@@ -28,7 +31,10 @@ export class ComposeWorkoutComponentService {
   private readonly workoutItemSerializeStrategy = inject(ConcreteWorkoutItemSerializer);
   private readonly workoutFacade = inject(WorkoutFacadeService);
   private readonly dropService = inject(ComposeWorkoutDropService);
-  private readonly exercisesFacade = inject(ExerciseFacade);
+  private readonly exerciseDetailsDialogCommand =
+    inject<OpenExerciseDetailsDialogCommand>(
+      OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
+    );
 
   treeControl!: FlatTreeControl<WorkoutItemFlatNode>;
   dataSource!: MatTreeFlatDataSource<WorkoutItem, WorkoutItemFlatNode>;
@@ -132,7 +138,7 @@ export class ComposeWorkoutComponentService {
   }
 
   showExerciseDetails(id: string) {
-    this.exercisesFacade.openExerciseDetailsDialog(id);
+    this.exerciseDetailsDialogCommand.openExerciseDetailsDialog(id);
   }
 
   private createSuperset() {

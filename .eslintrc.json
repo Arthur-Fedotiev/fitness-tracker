@@ -63,16 +63,16 @@
                 "onlyDependOnLibsWithTags": ["domain:shared"]
               },
               {
-                "sourceTag": "domain:shared",
-                "onlyDependOnLibsWithTags": ["domain:shared"]
-              },
-              {
                 "sourceTag": "domain:exercise",
-                "onlyDependOnLibsWithTags": ["domain:exercise", "domain:shared", "domain:workout/api-public"]
+                "onlyDependOnLibsWithTags": ["domain:exercise", "domain:shared"]
               },
               {
-                "sourceTag": "domain:workout/api-public",
-                "onlyDependOnLibsWithTags": ["domain:workout", "domain:shared"]
+                "sourceTag": "domain:workout",
+                "onlyDependOnLibsWithTags": ["domain:workout", "domain:shared", "domain:exercise/api-public"]
+              },
+              {
+                "sourceTag": "domain:program",
+                "onlyDependOnLibsWithTags": ["domain:program", "domain:shared", "domain:exercise/api-public"]
               }
             ]
           }

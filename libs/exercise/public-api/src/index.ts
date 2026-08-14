@@ -5,6 +5,8 @@ export {
   EXERCISE_DESCRIPTORS_TOKEN,
   ExerciseDescriptors,
   EXERCISE_DOMAIN_PROVIDERS,
+  OpenExerciseDetailsDialogCommand,
+  OPEN_EXERCISE_DETAILS_DIALOG_COMMAND,
 } from '@fitness-tracker/exercise/domain';
 
 export {

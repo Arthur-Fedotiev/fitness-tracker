@@ -14,6 +14,12 @@
 - `user`: authenticated app user.
 - `create-user`: onboarding flow that provisions a new user profile.
 
+## Architecture conventions
+
+- Each domain (`exercise`, `workout`, `program`, ...) is a bounded context — a horizontal slice that exposes as little as possible to the others. Cross-domain consumption happens only through a domain's `<domain>/public-api` lib; a domain never reaches directly into another domain's `domain`, `ui-components`, or `feature-*` libs.
+- This boundary is lint-enforced, not just conventional: `@nx/enforce-module-boundaries`'s `domain:*` tag constraints in `.eslintrc.json` restrict each domain to itself, `domain:shared`, and the other domains' `*/api-public` tags.
+- A domain's public-api never re-exports its whole facade. Each capability another domain needs is its own narrow Query or Command interface (e.g. `OpenExerciseDetailsDialogCommand`) with its own `InjectionToken`, wired to the concrete facade via `useExisting` in that domain's `_DOMAIN_PROVIDERS`. Consumers inject the narrow token, never the facade class — Interface Segregation Principle applied at the public-api seam, matching the pre-existing `ExerciseDetailsQuery`/`LoadExerciseDetailsCommand`-style pattern in `libs/exercise/domain/src/lib/entities`.
+
 ## Working conventions
 
 - Keep changes small and focused.
