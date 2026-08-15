@@ -20,6 +20,10 @@ interface ProgramsState {
   draftProgram: Program | null;
   /** Bumped on beginEditSession/cancelEditSession/saveProgram — a session-boundary signal for UI staleness resets, distinct from ordinary draft field patches. */
   sessionEpoch: number;
+  /** Which Program the dashboard is currently showing — UI selection, not persisted. */
+  selectedProgramId: string | null;
+  /** Whether the selected Program's edit session is currently active (Save/Cancel visible vs. read-only). Single-slot, like `draftProgram` — only ever describes the selected Program. */
+  sessionActive: boolean;
 }
 
 const initialState: ProgramsState = {
@@ -28,6 +32,8 @@ const initialState: ProgramsState = {
   error: null,
   draftProgram: null,
   sessionEpoch: 0,
+  selectedProgramId: null,
+  sessionActive: false,
 };
 
 function replaceProgram(programs: Program[], updated: Program): Program[] {
@@ -130,10 +136,20 @@ export const ProgramStore = signalStore(
       });
     },
 
-    /** Seeds `draftProgram` from the current live Program — called automatically for Draft Programs (always implicitly in-session) and on explicit Edit click for Active/Completed. */
+    /** Selects a Program for viewing; always ends any active session for whatever was previously selected. */
+    selectProgram(programId: string): void {
+      patchState(store, { selectedProgramId: programId, sessionActive: false });
+    },
+
+    /** Clears the selection — used when the selected Program is deleted and nothing takes its place. */
+    clearSelection(): void {
+      patchState(store, { selectedProgramId: null, sessionActive: false });
+    },
+
+    /** Seeds `draftProgram` from the current live Program — called automatically right after creation and on explicit Edit click otherwise. */
     beginEditSession(programId: string): void {
       const program = findProgramOrThrow(store.programs(), programId);
-      patchState(store, { draftProgram: { ...program }, sessionEpoch: store.sessionEpoch() + 1 });
+      patchState(store, { draftProgram: { ...program }, sessionEpoch: store.sessionEpoch() + 1, sessionActive: true });
     },
 
     /** Discards staged changes and reverts `draftProgram` to last-persisted state. */
@@ -146,6 +162,7 @@ export const ProgramStore = signalStore(
       patchState(store, {
         draftProgram: persisted ? { ...persisted } : null,
         sessionEpoch: store.sessionEpoch() + 1,
+        sessionActive: false,
       });
     },
 
@@ -251,6 +268,7 @@ export const ProgramStore = signalStore(
         programs: replaceProgram(store.programs(), updated),
         draftProgram: updated,
         sessionEpoch: store.sessionEpoch() + 1,
+        sessionActive: false,
       });
     },
   })),

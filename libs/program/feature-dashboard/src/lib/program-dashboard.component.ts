@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  HostListener,
-  inject,
-  signal,
-  untracked,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostListener, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -63,16 +54,14 @@ export class ProgramDashboardComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
 
-  /** Explicit Edit session for Active/Completed Programs only — Draft Programs are always implicitly in-session. */
-  protected readonly activeEditSession = signal(false);
   private readonly blockValidity = signal<Record<string, boolean>>({});
 
   protected readonly exercises = this.exercisePicker.exercisePickerList;
-  protected readonly selectedProgramId = signal<string | null>(null);
   protected readonly activeStatus = signal<ProgramStatus>('draft');
 
+  /** The selected Program's last-persisted state, never the draft — `selectedProgram`/`readOnly` key off this to stay correct even when a session is active. */
   private readonly livePersistedProgram = computed(
-    () => this.store.programs().find((program) => program.id === this.selectedProgramId()) ?? null,
+    () => this.store.programs().find((program) => program.id === this.store.selectedProgramId()) ?? null,
   );
 
   protected readonly selectedProgram = computed(() => {
@@ -80,7 +69,7 @@ export class ProgramDashboardComponent {
     if (!persisted || persisted.status !== this.activeStatus()) {
       return null;
     }
-    if (persisted.status === 'draft' || this.activeEditSession()) {
+    if (this.store.sessionActive()) {
       const draft = this.store.draftProgram();
       return draft && draft.id === persisted.id ? draft : persisted;
     }
@@ -89,7 +78,7 @@ export class ProgramDashboardComponent {
 
   protected readonly readOnly = computed(() => {
     const persisted = this.livePersistedProgram();
-    return !!persisted && persisted.status !== 'draft' && !this.activeEditSession();
+    return !!persisted && !this.store.sessionActive();
   });
 
   protected readonly saveDisabled = computed(() => {
@@ -107,22 +96,12 @@ export class ProgramDashboardComponent {
   protected readonly otherProgramNames = computed(() =>
     this.store
       .programs()
-      .filter((program) => program.id !== this.selectedProgramId())
+      .filter((program) => program.id !== this.store.selectedProgramId())
       .map((program) => program.name),
   );
 
   constructor() {
     this.loadExercisePickerList.loadExercisePickerList();
-
-    // Draft Programs are always implicitly in an edit session — seed the draft the
-    // moment one becomes selected. See .scratch/training-planner-editing-model/issues/02-edit-session-architecture.md.
-    effect(() => {
-      const persisted = this.livePersistedProgram();
-      const draft = this.store.draftProgram();
-      if (persisted?.status === 'draft' && draft?.id !== persisted.id) {
-        untracked(() => this.store.beginEditSession(persisted.id));
-      }
-    });
   }
 
   protected exerciseName(exerciseId: string): string {
@@ -148,16 +127,17 @@ export class ProgramDashboardComponent {
     );
     const program = await this.store.createProgram(userId, name);
     this.activeStatus.set('draft');
-    this.selectedProgramId.set(program.id);
-    this.activeEditSession.set(false);
+    this.store.selectProgram(program.id);
+    this.store.beginEditSession(program.id); // auto-start — see ticket 01 point 3
+    this.blockValidity.set({});
   }
 
   protected async onSelectProgram(program: { id: string }): Promise<void> {
     if (!(await this.guardLeavingSession())) {
       return;
     }
-    this.selectedProgramId.set(program.id);
-    this.activeEditSession.set(false);
+    this.store.selectProgram(program.id);
+    this.blockValidity.set({});
   }
 
   /**
@@ -179,14 +159,13 @@ export class ProgramDashboardComponent {
       this.activeStatus.set(previous);
       return;
     }
-    this.activeEditSession.set(false);
+    this.store.cancelEditSession();
   }
 
   protected async onDeleteProgram(programId: string): Promise<void> {
     await this.store.deleteProgram(programId);
-    if (this.selectedProgramId() === programId) {
-      this.selectedProgramId.set(null);
-      this.activeEditSession.set(false);
+    if (this.store.selectedProgramId() === programId) {
+      this.store.clearSelection();
     }
     this.notify('Program deleted');
   }
@@ -232,18 +211,16 @@ export class ProgramDashboardComponent {
 
   protected startEdit(programId: string): void {
     this.store.beginEditSession(programId);
-    this.activeEditSession.set(true);
+    this.blockValidity.set({});
   }
 
   protected async saveProgram(): Promise<void> {
     await this.store.saveProgram();
-    this.activeEditSession.set(false);
     this.notify('Saved');
   }
 
   protected cancelEdit(): void {
     this.store.cancelEditSession();
-    this.activeEditSession.set(false);
   }
 
   /** `CanDeactivate` entry point for the training-planner route guard — see program.routes.ts. */
@@ -285,11 +262,9 @@ export class ProgramDashboardComponent {
     switch (result) {
       case 'save':
         await this.store.saveProgram();
-        this.activeEditSession.set(false);
         return true;
       case 'discard':
         this.store.cancelEditSession();
-        this.activeEditSession.set(false);
         return true;
       default:
         return false;

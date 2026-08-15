@@ -1,0 +1,17 @@
+Type: grilling
+Status: open
+Blocked by: 01
+
+## Question
+
+Side-effect handling mixes patterns within the same files:
+
+- `libs/program/ui/src/lib/main-lift-block-form/main-lift-block-form.component.ts`'s constructor has *three* separate reactive registrations doing related work: an Angular `effect()` that rehydrates the form when `block()` changes, a `this.form.controls.manualOverride.valueChanges.pipe(takeUntilDestroyed()).subscribe(...)` for the manual-override toggle, a second `effect()` for the `readOnly()` enable/disable, and a third `this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(...)` that just emits `formChanged`. Signal-`effect()` and RxJS-`subscribe()` are doing the same *kind* of job (reacting to a change and pushing a side effect) side by side.
+- `libs/program/feature-dashboard/src/lib/program-dashboard.component.ts` has its own constructor `effect()` (auto-begin edit session for Drafts) plus a `guardLeavingSession()` that's an imperative `async` method awaited from multiple click handlers (`onCreateProgram`, `onSelectProgram`, `onStatusTabChange`, `confirmLeave`), each repeating a similar "guard, then branch on the boolean" shape.
+- `notify()` (a thin `MatSnackBar.open` wrapper) is called ad hoc from inside action handlers (`onDeleteProgram`, `onGenerate`, `saveProgram`) rather than through any consistent effect/notification pattern — easy to forget on a new action.
+
+Decide what "consistent" should mean here: pick one idiom for reactive side effects (e.g., prefer `effect()` uniformly for signal-driven cases and reserve RxJS `subscribe` for genuinely stream-based cases like form `valueChanges`, or the reverse) and decide whether the guard-then-branch shape in the dashboard's click handlers should be factored into something less repetitive. Produce a ready-for-agent implementation ticket for whatever the audit concludes needs to change (may conclude some of this is fine as-is).
+
+Depends on [[01-state-ownership-and-signals-pilot-verdict]]: its state-ownership verdict may relocate some of the effects being judged here (e.g. the dashboard's edit-session auto-begin `effect()`), so resolve that first.
+
+**Resolved — carry forward when picking this up.** [[01-state-ownership-and-signals-pilot-verdict]] landed: the dashboard's constructor `effect()` (Draft auto-begin-session) is **deleted entirely** by the [implementation ticket](06-implement-state-ownership-changes.md) — Draft Programs no longer auto-start an edit session, so there's nothing left for that effect to do. Judge the guard-then-branch repetition across `onCreateProgram`/`onSelectProgram`/`onStatusTabChange`/`confirmLeave` against the *post-06* code, not the version quoted above. `main-lift-block-form.component.ts`'s three reactive registrations (the other half of this ticket) are untouched by ticket 01 — still exactly as described. Also carried over from ticket 01: a `FormArray`-based rewrite of `main-lift-block-form.component.ts`'s validity handling was considered and rejected (self-contained per-block forms were judged worth keeping) — don't re-litigate unless new information surfaces.

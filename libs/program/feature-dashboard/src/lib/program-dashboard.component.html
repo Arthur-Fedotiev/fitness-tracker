@@ -7,7 +7,7 @@
     [draftPrograms]="store.draftPrograms()"
     [activePrograms]="store.activePrograms()"
     [completedPrograms]="store.completedPrograms()"
-    [selectedProgramId]="selectedProgramId()"
+    [selectedProgramId]="store.selectedProgramId()"
     [activeStatus]="activeStatus()"
     (selectProgram)="onSelectProgram($event)"
     (statusChange)="onStatusTabChange($event)"

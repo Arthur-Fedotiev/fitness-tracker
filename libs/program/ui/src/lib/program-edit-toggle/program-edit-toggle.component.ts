@@ -6,8 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DiscardChangesDialogComponent } from '../discard-changes-dialog/discard-changes-dialog.component';
 
 /**
- * Per-Program Edit/Save/Cancel toggle for Active/Completed Programs (Draft Programs are
- * always editable and never render this). Replaces itself in place: Edit while read-only,
+ * Per-Program Edit/Save/Cancel toggle. Replaces itself in place: Edit while read-only,
  * Save+Cancel while editing (icon buttons with tooltips, to stay compact on mobile). Cancel
  * only prompts when there are unsaved changes — see
  * .scratch/training-planner-editing-model/issues/05-readonly-edit-mode-ui.md.
