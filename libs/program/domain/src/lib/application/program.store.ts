@@ -251,17 +251,23 @@ export const ProgramStore = signalStore(
 
     /**
      * Commits the whole draft in one `setDoc`, recomputing status fresh against the
-     * draft every time (so e.g. a Completed Program can silently revert to Active):
-     * Draft → Active when at least one block has a cycle; → Completed when every
-     * block has a retest. See ticket 02's status-transition rules.
+     * draft every time (so e.g. an Active Program silently reverts to Draft if a newly
+     * added block hasn't been generated yet, and a Completed Program can silently
+     * revert to Active): Draft → Active once every block has a generated cycle;
+     * → Completed once every block also has a retest.
      */
     async saveProgram(): Promise<void> {
       const draft = store.draftProgram();
       if (!draft) {
         return;
       }
-      const hasCycle = draft.mainLiftBlocks.some((block) => block.cycle != null);
-      const status: ProgramStatus = everyBlockRetested(draft) ? 'completed' : hasCycle ? 'active' : draft.status;
+      const everyBlockGenerated =
+        draft.mainLiftBlocks.length > 0 && draft.mainLiftBlocks.every((block) => block.cycle != null);
+      const status: ProgramStatus = everyBlockRetested(draft)
+        ? 'completed'
+        : everyBlockGenerated
+          ? 'active'
+          : 'draft';
       const updated: Program = { ...draft, status, updatedAt: Date.now() };
       await programService.updateProgram(updated);
       patchState(store, {
