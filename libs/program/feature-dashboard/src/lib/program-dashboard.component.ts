@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, HostListener, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
@@ -16,8 +15,7 @@ import {
 } from '@fitness-tracker/program/domain';
 import {
   AddMainLiftBlockComponent,
-  DiscardChangesDialogComponent,
-  DiscardChangesDialogResult,
+  DiscardChangesDialogService,
   MainLiftBlockCardComponent,
   ProgramDeleteButtonComponent,
   ProgramEditToggleComponent,
@@ -52,7 +50,7 @@ export class ProgramDashboardComponent {
   private readonly exercisePicker = inject(EXERCISE_PICKER_QUERY);
   private readonly loadExercisePickerList = inject(LOAD_EXERCISE_PICKER_LIST_COMMAND);
   private readonly snackBar = inject(MatSnackBar);
-  private readonly dialog = inject(MatDialog);
+  private readonly discardChangesDialog = inject(DiscardChangesDialogService);
 
   private readonly blockValidity = signal<Record<string, boolean>>({});
 
@@ -246,17 +244,13 @@ export class ProgramDashboardComponent {
       return true;
     }
     const result = await firstValueFrom(
-      this.dialog
-        .open<DiscardChangesDialogComponent, unknown, DiscardChangesDialogResult>(DiscardChangesDialogComponent, {
-          data: {
-            title: 'Discard changes?',
-            body: 'You have unsaved changes to this Program. Leaving will lose them unless you save first.',
-            keepEditingLabel: 'Stay',
-            discardLabel: 'Discard & leave',
-            saveLabel: 'Save & leave',
-          },
-        })
-        .afterClosed(),
+      this.discardChangesDialog.confirm({
+        title: 'Discard changes?',
+        body: 'You have unsaved changes to this Program. Leaving will lose them unless you save first.',
+        keepEditingLabel: 'Stay',
+        discardLabel: 'Discard & leave',
+        saveLabel: 'Save & leave',
+      }),
     );
 
     switch (result) {

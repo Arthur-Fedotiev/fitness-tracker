@@ -1,5 +1,6 @@
 export * from './lib/add-main-lift-block/add-main-lift-block.component';
 export * from './lib/discard-changes-dialog/discard-changes-dialog.component';
+export * from './lib/discard-changes-dialog/discard-changes-dialog.service';
 export * from './lib/main-lift-block-card/main-lift-block-card.component';
 export * from './lib/main-lift-block-form/main-lift-block-form.component';
 export * from './lib/models';

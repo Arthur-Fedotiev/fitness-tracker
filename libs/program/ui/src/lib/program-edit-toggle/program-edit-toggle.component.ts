@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DiscardChangesDialogComponent } from '../discard-changes-dialog/discard-changes-dialog.component';
+import { DiscardChangesDialogService } from '../discard-changes-dialog/discard-changes-dialog.service';
 
 /**
  * Per-Program Edit/Save/Cancel toggle. Replaces itself in place: Edit while read-only,
@@ -29,24 +28,21 @@ export class ProgramEditToggleComponent {
   readonly save = output<void>();
   readonly cancelEditing = output<void>();
 
-  private readonly dialog = inject(MatDialog);
+  private readonly discardChangesDialog = inject(DiscardChangesDialogService);
 
   protected onCancelClick(): void {
     if (!this.dirty()) {
       this.cancelEditing.emit();
       return;
     }
-    this.dialog
-      .open(DiscardChangesDialogComponent, {
-        data: {
-          title: 'Discard changes?',
-          body: 'You have unsaved changes to this Program. Discarding will lose them.',
-          keepEditingLabel: 'Stay editing',
-          discardLabel: 'Discard changes',
-        },
+    this.discardChangesDialog
+      .confirm({
+        title: 'Discard changes?',
+        body: 'You have unsaved changes to this Program. Discarding will lose them.',
+        keepEditingLabel: 'Stay editing',
+        discardLabel: 'Discard changes',
       })
-      .afterClosed()
-      .subscribe((result: 'save' | 'discard' | undefined) => {
+      .subscribe((result) => {
         if (result === 'discard') {
           this.cancelEditing.emit();
         }
