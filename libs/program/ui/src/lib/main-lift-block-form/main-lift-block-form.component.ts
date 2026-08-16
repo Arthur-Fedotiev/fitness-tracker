@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { map } from 'rxjs';
@@ -75,7 +75,7 @@ const requiredValidator: ValidatorFn = (control) => Validators.required(control)
   `,
   styleUrl: './main-lift-block-form.component.scss',
 })
-export class MainLiftBlockFormComponent {
+export class MainLiftBlockFormComponent implements OnInit {
   readonly block = input.required<MainLiftBlockView>();
   readonly suggestWeek5 = input<SuggestWeek5Fn | null>(null);
   /** Active/Completed Programs are read-only by default; disables all inputs and hides the actions row. */
@@ -156,10 +156,19 @@ export class MainLiftBlockFormComponent {
 
     this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => this.formChanged.emit());
 
-    this.validityChange.emit(this.form.status !== 'INVALID');
     this.form.statusChanges.pipe(takeUntilDestroyed()).subscribe((status) => {
       this.validityChange.emit(status !== 'INVALID');
     });
+  }
+
+  /**
+   * Reports initial validity here, not in the constructor: Angular wires up the parent's
+   * `(validityChange)` listener right after this component's constructor runs but before
+   * `ngOnInit` — emitting synchronously in the constructor fires before anyone's listening
+   * and is silently dropped.
+   */
+  ngOnInit(): void {
+    this.validityChange.emit(this.form.status !== 'INVALID');
   }
 
   /**

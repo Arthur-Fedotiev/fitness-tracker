@@ -156,8 +156,11 @@ export class ProgramDashboardComponent {
     if (!program) {
       return false;
     }
+    if (program.mainLiftBlocks.length === 0) {
+      return true;
+    }
     const validity = this.blockValidity();
-    return program.mainLiftBlocks.some((block) => validity[block.id] === false);
+    return program.mainLiftBlocks.some((block) => validity[block.id] !== true);
   });
 
   private readonly exerciseNameById = computed(() => new Map(this.exercises().map((e) => [e.id, e.name])));
