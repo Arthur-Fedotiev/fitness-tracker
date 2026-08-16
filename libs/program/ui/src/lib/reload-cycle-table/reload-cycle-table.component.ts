@@ -19,7 +19,54 @@ const RETEST_ROW: Omit<CycleRow, 'load'> = { week: 8, setsReps: '1RM retest', is
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatTableModule],
-  templateUrl: './reload-cycle-table.component.html',
+  template: `
+    @if (rows().length) {
+      @if (stale()) {
+        <p class="stale-banner">Outdated — click Generate to refresh</p>
+      }
+      <table mat-table [dataSource]="rows()" class="cycle-table" [class.stale]="stale()">
+        <ng-container matColumnDef="week">
+          <th mat-header-cell *matHeaderCellDef>Week</th>
+          <td mat-cell *matCellDef="let row">{{ row.week }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="load">
+          <th mat-header-cell *matHeaderCellDef>Load</th>
+          <td mat-cell *matCellDef="let row">
+            @if (row.isRetestRow && !readOnly()) {
+              <mat-form-field appearance="outline" class="retest-field" subscriptSizing="dynamic">
+                <input
+                  matInput
+                  type="number"
+                  min="1"
+                  step="1"
+                  [ngModel]="row.load"
+                  (ngModelChange)="onRetestInput($event)"
+                  #retestControl="ngModel"
+                  placeholder="Retest"
+                />
+                @if (retestControl.invalid && retestControl.dirty) {
+                  <mat-error>Retest must be a positive number</mat-error>
+                }
+              </mat-form-field>
+            } @else {
+              {{ row.load ?? '—' }}
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="setsReps">
+          <th mat-header-cell *matHeaderCellDef>Sets×Reps</th>
+          <td mat-cell *matCellDef="let row">{{ row.setsReps }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns" [class.retest-row]="row.isRetestRow"></tr>
+      </table>
+    } @else {
+      <p class="empty">Not generated yet.</p>
+    }
+  `,
   styleUrl: './reload-cycle-table.component.scss',
 })
 export class ReloadCycleTableComponent {

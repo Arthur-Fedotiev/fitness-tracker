@@ -7,7 +7,15 @@ import { ProgramView } from '../models';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatChipsModule],
-  templateUrl: './program-chip-list.component.html',
+  template: `
+    <mat-chip-set aria-label="Programs in this status">
+      @for (program of programs(); track program.id) {
+        <mat-chip [highlighted]="program.id === selectedProgramId()" (click)="programSelect.emit(program)">
+          {{ program.name }}
+        </mat-chip>
+      }
+    </mat-chip-set>
+  `,
   styleUrl: './program-chip-list.component.scss',
 })
 export class ProgramChipListComponent {

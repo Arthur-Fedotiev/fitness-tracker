@@ -10,7 +10,21 @@ const STATUS_TABS: ProgramStatus[] = ['draft', 'active', 'completed'];
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatTabsModule, ProgramChipListComponent],
-  templateUrl: './program-status-tabs.component.html',
+  template: `
+    <mat-tab-group [selectedIndex]="statuses.indexOf(activeStatus())" (selectedIndexChange)="onIndexChange($event)">
+      @for (status of statuses; track status) {
+        <mat-tab [label]="status">
+          <div class="tab-body">
+            <ft-program-chip-list
+              [programs]="programsByStatus()[status]"
+              [selectedProgramId]="selectedProgramId()"
+              (programSelect)="selectProgram.emit($event)"
+            />
+          </div>
+        </mat-tab>
+      }
+    </mat-tab-group>
+  `,
   styleUrl: './program-status-tabs.component.scss',
 })
 export class ProgramStatusTabsComponent {

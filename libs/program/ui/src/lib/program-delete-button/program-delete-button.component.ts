@@ -14,7 +14,11 @@ import { ConfirmationDialogService } from '@fitness-tracker/shared/ui/components
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButtonModule, MatIconModule],
-  templateUrl: './program-delete-button.component.html',
+  template: `
+    <button mat-icon-button color="warn" aria-label="Delete Program" (click)="onDeleteClick()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  `,
   styleUrl: './program-delete-button.component.scss',
 })
 export class ProgramDeleteButtonComponent {

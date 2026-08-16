@@ -1,7 +1,0 @@
-<mat-chip-set aria-label="Programs in this status">
-  @for (program of programs(); track program.id) {
-    <mat-chip [highlighted]="program.id === selectedProgramId()" (click)="programSelect.emit(program)">
-      {{ program.name }}
-    </mat-chip>
-  }
-</mat-chip-set>

@@ -22,7 +22,35 @@ function sanitizeProgramName(candidate: string, fallback: string): string {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule],
-  templateUrl: './program-name-header.component.html',
+  template: `
+    <div class="header">
+      @if (editing()) {
+        <div class="name-edit">
+          <mat-form-field appearance="outline" class="name-field">
+            <input
+              matInput
+              #nameInput
+              [attr.maxlength]="maxLength"
+              [value]="draft()"
+              (blur)="commit(nameInput.value)"
+              (keydown.enter)="nameInput.blur()"
+              (keydown.escape)="cancelEdit()"
+            />
+          </mat-form-field>
+          @if (error(); as message) {
+            <p class="name-error">{{ message }}</p>
+          }
+        </div>
+      } @else {
+        <h2 class="title">{{ name() }}</h2>
+        @if (!readOnly()) {
+          <button mat-icon-button (click)="startEdit()" aria-label="Rename program">
+            <mat-icon>edit</mat-icon>
+          </button>
+        }
+      }
+    </div>
+  `,
   styleUrl: './program-name-header.component.scss',
 })
 export class ProgramNameHeaderComponent {

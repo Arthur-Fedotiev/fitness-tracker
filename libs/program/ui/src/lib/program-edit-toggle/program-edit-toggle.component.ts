@@ -15,7 +15,27 @@ import { DiscardChangesDialogService } from '../discard-changes-dialog/discard-c
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButtonModule, MatIconModule, MatTooltipModule],
-  templateUrl: './program-edit-toggle.component.html',
+  template: `
+    <div class="toggle">
+      @if (readOnly()) {
+        <button mat-stroked-button (click)="startEdit.emit()">Edit</button>
+      } @else {
+        <button
+          mat-icon-button
+          color="primary"
+          [disabled]="saveDisabled()"
+          (click)="save.emit()"
+          matTooltip="Save"
+          aria-label="Save Program"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onCancelClick()" matTooltip="Cancel" aria-label="Cancel editing">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+  `,
   styleUrl: './program-edit-toggle.component.scss',
 })
 export class ProgramEditToggleComponent {

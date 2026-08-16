@@ -10,7 +10,35 @@ import { ReloadCycleTableComponent } from '../reload-cycle-table/reload-cycle-ta
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatButtonModule, MatCardModule, MainLiftBlockFormComponent, ReloadCycleTableComponent],
-  templateUrl: './main-lift-block-card.component.html',
+  template: `
+    <mat-card class="block-card">
+      <mat-card-title>{{ exerciseName() }}</mat-card-title>
+      <mat-card-content>
+        <ft-main-lift-block-form
+          [block]="block()"
+          [suggestWeek5]="suggestWeek5()"
+          [readOnly]="readOnly()"
+          (save)="save.emit($event)"
+          (generate)="onGenerate($event)"
+          (validityChange)="validityChange.emit($event)"
+          (formChanged)="onFormChanged()"
+        />
+
+        <ft-reload-cycle-table
+          [cycle]="block().cycle"
+          [week8Retest]="block().week8Retest"
+          [readOnly]="readOnly()"
+          [stale]="stale()"
+          (retestChange)="retestChange.emit($event)"
+        />
+      </mat-card-content>
+      @if (!readOnly()) {
+        <mat-card-actions>
+          <button mat-button (click)="remove.emit()">Remove</button>
+        </mat-card-actions>
+      }
+    </mat-card>
+  `,
   styleUrl: './main-lift-block-card.component.scss',
 })
 export class MainLiftBlockCardComponent {
