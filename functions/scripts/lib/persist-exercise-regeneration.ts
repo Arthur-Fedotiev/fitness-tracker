@@ -12,6 +12,7 @@ const certPath = positionalArgs[0] ?? './sa.json';
 const outputPath =
   positionalArgs[1] ?? '../../.scratch/exercise-library-enrichment/assets/exercise-regeneration.output.json';
 const commit = rawArgs.includes('--commit');
+const fillGaps = rawArgs.includes('--fill-gaps');
 
 admin.initializeApp({
   credential: admin.credential.cert(certPath),
@@ -47,10 +48,16 @@ interface RegeneratedExercise {
  * exist among this environment's admin-owned docs, and deletes the one
  * known orphaned user-owned exercise.
  *
- * An entry whose `id` isn't a document in *this* environment is skipped
- * (the 143 existing ids in the output batch are split across staging/prod,
- * 15 shared) - it applies to the other environment's run instead. The
- * name-based dedup on `id: null` entries makes the script safely
+ * An entry whose `id` isn't a document in *this* environment is skipped by
+ * default (the 143 existing ids in the output batch are split across
+ * staging/prod, 15 shared) - it's assumed to apply to the other
+ * environment's run instead. Pass `--fill-gaps` to instead create it here
+ * too, using its original id (so the same exercise keeps the same id in
+ * both environments) - use this to bring an environment that started with
+ * a smaller subset (staging had 30 admin-owned vs prod's 128) up to the
+ * other's full set, rather than leaving the asymmetry in place.
+ *
+ * The name-based dedup on `id: null` entries makes the script safely
  * re-runnable as new entries are appended to the output batch over time
  * (e.g. filling gaps found after the main batch already ran) without
  * re-creating exercises that were already added on a prior run.
@@ -64,7 +71,7 @@ interface RegeneratedExercise {
  * entry, which by design gets created fresh on every run. Skips the orphan
  * deletion step in that mode, since it's a one-off addition, not a full pass.
  *
- * Usage: `node dist/lib/persist-exercise-regeneration.js <sa-path> [output-json-path] [--commit] [--only "<name>"]`
+ * Usage: `node dist/lib/persist-exercise-regeneration.js <sa-path> [output-json-path] [--commit] [--only "<name>"] [--fill-gaps]`
  * Run against `./sa.json` (staging) first, review the dry run, `--commit`,
  * confirm in the app, then repeat against `./sa.prod.json`.
  */
@@ -90,6 +97,7 @@ async function persistExerciseRegeneration() {
   let skippedNotInThisEnv = 0;
   let skippedAlreadyCreated = 0;
   let created = 0;
+  let gapsFilled = 0;
 
   let batch = db.batch();
   let batchSize = 0;
@@ -124,6 +132,15 @@ async function persistExerciseRegeneration() {
       console.log(`${commit ? 'OVERWRITE' : 'DRY-RUN overwrite'} ${id} — ${exercise.name}`);
       queueWrite(db.collection(COLLECTIONS.EXERCISES).doc(id), flatData);
       overwritten++;
+    } else if (fillGaps) {
+      if (existingAdminNames.has(exercise.name)) {
+        console.log(`SKIP (already exists under a different id) — ${exercise.name}`);
+        skippedAlreadyCreated++;
+        continue;
+      }
+      console.log(`${commit ? 'CREATE (fill-gap)' : 'DRY-RUN create (fill-gap)'} ${id} — ${exercise.name}`);
+      queueWrite(db.collection(COLLECTIONS.EXERCISES).doc(id), flatData);
+      gapsFilled++;
     } else {
       skippedNotInThisEnv++;
       continue;
@@ -154,6 +171,7 @@ async function persistExerciseRegeneration() {
         totalInBatch: exercises.length,
         overwritten,
         created,
+        gapsFilled,
         skippedNotInThisEnv,
         skippedAlreadyCreated,
         deletedOrphan,
