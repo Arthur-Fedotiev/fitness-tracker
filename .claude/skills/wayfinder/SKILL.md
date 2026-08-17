@@ -22,6 +22,8 @@ The map is a single issue on this repo's issue tracker, labelled `wayfinder:map`
 
 The map is an **index**, not a store. It lists the decisions made and points at the tickets that hold their detail; a decision lives in exactly one place — its ticket — so the map never restates it, only gists it and links.
 
+The map and its tickets are scratch, not repo history: never commit them to git, at any point in the map's life. See [Close the map](#close-the-map) for what happens — and what gets salvaged — once the destination is reached.
+
 **Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.** The issue tracker should have been provided to you — run `/setup-matt-pocock-skills` if not. Consult the tracker doc's "Wayfinding operations" section for how _this_ repo expresses them. If no tracker has been provided, default to the local-markdown tracker.
 
 ### The map body
@@ -126,3 +128,11 @@ User invokes with a map (URL or number). A ticket is **optional** — without on
 5. Add newly-surfaced tickets (create-then-wire); graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals a ticket — this one or another — sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
 
 The user may run unblocked tickets in parallel, so expect other sessions to be editing the tracker concurrently.
+
+### Close the map
+
+Triggered once there's no frontier and no fog left — the destination is reached — and the user confirms the work is ready. A finished map is scratch, not a record: salvage anything load-bearing, then delete it.
+
+1. **Survey for salvage.** Read the map's Notes and Decisions-so-far, and any closed ticket whose answer reads as a standing rule, a shipped schema/architecture change, or a pattern now used more than once. A domain term or a decision belongs in `CONTEXT.md`/`docs/adr/` (see `docs/agents/domain.md`); a reusable *process* — one likely to recur, not a one-off — is a candidate for its own skill, and a skill is the preferred home when the content is a procedure to follow rather than a fact to know.
+2. **Grill the candidates.** Never extract silently — put each candidate to the user (what it is, where it would go) and let them choose. A candidate the user doesn't pick up dies with the scratch; don't stub it out "just in case."
+3. **Apply what's agreed**, then delete `.scratch/<effort>/` entirely — map, tickets, and assets. Leave no stub, no "see deleted map" pointer: the extracted artifacts are the only trace that should survive.

@@ -40,8 +40,9 @@ interface RegeneratedExercise {
 }
 
 /**
- * Persists exercise-regeneration.output.json (see the exercise-library-
- * enrichment map, tickets 03/05/06) to Firestore: overwrites every existing
+ * Persists exercise-regeneration.output.json (a taxonomy-conformant,
+ * schema-validated regeneration of the admin-owned exercise library) to
+ * Firestore: overwrites every existing
  * admin-owned `exercises/{id}` doc this environment actually has in place
  * (same doc ID, full `.set()` replace — no dual old/new-shape period),
  * creates a new doc for every `id: null` entry whose `name` doesn't already

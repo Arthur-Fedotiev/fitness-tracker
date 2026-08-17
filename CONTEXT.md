@@ -9,7 +9,7 @@
 
 ## Core domain terms
 
-- `exercise`: a reusable exercise definition used across workouts. Carries no media (no images, no instructional video) — see [ADR-0001](docs/adr/0001-drop-exercise-media.md). Content (`name`, `instructions`) is English-only, stored directly on the exercise document — no per-language translation — see [ADR-0002](docs/adr/0002-remove-multilanguage-support.md). Its fields (`name`, `exerciseType`, `targetMuscle`, `equipment`, `instructions`, `userId`, `admin`) sit flat on the document root, not nested under a `baseData` wrapper — see [ADR-0005](docs/adr/0005-flatten-exercise-basedata.md).
+- `exercise`: a reusable exercise definition used across workouts. Carries no media (no images, no instructional video) — see [ADR-0001](docs/adr/0001-drop-exercise-media.md). Content (`name`, `instructions`) is English-only, stored directly on the exercise document — no per-language translation — see [ADR-0002](docs/adr/0002-remove-multilanguage-support.md). Its fields (`name`, `exerciseType`, `targetMuscle`, `equipment`, `instructions`, `userId`, `admin`) sit flat on the document root, not nested under a `baseData` wrapper — see [ADR-0005](docs/adr/0005-flatten-exercise-basedata.md). The admin-owned library traces back to the public [`free-exercise-db`](https://github.com/yuhonas/free-exercise-db) dataset — a useful primary source if an exercise's origin or intended movement ever needs re-verifying.
 - `workout`: a composed plan of exercises and sets.
 - `user`: authenticated app user.
 - `create-user`: onboarding flow that provisions a new user profile.
