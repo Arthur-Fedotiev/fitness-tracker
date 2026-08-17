@@ -42,6 +42,11 @@ export const APP_ROUTES: Route[] = [
           import('@fitness-tracker/workout/shell').then((m) => m.workoutRoutes),
       },
       {
+        path: 'training-planner',
+        loadChildren: () =>
+          import('@fitness-tracker/program/shell').then((m) => m.programRoutes),
+      },
+      {
         path: 'create-user',
         loadChildren: () =>
           import('@fitness-tracker/create-user/feature').then(

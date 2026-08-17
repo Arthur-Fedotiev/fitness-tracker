@@ -8,7 +8,8 @@
     "start:update-user-role": "npx tsc && node dist/lib/update-user-role.js",
     "start:flatten-exercise-basedata": "npx tsc && node dist/lib/flatten-exercise-basedata.js",
     "start:survey-exercise-flatten-readiness": "npx tsc && node dist/lib/survey-exercise-flatten-readiness.js",
-    "start:update-exercise-ownership": "npx tsc && node dist/lib/update-exercise-ownership.js"
+    "start:update-exercise-ownership": "npx tsc && node dist/lib/update-exercise-ownership.js",
+    "start:persist-exercise-regeneration": "npx tsc && node dist/lib/persist-exercise-regeneration.js"
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
@@ -17,8 +18,7 @@
   "dependencies": {
     "node-emoji": "^1.11.0",
     "rxjs": "^7.4.0",
-    "shared-package": "file:shared-package-5.6.0.tgz"
-    "shared-package": "file:shared-package-5.6.0.tgz"
+    "shared-package": "file:shared-package-5.7.0.tgz"
   },
   "keywords": [],
   "author": "",

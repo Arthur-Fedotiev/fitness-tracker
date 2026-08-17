@@ -1,0 +1,25 @@
+.block-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-card {
+  justify-content: center;
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  background: transparent;
+  box-shadow: none;
+}
+
+.picker-content {
+  width: 100%;
+}
+
+.picker-field {
+  width: 100%;
+}
+
+.trigger {
+  align-self: center;
+  justify-self: center;
+  margin: auto;
+}

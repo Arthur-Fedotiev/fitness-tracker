@@ -1,0 +1,55 @@
+.dashboard {
+  padding: 16px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.name-header {
+  margin-top: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+// "Editing" chip above the grid, shown while the selected Program has an active edit session.
+.editing-chip-set {
+  margin-top: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+  gap: 16px;
+  margin-top: 16px;
+
+  // Whole-grid edit-session frame, shown while the selected Program has an active edit session.
+  &.editing-frame {
+    border-left: 4px solid var(--mat-sys-primary, #6750a4);
+    background: color-mix(in srgb, var(--mat-sys-primary, #6750a4) 6%, transparent);
+    padding: 12px;
+    border-radius: 8px;
+  }
+}
+
+.empty {
+  opacity: 0.6;
+}

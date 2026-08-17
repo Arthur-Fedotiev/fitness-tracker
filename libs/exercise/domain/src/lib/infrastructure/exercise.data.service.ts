@@ -129,7 +129,10 @@ export class FirebaseExerciseDataService {
         );
 
     return searchOptions.targetMuscles?.length
-      ? query(queryWithOwnership, where(EXERCISE_FIELD_NAMES.TARGET_MUSCLE, 'in', searchOptions.targetMuscles))
+      ? query(
+          queryWithOwnership,
+          where(EXERCISE_FIELD_NAMES.TARGET_MUSCLES, 'array-contains-any', searchOptions.targetMuscles),
+        )
       : queryWithOwnership;
   }
 

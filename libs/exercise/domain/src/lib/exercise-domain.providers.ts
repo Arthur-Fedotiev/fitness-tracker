@@ -4,8 +4,10 @@ import { ExerciseEffects } from './application/+state/exercise.effects';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { EXERCISE_DETAILS_QUERY } from './entities/queries/exercise-details.query';
+import { EXERCISE_PICKER_QUERY } from './entities/queries/exercise-picker.query';
 import { ExerciseFacade } from './application/exercise.facade';
 import { LOAD_EXERCISE_DETAILS_COMMAND } from './entities/commands/load-exercise-details.command';
+import { LOAD_EXERCISE_PICKER_LIST_COMMAND } from './entities/commands/load-exercise-picker-list.command';
 import {
   EXERCISE_SAVED_COMMAND,
   RELEASE_EXERCISE_DETAILS_COMMAND,
@@ -26,9 +28,16 @@ export const EXERCISE_DOMAIN_PROVIDERS = [
     provide: EXERCISE_DETAILS_QUERY,
     useExisting: ExerciseFacade,
   },
-
+  {
+    provide: EXERCISE_PICKER_QUERY,
+    useExisting: ExerciseFacade,
+  },
   {
     provide: LOAD_EXERCISE_DETAILS_COMMAND,
+    useExisting: ExerciseFacade,
+  },
+  {
+    provide: LOAD_EXERCISE_PICKER_LIST_COMMAND,
     useExisting: ExerciseFacade,
   },
   {

@@ -36,7 +36,7 @@ export const toExerciseVM =
     name,
     equipment,
     exerciseType,
-    targetMuscle,
+    targetMuscles,
     userId,
     admin,
   }: ExerciseResponseModel) => ({
@@ -44,7 +44,7 @@ export const toExerciseVM =
     name,
     equipment,
     exerciseType,
-    targetMuscle,
+    targetMuscles,
     isSelected: selectedForWorkoutIds.has(id),
     canDelete: admin ? isAdmin : uid === userId,
     canEdit: admin ? isAdmin : uid === userId,

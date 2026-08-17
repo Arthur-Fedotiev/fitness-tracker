@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name-edit {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  max-width: 320px;
+}
+
+.name-field {
+  width: 100%;
+}
+
+.name-error {
+  margin: 0 0 0 4px;
+  color: var(--mat-sys-error, #b3261e);
+  font-size: 12px;
+}

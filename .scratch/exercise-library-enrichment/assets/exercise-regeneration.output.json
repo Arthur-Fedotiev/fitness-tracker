@@ -1,0 +1,3017 @@
+{
+  "exercises": [
+    {
+      "id": "YU0OsilcsOcShRsxBxbS",
+      "name": "Overhead Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding a barbell at shoulder height with an overhand grip, elbows under the wrist.",
+        "Brace your core and keep your ribcage stacked over your pelvis rather than leaning back.",
+        "Press the bar straight overhead in a strict, controlled path until your arms are fully locked out.",
+        "Lower the bar back to shoulder height with control and repeat without using leg drive."
+      ]
+    },
+    {
+      "id": "UNpo9QQILw9SQOsWteZW",
+      "name": "Backlash with Dumbbells",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "MIDDLE_BACK",
+        "TRAPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Hinge forward at the hips holding a light dumbbell in each hand, arms hanging straight down, chest up.",
+        "Keeping a slight bend in your elbows, raise both arms out and back until they're roughly in line with your torso.",
+        "Squeeze your shoulder blades together at the top of the movement.",
+        "Lower the dumbbells back down with control and repeat."
+      ]
+    },
+    {
+      "id": "uwmFYB7iuAB9Md8PZT05",
+      "name": "Barbell Back Squat",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set the bar on your upper back in a rack, step out, and stand with feet just outside shoulder width.",
+        "Brace your core, then bend your hips and knees to descend until your hip crease drops below your knee.",
+        "Keep your chest up and knees tracking over your toes throughout the descent.",
+        "Drive through your whole foot to stand back up to full hip and knee extension."
+      ]
+    },
+    {
+      "id": "g8dQFk0ShMBBvqYAhssm",
+      "name": "Clean and Jerk",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "SHOULDERS",
+        "TRAPS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with feet hip-width apart and grip just outside your legs.",
+        "Pull the bar explosively from the floor, extending hips and knees to full triple extension, then pull yourself under the bar to catch it on your front shoulders in a front squat position (the clean).",
+        "Stand fully upright with the bar racked on your shoulders.",
+        "Dip slightly at the knees, then drive explosively upward, punching the bar overhead while splitting or squatting your feet to catch it with arms locked out (the jerk).",
+        "Recover both feet to a stable stance with the bar locked out overhead before lowering it back to the floor."
+      ]
+    },
+    {
+      "id": "VCoUwhU8K24j1Lr9woQg",
+      "name": "Clean and Press",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "SHOULDERS",
+        "TRAPS",
+        "TRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar and pull it explosively from the floor to your shoulders, catching it in a front rack position (the clean).",
+        "Stand fully upright with the bar racked on your shoulders, elbows up.",
+        "Press the bar strictly overhead until your arms are locked out, without using leg drive.",
+        "Lower the bar back to the shoulders, then to the floor with control between reps."
+      ]
+    },
+    {
+      "id": "sOpycaYVvSb77b0MorPQ",
+      "name": "Dumbbell Bench Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CHEST",
+        "TRICEPS",
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie back on a flat bench holding a dumbbell in each hand at chest level, palms facing forward.",
+        "Press both dumbbells straight up until your arms are fully extended, without locking out aggressively.",
+        "Lower the dumbbells slowly back to chest level, keeping your elbows at roughly a 45-degree angle from your torso.",
+        "Repeat for the desired number of reps, keeping your shoulder blades pinned to the bench throughout."
+      ]
+    },
+    {
+      "id": "Fm711XnYTSGbxJJ5yyjL",
+      "name": "Dumbbell Front Raise to Lateral Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a light dumbbell in each hand at your sides, palms facing your thighs.",
+        "Raise both arms straight in front of you to shoulder height, keeping a slight bend in the elbows.",
+        "Without pausing, sweep the dumbbells out to the sides until your arms form a T at shoulder height.",
+        "Lower the dumbbells back down the same path with control and repeat."
+      ]
+    },
+    {
+      "id": "Eeml5n8krX1BAVhU4UfS",
+      "name": "Dumbbell Split Squats",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "ADDUCTORS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Hold a dumbbell in each hand and step one foot forward into a staggered stance.",
+        "Lower straight down by bending both knees until your rear knee nearly touches the floor.",
+        "Keep your torso upright and front knee tracking over your front foot.",
+        "Drive through your front heel to return to the start, completing all reps on one side before switching."
+      ]
+    },
+    {
+      "id": "xVj0QjER65bVtMXJ4a3q",
+      "name": "Incline Dumbbell Reverse Fly",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "MIDDLE_BACK",
+        "TRAPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie face-down on an incline bench set to roughly 30-45 degrees, a light dumbbell in each hand hanging below you.",
+        "With a slight bend in your elbows, raise both arms out to the sides until they're roughly in line with your torso.",
+        "Squeeze your shoulder blades together at the top.",
+        "Lower the dumbbells back down with control and repeat."
+      ]
+    },
+    {
+      "id": "L1LQLD3sGLpRNVhGOKz8",
+      "name": "Kettlebell One-Legged Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK",
+        "ABDOMINAL"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Stand on one leg holding a kettlebell in the opposite hand, a slight bend in your standing knee.",
+        "Hinge forward at the hips, extending your free leg straight back for balance as the kettlebell lowers toward the floor.",
+        "Keep your back flat and hips square until the kettlebell approaches shin height or your hamstring flexibility limit.",
+        "Drive your hips forward to return to standing, completing all reps on one side before switching."
+      ]
+    },
+    {
+      "id": "rYoFv3hjUHf0XYhCw8er",
+      "name": "Kettlebell Pass-Through Lunge",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "SHOULDERS",
+        "ABDOMINAL"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Hold a kettlebell in one hand and step forward into a lunge, lowering your rear knee toward the floor.",
+        "As you descend, pass the kettlebell under your front leg to your other hand.",
+        "Drive back up to standing, then step forward on the other leg and repeat the pass-through.",
+        "Keep your torso upright and core braced throughout the sequence."
+      ]
+    },
+    {
+      "id": "xcFQONAoI1Uxpdom5vXn",
+      "name": "Lying Leg Curls",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Lie face-down on the leg curl machine with the pad resting just above your heels.",
+        "Grip the handles and curl your heels toward your glutes by bending your knees.",
+        "Squeeze your hamstrings at the top of the movement without lifting your hips off the pad.",
+        "Lower the pad back down with control and repeat."
+      ]
+    },
+    {
+      "id": "62mLNNGG6BRvG4i7jnaq",
+      "name": "Machine Squat",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Position yourself in the squat machine with shoulders under the pads and feet set shoulder-width apart on the platform.",
+        "Release the safety and bend your knees to lower into a squat, keeping your chest up.",
+        "Descend until your thighs are roughly parallel to the platform.",
+        "Drive through your feet to return to the starting position."
+      ]
+    },
+    {
+      "id": "yaobzHAhP2HoWlqHQ4Sg",
+      "name": "Overhead Dumbbell Front Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a light dumbbell in each hand at your thighs, palms facing back.",
+        "Keeping a slight bend in your elbows, raise both arms straight up in front of you and overhead.",
+        "Pause briefly at the top with arms fully raised.",
+        "Lower the dumbbells back down with control to the starting position and repeat."
+      ]
+    },
+    {
+      "id": "0wdI8mA5fp4cO56AXIVe",
+      "name": "Dumbbell Lateral Raise (Partial Reps)",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand upright holding a dumbbell in each hand at your sides, palms facing your thighs.",
+        "Keeping your arms straight and torso stationary, raise the dumbbells out to your sides until they reach shoulder height.",
+        "Hold the contraction briefly at the top.",
+        "Lower the dumbbells only partway back down before raising them again, keeping continuous tension on your shoulders throughout the set."
+      ]
+    },
+    {
+      "id": "KSziWkgJxpZSV3I3VQxt",
+      "name": "Cable Pull-Through",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "LOWER_BACK"
+      ],
+      "equipment": "CABLE",
+      "instructions": [
+        "Face away from a low cable pulley, straddling the cable with a rope attachment between your legs.",
+        "Hinge forward at the hips, letting the rope pull your arms back between your legs, keeping your back flat.",
+        "Drive your hips forward explosively, standing tall and squeezing your glutes at the top.",
+        "Control the weight back down into the next hinge and repeat."
+      ]
+    },
+    {
+      "id": "5fxEsLbhvHDzti3Fd4nK",
+      "name": "Dumbbell Romanian Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in each hand in front of your thighs, feet hip-width apart.",
+        "Push your hips back while keeping a slight bend in your knees, lowering the dumbbells along your legs.",
+        "Keep your back flat and lower until you feel a stretch in your hamstrings.",
+        "Drive your hips forward to return to standing, squeezing your glutes at the top."
+      ]
+    },
+    {
+      "id": "19Ss8L9HbthogLHd8PMH",
+      "name": "Seated Barbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on an upright bench holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and press the bar straight overhead until your arms lock out.",
+        "Keep your back against the bench pad throughout the press.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "2bKPrMbdChjkXB0CpfN5",
+      "name": "Seated Calf Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CALVES"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Sit in the calf raise machine with the balls of your feet on the platform and pads resting on your thighs.",
+        "Lower your heels as far as comfortable to feel a stretch in your calves.",
+        "Press through the balls of your feet to raise your heels as high as possible.",
+        "Pause briefly at the top, then lower with control and repeat."
+      ]
+    },
+    {
+      "id": "zhs8zCnx2hNeoO5HNQ0s",
+      "name": "Seated Dumbbell Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Sit on an upright bench holding a dumbbell in each hand at shoulder height, palms facing forward.",
+        "Brace your core and press both dumbbells straight overhead until your arms lock out.",
+        "Keep your back against the bench pad throughout the press.",
+        "Lower the dumbbells back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "ed7Rr4vGqZOQfFZUOaT0",
+      "name": "Seated Dumbbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Sit on an upright bench holding a dumbbell in each hand at shoulder height, palms facing forward.",
+        "Brace your core and press both dumbbells straight overhead until your arms lock out.",
+        "Keep your back against the bench pad throughout the press.",
+        "Lower the dumbbells back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "1enG7NNpaRvS6wHSfw60",
+      "name": "Single-Arm Lateral Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in one hand at your side, the other hand free or bracing on a support.",
+        "Keeping a slight bend in your elbow, raise the dumbbell out to the side until your arm is roughly parallel to the floor.",
+        "Pause briefly at the top without shrugging your shoulder up.",
+        "Lower the dumbbell back down with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "wGM4frto4Ecpc29EYPVw",
+      "name": "Single-Arm Palm-In Dumbbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand or sit holding a dumbbell at shoulder height in one hand, palm facing inward toward your head.",
+        "Brace your core and press the dumbbell straight overhead until your arm locks out.",
+        "Keep your torso upright without leaning to the working side.",
+        "Lower the dumbbell back to shoulder height with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "rKzGeH39INBTQXdbzYze",
+      "name": "Single-Leg Cable Hip Extension",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "CABLE",
+      "instructions": [
+        "Attach an ankle cuff to a low cable and secure it around one ankle, facing the machine.",
+        "Hinge slightly forward and hold the machine for balance on your standing leg.",
+        "Extend the cuffed leg straight back and up by squeezing your glute.",
+        "Return to the starting position with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "4WYdDy46jT8BHB0MCq1Z",
+      "name": "Single-Leg Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with one foot flat on the floor, knee bent, and the other leg extended straight up.",
+        "Brace your core and drive through the planted heel to lift your hips off the floor.",
+        "Squeeze your glute at the top, keeping your hips level.",
+        "Lower back down with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "kS5vd7LPqqaAN2EDlt3X",
+      "name": "Smith Machine Calf Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CALVES"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Position the balls of your feet on a raised platform under a Smith machine bar resting on your upper traps.",
+        "Lower your heels as far as comfortable to feel a stretch in your calves.",
+        "Press through the balls of your feet to raise your heels as high as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "09cXvqfTsVHF8U4MJ5cF",
+      "name": "Standing Dumbbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in each hand at shoulder height, palms facing forward.",
+        "Brace your core and glutes to keep your ribcage stacked over your pelvis.",
+        "Press both dumbbells straight overhead until your arms lock out.",
+        "Lower the dumbbells back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "WzZGYginDjjVHT0fR6HA",
+      "name": "Standing Palms-In Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in each hand at shoulder height, palms facing each other.",
+        "Brace your core and press both dumbbells straight overhead, keeping the neutral grip throughout.",
+        "Lock out fully at the top without letting the dumbbells drift forward.",
+        "Lower back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "JTHcvVuKZVMKqsxPFzJQ",
+      "name": "Step-Up with Knee Raise",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HIP_FLEXORS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Stand facing a sturdy box or bench, one foot planted on top.",
+        "Drive through the planted foot to stand up onto the box, keeping your torso upright.",
+        "As you reach the top, drive your trailing knee up toward your chest for balance and hip drive.",
+        "Step back down with control and repeat, alternating legs."
+      ]
+    },
+    {
+      "id": "eKlkZYOAOMcaj4uZ4ulQ",
+      "name": "T-Bar Row with Handle",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "LATS",
+        "MIDDLE_BACK",
+        "BICEPS",
+        "TRAPS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Straddle the T-bar with a V-handle attached, feet shoulder-width apart, knees slightly bent.",
+        "Hinge forward at the hips until your torso is at roughly 45 degrees, back flat, and grip the handle.",
+        "Pull the handle up toward your chest, driving your elbows back and squeezing your shoulder blades together.",
+        "Lower the weight back down with control until your arms are extended and repeat."
+      ]
+    },
+    {
+      "id": "d6epfDILHtF2E5JA6J2t",
+      "name": "90/90 Hamstring Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back and raise one leg so your hip and knee are both bent to roughly 90 degrees.",
+        "Clasp your hands behind the thigh for support, keeping your lower back flat on the floor.",
+        "Slowly straighten the raised leg toward the ceiling until you feel a stretch in the hamstring.",
+        "Hold, then bend the knee back to 90 degrees and repeat, or switch legs."
+      ]
+    },
+    {
+      "id": "W1gA68QqZp3bibC74RNo",
+      "name": "Alternating Lunge Jump",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "CALVES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Start in a lunge position with one foot forward and one back, both knees bent roughly 90 degrees.",
+        "Explosively jump straight up, swapping leg positions in the air.",
+        "Land softly back in a lunge with the opposite leg forward, absorbing the impact through your hips and knees.",
+        "Immediately repeat, alternating legs each jump."
+      ]
+    },
+    {
+      "id": "QuA3rZoMZveje9g0gHL7",
+      "name": "Band Good Morning",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "BANDS",
+      "instructions": [
+        "Anchor a resistance band low behind you and loop it across your upper back and shoulders, facing away from the anchor.",
+        "Stand with feet hip-width apart, a slight bend in your knees.",
+        "Hinge forward at the hips, keeping your back flat, until your torso is close to parallel with the floor.",
+        "Drive your hips forward to return to standing, squeezing your glutes at the top."
+      ]
+    },
+    {
+      "id": "jfnvpZZwJB0is6FoRjh3",
+      "name": "Barbell Deadlift",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK",
+        "TRAPS",
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet hip-width apart, the bar over your mid-foot, and grip it just outside your legs.",
+        "Bend your hips and knees to grip the bar, keeping your back flat and chest up.",
+        "Drive through your whole foot, extending your hips and knees together to stand the bar up.",
+        "Lock out fully at the top with hips and knees extended, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": "MFBt1kDCCpV6H760p8RS",
+      "name": "Barbell Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on the floor with your upper back against a bench and a padded barbell rolled over your hips.",
+        "Plant your feet flat on the floor, knees bent, roughly shoulder-width apart.",
+        "Drive through your heels and squeeze your glutes to lift your hips until your body forms a straight line from shoulders to knees.",
+        "Pause at the top, then lower your hips back down with control before the next rep."
+      ]
+    },
+    {
+      "id": "OzKNUfbE9nvCGejJD1ec",
+      "name": "Barbell Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on the floor with your upper back against a bench and a padded barbell rolled over your hips.",
+        "Plant your feet flat on the floor, knees bent, roughly shoulder-width apart.",
+        "Drive through your heels and squeeze your glutes to lift your hips until your body forms a straight line from shoulders to knees.",
+        "Pause at the top, then lower your hips back down with control before the next rep."
+      ]
+    },
+    {
+      "id": "OzhWHRW7p1nyTsHYxqq5",
+      "name": "Barbell Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on the floor with your upper back against a bench and a padded barbell rolled over your hips.",
+        "Plant your feet flat on the floor, knees bent, roughly shoulder-width apart.",
+        "Drive through your heels and squeeze your glutes to lift your hips until your body forms a straight line from shoulders to knees.",
+        "Pause at the top, then lower your hips back down with control before the next rep."
+      ]
+    },
+    {
+      "id": "yUeXBpLfMOEO7ss2K9Gg",
+      "name": "Barbell Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on the floor with your upper back against a bench and a padded barbell rolled over your hips.",
+        "Plant your feet flat on the floor, knees bent, roughly shoulder-width apart.",
+        "Drive through your heels and squeeze your glutes to lift your hips until your body forms a straight line from shoulders to knees.",
+        "Pause at the top, then lower your hips back down with control before the next rep."
+      ]
+    },
+    {
+      "id": "Ag9IAkQbfOD6MyfAzVoR",
+      "name": "Barbell Hip Thrust",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on the floor with your upper back against a bench and a padded barbell rolled over your hips.",
+        "Plant your feet flat on the floor, knees bent, shoulder-width apart.",
+        "Drive through your heels and squeeze your glutes to thrust your hips up until your torso is parallel to the floor.",
+        "Pause and squeeze at the top, then lower back down with control."
+      ]
+    },
+    {
+      "id": "wWvGSbJRTdRNlAKPJ4YR",
+      "name": "Barbell Stiff-Legged Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand holding a barbell in front of your thighs, feet hip-width apart.",
+        "Keeping your legs nearly straight with only a slight knee bend, hinge forward at the hips.",
+        "Lower the bar along your legs until you feel a deep stretch in your hamstrings.",
+        "Drive your hips forward to return to standing, keeping the bar close to your body."
+      ]
+    },
+    {
+      "id": "uLij3Av9sWTL1m15mbDf",
+      "name": "Box Jump",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "CALVES"
+      ],
+      "equipment": "BOX",
+      "instructions": [
+        "Stand facing a sturdy box with feet shoulder-width apart.",
+        "Bend your knees and swing your arms back to load a quick countermovement.",
+        "Explosively swing your arms forward and jump onto the box, landing softly with knees bent.",
+        "Stand up fully on the box, then step back down and reset before the next rep."
+      ]
+    },
+    {
+      "id": "UBbPRxffUM3oAMRbtSUe",
+      "name": "Box Jump (Multiple Response)",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "CALVES"
+      ],
+      "equipment": "BOX",
+      "instructions": [
+        "Stand facing a sturdy box with feet shoulder-width apart.",
+        "Jump onto the box, landing softly with knees bent.",
+        "Immediately jump back down to the floor, absorbing the landing.",
+        "Without pausing, jump straight back up onto the box, repeating the cycle for the target number of reps."
+      ]
+    },
+    {
+      "id": "Z80wUUpQ7b3sYa0t8xeg",
+      "name": "Calf Press on the Leg Press Machine",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CALVES"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Sit in the leg press machine with only the balls of your feet on the bottom edge of the platform, legs extended.",
+        "Release the safety catches and let your heels drop below the platform to stretch your calves.",
+        "Press through the balls of your feet to push the platform away by extending your ankles.",
+        "Lower with control back to the stretched position and repeat."
+      ]
+    },
+    {
+      "id": "r66UQv9q32lpRMRZBzPo",
+      "name": "Clean",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "TRAPS",
+        "SHOULDERS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with feet hip-width apart and grip just outside your legs.",
+        "Pull the bar from the floor, extending hips and knees explosively to full triple extension.",
+        "Pull yourself under the bar, catching it on your front shoulders in a front squat position.",
+        "Stand up fully to complete the lift, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": "8Pep7jwUuAwW16vMjHpF",
+      "name": "Clean and Jerk",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "SHOULDERS",
+        "TRAPS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with feet hip-width apart and grip just outside your legs.",
+        "Pull the bar explosively from the floor, extending hips and knees to full triple extension, then pull yourself under the bar to catch it on your front shoulders in a front squat position (the clean).",
+        "Stand fully upright with the bar racked on your shoulders.",
+        "Dip slightly at the knees, then drive explosively upward, punching the bar overhead while splitting or squatting your feet to catch it with arms locked out (the jerk).",
+        "Recover both feet to a stable stance with the bar locked out overhead before lowering it back to the floor."
+      ]
+    },
+    {
+      "id": "OyDbSyalbjXjQycV6ugX",
+      "name": "Clean and Press",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "SHOULDERS",
+        "TRAPS",
+        "TRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar and pull it explosively from the floor to your shoulders, catching it in a front rack position (the clean).",
+        "Stand fully upright with the bar racked on your shoulders, elbows up.",
+        "Press the bar strictly overhead until your arms are locked out, without using leg drive.",
+        "Lower the bar back to the shoulders, then to the floor with control between reps."
+      ]
+    },
+    {
+      "id": "EFmlcwhOzOgszU8Cc2kS",
+      "name": "Clean Deadlift",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK",
+        "TRAPS",
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar in your clean starting position, feet hip-width apart, grip just outside your legs.",
+        "Keeping your back flat and the bar close to your shins, drive through your legs to stand the bar up.",
+        "Move deliberately and under control rather than exploding, unlike a full clean pull.",
+        "Lock out at the top with hips fully extended, then lower the bar back to the floor and reset."
+      ]
+    },
+    {
+      "id": "VILQv96CwyzVFrabjlZ3",
+      "name": "Stability Ball Plank Hold",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "ABDOMINAL",
+        "HAMSTRINGS"
+      ],
+      "equipment": "EXERCISE_BALL",
+      "instructions": [
+        "Lie face-down on top of an exercise ball with your stomach resting on the ball.",
+        "Walk your hands forward along the floor as the ball rolls back under your hips and legs.",
+        "Extend your elbows and knees fully, forming a straight line from your shoulders to your ankles, with only your shins or feet resting on the ball.",
+        "Hold the position, keeping your core braced, then walk your hands back to return the ball under your torso."
+      ]
+    },
+    {
+      "id": "h3DCO4sMIPQjUsgWrJYk",
+      "name": "Dumbbell Clean",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "TRAPS",
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand over a pair of dumbbells with feet hip-width apart and hinge down to grip them.",
+        "Pull the dumbbells explosively upward, extending your hips and knees, then shrug and pull with your arms.",
+        "Drop under the dumbbells to catch them at shoulder height, elbows up, in a quarter-squat.",
+        "Stand up fully to complete the rep, then lower the dumbbells back to the floor and reset."
+      ]
+    },
+    {
+      "id": "P79ipMqHbEe7gCx4EnpO",
+      "name": "Dumbbell Farmer's Walk",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "FOREARM",
+        "TRAPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand between two heavy dumbbells, one on each side of your feet.",
+        "Hinge at the hips to grip both dumbbells, then stand up tall with your shoulders back and core braced.",
+        "Walk forward for the target distance in controlled, even steps, keeping the dumbbells close to your sides.",
+        "Set the dumbbells down with control at the end of the distance rather than dropping them."
+      ]
+    },
+    {
+      "id": "QM0W7VWu3gXDqT2M7h6l",
+      "name": "Dumbbell Front Raise to Lateral Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a light dumbbell in each hand at your sides, palms facing your thighs.",
+        "Raise both arms straight in front of you to shoulder height, keeping a slight bend in the elbows.",
+        "Without pausing, sweep the dumbbells out to the sides until your arms form a T at shoulder height.",
+        "Lower the dumbbells back down the same path with control and repeat."
+      ]
+    },
+    {
+      "id": "aNajfnYib0yGZS1xJSTY",
+      "name": "Dumbbell Lying Pronation",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie on a bench with your forearm supported and wrist hanging off the edge, holding a light dumbbell with your palm facing down.",
+        "Starting from a neutral wrist position, rotate your forearm to turn the dumbbell further into pronation (palm further downward).",
+        "Rotate back to the starting position with control.",
+        "Complete all reps on one arm before switching sides."
+      ]
+    },
+    {
+      "id": "nl5VR8HcwZtdXuTQvoew",
+      "name": "Dumbbell Lying Supination",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM",
+        "BICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie on a bench with your forearm supported and wrist hanging off the edge, holding a light dumbbell with your palm facing up.",
+        "Starting from a neutral wrist position, rotate your forearm to turn the dumbbell further into supination (palm further upward).",
+        "Rotate back to the starting position with control.",
+        "Complete all reps on one arm before switching sides."
+      ]
+    },
+    {
+      "id": "pT7FzpBvPALb9Uj8HjcU",
+      "name": "Exercise Ball Hip Thrust",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "EXERCISE_BALL",
+      "instructions": [
+        "Lie on your back with your upper back and shoulders resting on an exercise ball, feet flat on the floor.",
+        "Bend your knees to roughly 90 degrees, keeping the ball stable under your shoulders.",
+        "Drive through your heels and squeeze your glutes to raise your hips until your body forms a straight line.",
+        "Lower back down with control, keeping your balance on the ball throughout."
+      ]
+    },
+    {
+      "id": "L1dF7KkJn5BxwpEvpesM",
+      "name": "Exercise Ball Leg Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES"
+      ],
+      "equipment": "EXERCISE_BALL",
+      "instructions": [
+        "Lie on your back with your heels resting on top of an exercise ball, arms flat at your sides.",
+        "Lift your hips off the floor until your body forms a straight line from shoulders to heels.",
+        "Keeping your hips raised, roll the ball toward your glutes by bending your knees.",
+        "Extend your legs back out to roll the ball away, keeping your hips up throughout."
+      ]
+    },
+    {
+      "id": "5CAwhV2v3XmVoiSrZMz3",
+      "name": "Flutter Kicks",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "ABDOMINAL",
+        "HIP_FLEXORS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with your legs extended and hands tucked under your glutes for lower-back support.",
+        "Lift both legs a few inches off the floor and brace your core.",
+        "Alternate small, rapid up-and-down kicks with straight legs.",
+        "Keep your lower back pressed toward the floor throughout the set."
+      ]
+    },
+    {
+      "id": "20N0Kj06Dt8HNfhytekq",
+      "name": "Barbell Back Squat",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set the bar on your upper back in a rack, step out, and stand with feet just outside shoulder width.",
+        "Brace your core, then bend your hips and knees to descend until your hip crease drops below your knee.",
+        "Keep your chest up and knees tracking over your toes throughout the descent.",
+        "Drive through your whole foot to stand back up to full hip and knee extension."
+      ]
+    },
+    {
+      "id": "TFKKU3RXXe8TLErpS4Q6",
+      "name": "Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with knees bent and feet flat on the floor, hip-width apart.",
+        "Brace your core and drive through your heels to lift your hips off the floor.",
+        "Squeeze your glutes at the top until your body forms a straight line from shoulders to knees.",
+        "Lower your hips back down with control and repeat."
+      ]
+    },
+    {
+      "id": "pW7ZVUEhM2vTJ9MGePQh",
+      "name": "Glute Bridge Hamstring Walkout",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back, knees bent, feet flat, and lift your hips into a bridge position.",
+        "Keeping your hips raised and level, walk your feet forward a small step, straightening one leg slightly.",
+        "Continue walking your feet out until your legs are nearly straight while maintaining the bridge.",
+        "Walk your feet back in to the starting position, keeping your hips up throughout."
+      ]
+    },
+    {
+      "id": "K4NTJ79gyCYdl0cZJ53u",
+      "name": "Glute Ham Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Position your feet against the footplate of a glute-ham machine, knees on the pad, torso upright.",
+        "Keeping your body in a straight line, slowly lower your torso forward by extending your knees.",
+        "Lower until you feel a strong hamstring stretch or approach the floor, staying under control.",
+        "Curl back up by driving your heels into the plate and contracting your hamstrings to return to upright."
+      ]
+    },
+    {
+      "id": "iXWh3AMmWpukZtmnb7ns",
+      "name": "Glute Ham Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Position your feet against the footplate of a glute-ham machine, knees on the pad, torso upright.",
+        "Keeping your body in a straight line, slowly lower your torso forward by extending your knees.",
+        "Lower until you feel a strong hamstring stretch or approach the floor, staying under control.",
+        "Curl back up by driving your heels into the plate and contracting your hamstrings to return to upright."
+      ]
+    },
+    {
+      "id": "SM2nEPukuIXHvPXN8YDK",
+      "name": "Glute Kickback",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Position yourself in the glute kickback machine with one foot on the platform pad.",
+        "Brace your core and hold the handles for stability.",
+        "Kick the working leg straight back and up by squeezing your glute.",
+        "Return with control to the starting position, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "q0ubvGbqeqiYkKtzDNmw",
+      "name": "Good Morning",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "LOWER_BACK",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Position a barbell across your upper back as if setting up for a squat, feet shoulder-width apart.",
+        "Keeping a slight bend in your knees and your back flat, hinge forward at the hips.",
+        "Lower your torso until it's roughly parallel to the floor or you feel a deep hamstring stretch.",
+        "Drive your hips forward to return to standing, squeezing your glutes at the top."
+      ]
+    },
+    {
+      "id": "mCnmJ1l9vnXXqKHI62n4",
+      "name": "Good Morning off Pins",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "LOWER_BACK",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set safety pins in a rack at hip height and position a barbell across your upper back, starting from a hinged position resting against the pins.",
+        "Brace your core, then drive your hips forward to stand the bar up off the pins.",
+        "Keeping a slight knee bend and flat back, hinge back down until the bar returns to the pins.",
+        "Repeat, using the pins to fix your starting depth each rep."
+      ]
+    },
+    {
+      "id": "GCPOdW0ELH1h0nGTxNGQ",
+      "name": "Hamstring Self-Myofascial Release",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS"
+      ],
+      "equipment": "ROLL",
+      "instructions": [
+        "Sit on the floor with a foam roller placed under one thigh, hands supporting your weight behind you.",
+        "Cross your other leg over for added pressure if desired.",
+        "Slowly roll from just above the knee to just below the glute, pausing on any tender spots.",
+        "Continue for 30-60 seconds, then switch legs."
+      ]
+    },
+    {
+      "id": "DGHDHB8tQvT0hYqfjj8P",
+      "name": "Hang Snatch",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "TRAPS",
+        "SHOULDERS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand holding the bar at hip or upper-thigh height with a wide snatch grip.",
+        "Hinge slightly at the hips to load, then explosively extend your hips and knees, shrugging the bar upward.",
+        "Pull yourself under the bar and catch it overhead with arms locked out in a quarter-squat.",
+        "Stand up fully to complete the lift, then lower the bar back down under control."
+      ]
+    },
+    {
+      "id": "dUgkfz2Y1RvSSG3ldDYa",
+      "name": "Hip Extension with Bands",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BANDS",
+      "instructions": [
+        "Anchor a resistance band low behind you and loop the other end around one ankle.",
+        "Get on all fours or stand holding a support, facing the anchor.",
+        "Keeping your leg mostly straight, extend it back and up against the band's resistance by squeezing your glute.",
+        "Return with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "zIfihgPQWBIXe7ggL0dh",
+      "name": "Hip Lift with Band",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BANDS",
+      "instructions": [
+        "Lie on your back with a resistance band looped just above your knees, feet flat and knees bent.",
+        "Press your knees out slightly against the band's tension to engage your glutes.",
+        "Drive through your heels to lift your hips until your body forms a straight line from shoulders to knees.",
+        "Lower back down with control, keeping tension on the band throughout."
+      ]
+    },
+    {
+      "id": "VqEgd3phZh0kB6LGx5ZS",
+      "name": "Hurdle Hops",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "CALVES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Set up a line of low hurdles or markers spaced a comfortable jump apart.",
+        "Stand with feet together at the start of the line.",
+        "Jump over each hurdle with both feet together, using a quick arm swing for momentum.",
+        "Land softly and immediately jump into the next hurdle, minimizing ground contact time."
+      ]
+    },
+    {
+      "id": "5pYpBMBKzqG30e9JVmRh",
+      "name": "Inchworm",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "ABDOMINAL",
+        "SHOULDERS",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Stand with feet hip-width apart, then bend forward and place your hands on the floor.",
+        "Walk your hands forward into a plank position, keeping your legs as straight as comfortable.",
+        "Hold the plank briefly, then walk your feet forward toward your hands, keeping legs straight.",
+        "Stand back up to complete one rep and repeat."
+      ]
+    },
+    {
+      "id": "FBHIzPsQBCZmCroQwVy7",
+      "name": "Incline Dumbbell Reverse Fly",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "MIDDLE_BACK",
+        "TRAPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie face-down on an incline bench set to roughly 30-45 degrees, a light dumbbell in each hand hanging below you.",
+        "With a slight bend in your elbows, raise both arms out to the sides until they're roughly in line with your torso.",
+        "Squeeze your shoulder blades together at the top.",
+        "Lower the dumbbells back down with control and repeat."
+      ]
+    },
+    {
+      "id": "pBwhaEwaGfhHrcZ4iifC",
+      "name": "Kettlebell One-Legged Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK",
+        "ABDOMINAL"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Stand on one leg holding a kettlebell in the opposite hand, a slight bend in your standing knee.",
+        "Hinge forward at the hips, extending your free leg straight back for balance as the kettlebell lowers toward the floor.",
+        "Keep your back flat and hips square until the kettlebell approaches shin height or your hamstring flexibility limit.",
+        "Drive your hips forward to return to standing, completing all reps on one side before switching."
+      ]
+    },
+    {
+      "id": "bNLXD2Snjvoqx5Pi04Qs",
+      "name": "Kettlebell Thruster",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Hold a kettlebell in each hand at shoulder height, feet shoulder-width apart.",
+        "Squat down until your thighs are roughly parallel to the floor.",
+        "Drive up explosively out of the squat, using the momentum to press the kettlebells overhead.",
+        "Lower the kettlebells back to shoulder height as you descend into the next squat."
+      ]
+    },
+    {
+      "id": "rO5IEa0aA7yhksNaAZ4G",
+      "name": "Knee Across the Body Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with both legs extended.",
+        "Bend one knee and pull it across your body toward the opposite side with your hand.",
+        "Keep both shoulders flat on the floor while you feel a stretch through your glute and lower back.",
+        "Hold, then return to center and repeat on the other side."
+      ]
+    },
+    {
+      "id": "tDBWBjzN0e1jY39nCD2X",
+      "name": "Knee Across the Body Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with both legs extended.",
+        "Bend one knee and pull it across your body toward the opposite side with your hand.",
+        "Keep both shoulders flat on the floor while you feel a stretch through your glute and lower back.",
+        "Hold, then return to center and repeat on the other side."
+      ]
+    },
+    {
+      "id": "b18XOfh2rYWKUtPfUOlD",
+      "name": "Knee Tuck Jump",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "ABDOMINAL",
+        "HIP_FLEXORS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Stand with feet shoulder-width apart in an athletic stance.",
+        "Bend your knees slightly and swing your arms back to load a countermovement.",
+        "Jump straight up, driving both knees up toward your chest at the peak of the jump.",
+        "Land softly with knees bent, absorbing the impact, then reset before the next rep."
+      ]
+    },
+    {
+      "id": "qXkRbvSgB9rRWEEsslV3",
+      "name": "Kneeling Jump Squat",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Kneel on a mat with your torso upright and toes tucked under.",
+        "Swing your arms and explosively drive your hips forward to jump your feet under you into a squat stance.",
+        "Land softly in a squat position with feet flat.",
+        "Reset back to kneeling with control and repeat."
+      ]
+    },
+    {
+      "id": "LWPRjxvQXTwsYFvth7J1",
+      "name": "Barbell Kneeling Squat",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set the bar to the appropriate height in a power rack and kneel behind it on a padded surface.",
+        "Slide under the bar and rack it across the back of your shoulders, as in a standard back squat.",
+        "Unrack the bar, then sit back with your glutes until they touch your calves, keeping your torso upright.",
+        "Reverse the motion, driving back up to the kneeling starting position, and repeat."
+      ]
+    },
+    {
+      "id": "WOvifnyGvWZKPdsdh9Za",
+      "name": "Leg-Up Hamstring Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back near a wall or door frame and extend one leg up against it, resting your heel on the surface.",
+        "Keep the other leg flat on the floor, extended straight.",
+        "Scoot your hips closer to the wall until you feel a stretch in the raised leg's hamstring.",
+        "Hold, then switch legs."
+      ]
+    },
+    {
+      "id": "orOm5IzWczA4RJbHbOFq",
+      "name": "Linear Acceleration Wall Drill",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "CALVES",
+        "HIP_FLEXORS",
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lean forward against a wall with hands at shoulder height, body in a straight line from head to the back foot.",
+        "Drive one knee up toward hip height in a sprint-start position, foot dorsiflexed.",
+        "Drive that foot down and back explosively as if accelerating into a sprint, then switch legs.",
+        "Continue alternating legs at a fast, controlled cadence, keeping your body angle consistent."
+      ]
+    },
+    {
+      "id": "oLNPzVuge1VNfpTPxYGn",
+      "name": "Lying Glute Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with both knees bent, feet flat on the floor.",
+        "Cross one ankle over the opposite knee.",
+        "Reach through and grasp the back of the uncrossed thigh, pulling it toward your chest.",
+        "Hold to feel a stretch in the crossed leg's glute, then switch sides."
+      ]
+    },
+    {
+      "id": "NlB8r4HceACeTfyo7VsD",
+      "name": "Lying Glute Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with both knees bent, feet flat on the floor.",
+        "Cross one ankle over the opposite knee.",
+        "Reach through and grasp the back of the uncrossed thigh, pulling it toward your chest.",
+        "Hold to feel a stretch in the crossed leg's glute, then switch sides."
+      ]
+    },
+    {
+      "id": "voB7m8kcpwvTA20pKV4A",
+      "name": "Lying Groin Stretch with Band",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "ADDUCTORS"
+      ],
+      "equipment": "BANDS",
+      "instructions": [
+        "Lie on your back and loop a resistance band around one foot, holding the ends in your hand.",
+        "Extend that leg straight up, then let it fall out to the side, controlled by the band's tension.",
+        "Keep your opposite hip pressed into the floor as you lower the leg toward the ground.",
+        "Hold to feel a stretch in the inner thigh, then return and switch sides."
+      ]
+    },
+    {
+      "id": "BPwOxIQmScLBPn5M8GJJ",
+      "name": "Lying Hamstring Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with both legs extended.",
+        "Raise one leg, clasping your hands behind the thigh or calf.",
+        "Gently pull the leg toward your chest, keeping the knee as straight as comfortable.",
+        "Hold, then lower and switch legs."
+      ]
+    },
+    {
+      "id": "Cu1N9uenYbMVg22DYJGG",
+      "name": "Military Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and glutes so your ribcage stays stacked over your pelvis.",
+        "Press the bar straight overhead, moving your head back slightly to let the bar pass, then forward to lock out directly over your shoulders.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "FRtgWAWhe5Q7eXTe2Hpr",
+      "name": "Military Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and glutes so your ribcage stays stacked over your pelvis.",
+        "Press the bar straight overhead, moving your head back slightly to let the bar pass, then forward to lock out directly over your shoulders.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "PFGjG1dFo0i2v7t4ouAS",
+      "name": "Military Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and glutes so your ribcage stays stacked over your pelvis.",
+        "Press the bar straight overhead, moving your head back slightly to let the bar pass, then forward to lock out directly over your shoulders.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "weskePICvW3QtoSiaOVG",
+      "name": "Military Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and glutes so your ribcage stays stacked over your pelvis.",
+        "Press the bar straight overhead, moving your head back slightly to let the bar pass, then forward to lock out directly over your shoulders.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "fex6EVbTeCqOABoJhl9j",
+      "name": "Sprint Claw Drill",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "CALVES",
+        "QUADRICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Jog or run forward at a moderate pace, focusing on your foot strike pattern.",
+        "As your hip extends, flex your knee to kick your heel up toward your glutes.",
+        "Reload your leg by driving the knee forward, then aggressively claw your foot down and back into the ground directly under your hips.",
+        "Pump your arms in a rapid punching motion to match your leg cadence, and continue for the target distance."
+      ]
+    },
+    {
+      "id": "RVeWs4uR8UuEc8vXNk4s",
+      "name": "Natural Glute Ham Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Kneel on a pad with your ankles secured by a partner or anchor, torso upright.",
+        "Keeping your body in a straight line from knees to shoulders, slowly lower your torso toward the floor.",
+        "Use your hamstrings to control the descent as long as possible before catching yourself with your hands.",
+        "Push off the floor and curl your hamstrings to pull yourself back to the upright starting position."
+      ]
+    },
+    {
+      "id": "AZfWiWjzHzIB1LXLoiC8",
+      "name": "Neck Bridge (Supine)",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "NECK"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with knees bent and feet flat, close to your glutes.",
+        "Tuck your chin and press the back of your head lightly into the floor.",
+        "Bridge your hips slightly and roll your weight toward the top of your head, supporting most of your weight with your feet and hands.",
+        "Hold briefly under control, then lower back down gently."
+      ]
+    },
+    {
+      "id": "a0K9R2ftTxzg1ZjsEdFr",
+      "name": "One Knee to Chest Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HIP_FLEXORS",
+        "LOWER_BACK",
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with both legs extended.",
+        "Bend one knee and pull it toward your chest with both hands.",
+        "Keep your other leg flat on the floor and your lower back pressed down.",
+        "Hold, then lower and switch legs."
+      ]
+    },
+    {
+      "id": "ia9LYi5hJF8xejiUN7I7",
+      "name": "Overhead Dumbbell Front Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a light dumbbell in each hand at your thighs, palms facing back.",
+        "Keeping a slight bend in your elbows, raise both arms straight up in front of you and overhead.",
+        "Pause briefly at the top with arms fully raised.",
+        "Lower the dumbbells back down with control to the starting position and repeat."
+      ]
+    },
+    {
+      "id": "y321XgRvxWKUFvQfdpaZ",
+      "name": "Palms-Down Wrist Curl over Bench",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on a bench and rest your forearms on your thighs or the bench, wrists hanging off the edge, palms facing down, holding a barbell.",
+        "Let the bar roll down toward your fingertips, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "KN82iganSW8LzDEqf7pe",
+      "name": "Palms-Up Dumbbell Wrist Curl over a Bench",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Sit on a bench and rest your forearms on your thighs, wrists hanging off the edge, palms facing up, holding a dumbbell in each hand.",
+        "Let the dumbbells roll down toward your fingertips, extending your wrists.",
+        "Curl the dumbbells back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "4rfaVPzaHC4N3EKEmD5a",
+      "name": "Palms-Up Wrist Curl over Bench",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on a bench and rest your forearms on your thighs, wrists hanging off the edge, palms facing up, holding a barbell.",
+        "Let the bar roll down toward your fingertips, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "Vpny22re2xbiaMwwiJya",
+      "name": "Piriformis Self-Myofascial Release",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "GLUTES"
+      ],
+      "equipment": "ROLL",
+      "instructions": [
+        "Sit on a foam roller with one ankle crossed over the opposite knee.",
+        "Lean toward the crossed side and support your weight with your hands behind you.",
+        "Slowly roll over the glute area, pausing on tender spots.",
+        "Continue for 30-60 seconds, then switch sides."
+      ]
+    },
+    {
+      "id": "TFgPzo3xN7YOhBcQQYDH",
+      "name": "Power Clean",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "TRAPS",
+        "SHOULDERS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with feet hip-width apart and grip just outside your legs.",
+        "Pull the bar explosively from the floor, extending your hips and knees to full triple extension.",
+        "Pull yourself under the bar, catching it on your shoulders in a partial, quarter-squat position (higher than a full clean catch).",
+        "Stand up fully to complete the lift, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": "6bjweNO3uFf10dVGRGtc",
+      "name": "Power Clean from Blocks",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "TRAPS",
+        "SHOULDERS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set the bar on lifting blocks at or above knee height and set up over it with feet hip-width apart.",
+        "Pull the bar explosively off the blocks, extending your hips and knees to full triple extension.",
+        "Pull yourself under the bar, catching it on your shoulders in a quarter-squat position.",
+        "Stand up fully to complete the lift, then return the bar to the blocks under control."
+      ]
+    },
+    {
+      "id": "OBKgRngKw5tT6xlj4rA9",
+      "name": "Dumbbell Lateral Raise (Partial Reps)",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand upright holding a dumbbell in each hand at your sides, palms facing your thighs.",
+        "Keeping your arms straight and torso stationary, raise the dumbbells out to your sides until they reach shoulder height.",
+        "Hold the contraction briefly at the top.",
+        "Lower the dumbbells only partway back down before raising them again, keeping continuous tension on your shoulders throughout the set."
+      ]
+    },
+    {
+      "id": "zbKQKOfldDNNtXbkN2ll",
+      "name": "Power Snatch",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "TRAPS",
+        "SHOULDERS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with a wide snatch grip, feet hip-width apart.",
+        "Pull the bar explosively from the floor, extending your hips and knees to full triple extension.",
+        "Pull yourself under the bar, catching it overhead with arms locked out in a quarter-squat position.",
+        "Stand up fully to complete the lift, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": "ghyLreUNtWunQoCWZJ5j",
+      "name": "Reverse Hyperextension",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "LOWER_BACK"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Lie face-down on a reverse hyper machine with your hips at the edge of the pad and legs hanging below on the swing.",
+        "Grip the handles in front of you for stability.",
+        "Squeeze your glutes and hamstrings to swing your legs up until they're in line with your torso.",
+        "Lower back down with control, allowing a gentle stretch at the bottom, and repeat."
+      ]
+    },
+    {
+      "id": "TVymT8EdsGQDjdMIrnwa",
+      "name": "Rickshaw Carry",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "FOREARM",
+        "TRAPS",
+        "QUADRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Step inside a loaded rickshaw/yoke-style carry frame and grip the handles at your sides.",
+        "Stand up tall to lift the load, bracing your core and keeping your chest up.",
+        "Walk forward for the target distance in short, controlled steps.",
+        "Set the frame down with control at the end of the distance rather than dropping it."
+      ]
+    },
+    {
+      "id": "CSf3qZ5IPaqsqi5QKFXD",
+      "name": "Romanian Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand holding a barbell at hip height with an overhand grip, feet hip-width apart.",
+        "Push your hips back while keeping a slight bend in your knees, lowering the bar along your legs.",
+        "Keep your back flat and lower until you feel a deep stretch in your hamstrings.",
+        "Drive your hips forward to return to standing, squeezing your glutes at the top."
+      ]
+    },
+    {
+      "id": "gXfoAFnzULvhK8vvQp4u",
+      "name": "Romanian Deadlift from Deficit",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand on a small platform (1-2 inches) holding a barbell at hip height, feet hip-width apart.",
+        "Push your hips back while keeping a slight bend in your knees, lowering the bar along your legs.",
+        "Use the extra depth from the platform to lower further than a standard Romanian deadlift, keeping your back flat.",
+        "Drive your hips forward to return to standing, squeezing your glutes at the top."
+      ]
+    },
+    {
+      "id": "BthVmuMa1Io0OBV5Pk3K",
+      "name": "Seated Barbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on an upright bench holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and press the bar straight overhead until your arms lock out.",
+        "Keep your back against the bench pad throughout the press.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "6mXpmpD1HNbe5FCYYnlZ",
+      "name": "Seated Dumbbell Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Sit on an upright bench holding a dumbbell in each hand at shoulder height, palms facing forward.",
+        "Brace your core and press both dumbbells straight overhead until your arms lock out.",
+        "Keep your back against the bench pad throughout the press.",
+        "Lower the dumbbells back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "CCq2i88BtCwr68ISvCfv",
+      "name": "Seated Dumbbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Sit on an upright bench holding a dumbbell in each hand at shoulder height, palms facing forward.",
+        "Brace your core and press both dumbbells straight overhead until your arms lock out.",
+        "Keep your back against the bench pad throughout the press.",
+        "Lower the dumbbells back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "4HnBvfzoAeTqFez2LJ1c",
+      "name": "Seated Finger Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on a bench holding a barbell with an underhand grip, forearms resting on your thighs, wrists at the edge.",
+        "Let the bar roll down out of your palms toward your fingertips.",
+        "Curl your fingers to close your grip and roll the bar back up into your palms.",
+        "Repeat, keeping the movement isolated to your fingers rather than your wrists."
+      ]
+    },
+    {
+      "id": "PCiedb70BEP4Xgrl1olF",
+      "name": "Seated Glute Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "GLUTES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Sit on the floor with both legs extended.",
+        "Cross one ankle over the opposite knee, letting the bent knee fall out to the side.",
+        "Lean your torso forward over your legs, keeping your back flat, until you feel a stretch in the crossed leg's glute.",
+        "Hold, then switch sides."
+      ]
+    },
+    {
+      "id": "Pl5t0GGTpVaRj1B3F09a",
+      "name": "Seated Leg Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Sit in the leg curl machine with the back pad resting just above your heels and thighs secured under the leg pad.",
+        "Grip the handles and curl your heels down and back by bending your knees.",
+        "Squeeze your hamstrings at the bottom of the movement.",
+        "Return with control to the starting position and repeat."
+      ]
+    },
+    {
+      "id": "mdsWzjVsZvYZo34zrztM",
+      "name": "Seated One-Arm Dumbbell Palms-Up Wrist Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Sit on a bench and rest one forearm on your thigh, wrist hanging off the knee, palm facing up, holding a dumbbell.",
+        "Let the dumbbell roll down toward your fingertips, extending your wrist.",
+        "Curl the dumbbell back up by flexing your wrist as far as possible.",
+        "Complete all reps on one arm before switching sides."
+      ]
+    },
+    {
+      "id": "G5MR5evMNcyNf3SkkoO0",
+      "name": "Seated Palms-Down Barbell Wrist Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on a bench and rest your forearms on your thighs, wrists hanging off the edge, palms facing down, holding a barbell.",
+        "Let the bar roll down toward your fingertips, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "poVeHq7iDhTMHNYxkC52",
+      "name": "Seated Palms-Down Barbell Wrist Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on a bench and rest your forearms on your thighs, wrists hanging off the edge, palms facing down, holding a barbell.",
+        "Let the bar roll down toward your fingertips, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "QFTVGNCeNeCSfal6potn",
+      "name": "Seated Palms-Up Wrist Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on a bench and rest your forearms on your thighs, wrists hanging off the edge, palms facing up, holding a barbell.",
+        "Let the bar roll down toward your fingertips, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "AFGAuuTBoPvWwpO5ZmWO",
+      "name": "Seated Two-Arm Palms-Up Low-Pulley Wrist Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "CABLE",
+      "instructions": [
+        "Sit facing a low cable pulley with a straight bar attachment, forearms resting on your thighs, palms facing up.",
+        "Let the bar roll down toward your fingertips, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Lower with control and repeat."
+      ]
+    },
+    {
+      "id": "j56nr5vv5zr4KxgMnL0F",
+      "name": "Single-Arm Kettlebell Clean",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "SHOULDERS",
+        "FOREARM"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Stand over a kettlebell with feet hip-width apart and hinge down to grip the handle.",
+        "Hike the kettlebell back slightly, then drive your hips forward explosively to swing it upward.",
+        "Guide the kettlebell close to your body as it rises, snapping your wrist to catch it in the rack position at your shoulder.",
+        "Lower the kettlebell back down between your legs with control and repeat."
+      ]
+    },
+    {
+      "id": "yTaOWOTVx4OSVIaxZwQF",
+      "name": "Single-Arm Kettlebell Swing",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "SHOULDERS",
+        "ABDOMINAL"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Stand with feet shoulder-width apart, gripping a kettlebell with one hand in front of you.",
+        "Hinge at the hips to swing the kettlebell back between your legs, keeping your back flat.",
+        "Drive your hips forward explosively to swing the kettlebell up to chest height, arm relaxed.",
+        "Let the kettlebell swing back down and repeat, keeping the movement powered by your hips."
+      ]
+    },
+    {
+      "id": "a9CxwlEcMbPW0i0xEafu",
+      "name": "Single-Arm Lateral Raise",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in one hand at your side, the other hand free or bracing on a support.",
+        "Keeping a slight bend in your elbow, raise the dumbbell out to the side until your arm is roughly parallel to the floor.",
+        "Pause briefly at the top without shrugging your shoulder up.",
+        "Lower the dumbbell back down with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "7v9RHY3wXkQcSLYiDsCR",
+      "name": "Single-Arm Palm-In Dumbbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand or sit holding a dumbbell at shoulder height in one hand, palm facing inward toward your head.",
+        "Brace your core and press the dumbbell straight overhead until your arm locks out.",
+        "Keep your torso upright without leaning to the working side.",
+        "Lower the dumbbell back to shoulder height with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "vjgsxh7ckNxEfwiEC0AK",
+      "name": "Single-Leg Kettlebell Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK",
+        "ABDOMINAL"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Stand on one leg holding a kettlebell in the opposite hand, a slight bend in your standing knee.",
+        "Hinge forward at the hips, extending your free leg straight back for balance as the kettlebell lowers toward the floor.",
+        "Keep your back flat and hips square throughout the descent.",
+        "Drive your hips forward to return to standing, completing all reps on one side before switching."
+      ]
+    },
+    {
+      "id": "MlZo3alZVVYJXSlDR1EP",
+      "name": "Sled Push",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "CALVES"
+      ],
+      "equipment": "SLED",
+      "instructions": [
+        "Load the sled with an appropriate weight and stand behind it, gripping the upright handles.",
+        "Lean forward from the ankles, keeping your back flat and core braced.",
+        "Drive through the balls of your feet with short, powerful steps to push the sled forward.",
+        "Continue for the target distance, maintaining a consistent low body angle throughout."
+      ]
+    },
+    {
+      "id": "A2yabSHH6rqCEcnz4sAx",
+      "name": "Smith Machine Stiff-Legged Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Stand under a Smith machine bar set at hip height, feet hip-width apart, and grip the bar.",
+        "Unrack the bar and keeping your legs nearly straight, hinge forward at the hips.",
+        "Lower the bar along your legs until you feel a deep hamstring stretch.",
+        "Drive your hips forward to return to standing and repeat."
+      ]
+    },
+    {
+      "id": "dUCtgmgbXzy4U1W8wErm",
+      "name": "Snatch Deadlift",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK",
+        "TRAPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with a wide snatch grip, feet hip-width apart.",
+        "Keeping your back flat and the bar close to your shins, drive through your legs to stand the bar up deliberately.",
+        "Finish with a shrug at the top, keeping the movement controlled rather than explosive.",
+        "Lower the bar back to the floor under control and reset for the next rep."
+      ]
+    },
+    {
+      "id": "f4CzFGQUVIEF0Svwyo0J",
+      "name": "Standing Behind-the-Back Wrist Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand holding a barbell behind your back with an overhand grip, arms relaxed at your sides.",
+        "Let the bar roll down out of your hands, extending your wrists.",
+        "Curl the bar back up by flexing your wrists as far as possible.",
+        "Repeat, keeping your arms still and the movement isolated to your wrists."
+      ]
+    },
+    {
+      "id": "2UpdKyGQbfN3l5lcCmKJ",
+      "name": "Standing Dumbbell Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "ABDOMINAL"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in each hand at shoulder height, palms facing forward.",
+        "Brace your core and glutes to keep your ribcage stacked over your pelvis.",
+        "Press both dumbbells straight overhead until your arms lock out.",
+        "Lower the dumbbells back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "jFPlSgPBUKMtCFZBbQ9G",
+      "name": "Standing Hamstring and Calf Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "CALVES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Stand and place one heel on a low step or ledge, leg straight, toes pointing up.",
+        "Hinge forward at the hips, keeping your back flat, reaching toward your raised foot.",
+        "Hold to feel a stretch through the hamstring and calf of the raised leg.",
+        "Return upright, then switch legs."
+      ]
+    },
+    {
+      "id": "gnpYUuTR6rKw2hApmznZ",
+      "name": "Standing Hip Extension",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "CABLE",
+      "instructions": [
+        "Attach an ankle cuff to a low cable and secure it around one ankle, facing the machine.",
+        "Hold the machine frame for balance, standing tall on your non-working leg.",
+        "Keeping a slight knee bend, extend the cuffed leg straight back by squeezing your glute.",
+        "Return with control, completing all reps before switching sides."
+      ]
+    },
+    {
+      "id": "dqMvxAp2yRlP8RSKo3sE",
+      "name": "Standing Leg Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Stand in the leg curl machine with the pad resting just above one heel, holding the frame for balance.",
+        "Curl your heel up toward your glute by bending your knee.",
+        "Squeeze your hamstring at the top of the movement.",
+        "Lower with control, completing all reps before switching legs."
+      ]
+    },
+    {
+      "id": "AQlnEA2UnMZoh5MLUxaC",
+      "name": "Standing Leg Swing",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HIP_FLEXORS",
+        "HAMSTRINGS",
+        "ADDUCTORS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Stand holding a wall or support for balance.",
+        "Swing one leg forward and backward in a controlled arc, keeping your torso upright.",
+        "Gradually increase the range of motion as your hips loosen up.",
+        "Complete the target reps, then switch to side-to-side swings or the other leg."
+      ]
+    },
+    {
+      "id": "NUNNACPmlPAM2mjtLQig",
+      "name": "Standing Palms-In Shoulder Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in each hand at shoulder height, palms facing each other.",
+        "Brace your core and press both dumbbells straight overhead, keeping the neutral grip throughout.",
+        "Lock out fully at the top without letting the dumbbells drift forward.",
+        "Lower back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": "TU9QblKa9W9Q5ZMnYuvy",
+      "name": "Standing Toe Touches",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Stand with feet hip-width apart, knees slightly bent.",
+        "Hinge forward from the hips, reaching your hands toward your toes.",
+        "Let your head and neck relax, keeping the movement slow and controlled.",
+        "Hold at the bottom, then roll back up to standing one vertebra at a time."
+      ]
+    },
+    {
+      "id": "4RgqVlL0QhuggdFWpjJJ",
+      "name": "Stiff-Legged Dumbbell Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LOWER_BACK"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand holding a dumbbell in each hand in front of your thighs, feet hip-width apart.",
+        "Keeping your legs nearly straight with only a slight knee bend, hinge forward at the hips.",
+        "Lower the dumbbells along your legs until you feel a deep hamstring stretch.",
+        "Drive your hips forward to return to standing, keeping the dumbbells close to your body."
+      ]
+    },
+    {
+      "id": "Dl3Jg0JW0socitu8oe1W",
+      "name": "Straight-Bar Wrist Roll-Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Hold a straight bar with a rope or cord attached at its center, a weight hanging from the other end of the cord, arms extended in front of you.",
+        "Roll the bar forward with alternating hand motions to wind the cord up and lift the weight.",
+        "Once fully wound, reverse the motion to slowly lower the weight back down.",
+        "Repeat for the target number of rolls."
+      ]
+    },
+    {
+      "id": "5jZnOfkgNs1VAQ9tNhGk",
+      "name": "Sumo Deadlift",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS",
+        "ADDUCTORS",
+        "QUADRICEPS",
+        "LOWER_BACK"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet wider than shoulder-width, toes turned out, the bar over your mid-foot.",
+        "Grip the bar with your hands inside your knees and drop your hips down, keeping your back flat and chest up.",
+        "Drive through your whole foot, pushing your knees out, extending your hips and knees together to stand the bar up.",
+        "Lock out fully at the top, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": "NibNwrQMyONc4DKjijnj",
+      "name": "TRX Hip Thrust",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Lie on your back with your heels secured in suspension straps set a few inches off the floor, knees bent.",
+        "Brace your core and drive through your heels to lift your hips off the floor.",
+        "Squeeze your glutes at the top until your body forms a straight line from shoulders to knees.",
+        "Lower back down with control, keeping your heels stable in the straps throughout."
+      ]
+    },
+    {
+      "id": "StZabgMXbA8S2vmeHId9",
+      "name": "Seated Straddle Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "ADDUCTORS",
+        "CALVES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Sit upright on the floor and extend your legs out in front of you in a wide V shape.",
+        "Keeping your legs straight, place your hands on the floor in front of you.",
+        "Lean your torso forward as far as comfortable, reaching toward the floor between your legs.",
+        "Hold for 10-20 seconds, keeping your back as flat as possible."
+      ]
+    },
+    {
+      "id": "O1ekT2E8OXUVsk4YaB6c",
+      "name": "Seated Hamstring and Upper Back Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "LOWER_BACK",
+        "MIDDLE_BACK"
+      ],
+      "equipment": "NONE",
+      "instructions": [
+        "Sit on the floor with your legs extended straight out in front of you, knees together.",
+        "Bend forward and hug your thighs from underneath with both arms.",
+        "Keeping your legs extended, pull your chest down toward your knees until you feel a stretch through your hamstrings.",
+        "For an added middle-back stretch, gently pull your back away from your knees while continuing to hug them."
+      ]
+    },
+    {
+      "id": "kohngeqyrsFeNzgGmlCX",
+      "name": "Seated Hamstring and Upper Back Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "LOWER_BACK",
+        "MIDDLE_BACK"
+      ],
+      "equipment": "NONE",
+      "instructions": [
+        "Sit on the floor with your legs extended straight out in front of you, knees together.",
+        "Bend forward and hug your thighs from underneath with both arms.",
+        "Keeping your legs extended, pull your chest down toward your knees until you feel a stretch through your hamstrings.",
+        "For an added middle-back stretch, gently pull your back away from your knees while continuing to hug them."
+      ]
+    },
+    {
+      "id": "jwGJNzo67aeBA3kb4Sa6",
+      "name": "Dumbbell Swing",
+      "exerciseType": "PLYOMETRICS",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "SHOULDERS"
+      ],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding one dumbbell with both hands in front of you.",
+        "Hinge at the hips to swing the dumbbell back between your legs, keeping your back flat.",
+        "Explosively extend your hips, knees, and ankles to drive the dumbbell forward and up toward chest or overhead height.",
+        "Let the dumbbell swing back down under control and repeat, powering the movement from your hips rather than your arms."
+      ]
+    },
+    {
+      "id": "wRVM1Mc3i27RRIacLH7F",
+      "name": "Wide Stance Stiff Legs",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "ADDUCTORS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet wider than shoulder-width, toes turned slightly out, holding a barbell in front of your thighs.",
+        "Keeping your legs nearly straight, hinge forward at the hips.",
+        "Lower the bar along your legs until you feel a stretch through your hamstrings and inner thighs.",
+        "Drive your hips forward to return to standing and repeat."
+      ]
+    },
+    {
+      "id": "CBipYFaUm1g83WXWDFye",
+      "name": "World's Greatest Stretch",
+      "exerciseType": "STRETCHING",
+      "targetMuscles": [
+        "HIP_FLEXORS",
+        "HAMSTRINGS",
+        "ADDUCTORS",
+        "OBLIQUES"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Step into a deep lunge with one foot forward, hands on the floor inside your front foot.",
+        "Drop your back knee down to feel a stretch in the hip flexor of your rear leg.",
+        "Rotate your torso and reach your inside arm up toward the ceiling, opening your chest.",
+        "Return your hand to the floor, straighten your front leg for a hamstring stretch, then step forward and switch sides."
+      ]
+    },
+    {
+      "id": "4V3jV0Q575CtQFLlIOHn",
+      "name": "Wrist Roller",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "FOREARM"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Hold a wrist roller device with both hands, arms extended in front of you at shoulder height, a weight hanging from the cord.",
+        "Roll the handle forward with alternating wrist motions to wind the cord up and lift the weight.",
+        "Once fully wound, reverse the motion to slowly lower the weight back down under control.",
+        "Repeat for the target number of rolls."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Front Squat",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "ABDOMINAL"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Rest the bar across the front of your shoulders in a front rack position, elbows up.",
+        "Stand with feet shoulder-width apart, core braced.",
+        "Bend your hips and knees to descend, keeping your torso upright and elbows high throughout.",
+        "Drive through your whole foot to stand back up to full extension."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Push Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand holding a barbell at shoulder height with an overhand grip, feet shoulder-width apart.",
+        "Dip slightly by bending your knees, keeping your torso upright.",
+        "Drive explosively through your legs and press the bar overhead using the momentum, locking your arms out.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Snatch",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "TRAPS",
+        "SHOULDERS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with a wide snatch grip, feet hip-width apart.",
+        "Pull the bar explosively from the floor, extending your hips and knees to full triple extension.",
+        "Pull yourself under the bar, catching it overhead with arms locked out in a full squat.",
+        "Stand up fully to complete the lift, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Barbell Bench Press",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "CHEST",
+        "TRICEPS",
+        "SHOULDERS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Lie back on a flat bench with your eyes under the bar, feet flat on the floor.",
+        "Grip the bar just outside shoulder width and unrack it over your chest.",
+        "Lower the bar with control to your mid-chest, keeping your elbows at roughly a 45-degree angle.",
+        "Press the bar back up to full lockout, driving through your feet and keeping your shoulder blades pinned."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Incline Bench Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CHEST",
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Lie back on a bench set to a 30-45 degree incline, feet flat on the floor.",
+        "Grip the bar just outside shoulder width and unrack it over your upper chest.",
+        "Lower the bar with control to your upper chest, keeping your elbows at roughly a 45-degree angle.",
+        "Press the bar back up to full lockout and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Bent-Over Row",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "LATS",
+        "MIDDLE_BACK",
+        "BICEPS",
+        "TRAPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand holding a barbell with an overhand grip, feet shoulder-width apart.",
+        "Hinge forward at the hips until your torso is roughly 45 degrees, keeping your back flat.",
+        "Pull the bar up toward your lower ribcage, driving your elbows back and squeezing your shoulder blades together.",
+        "Lower the bar back down with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Pull-Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "LATS",
+        "BICEPS",
+        "MIDDLE_BACK"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Hang from a pull-up bar with an overhand grip, hands just outside shoulder width, arms fully extended.",
+        "Brace your core and pull your chest up toward the bar by driving your elbows down and back.",
+        "Pull until your chin clears the bar.",
+        "Lower back down with control to a full hang and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Chin-Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "LATS",
+        "BICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Hang from a pull-up bar with an underhand grip, hands roughly shoulder-width apart, arms fully extended.",
+        "Brace your core and pull your chest up toward the bar, driving your elbows down and back.",
+        "Pull until your chin clears the bar.",
+        "Lower back down with control to a full hang and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Wall Ball Shot",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "SHOULDERS"
+      ],
+      "equipment": "MEDICINE_BALL",
+      "instructions": [
+        "Stand facing a wall, holding a medicine ball at chest height, feet shoulder-width apart.",
+        "Perform a full squat, keeping the ball close to your chest.",
+        "Drive up explosively out of the squat, extending your legs and hips, and throw the ball against a target on the wall above head height.",
+        "Catch the ball as it rebounds and immediately descend into the next rep."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Battle Ropes Wave",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "SHOULDERS",
+        "ABDOMINAL",
+        "FOREARM"
+      ],
+      "equipment": "BATTLE_ROPES",
+      "instructions": [
+        "Stand in an athletic stance holding one end of a battle rope in each hand, arms extended in front of you.",
+        "Brace your core and slightly bend your knees.",
+        "Alternately whip each arm up and down to send waves through the ropes, keeping the motion continuous.",
+        "Maintain the pace for the target duration, keeping your core braced throughout."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Rowing Machine (Erg)",
+      "exerciseType": "CARDIO",
+      "targetMuscles": [
+        "LATS",
+        "HAMSTRINGS",
+        "QUADRICEPS",
+        "MIDDLE_BACK"
+      ],
+      "equipment": "ROWER",
+      "instructions": [
+        "Sit on the rowing machine with feet strapped in and knees bent, holding the handle with arms extended.",
+        "Drive through your legs first, then lean back slightly and pull the handle to your lower ribcage.",
+        "Reverse the sequence: extend your arms, lean forward, then bend your knees to return to the catch position.",
+        "Repeat in a smooth, continuous rhythm for the target distance or time."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Sandbag Carry",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "FOREARM",
+        "ABDOMINAL",
+        "TRAPS",
+        "QUADRICEPS"
+      ],
+      "equipment": "SANDBAG",
+      "instructions": [
+        "Load a sandbag and hug it against your chest, or hoist it onto one shoulder.",
+        "Brace your core and stand up tall, keeping the bag secure against your body.",
+        "Walk forward for the target distance in controlled, even steps.",
+        "Set the sandbag down with control at the end of the distance rather than dropping it."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Sled Pull",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "LATS",
+        "FOREARM"
+      ],
+      "equipment": "SLED",
+      "instructions": [
+        "Attach a rope or straps to a loaded sled and stand facing it, gripping the rope in both hands.",
+        "Walk or step backward, pulling the sled toward you hand-over-hand or by walking back with the rope taut.",
+        "Keep your core braced and back flat throughout the pull.",
+        "Continue for the target distance, resetting the rope as needed."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Turkish Get-Up",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "SHOULDERS",
+        "ABDOMINAL",
+        "OBLIQUES",
+        "GLUTES"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Lie on your back holding a kettlebell in one hand, arm locked out straight above your shoulder, same-side knee bent with foot flat on the floor.",
+        "Press the kettlebell up and roll onto your opposite forearm, then push up onto your hand.",
+        "Sweep your back leg through to a kneeling lunge position, keeping the kettlebell locked out overhead the whole time.",
+        "Stand up from the lunge, then reverse each step in order to return to the floor.",
+        "Complete all reps on one side before switching arms."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Barbell Thruster",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Hold a barbell in a front rack position at your shoulders, feet shoulder-width apart.",
+        "Squat down until your thighs are roughly parallel to the floor.",
+        "Drive up explosively out of the squat, using the momentum to press the bar overhead.",
+        "Lower the bar back to the shoulders as you descend into the next squat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Trap Bar Deadlift",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS",
+        "TRAPS",
+        "FOREARM"
+      ],
+      "equipment": "TRAP_BAR",
+      "instructions": [
+        "Step inside a loaded trap bar, feet hip-width apart, and grip the handles at your sides.",
+        "Bend your hips and knees to grip the handles, keeping your back flat and chest up.",
+        "Drive through your whole foot, extending your hips and knees together to stand the bar up.",
+        "Lock out fully at the top, then lower the bar back to the floor under control."
+      ]
+    },
+    {
+      "id": null,
+      "name": "EZ-Bar Bicep Curl",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "BICEPS",
+        "FOREARM"
+      ],
+      "equipment": "E-Z_BAR",
+      "instructions": [
+        "Stand holding an EZ-curl bar on the angled grips with an underhand grip, arms extended, elbows at your sides.",
+        "Keeping your elbows pinned to your sides, curl the bar up toward your shoulders.",
+        "Squeeze your biceps at the top without swinging your torso.",
+        "Lower the bar back down with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Jump Rope",
+      "exerciseType": "CARDIO",
+      "targetMuscles": [
+        "CALVES",
+        "SHOULDERS",
+        "ABDOMINAL"
+      ],
+      "equipment": "JUMP_ROPE",
+      "instructions": [
+        "Hold the jump rope handles at hip height, rope behind your heels.",
+        "Swing the rope overhead and jump just high enough to clear it as it passes under your feet.",
+        "Land softly on the balls of your feet, using small wrist rotations to turn the rope rather than big arm swings.",
+        "Continue at a steady rhythm for the target duration or rep count."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Zercher Squat",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "CALVES",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set a barbell in a rack at about hip height and cradle it in the crooks of your elbows, arms crossed or clasped together in front of your chest.",
+        "Step back from the rack and stand with feet shoulder-width apart, core braced, torso upright.",
+        "Bend your hips and knees to descend into a squat, keeping your elbows up and the bar close to your body throughout.",
+        "Drive through your whole foot to stand back up to full hip and knee extension, keeping the bar tight against your arms."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Goblet Squat",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Hold a kettlebell vertically against your chest, cupping the underside of the handle with both hands.",
+        "Stand with feet slightly wider than shoulder-width, toes turned out slightly.",
+        "Bend your hips and knees to squat down until your elbows brush the inside of your knees, keeping your chest up.",
+        "Drive through your whole foot to stand back up to full extension."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Leg Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Sit in the leg press machine with your feet shoulder-width apart on the platform, knees bent at 90 degrees.",
+        "Release the safety bars and press the platform away until your legs are extended without locking your knees.",
+        "Lower the platform with control until your knees approach your chest.",
+        "Press back up through your heels to the starting position and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Face Pull",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "MIDDLE_BACK",
+        "TRAPS"
+      ],
+      "equipment": "CABLE",
+      "instructions": [
+        "Set a cable pulley to upper-chest height and attach a rope handle.",
+        "Grip the rope with both hands, palms facing in, and step back to create tension.",
+        "Pull the rope toward your face, flaring your elbows out and pulling the ends apart as your hands pass your ears.",
+        "Squeeze your shoulder blades together at the end range, then return to the start with control."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Dips",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CHEST",
+        "TRICEPS",
+        "SHOULDERS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Grip parallel dip bars and support your body with arms locked out, feet off the floor.",
+        "Lower your body by bending your elbows until your upper arms are roughly parallel to the floor.",
+        "Press back up through your palms until your arms are fully extended.",
+        "Repeat, keeping your torso controlled rather than swinging."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Muscle Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "LATS",
+        "CHEST",
+        "TRICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Grip a pull-up bar or rings with a false grip, wrists on top.",
+        "Pull explosively, driving your elbows down and back until your chest reaches bar height.",
+        "Transition over the bar by rolling your shoulders forward and pressing down through your hands.",
+        "Finish by pressing up to full arm extension above the bar, then lower back down with control."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Handstand Push-Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Kick up into a handstand against a wall, hands shoulder-width apart, body straight.",
+        "Brace your core and lower yourself with control until your head nearly touches the floor.",
+        "Press back up through your shoulders and arms until they're fully extended.",
+        "Repeat, keeping the movement slow and controlled to avoid losing balance."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Russian Twist",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "OBLIQUES",
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Sit on the floor with knees bent, torso leaned back to form a V-shape with your thighs.",
+        "Clasp your hands together in front of your chest.",
+        "Rotate your torso to touch the floor beside one hip, then rotate to the other side.",
+        "Keep your core braced throughout and control the speed of each rotation."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Dead Bug",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with arms extended straight up over your chest and hips/knees bent to 90 degrees.",
+        "Brace your core to flatten your lower back into the floor.",
+        "Slowly extend one arm overhead and the opposite leg straight out, keeping your lower back pressed down.",
+        "Return to the start and repeat on the other side, alternating."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Inverted Row",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "MIDDLE_BACK",
+        "LATS",
+        "BICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Set a bar in a rack at about waist height and lie underneath it, gripping it slightly wider than shoulder-width.",
+        "Hang with your body straight, heels on the ground, arms fully extended.",
+        "Pull your chest up toward the bar, squeezing your shoulder blades together.",
+        "Lower back down with control to full arm extension and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Hang Clean",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "TRAPS",
+        "SHOULDERS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Hold the barbell at mid-thigh with a shoulder-width grip, back flat and slightly inclined forward.",
+        "Explosively extend your hips, knees, and ankles to drive the bar upward while shrugging your shoulders.",
+        "Pull yourself under the bar quickly, rotating your elbows around to catch it on your front shoulders in a quarter-squat.",
+        "Stand to full extension to finish the rep."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Split Jerk",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Start with the bar racked across the front of your shoulders, feet under your hips.",
+        "Dip slightly by bending your knees without moving your hips back, then drive up explosively.",
+        "As the bar leaves your shoulders, quickly split your feet \u2014 one forward, one back \u2014 and punch your arms straight overhead to catch the bar locked out.",
+        "Bring your feet back together to stand fully upright."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Overhead Squat",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "SHOULDERS",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Hold a barbell locked out overhead with a wide grip, shoulder blades retracted.",
+        "Stand with feet shoulder-width apart, core braced, arms directly over your hips.",
+        "Bend your hips and knees to squat down while keeping the bar directly overhead and your chest up.",
+        "Drive back up to standing, keeping the bar locked out throughout."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Box Squat",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set a box behind you at a height that brings you to about parallel when seated.",
+        "Unrack the barbell across your upper back, brace your core, and step back to position over the box.",
+        "Sit back with your hips to lower onto the box under control, pausing briefly without relaxing your tension.",
+        "Drive through your heels to stand back up to full extension."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Deficit Deadlift",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "LOWER_BACK",
+        "HAMSTRINGS",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand on a small platform, 1-3 inches high, with the barbell over your mid-foot.",
+        "Bend at the hips and knees to grip the bar just outside your shins, back flat.",
+        "Drive through your heels, keeping the bar close to your body as you extend your hips and knees to lockout.",
+        "Lower the bar back to the platform with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Rack Pulls",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "LOWER_BACK",
+        "TRAPS",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set the pins in a power rack so the bar sits just below or above knee height.",
+        "Grip the bar just outside your legs in a deadlift stance, back flat, hips back.",
+        "Drive through your heels and extend your hips to pull the bar to lockout, squeezing your shoulder blades at the top.",
+        "Lower the bar back to the pins with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Tire Flip",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "SHOULDERS"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Squat down and grip the underside of the tire, chest driving into it.",
+        "Extend through your hips, knees, and ankles to lift and drive the tire upward.",
+        "As the tire tips past vertical, step in and push it over with your hands and shoulder.",
+        "Reset your grip and repeat for the desired distance or reps."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Atlas Stones",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "LOWER_BACK",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "SANDBAG",
+      "instructions": [
+        "Squat down and wrap both arms around the stone, pulling it into your torso to get your fingers underneath.",
+        "Drive through your heels to lift the stone off the ground, then pull it up onto your thighs as it clears your knees.",
+        "Use your thighs to help boost the stone up onto your chest, adjusting your grip to reach over the top.",
+        "Stand and drive the stone up and forward onto the loading platform."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Yoke Walk",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "TRAPS",
+        "GLUTES"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Stand under the loaded yoke frame with the crossbar racked across your upper back and shoulders.",
+        "Brace your core and drive through your legs to lift the yoke off the rack, standing to full height.",
+        "Walk forward with short, quick, controlled steps, keeping your torso upright.",
+        "Carefully lower the yoke back to the rack or ground at the end of the distance."
+      ]
+    }
+  ]
+}

@@ -21,6 +21,13 @@ service cloud.firestore {
       allow delete: if withValidAccessOwnershipForWrites();
     }
 
+    match /programs/{programId} {
+      allow read, delete: if isOwnedByUser();
+
+      allow create: if isKnownUser() && request.resource.data.userId == request.auth.uid && isValidProgram();
+      allow update: if isOwnedByUser() && isValidProgram();
+    }
+
     function isAdmin() {
       return isAuthenticated() && 'admin' in request.auth.token &&
       request.auth.token.admin == true;
@@ -40,7 +47,7 @@ service cloud.firestore {
 
       return isNonEmptyString(data.name) &&
       isNonEmptyString(data.exerciseType) &&
-      isNonEmptyString(data.targetMuscle) &&
+      isNonEmptyList(data.targetMuscles) &&
       isNonEmptyString(data.equipment) &&
       data.instructions is list &&
       isRequestOwnershipValid();
@@ -55,6 +62,15 @@ service cloud.firestore {
       isNonEmptyString(data.avatarUrl) &&
       isNonEmptyString(data.level) &&
       isRequestOwnershipValid();
+    }
+
+    function isValidProgram() {
+      let data = request.resource.data;
+
+      return isNonEmptyString(data.name) &&
+      data.status is string &&
+      data.strategy is string &&
+      data.mainLiftBlocks is list;
     }
 
     function isNonEmptyString(val) {

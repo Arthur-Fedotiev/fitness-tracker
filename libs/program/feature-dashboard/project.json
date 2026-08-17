@@ -1,0 +1,28 @@
+{
+  "name": "program-feature-dashboard",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/program/feature-dashboard/src",
+  "prefix": "ft",
+  "tags": ["domain:program", "type:feature"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/program/feature-dashboard"],
+      "options": {
+        "jestConfig": "libs/program/feature-dashboard/jest.config.ts",
+        "passWithNoTests": true,
+        "tsConfig": "libs/program/feature-dashboard/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/program/feature-dashboard/src/**/*.ts",
+          "libs/program/feature-dashboard/src/**/*.html"
+        ]
+      }
+    }
+  }
+}

@@ -67,4 +67,8 @@ export class ExerciseComponent {
   public addedToWorkout({ id }: ExerciseVM): void {
     this.exerciseAddedToWorkout.emit(id);
   }
+
+  protected muscleLabelsFor(targetMuscles: string[]): string {
+    return targetMuscles.map((muscle) => this.muscleLabels[muscle]).join(', ');
+  }
 }

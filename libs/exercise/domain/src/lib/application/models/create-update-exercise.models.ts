@@ -2,7 +2,7 @@ import { Exercise } from 'shared-package';
 
 export type ExerciseFromModel = Pick<
   Exercise,
-  'targetMuscle' | 'exerciseType' | 'equipment' | 'name' | 'instructions'
+  'targetMuscles' | 'exerciseType' | 'equipment' | 'name' | 'instructions'
 >;
 
 export interface SaveExerciseCommandModel {
