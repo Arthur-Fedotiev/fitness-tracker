@@ -10,7 +10,7 @@ describe('Login', () => {
     getEmailProviderBtn().should('be.visible');
   });
 
-  it('should login by email and password and be redirected to exercises display page', () => {
+  it('should login by email and password and be redirected to the training planner', () => {
     cy.visit('/');
     getEmailProviderBtn().click();
 
@@ -20,13 +20,13 @@ describe('Login', () => {
     cy.get('#ui-sign-in-password-input').type(Cypress.env('PASSWORD'));
     cy.get('button[type="submit"]').click();
 
-    cy.url().should('include', '/exercises/all');
+    cy.url().should('include', '/training-planner');
   });
 
-  it('should redirect to exercises after user logged in', () => {
+  it('should redirect to the training planner after user logged in', () => {
     cy.login();
     cy.visit('/');
 
-    cy.url().should('include', '/exercises/all');
+    cy.url().should('include', '/training-planner');
   });
 });

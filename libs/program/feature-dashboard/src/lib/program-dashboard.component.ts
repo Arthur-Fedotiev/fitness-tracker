@@ -109,6 +109,15 @@ import { firstValueFrom } from 'rxjs';
             <ft-add-main-lift-block [exercises]="exercises()" (add)="onAddBlock($event)" />
           }
         </div>
+      } @else if (hasNoPrograms()) {
+        <div class="welcome">
+          <mat-icon class="welcome-icon">trending_up</mat-icon>
+          <h2>Start your first Training Plan</h2>
+          <p>Build a Program around your main lifts and generate a reload cycle to follow.</p>
+          <button mat-flat-button color="primary" (click)="onCreateProgram()">
+            <mat-icon>add</mat-icon> New Program
+          </button>
+        </div>
       } @else {
         <p class="empty">No Program selected in this status.</p>
       }
@@ -128,6 +137,13 @@ export class ProgramDashboardComponent {
 
   protected readonly exercises = this.exercisePicker.exercisePickerList;
   protected readonly activeStatus = signal<ProgramStatus>('draft');
+
+  protected readonly hasNoPrograms = computed(
+    () =>
+      this.store.draftPrograms().length === 0 &&
+      this.store.activePrograms().length === 0 &&
+      this.store.completedPrograms().length === 0,
+  );
 
   /** The selected Program's last-persisted state, never the draft — `selectedProgram`/`readOnly` key off this to stay correct even when a session is active. */
   private readonly livePersistedProgram = computed(
