@@ -5,7 +5,7 @@ export enum EXERCISE_MODE {
 
 export enum EXERCISE_FIELD_NAMES {
   'RATING' = 'rating',
-  'TARGET_MUSCLE' = 'targetMuscle',
+  'TARGET_MUSCLES' = 'targetMuscles',
   'USER_ID' = 'userId',
   'ADMIN' = 'admin',
 }

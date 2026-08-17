@@ -60,7 +60,7 @@ export class CreateAndEditComponent implements OnDestroy {
   public exerciseFormModel: ExerciseFromModel = {
     name: '',
     exerciseType: '',
-    targetMuscle: '',
+    targetMuscles: [],
     equipment: '',
     instructions: [''],
   };

@@ -3,12 +3,16 @@ export const MUSCLE_LABELS: Record<string, string> = {
   BICEPS: 'biceps',
   TRAPS: 'traps',
   SHOULDERS: 'shoulders',
-  LOWE_BACK: 'lower back',
+  LOWER_BACK: 'lower back',
   HAMSTRINGS: 'hamstrings',
   FOREARM: 'forearm',
   CALVES: 'calves',
   CHEST: 'chest',
   ABDOMINAL: 'abdominal',
+  OBLIQUES: 'obliques',
+  HIP_FLEXORS: 'hip flexors',
+  ADDUCTORS: 'adductors',
+  ABDUCTORS: 'abductors',
   MIDDLE_BACK: 'middle back',
   LATS: 'lats',
   TRICEPS: 'triceps',
@@ -30,16 +34,24 @@ export const EQUIPMENT_LABELS: Record<string, string> = {
   NONE: 'None',
   KETTLEBELLS: 'Kettlebells',
   CABLE: 'Cable',
+  SLED: 'Sled',
+  TRAP_BAR: 'Trap Bar',
+  ROWER: 'Rower',
+  JUMP_ROPE: 'Jump Rope',
+  BATTLE_ROPES: 'Battle Ropes',
+  BOX: 'Box',
+  SANDBAG: 'Sandbag',
 };
 
 export const EXERCISE_TYPE_LABELS: Record<string, string> = {
   CARDIO: 'Cardio',
-  WEIGHTLIFTING: 'Olympic Weightlifting',
+  OLYMPIC_WEIGHTLIFTING: 'Olympic Weightlifting',
   POWERLIFTING: 'Powerlifting',
   STRENGTH: 'Strength',
   STRETCHING: 'Stretching',
   STRONGMAN: 'Strongman',
   PLYOMETRICS: 'Plyometrics',
+  FUNCTIONAL: 'Functional',
 };
 
 export const PROFICIENCY_LEVEL_LABELS: Record<string, string> = {

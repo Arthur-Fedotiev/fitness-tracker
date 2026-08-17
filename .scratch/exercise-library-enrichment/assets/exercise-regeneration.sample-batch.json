@@ -1,0 +1,138 @@
+{
+  "_note": "Hand-crafted sample of ~10 entries showing what a ChatGPT run against exercise-regeneration.prompt.md should look like — not the full 158+new output. For the human to react to before running the real thing. Remove this _note key before treating a real run's output as schema-conformant (the real schema has additionalProperties: false).",
+  "exercises": [
+    {
+      "id": "sOpycaYVvSb77b0MorPQ",
+      "name": "Dumbbell Bench Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": ["CHEST", "TRICEPS", "SHOULDERS"],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie back on a flat bench holding a dumbbell in each hand at chest level, palms facing forward.",
+        "Press both dumbbells straight up until your arms are fully extended, without locking out aggressively.",
+        "Lower the dumbbells slowly back to chest level, keeping your elbows at roughly a 45-degree angle from your torso.",
+        "Repeat for the desired number of reps, keeping your shoulder blades pinned to the bench throughout."
+      ]
+    },
+    {
+      "id": "yUeXBpLfMOEO7ss2K9Gg",
+      "name": "Barbell Glute Bridge",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": ["GLUTES", "HAMSTRINGS"],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Sit on the floor with your upper back against a bench and a padded barbell rolled over your hips.",
+        "Plant your feet flat on the floor, knees bent, roughly shoulder-width apart.",
+        "Drive through your heels and squeeze your glutes to lift your hips until your body forms a straight line from shoulders to knees.",
+        "Pause at the top, then lower your hips back down with control before the next rep."
+      ]
+    },
+    {
+      "id": "aNajfnYib0yGZS1xJSTY",
+      "name": "Dumbbell Lying Pronation",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": ["FOREARM"],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Lie on a bench with your forearm supported and wrist hanging off the edge, holding a light dumbbell with your palm facing down.",
+        "Starting from a neutral wrist position, rotate your forearm to turn the dumbbell further into pronation (palm further downward).",
+        "Rotate back to the starting position with control.",
+        "Complete all reps on one arm before switching sides."
+      ]
+    },
+    {
+      "id": "g8dQFk0ShMBBvqYAhssm",
+      "name": "Clean and Jerk",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "SHOULDERS", "TRAPS", "LOWER_BACK"],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with feet hip-width apart and grip just outside your legs.",
+        "Pull the bar explosively from the floor, extending hips and knees to full triple extension, then pull yourself under the bar to catch it on your front shoulders in a front squat position (the clean).",
+        "Stand fully upright with the bar racked on your shoulders.",
+        "Dip slightly at the knees, then drive explosively upward, punching the bar overhead while splitting or squatting your feet to catch it with arms locked out (the jerk).",
+        "Recover both feet to a stable stance with the bar locked out overhead before lowering it back to the floor."
+      ]
+    },
+    {
+      "id": "8Pep7jwUuAwW16vMjHpF",
+      "name": "Clean and Jerk",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "SHOULDERS", "TRAPS", "LOWER_BACK"],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set up over the bar with feet hip-width apart and grip just outside your legs.",
+        "Pull the bar explosively from the floor, extending hips and knees to full triple extension, then pull yourself under the bar to catch it on your front shoulders in a front squat position (the clean).",
+        "Stand fully upright with the bar racked on your shoulders.",
+        "Dip slightly at the knees, then drive explosively upward, punching the bar overhead while splitting or squatting your feet to catch it with arms locked out (the jerk).",
+        "Recover both feet to a stable stance with the bar locked out overhead before lowering it back to the floor."
+      ]
+    },
+    {
+      "id": "MlZo3alZVVYJXSlDR1EP",
+      "name": "Sled Push",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": ["QUADRICEPS", "GLUTES", "CALVES"],
+      "equipment": "SLED",
+      "instructions": [
+        "Load the sled with an appropriate weight and stand behind it, gripping the upright handles.",
+        "Lean forward from the ankles, keeping your back flat and core braced.",
+        "Drive through the balls of your feet with short, powerful steps to push the sled forward.",
+        "Continue for the target distance, maintaining a consistent low body angle throughout."
+      ]
+    },
+    {
+      "id": "P79ipMqHbEe7gCx4EnpO",
+      "name": "Dumbbell Farmer's Walk",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": ["FOREARM", "TRAPS", "ABDOMINAL"],
+      "equipment": "DUMBBELL",
+      "instructions": [
+        "Stand between two heavy dumbbells, one on each side of your feet.",
+        "Hinge at the hips to grip both dumbbells, then stand up tall with your shoulders back and core braced.",
+        "Walk forward for the target distance in controlled, even steps, keeping the dumbbells close to your sides.",
+        "Set the dumbbells down with control at the end of the distance rather than dropping them."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Wall Ball Shot",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": ["QUADRICEPS", "GLUTES", "SHOULDERS"],
+      "equipment": "MEDICINE_BALL",
+      "instructions": [
+        "Stand facing a wall, holding a medicine ball at chest height, feet shoulder-width apart.",
+        "Perform a full squat, keeping the ball close to your chest.",
+        "Drive up explosively out of the squat, extending your legs and hips, and throw the ball against a target on the wall above head height.",
+        "Catch the ball as it rebounds and immediately descend into the next rep."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Overhead Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": ["SHOULDERS", "TRICEPS", "ABDOMINAL"],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand with feet shoulder-width apart, holding a barbell at shoulder height with an overhand grip.",
+        "Brace your core and glutes so your ribcage stays stacked over your pelvis.",
+        "Press the bar straight overhead, moving your head back slightly to let the bar pass, then forward to lock out directly over your shoulders.",
+        "Lower the bar back to shoulder height with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Turkish Get-Up",
+      "exerciseType": "FUNCTIONAL",
+      "targetMuscles": ["SHOULDERS", "ABDOMINAL", "OBLIQUES", "GLUTES"],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Lie on your back holding a kettlebell in one hand, arm locked out straight above your shoulder, same-side knee bent with foot flat on the floor.",
+        "Press the kettlebell up and roll onto your opposite forearm, then push up onto your hand.",
+        "Sweep your back leg through to a kneeling lunge position, keeping the kettlebell locked out overhead the whole time.",
+        "Stand up from the lunge, then reverse each step in order to return to the floor.",
+        "Complete all reps on one side before switching arms."
+      ]
+    }
+  ]
+}

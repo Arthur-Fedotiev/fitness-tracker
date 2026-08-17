@@ -47,7 +47,7 @@ service cloud.firestore {
 
       return isNonEmptyString(data.name) &&
       isNonEmptyString(data.exerciseType) &&
-      isNonEmptyString(data.targetMuscle) &&
+      isNonEmptyList(data.targetMuscles) &&
       isNonEmptyString(data.equipment) &&
       data.instructions is list &&
       isRequestOwnershipValid();

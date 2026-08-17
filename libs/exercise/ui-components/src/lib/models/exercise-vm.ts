@@ -3,7 +3,7 @@ export interface ExerciseVM {
   name: string;
   equipment: string;
   exerciseType: string;
-  targetMuscle: string;
+  targetMuscles: string[];
   canEdit: boolean;
   canDelete: boolean;
   isSelected: boolean;

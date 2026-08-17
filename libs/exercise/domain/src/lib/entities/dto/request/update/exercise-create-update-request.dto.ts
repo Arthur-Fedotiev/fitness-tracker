@@ -1,7 +1,7 @@
 import { ExerciseRequest } from './exercise-request';
 
 export class CreateUpdateExerciseRequestDTO {
-  public targetMuscle: string;
+  public targetMuscles: string[];
   public exerciseType: string;
   public equipment: string;
   public userId: string | null;
@@ -10,10 +10,10 @@ export class CreateUpdateExerciseRequestDTO {
   public name: string;
 
   constructor(
-    { targetMuscle, exerciseType, equipment, userId, admin, instructions, name }: ExerciseRequest,
+    { targetMuscles, exerciseType, equipment, userId, admin, instructions, name }: ExerciseRequest,
     public readonly id?: string,
   ) {
-    this.targetMuscle = targetMuscle;
+    this.targetMuscles = targetMuscles;
     this.exerciseType = exerciseType;
     this.equipment = equipment;
     this.userId = userId;
