@@ -31,16 +31,19 @@ const requiredValidator: ValidatorFn = (control) => Validators.required(control)
   <mat-form-field appearance="outline">
     <mat-label>1RM</mat-label>
     <input matInput type="number" formControlName="oneRepMax" />
+    <mat-hint>Your most recent one-rep max — everything else scales from this.</mat-hint>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Reps @ 80%1RM</mat-label>
     <input matInput type="number" formControlName="repsAt80Percent" />
+    <mat-hint>However many reps you managed on an AMRAP set at 80% of that 1RM.</mat-hint>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Min available increment</mat-label>
     <input matInput type="number" formControlName="increment" />
+    <mat-hint>The smallest weight jump your gym's plates or pins allow.</mat-hint>
   </mat-form-field>
 
   <mat-button-toggle-group formControlName="roundingMode" aria-label="Rounding mode">
@@ -48,8 +51,10 @@ const requiredValidator: ValidatorFn = (control) => Validators.required(control)
     <mat-button-toggle value="down">Down</mat-button-toggle>
     <mat-button-toggle value="up">Up</mat-button-toggle>
   </mat-button-toggle-group>
+  <p class="field-hint">Which way to round a calculated load to fit that increment.</p>
 
   <mat-slide-toggle formControlName="manualOverride">Manual override</mat-slide-toggle>
+  <p class="field-hint">Prefer to pick Week 5 yourself, rather than let it calculate?</p>
 
   @if (form.controls.manualOverride.value) {
     <p class="manual-override-hint">1RM and Reps @ 80%1RM are optional with a manual override.</p>
@@ -62,6 +67,7 @@ const requiredValidator: ValidatorFn = (control) => Validators.required(control)
   <mat-form-field appearance="outline">
     <mat-label>Manual Week 5</mat-label>
     <input matInput type="number" formControlName="manualWeek5" />
+    <mat-hint>The Week 5 weight you're aiming for, entered by hand.</mat-hint>
   </mat-form-field>
 
   @if (!readOnly()) {
