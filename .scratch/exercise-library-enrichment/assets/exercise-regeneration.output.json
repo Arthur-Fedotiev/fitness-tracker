@@ -2691,6 +2691,327 @@
         "Land softly on the balls of your feet, using small wrist rotations to turn the rope rather than big arm swings.",
         "Continue at a steady rhythm for the target duration or rep count."
       ]
+    },
+    {
+      "id": null,
+      "name": "Zercher Squat",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "CALVES",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set a barbell in a rack at about hip height and cradle it in the crooks of your elbows, arms crossed or clasped together in front of your chest.",
+        "Step back from the rack and stand with feet shoulder-width apart, core braced, torso upright.",
+        "Bend your hips and knees to descend into a squat, keeping your elbows up and the bar close to your body throughout.",
+        "Drive through your whole foot to stand back up to full hip and knee extension, keeping the bar tight against your arms."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Goblet Squat",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "KETTLEBELLS",
+      "instructions": [
+        "Hold a kettlebell vertically against your chest, cupping the underside of the handle with both hands.",
+        "Stand with feet slightly wider than shoulder-width, toes turned out slightly.",
+        "Bend your hips and knees to squat down until your elbows brush the inside of your knees, keeping your chest up.",
+        "Drive through your whole foot to stand back up to full extension."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Leg Press",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "MACHINE",
+      "instructions": [
+        "Sit in the leg press machine with your feet shoulder-width apart on the platform, knees bent at 90 degrees.",
+        "Release the safety bars and press the platform away until your legs are extended without locking your knees.",
+        "Lower the platform with control until your knees approach your chest.",
+        "Press back up through your heels to the starting position and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Face Pull",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "MIDDLE_BACK",
+        "TRAPS"
+      ],
+      "equipment": "CABLE",
+      "instructions": [
+        "Set a cable pulley to upper-chest height and attach a rope handle.",
+        "Grip the rope with both hands, palms facing in, and step back to create tension.",
+        "Pull the rope toward your face, flaring your elbows out and pulling the ends apart as your hands pass your ears.",
+        "Squeeze your shoulder blades together at the end range, then return to the start with control."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Dips",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "CHEST",
+        "TRICEPS",
+        "SHOULDERS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Grip parallel dip bars and support your body with arms locked out, feet off the floor.",
+        "Lower your body by bending your elbows until your upper arms are roughly parallel to the floor.",
+        "Press back up through your palms until your arms are fully extended.",
+        "Repeat, keeping your torso controlled rather than swinging."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Muscle Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "LATS",
+        "CHEST",
+        "TRICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Grip a pull-up bar or rings with a false grip, wrists on top.",
+        "Pull explosively, driving your elbows down and back until your chest reaches bar height.",
+        "Transition over the bar by rolling your shoulders forward and pressing down through your hands.",
+        "Finish by pressing up to full arm extension above the bar, then lower back down with control."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Handstand Push-Up",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Kick up into a handstand against a wall, hands shoulder-width apart, body straight.",
+        "Brace your core and lower yourself with control until your head nearly touches the floor.",
+        "Press back up through your shoulders and arms until they're fully extended.",
+        "Repeat, keeping the movement slow and controlled to avoid losing balance."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Russian Twist",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "OBLIQUES",
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Sit on the floor with knees bent, torso leaned back to form a V-shape with your thighs.",
+        "Clasp your hands together in front of your chest.",
+        "Rotate your torso to touch the floor beside one hip, then rotate to the other side.",
+        "Keep your core braced throughout and control the speed of each rotation."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Dead Bug",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "ABDOMINAL"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Lie on your back with arms extended straight up over your chest and hips/knees bent to 90 degrees.",
+        "Brace your core to flatten your lower back into the floor.",
+        "Slowly extend one arm overhead and the opposite leg straight out, keeping your lower back pressed down.",
+        "Return to the start and repeat on the other side, alternating."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Inverted Row",
+      "exerciseType": "STRENGTH",
+      "targetMuscles": [
+        "MIDDLE_BACK",
+        "LATS",
+        "BICEPS"
+      ],
+      "equipment": "BODY_ONLY",
+      "instructions": [
+        "Set a bar in a rack at about waist height and lie underneath it, gripping it slightly wider than shoulder-width.",
+        "Hang with your body straight, heels on the ground, arms fully extended.",
+        "Pull your chest up toward the bar, squeezing your shoulder blades together.",
+        "Lower back down with control to full arm extension and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Hang Clean",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "HAMSTRINGS",
+        "GLUTES",
+        "TRAPS",
+        "SHOULDERS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Hold the barbell at mid-thigh with a shoulder-width grip, back flat and slightly inclined forward.",
+        "Explosively extend your hips, knees, and ankles to drive the bar upward while shrugging your shoulders.",
+        "Pull yourself under the bar quickly, rotating your elbows around to catch it on your front shoulders in a quarter-squat.",
+        "Stand to full extension to finish the rep."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Split Jerk",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "SHOULDERS",
+        "TRICEPS",
+        "QUADRICEPS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Start with the bar racked across the front of your shoulders, feet under your hips.",
+        "Dip slightly by bending your knees without moving your hips back, then drive up explosively.",
+        "As the bar leaves your shoulders, quickly split your feet \u2014 one forward, one back \u2014 and punch your arms straight overhead to catch the bar locked out.",
+        "Bring your feet back together to stand fully upright."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Overhead Squat",
+      "exerciseType": "OLYMPIC_WEIGHTLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "SHOULDERS",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Hold a barbell locked out overhead with a wide grip, shoulder blades retracted.",
+        "Stand with feet shoulder-width apart, core braced, arms directly over your hips.",
+        "Bend your hips and knees to squat down while keeping the bar directly overhead and your chest up.",
+        "Drive back up to standing, keeping the bar locked out throughout."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Box Squat",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set a box behind you at a height that brings you to about parallel when seated.",
+        "Unrack the barbell across your upper back, brace your core, and step back to position over the box.",
+        "Sit back with your hips to lower onto the box under control, pausing briefly without relaxing your tension.",
+        "Drive through your heels to stand back up to full extension."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Deficit Deadlift",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "LOWER_BACK",
+        "HAMSTRINGS",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Stand on a small platform, 1-3 inches high, with the barbell over your mid-foot.",
+        "Bend at the hips and knees to grip the bar just outside your shins, back flat.",
+        "Drive through your heels, keeping the bar close to your body as you extend your hips and knees to lockout.",
+        "Lower the bar back to the platform with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Rack Pulls",
+      "exerciseType": "POWERLIFTING",
+      "targetMuscles": [
+        "LOWER_BACK",
+        "TRAPS",
+        "GLUTES"
+      ],
+      "equipment": "BARBELL",
+      "instructions": [
+        "Set the pins in a power rack so the bar sits just below or above knee height.",
+        "Grip the bar just outside your legs in a deadlift stance, back flat, hips back.",
+        "Drive through your heels and extend your hips to pull the bar to lockout, squeezing your shoulder blades at the top.",
+        "Lower the bar back to the pins with control and repeat."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Tire Flip",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "GLUTES",
+        "SHOULDERS"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Squat down and grip the underside of the tire, chest driving into it.",
+        "Extend through your hips, knees, and ankles to lift and drive the tire upward.",
+        "As the tire tips past vertical, step in and push it over with your hands and shoulder.",
+        "Reset your grip and repeat for the desired distance or reps."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Atlas Stones",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "LOWER_BACK",
+        "GLUTES",
+        "HAMSTRINGS"
+      ],
+      "equipment": "SANDBAG",
+      "instructions": [
+        "Squat down and wrap both arms around the stone, pulling it into your torso to get your fingers underneath.",
+        "Drive through your heels to lift the stone off the ground, then pull it up onto your thighs as it clears your knees.",
+        "Use your thighs to help boost the stone up onto your chest, adjusting your grip to reach over the top.",
+        "Stand and drive the stone up and forward onto the loading platform."
+      ]
+    },
+    {
+      "id": null,
+      "name": "Yoke Walk",
+      "exerciseType": "STRONGMAN",
+      "targetMuscles": [
+        "QUADRICEPS",
+        "TRAPS",
+        "GLUTES"
+      ],
+      "equipment": "OTHER",
+      "instructions": [
+        "Stand under the loaded yoke frame with the crossbar racked across your upper back and shoulders.",
+        "Brace your core and drive through your legs to lift the yoke off the rack, standing to full height.",
+        "Walk forward with short, quick, controlled steps, keeping your torso upright.",
+        "Carefully lower the yoke back to the rack or ground at the end of the distance."
+      ]
     }
   ]
 }

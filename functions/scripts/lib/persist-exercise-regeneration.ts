@@ -2,11 +2,16 @@ import * as fs from 'fs';
 import * as admin from 'firebase-admin';
 import { COLLECTIONS } from 'shared-package';
 
-const positionalArgs = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
+const rawArgs = process.argv.slice(2);
+const onlyFlagIndex = rawArgs.indexOf('--only');
+const onlyName = onlyFlagIndex !== -1 ? rawArgs[onlyFlagIndex + 1] : undefined;
+const positionalArgs = rawArgs.filter(
+  (arg, i) => !arg.startsWith('--') && (onlyFlagIndex === -1 || i !== onlyFlagIndex + 1),
+);
 const certPath = positionalArgs[0] ?? './sa.json';
 const outputPath =
   positionalArgs[1] ?? '../../.scratch/exercise-library-enrichment/assets/exercise-regeneration.output.json';
-const commit = process.argv.includes('--commit');
+const commit = rawArgs.includes('--commit');
 
 admin.initializeApp({
   credential: admin.credential.cert(certPath),
@@ -38,32 +43,52 @@ interface RegeneratedExercise {
  * enrichment map, tickets 03/05/06) to Firestore: overwrites every existing
  * admin-owned `exercises/{id}` doc this environment actually has in place
  * (same doc ID, full `.set()` replace — no dual old/new-shape period),
- * creates a new doc for every `id: null` entry, and deletes the one known
- * orphaned user-owned exercise.
+ * creates a new doc for every `id: null` entry whose `name` doesn't already
+ * exist among this environment's admin-owned docs, and deletes the one
+ * known orphaned user-owned exercise.
  *
  * An entry whose `id` isn't a document in *this* environment is skipped
  * (the 143 existing ids in the output batch are split across staging/prod,
- * 15 shared) - it applies to the other environment's run instead. Every
- * `id: null` (genuinely new) entry is created in every environment this
- * script is run against, so the curated set stays consistent across envs.
+ * 15 shared) - it applies to the other environment's run instead. The
+ * name-based dedup on `id: null` entries makes the script safely
+ * re-runnable as new entries are appended to the output batch over time
+ * (e.g. filling gaps found after the main batch already ran) without
+ * re-creating exercises that were already added on a prior run.
  *
  * Defaults to a dry run that only logs the intended writes. Pass `--commit`
  * to actually write.
  *
- * Usage: `node dist/lib/persist-exercise-regeneration.js <sa-path> [output-json-path] [--commit]`
+ * Pass `--only "<exact name>"` to restrict the batch to a single exercise —
+ * for adding one exercise discovered after the main batch already ran,
+ * without re-processing (and duplicate-creating) every other `id: null`
+ * entry, which by design gets created fresh on every run. Skips the orphan
+ * deletion step in that mode, since it's a one-off addition, not a full pass.
+ *
+ * Usage: `node dist/lib/persist-exercise-regeneration.js <sa-path> [output-json-path] [--commit] [--only "<name>"]`
  * Run against `./sa.json` (staging) first, review the dry run, `--commit`,
  * confirm in the app, then repeat against `./sa.prod.json`.
  */
 async function persistExerciseRegeneration() {
-  const { exercises } = JSON.parse(fs.readFileSync(outputPath, 'utf8')) as {
+  const { exercises: allExercises } = JSON.parse(fs.readFileSync(outputPath, 'utf8')) as {
     exercises: RegeneratedExercise[];
   };
+  const exercises = onlyName ? allExercises.filter((e) => e.name === onlyName) : allExercises;
+
+  if (onlyName && exercises.length === 0) {
+    throw new Error(`--only "${onlyName}" matched no entries in ${outputPath}`);
+  }
 
   const existingSnapshot = await db.collection(COLLECTIONS.EXERCISES).get();
   const existingIds = new Set(existingSnapshot.docs.map((doc) => doc.id));
+  const existingAdminNames = new Set(
+    existingSnapshot.docs
+      .filter((doc) => doc.data()['admin'] === true)
+      .map((doc) => doc.data()['name'] as string),
+  );
 
   let overwritten = 0;
   let skippedNotInThisEnv = 0;
+  let skippedAlreadyCreated = 0;
   let created = 0;
 
   let batch = db.batch();
@@ -86,6 +111,11 @@ async function persistExerciseRegeneration() {
     const flatData = { ...rest, userId: null, admin: true };
 
     if (id === null) {
+      if (existingAdminNames.has(exercise.name)) {
+        console.log(`SKIP (already exists) — ${exercise.name}`);
+        skippedAlreadyCreated++;
+        continue;
+      }
       const ref = db.collection(COLLECTIONS.EXERCISES).doc();
       console.log(`${commit ? 'CREATE' : 'DRY-RUN create'} ${ref.id} — ${exercise.name}`);
       queueWrite(ref, flatData);
@@ -107,12 +137,14 @@ async function persistExerciseRegeneration() {
   await flush();
 
   let deletedOrphan = false;
-  const orphanRef = db.collection(COLLECTIONS.EXERCISES).doc(ORPHANED_USER_OWNED_EXERCISE_ID);
-  const orphanSnapshot = await orphanRef.get();
-  if (orphanSnapshot.exists && orphanSnapshot.data()?.['admin'] !== true) {
-    console.log(`${commit ? 'DELETE' : 'DRY-RUN delete'} ${ORPHANED_USER_OWNED_EXERCISE_ID} — orphaned user-owned exercise`);
-    if (commit) await orphanRef.delete();
-    deletedOrphan = true;
+  if (!onlyName) {
+    const orphanRef = db.collection(COLLECTIONS.EXERCISES).doc(ORPHANED_USER_OWNED_EXERCISE_ID);
+    const orphanSnapshot = await orphanRef.get();
+    if (orphanSnapshot.exists && orphanSnapshot.data()?.['admin'] !== true) {
+      console.log(`${commit ? 'DELETE' : 'DRY-RUN delete'} ${ORPHANED_USER_OWNED_EXERCISE_ID} — orphaned user-owned exercise`);
+      if (commit) await orphanRef.delete();
+      deletedOrphan = true;
+    }
   }
 
   console.log(
@@ -123,6 +155,7 @@ async function persistExerciseRegeneration() {
         overwritten,
         created,
         skippedNotInThisEnv,
+        skippedAlreadyCreated,
         deletedOrphan,
       },
       null,
