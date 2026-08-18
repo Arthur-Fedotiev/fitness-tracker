@@ -8,12 +8,25 @@
   margin-bottom: 12px;
 }
 
+// Handset first: the name gets the full width and the actions sit on their own line
+// beneath it, since three buttons crowd the name out. Container-level, so the editing
+// -state toolbar (Save/Cancel) inherits the stacking for free.
 .name-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
   gap: 8px;
   margin-top: 16px;
+
+  .actions {
+    justify-content: flex-end;
+  }
+
+  @media screen and (min-width: 600px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .name-header {
@@ -51,5 +64,22 @@
 }
 
 .empty {
+  opacity: 0.6;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 48px 16px;
+  opacity: 0.85;
+}
+
+.welcome-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
   opacity: 0.6;
 }

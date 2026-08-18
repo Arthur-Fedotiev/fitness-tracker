@@ -14,7 +14,7 @@ export interface AuthState {
 export const initialState: AuthState = {
   user: null,
   admin: false,
-  destinationURL: GLOBAL_PATHS.EXERCISES_LIST,
+  destinationURL: GLOBAL_PATHS.DEFAULT_LANDING,
   authJwtToken: null,
 };
 

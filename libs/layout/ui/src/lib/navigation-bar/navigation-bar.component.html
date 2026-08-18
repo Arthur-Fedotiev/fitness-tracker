@@ -3,16 +3,16 @@
   aria-label="Navigation bar"
   [class.horizontal]="layout === 'row'"
 >
-  <mat-list-item>
-    <a
+  <mat-list-item
+    ><a
       matListItemTitle
       class="nav-link"
-      ftE2e="navLinkExercises"
-      title="Exercises"
-      [routerLink]="['exercises', 'all']"
+      ftE2e="navLinkTrainingPlanner"
+      title="Training Planner"
+      [routerLink]="['training-planner']"
     >
-      <mat-icon class="nav-icon" svgIcon="exercises"></mat-icon>
-      <span class="nav-link-text">Exercises</span>
+      <mat-icon class="nav-icon black-icon">trending_up</mat-icon>
+      <span class="nav-link-text">Training Planner</span>
     </a></mat-list-item
   >
 
@@ -29,16 +29,16 @@
     </a></mat-list-item
   >
 
-  <mat-list-item
-    ><a
+  <mat-list-item>
+    <a
       matListItemTitle
       class="nav-link"
-      ftE2e="navLinkTrainingPlanner"
-      title="Training Planner"
-      [routerLink]="['training-planner']"
+      ftE2e="navLinkExercises"
+      title="Exercises"
+      [routerLink]="['exercises', 'all']"
     >
-      <mat-icon class="nav-icon black-icon">trending_up</mat-icon>
-      <span class="nav-link-text">Training Planner</span>
+      <mat-icon class="nav-icon" svgIcon="exercises"></mat-icon>
+      <span class="nav-link-text">Exercises</span>
     </a></mat-list-item
   >
 

@@ -19,4 +19,4 @@ export const adminOnly: () => UnaryFunction<Observable<User | null>, Observable<
     map(Boolean),
   );
 
-export const redirectLoggedInToExercises = () => redirectLoggedInTo(GLOBAL_PATHS.EXERCISES_LIST);
+export const redirectLoggedInToTrainingPlanner = () => redirectLoggedInTo(GLOBAL_PATHS.DEFAULT_LANDING);

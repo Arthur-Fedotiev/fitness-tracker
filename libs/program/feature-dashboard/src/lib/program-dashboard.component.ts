@@ -10,6 +10,7 @@ import {
   ensureUniqueProgramName,
   generateReloadCycle,
   LoadingConstraint,
+  ProgramExcelExportService,
   ProgramStore,
   RepMaxTest,
 } from '@fitness-tracker/program/domain';
@@ -70,6 +71,13 @@ import { firstValueFrom } from 'rxjs';
           />
 
           <div class="actions">
+            @if (canDownloadExcel()) {
+              <button mat-flat-button color="primary" (click)="onDownloadExcel()">
+                <mat-icon>download</mat-icon>
+                Download Excel
+              </button>
+            }
+
             <ft-program-edit-toggle
               [readOnly]="readOnly()"
               [dirty]="store.dirty()"
@@ -109,6 +117,15 @@ import { firstValueFrom } from 'rxjs';
             <ft-add-main-lift-block [exercises]="exercises()" (add)="onAddBlock($event)" />
           }
         </div>
+      } @else if (hasNoPrograms()) {
+        <div class="welcome">
+          <mat-icon class="welcome-icon">trending_up</mat-icon>
+          <h2>Start your first Training Plan</h2>
+          <p>Build a Program around your main lifts and generate a reload cycle to follow.</p>
+          <button mat-flat-button color="primary" (click)="onCreateProgram()">
+            <mat-icon>add</mat-icon> New Program
+          </button>
+        </div>
       } @else {
         <p class="empty">No Program selected in this status.</p>
       }
@@ -123,11 +140,19 @@ export class ProgramDashboardComponent {
   private readonly loadExercisePickerList = inject(LOAD_EXERCISE_PICKER_LIST_COMMAND);
   private readonly snackBar = inject(MatSnackBar);
   private readonly discardChangesDialog = inject(DiscardChangesDialogService);
+  private readonly excelExport = inject(ProgramExcelExportService);
 
   private readonly blockValidity = signal<Record<string, boolean>>({});
 
   protected readonly exercises = this.exercisePicker.exercisePickerList;
   protected readonly activeStatus = signal<ProgramStatus>('draft');
+
+  protected readonly hasNoPrograms = computed(
+    () =>
+      this.store.draftPrograms().length === 0 &&
+      this.store.activePrograms().length === 0 &&
+      this.store.completedPrograms().length === 0,
+  );
 
   /** The selected Program's last-persisted state, never the draft — `selectedProgram`/`readOnly` key off this to stay correct even when a session is active. */
   private readonly livePersistedProgram = computed(
@@ -161,6 +186,16 @@ export class ProgramDashboardComponent {
     }
     const validity = this.blockValidity();
     return program.mainLiftBlocks.some((block) => validity[block.id] !== true);
+  });
+
+  /**
+   * Download is a read-only action on a plan that exists to be followed — so it is
+   * hidden on a `draft` (which has nothing worth taking to the gym yet) and while an
+   * edit session is open (where the sheet would capture unsaved, in-flux numbers).
+   */
+  protected readonly canDownloadExcel = computed(() => {
+    const program = this.selectedProgram();
+    return !!program && program.status !== 'draft' && this.readOnly();
   });
 
   private readonly exerciseNameById = computed(() => new Map(this.exercises().map((e) => [e.id, e.name])));
@@ -245,6 +280,19 @@ export class ProgramDashboardComponent {
 
   protected onRenameProgram(name: string): void {
     this.store.stageRename(name);
+  }
+
+  /** Everything about the sheet and the file lives in the domain's export sink; this only reports failure. */
+  protected async onDownloadExcel(): Promise<void> {
+    const program = this.selectedProgram();
+    if (!program) {
+      return;
+    }
+    try {
+      await this.excelExport.downloadProgram(program, this.exerciseNameById());
+    } catch {
+      this.notify('Could not generate the Excel file');
+    }
   }
 
   protected onAddBlock(exerciseId: string): void {

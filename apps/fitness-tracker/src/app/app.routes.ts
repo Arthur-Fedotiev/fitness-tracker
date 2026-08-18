@@ -9,6 +9,8 @@ import { LayoutComponent } from '@fitness-tracker/layout/feature';
 
 import {
   adminOnly,
+  GLOBAL_PATHS,
+  redirectLoggedInToTrainingPlanner,
   redirectUnauthorizedToLogin,
 } from '@fitness-tracker/shared/utils';
 import { workoutDataProviders } from '@fitness-tracker/workout-domain';
@@ -16,7 +18,7 @@ import { inject } from '@angular/core';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 
 export const APP_ROUTES: Route[] = [
-  { path: '', pathMatch: 'full', redirectTo: 'exercises/all' },
+  { path: '', pathMatch: 'full', redirectTo: GLOBAL_PATHS.DEFAULT_LANDING },
   {
     path: '',
     component: LayoutComponent,
@@ -58,9 +60,9 @@ export const APP_ROUTES: Route[] = [
   },
   {
     path: 'auth',
-    // ...canActivate(redirectLoggedInToExercises),
+    ...canActivate(redirectLoggedInToTrainingPlanner),
     loadChildren: () =>
       import('@fitness-tracker/auth/shell').then((m) => m.authFeatureRoutes),
   },
-  { path: '**', redirectTo: 'exercises/all' },
+  { path: '**', redirectTo: GLOBAL_PATHS.DEFAULT_LANDING },
 ];

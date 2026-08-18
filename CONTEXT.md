@@ -39,6 +39,8 @@ _Avoid_: cycle, program table
 **Strategy**: The generation approach that turns a Main Lift Block's 80%RM Test into a Reload Cycle. Strength Reload — based on Pavel Tsatsouline & Fabio Zonin's _Reload: Your Barbell Strength Blueprint_ — is the only Strategy today; named to leave room for others later without a plugin architecture.
 _Avoid_: plan type, method
 
+**Weight units**: The domain is deliberately unit-agnostic. `oneRepMax`, the Loading Constraint's `increment`, every Reload Cycle `load` and the Week 8 retest are all bare numbers — no model field records kg vs lb, and no form input asks (the Main Lift Block form says "Min available increment", never "kg"). Inside the app this is invisible and correct: the lifter reads back whatever they typed in. Anything that renders these numbers *outside* the app has to choose a unit explicitly and owns that choice — the Excel export assumes kg. Introducing a real unit field is an open option, not a decided one; nothing depends on it today.
+
 ## Architecture conventions
 
 - Each domain (`exercise`, `workout`, `program`, ...) is a bounded context — a horizontal slice that exposes as little as possible to the others. Cross-domain consumption happens only through a domain's `<domain>/public-api` lib; a domain never reaches directly into another domain's `domain`, `ui-components`, or `feature-*` libs.

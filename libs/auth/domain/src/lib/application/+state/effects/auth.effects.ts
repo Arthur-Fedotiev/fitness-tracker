@@ -100,7 +100,7 @@ export class AuthEffects {
       ofType(AUTH_ACTION_NAMES.LOGOUT),
       tap(() => this.afAuth.signOut()),
       map(() =>
-        AuthActions.setDestinationURL({ payload: GLOBAL_PATHS.EXERCISES_LIST }),
+        AuthActions.setDestinationURL({ payload: GLOBAL_PATHS.DEFAULT_LANDING }),
       ),
     ),
   );
