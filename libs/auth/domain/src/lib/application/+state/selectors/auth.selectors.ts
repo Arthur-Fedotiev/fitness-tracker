@@ -40,3 +40,8 @@ export const selectIsAdmin = createSelector(
   selectAuthState,
   (state: fromAuth.AuthState): boolean => state.admin,
 );
+
+export const selectAuthError = createSelector(
+  selectAuthState,
+  (state: fromAuth.AuthState): string | null => state.error,
+);

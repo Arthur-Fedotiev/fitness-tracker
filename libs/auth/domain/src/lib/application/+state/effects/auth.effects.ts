@@ -1,6 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap, first, withLatestFrom } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  tap,
+  first,
+  withLatestFrom,
+  catchError,
+} from 'rxjs/operators';
 import * as AuthActions from '../actions/auth.actions';
 import { AUTH_ACTION_NAMES } from '../models/action-name.enum';
 import { Router } from '@angular/router';
@@ -14,11 +21,25 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from '@angular/fire/auth';
-import { GLOBAL_PATHS } from '@fitness-tracker/shared/utils';
+import { GLOBAL_PATHS, WithPayload } from '@fitness-tracker/shared/utils';
 import { toUserInfo } from '../../../functions';
-import { from } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { toAuthErrorMessage } from '../../../auth-error-message';
+import { EMPTY, Observable, from, of } from 'rxjs';
+import { Action, Store } from '@ngrx/store';
 import { selectDestinationUrl } from '../selectors/auth.selectors';
+
+/**
+ * Firebase rejects the sign-in promise on failure. Without this the rejection
+ * escapes the effect entirely and only ever reaches the console, so translate it
+ * into the matching failure action; a user-cancelled popup reports nothing.
+ */
+const reportAs =
+  (failureAction: (props: WithPayload<string>) => Action) =>
+  (error: unknown): Observable<Action> => {
+    const message = toAuthErrorMessage(error);
+
+    return message ? of(failureAction({ payload: message })) : EMPTY;
+  };
 
 @Injectable()
 export class AuthEffects {
@@ -27,45 +48,52 @@ export class AuthEffects {
   private readonly afAuth = inject(Auth);
   private readonly store = inject(Store);
 
-  readonly loginWithGoogle$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.loginWithGoogle),
-        switchMap(() => signInWithPopup(this.afAuth, new GoogleAuthProvider())),
+  readonly loginWithGoogle$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loginWithGoogle),
+      switchMap(() =>
+        from(signInWithPopup(this.afAuth, new GoogleAuthProvider())).pipe(
+          map(() => AuthActions.loginWithGoogleSuccess()),
+          catchError(reportAs(AuthActions.loginWithGoogleFailure)),
+        ),
       ),
-    { dispatch: false },
+    ),
   );
 
-  readonly loginWithEmail$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.loginWithEmail),
-        switchMap(({ payload }) =>
+  readonly loginWithEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loginWithEmail),
+      switchMap(({ payload }) =>
+        from(
           signInWithEmailAndPassword(
             this.afAuth,
             payload.email,
             payload.password,
           ),
+        ).pipe(
+          map(() => AuthActions.loginWithEmailSuccess()),
+          catchError(reportAs(AuthActions.loginWithEmailFailure)),
         ),
       ),
-    { dispatch: false },
+    ),
   );
 
-  readonly signUpWithEmail$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.signUpWithEmail),
-        switchMap(({ payload }) =>
-          from(
-            createUserWithEmailAndPassword(
-              this.afAuth,
-              payload.email,
-              payload.password,
-            ),
+  readonly signUpWithEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.signUpWithEmail),
+      switchMap(({ payload }) =>
+        from(
+          createUserWithEmailAndPassword(
+            this.afAuth,
+            payload.email,
+            payload.password,
           ),
+        ).pipe(
+          map(() => AuthActions.signUpWithEmailSuccess()),
+          catchError(reportAs(AuthActions.signUpWithEmailFailure)),
         ),
       ),
-    { dispatch: false },
+    ),
   );
 
   readonly authJwtToken$ = createEffect(() =>
