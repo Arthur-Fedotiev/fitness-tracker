@@ -10,6 +10,7 @@ import {
   ensureUniqueProgramName,
   generateReloadCycle,
   LoadingConstraint,
+  ProgramExcelExportService,
   ProgramStore,
   RepMaxTest,
 } from '@fitness-tracker/program/domain';
@@ -70,6 +71,13 @@ import { firstValueFrom } from 'rxjs';
           />
 
           <div class="actions">
+            @if (canDownloadExcel()) {
+              <button mat-flat-button color="primary" (click)="onDownloadExcel()">
+                <mat-icon>download</mat-icon>
+                Download Excel
+              </button>
+            }
+
             <ft-program-edit-toggle
               [readOnly]="readOnly()"
               [dirty]="store.dirty()"
@@ -132,6 +140,7 @@ export class ProgramDashboardComponent {
   private readonly loadExercisePickerList = inject(LOAD_EXERCISE_PICKER_LIST_COMMAND);
   private readonly snackBar = inject(MatSnackBar);
   private readonly discardChangesDialog = inject(DiscardChangesDialogService);
+  private readonly excelExport = inject(ProgramExcelExportService);
 
   private readonly blockValidity = signal<Record<string, boolean>>({});
 
@@ -177,6 +186,16 @@ export class ProgramDashboardComponent {
     }
     const validity = this.blockValidity();
     return program.mainLiftBlocks.some((block) => validity[block.id] !== true);
+  });
+
+  /**
+   * Download is a read-only action on a plan that exists to be followed — so it is
+   * hidden on a `draft` (which has nothing worth taking to the gym yet) and while an
+   * edit session is open (where the sheet would capture unsaved, in-flux numbers).
+   */
+  protected readonly canDownloadExcel = computed(() => {
+    const program = this.selectedProgram();
+    return !!program && program.status !== 'draft' && this.readOnly();
   });
 
   private readonly exerciseNameById = computed(() => new Map(this.exercises().map((e) => [e.id, e.name])));
@@ -261,6 +280,19 @@ export class ProgramDashboardComponent {
 
   protected onRenameProgram(name: string): void {
     this.store.stageRename(name);
+  }
+
+  /** Everything about the sheet and the file lives in the domain's export sink; this only reports failure. */
+  protected async onDownloadExcel(): Promise<void> {
+    const program = this.selectedProgram();
+    if (!program) {
+      return;
+    }
+    try {
+      await this.excelExport.downloadProgram(program, this.exerciseNameById());
+    } catch {
+      this.notify('Could not generate the Excel file');
+    }
   }
 
   protected onAddBlock(exerciseId: string): void {
