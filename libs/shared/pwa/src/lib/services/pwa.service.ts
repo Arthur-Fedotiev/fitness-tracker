@@ -11,7 +11,7 @@ import { AddToHomeScreenStrategy, BeforeInstallPromptEvent, LoadPwaPayload } fro
 
 import { dismissSnackBar, versionReadyCondition } from '../utils/pwa-helpers.functions';
 import { ADD_TO_HOME_SCREEN_TOKEN } from '../utils/pwa-platform.provider';
-import { IS_PROMPTED_KEY, UPDATE_VERSION_DATA } from '../utils/update-version-snackbar-data';
+import { IS_PROMPTED_KEY, SNACKBAR_PANEL_CLASS, UPDATE_VERSION_DATA } from '../utils/update-version-snackbar-data';
 
 @Injectable({
   providedIn: 'root',
@@ -102,6 +102,7 @@ export class PwaService {
   private openSnackbar(data: Record<string, unknown>): MatSnackBarRef<PwaSnackbarComponent> {
     return this.snackBar.openFromComponent(PwaSnackbarComponent, {
       data,
+      panelClass: SNACKBAR_PANEL_CLASS,
     });
   }
 }

@@ -1,24 +1,22 @@
-<aside class="pwa-snackbar-container" [style]="data.styles ?? {}">
+<aside class="pwa-snackbar-container">
   <p [innerHTML]="data.message" class="pwa-snackbar-container__message"></p>
-  <div>
-    @if (data.actions.confirm) {
-      <button
-        mat-button
-        class="mat-raised-button pwa-snackbar-container__btn pwa-snackbar-container__btn-confirm"
-        color="success"
-        (click)="onConfirm()"
-        >
-        Confirm
-      </button>
-    }
+  <div class="pwa-snackbar-container__actions">
     @if (data.actions.cancel) {
       <button
         mat-button
-        class="mat-raised-button pwa-snackbar-container__btn pwa-snackbar-container__btn-cancel"
-        color="primary"
+        class="pwa-snackbar-container__btn pwa-snackbar-container__btn-cancel"
         (click)="onCancel()"
         >
         Cancel
+      </button>
+    }
+    @if (data.actions.confirm) {
+      <button
+        mat-flat-button
+        class="pwa-snackbar-container__btn pwa-snackbar-container__btn-confirm"
+        (click)="onConfirm()"
+        >
+        Confirm
       </button>
     }
   </div>
