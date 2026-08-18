@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, Output, EventEmitter, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   MAT_SNACK_BAR_DATA,
   MatSnackBarModule,
@@ -9,7 +16,10 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'ft-pwa-snackbar',
   templateUrl: './pwa-snackbar.component.html',
-  styleUrls: [],
+  styleUrl: './pwa-snackbar.component.scss',
+  // The snack bar panel wraps this component from the outside and the message is
+  // rendered through [innerHTML]; neither is reachable with scoped styles.
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [MatButtonModule, MatSnackBarModule],
