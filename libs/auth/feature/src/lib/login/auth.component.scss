@@ -16,6 +16,22 @@
     height: 100%;
   }
 
+  .auth-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    max-width: 22rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    background: var(--mat-sys-error-container, #fdecea);
+    color: var(--mat-sys-on-error-container, #b3261e);
+
+    mat-icon {
+      flex: none;
+    }
+  }
+
   .sing-in-form {
     display: flex;
     flex-flow: column nowrap;

@@ -9,6 +9,7 @@ export interface AuthState {
   destinationURL: string;
   authJwtToken: string | null;
   admin: boolean;
+  error: string | null;
 }
 
 export const initialState: AuthState = {
@@ -16,6 +17,7 @@ export const initialState: AuthState = {
   admin: false,
   destinationURL: GLOBAL_PATHS.DEFAULT_LANDING,
   authJwtToken: null,
+  error: null,
 };
 
 export const reducer = createReducer(
@@ -26,7 +28,23 @@ export const reducer = createReducer(
     (state, { payload: user }: WithPayload<UserInfo>) => ({
       ...state,
       user,
+      error: null,
     }),
+  ),
+  // Starting a fresh attempt clears whatever the last one reported.
+  on(
+    AuthActions.loginWithGoogle,
+    AuthActions.loginWithEmail,
+    AuthActions.signUpWithEmail,
+    AuthActions.clearAuthError,
+    (state) => ({ ...state, error: null }),
+  ),
+  on(
+    AuthActions.loginFailure,
+    AuthActions.loginWithGoogleFailure,
+    AuthActions.loginWithEmailFailure,
+    AuthActions.signUpWithEmailFailure,
+    (state, { payload: error }: WithPayload<string>) => ({ ...state, error }),
   ),
   on(AuthActions.logoutSuccess, (state) => ({ ...state, user: null })),
   on(AuthActions.setDestinationURL, (state, { payload: destinationURL }) => ({

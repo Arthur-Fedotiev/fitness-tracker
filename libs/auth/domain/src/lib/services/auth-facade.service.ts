@@ -3,6 +3,7 @@ import { UserDataQuery } from '@fitness-tracker/shared/models';
 import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs';
 import {
+  clearAuthError,
   loginFailure,
   loginSuccess,
   loginWithEmail,
@@ -12,6 +13,7 @@ import {
   signUpWithEmail,
 } from '../application/+state/actions/auth.actions';
 import {
+  selectAuthError,
   selectAuthJwtToken,
   selectDestinationUrl,
   selectIsAdmin,
@@ -35,6 +37,7 @@ export class AuthFacadeService implements UserDataQuery {
   readonly destinationUrl$ = this.store.select(selectDestinationUrl);
   readonly authJwtToken$ = this.store.select(selectAuthJwtToken);
   readonly isAdmin$ = this.store.select(selectIsAdmin);
+  readonly authError = this.store.selectSignal(selectAuthError);
   readonly userId$ = this.store.select(selectUserInfo).pipe(
     filter(Boolean),
     map((userInfo) => userInfo?.uid),
@@ -44,8 +47,12 @@ export class AuthFacadeService implements UserDataQuery {
     this.store.dispatch(loginSuccess({ payload: toUserInfo(user) }));
   }
 
-  loginErrored(): void {
-    this.store.dispatch(loginFailure());
+  loginErrored(payload: string): void {
+    this.store.dispatch(loginFailure({ payload }));
+  }
+
+  clearAuthError(): void {
+    this.store.dispatch(clearAuthError());
   }
 
   logOut(): void {

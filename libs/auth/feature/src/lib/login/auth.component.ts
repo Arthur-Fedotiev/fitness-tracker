@@ -15,14 +15,22 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatIconModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule],
   template: `
     <mat-icon class="welcome-icon" width="50%" svgIcon="sign-up" [color]="'accent'"></mat-icon>
+    @if (authError(); as authError) {
+      <p class="auth-error" role="alert">
+        <mat-icon aria-hidden="true">error_outline</mat-icon>
+        <span>{{ authError }}</span>
+      </p>
+    }
     @if (selectedAuthFlowStrategy) {
       <form #authForm="ngForm" class="sing-in-form">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input
             matInput
+            type="email"
             placeholder="Email"
             name="email"
+            autocomplete="email"
             [(ngModel)]="authFormModel.email"
           />
         </mat-form-field>
@@ -30,8 +38,10 @@ import { MatInputModule } from '@angular/material/input';
           <mat-label>Password</mat-label>
           <input
             matInput
+            type="password"
             placeholder="Password"
             name="password"
+            [autocomplete]="passwordAutocomplete"
             [(ngModel)]="authFormModel.password"
           />
         </mat-form-field>
@@ -61,6 +71,8 @@ import { MatInputModule } from '@angular/material/input';
 export class AuthComponent {
   private readonly authFacade = inject(AuthFacadeService);
 
+  protected readonly authError = this.authFacade.authError;
+
   protected authFormModel: AuthFormModel = {
     email: '',
     password: '',
@@ -81,6 +93,13 @@ export class AuthComponent {
 
   protected selectedAuthFlowStrategy: keyof typeof this.authTypeStrategies | null = null;
 
+  /** Tells a password manager whether to offer a saved password or generate one. */
+  protected get passwordAutocomplete(): 'current-password' | 'new-password' {
+    return this.selectedAuthFlowStrategy === 'signup'
+      ? 'new-password'
+      : 'current-password';
+  }
+
   protected loginWithGoogle() {
     this.authFacade.loginWithGoogle();
   }
@@ -94,14 +113,17 @@ export class AuthComponent {
   }
 
   protected startEmailLogin() {
+    this.authFacade.clearAuthError();
     this.selectedAuthFlowStrategy = 'signin';
   }
 
   protected startEmailSignup() {
+    this.authFacade.clearAuthError();
     this.selectedAuthFlowStrategy = 'signup';
   }
 
   protected cancelEmailLogin() {
+    this.authFacade.clearAuthError();
     this.selectedAuthFlowStrategy = null;
   }
 

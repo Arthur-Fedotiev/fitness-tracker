@@ -10,7 +10,10 @@ export const loginSuccess = createAction(
   props<WithPayload<UserInfo>>(),
 );
 
-export const loginFailure = createAction(AUTH_ACTION_NAMES.LOGIN_FAILURE);
+export const loginFailure = createAction(
+  AUTH_ACTION_NAMES.LOGIN_FAILURE,
+  props<WithPayload<string>>(),
+);
 
 export const logout = createAction(AUTH_ACTION_NAMES.LOGOUT);
 
@@ -41,6 +44,7 @@ export const loginWithGoogleSuccess = createAction(
 
 export const loginWithGoogleFailure = createAction(
   AUTH_ACTION_NAMES.LOGIN_WITH_GOOGLE_FAILURE,
+  props<WithPayload<string>>(),
 );
 
 export const loginWithEmail = createAction(
@@ -54,6 +58,7 @@ export const loginWithEmailSuccess = createAction(
 
 export const loginWithEmailFailure = createAction(
   AUTH_ACTION_NAMES.LOGIN_WITH_EMAIL_FAILURE,
+  props<WithPayload<string>>(),
 );
 
 export const signUpWithEmail = createAction(
@@ -67,4 +72,7 @@ export const signUpWithEmailSuccess = createAction(
 
 export const signUpWithEmailFailure = createAction(
   AUTH_ACTION_NAMES.SIGN_UP_WITH_EMAIL_FAILURE,
+  props<WithPayload<string>>(),
 );
+
+export const clearAuthError = createAction(AUTH_ACTION_NAMES.CLEAR_ERROR);
