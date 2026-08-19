@@ -1,27 +1,21 @@
 import { importProvidersFrom } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SettingsEffects } from './effects/settings.effects';
+import { provideStoreDevtools } from './devtools.providers';
 import { darkMode } from './meta-reducers/dark-mode.reducer';
 import { FtState, appReduceMap } from './reducers/app.reduce-map';
 
-interface ProvideSharedStateSettings {
-  production: boolean;
-}
-
-export const provideSharedState = ({
-  production,
-}: ProvideSharedStateSettings) => [
-    importProvidersFrom(
-      StoreModule.forRoot<FtState>(appReduceMap, {
-        metaReducers: [darkMode],
-        runtimeChecks: {
-          strictActionImmutability: true,
-          strictStateImmutability: true,
-        },
-      }),
-      EffectsModule.forRoot([SettingsEffects]),
-      !production ? StoreDevtoolsModule.instrument({ connectInZone: true, }) : [],
-    ),
-  ];
+export const provideSharedState = () => [
+  importProvidersFrom(
+    StoreModule.forRoot<FtState>(appReduceMap, {
+      metaReducers: [darkMode],
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictStateImmutability: true,
+      },
+    }),
+    EffectsModule.forRoot([SettingsEffects]),
+  ),
+  provideStoreDevtools(),
+];

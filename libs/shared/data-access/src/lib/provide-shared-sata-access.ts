@@ -8,7 +8,7 @@ import { provideSharedState } from './+state/provide-shared-state';
 import { providePersistence } from './firebase-persistence/provide-persistence';
 
 export const provideSharedDataAccess = () => [
-  provideSharedState(environment),
+  provideSharedState(),
   providePersistence(environment),
   ScreenTrackingService,
   UserTrackingService,

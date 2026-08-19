@@ -4,7 +4,6 @@ import {
   Route,
   RouterStateSnapshot,
 } from '@angular/router';
-import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/public-api';
 import { LayoutComponent } from '@fitness-tracker/layout/feature';
 
 import {
@@ -13,7 +12,6 @@ import {
   redirectLoggedInToTrainingPlanner,
   redirectUnauthorizedToLogin,
 } from '@fitness-tracker/shared/utils';
-import { workoutDataProviders } from '@fitness-tracker/workout-domain';
 import { inject } from '@angular/core';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 
@@ -36,7 +34,6 @@ export const APP_ROUTES: Route[] = [
           import('@fitness-tracker/exercise/shell').then(
             (m) => m.EXERCISE_ROUTES,
           ),
-        providers: [DISPLAY_PAGE_PROVIDERS, workoutDataProviders],
       },
       {
         path: 'workouts',

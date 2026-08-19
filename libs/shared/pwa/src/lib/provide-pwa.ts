@@ -7,7 +7,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 const SW_SOURCE = 'ngsw-worker.js';
 const SW_CONFIG = {
   enabled: environment.production,
-  registrationStrategy: 'registerWhenStable:30000',
+  // Firestore holds a long-lived WebChannel open, so the app never reports
+  // stable and `registerWhenStable` always degraded to its full timeout.
+  registrationStrategy: 'registerImmediately',
 };
 
 export const providePwa = () => [

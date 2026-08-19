@@ -1,0 +1,9 @@
+// Sits above the layout toolbar (z-index 9999) so route transitions stay
+// visible on every route, including those rendered outside the layout shell.
+.route-progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10000;
+}

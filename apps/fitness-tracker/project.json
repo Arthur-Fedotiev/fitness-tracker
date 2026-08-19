@@ -54,8 +54,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "3mb"
+              "maximumWarning": "1.85mb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -67,6 +67,10 @@
             {
               "replace": "libs/shared/environments/src/lib/environment.ts",
               "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            },
+            {
+              "replace": "libs/shared/data-access/src/lib/+state/devtools.providers.ts",
+              "with": "libs/shared/data-access/src/lib/+state/devtools.providers.prod.ts"
             }
           ],
           "outputHashing": "all",
@@ -84,8 +88,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "3mb"
+              "maximumWarning": "1.85mb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -97,6 +101,10 @@
             {
               "replace": "libs/shared/environments/src/lib/environment.ts",
               "with": "libs/shared/environments/src/lib/environment.staging.ts"
+            },
+            {
+              "replace": "libs/shared/data-access/src/lib/+state/devtools.providers.ts",
+              "with": "libs/shared/data-access/src/lib/+state/devtools.providers.prod.ts"
             }
           ],
           "outputHashing": "all",

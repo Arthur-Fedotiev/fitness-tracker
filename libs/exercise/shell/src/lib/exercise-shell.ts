@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { ExerciseResolver } from '@fitness-tracker/exercise/domain';
+import { DISPLAY_PAGE_PROVIDERS } from '@fitness-tracker/exercise/public-api';
 
 export const EXERCISE_ROUTES: Routes = [
   {
     path: '',
+    providers: [DISPLAY_PAGE_PROVIDERS],
     children: [
       {
         path: 'all',

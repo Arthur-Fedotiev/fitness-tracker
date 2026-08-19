@@ -60,3 +60,5 @@ cypress.env.json
 .claude/worktrees
 .nx/polygraph
 .nx/self-healing
+# HAR captures embed live auth tokens - never commit them
+*.har
