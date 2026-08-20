@@ -88,9 +88,42 @@ Driven via Chrome DevTools Protocol against the auth emulator and a dev server:
 - production build clean, budget satisfied, lint clean on all touched files,
   unit tests pass for all 4 affected projects
 
+### Under 3G throttling
+
+Production builds of both revisions, served locally, fresh Chrome profile each
+run (so no warm SW or HTTP cache), throttled via CDP:
+
+| | Before | After |
+|---|---|---|
+| Fast 3G — load event | 11 653 ms | **10 471 ms** |
+| Slow 3G — load event | 47 034 ms | **42 136 ms** |
+| Route chunks fetched after load (Fast 3G) | 3 | **14 (all)** |
+| Initial total (build report) | 2.02 MB | **1.77 MB** |
+
+Navigation, logged in and throttled to Slow 3G (400 kbps, 2000 ms RTT), with the
+throttle applied in the *same* CDP session as the clicks:
+
+| Navigation | Progress bar | Arrived |
+|---|---|---|
+| `/training-planner` -> `/workouts/all` | not needed | 65 ms |
+| `/workouts/all` -> `/exercises/create` | not needed | 71 ms |
+| `/exercises/create` -> `/training-planner` | **11 ms** | 113 ms |
+
+Route chunks are preloaded, so navigation is effectively instant even on Slow
+3G; where a route does make the user wait (`/training-planner` has a
+Firestore-backed resolver) the bar appears within 11 ms of the click.
+
 **Not verified:** the Firestore emulator requires Java 21 (only 16 installed),
 so no exercise data was loaded — component instantiation was verified, data flow
-was not. The `registerImmediately` change has not been confirmed against prod.
+was not. The navigation table above was measured against the dev server, so it
+isolates routing/preload behaviour rather than reproducing production bundle
+sizes; no before/after comparison was run for navigation specifically. The
+`registerImmediately` change has not been confirmed against prod.
+
+Note that the initial-load win understates the fix for real users: on the old
+build `DisplayPageComponent` was inside `main.js`, so `/exercises/all` felt fast
+while every *other* route paid a cold chunk fetch. Preloading removes that cost
+for all routes without inflating the initial bundle.
 
 ## Follow-ups
 
