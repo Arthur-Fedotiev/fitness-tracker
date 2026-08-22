@@ -1,8 +1,12 @@
 /**
  * The Strength Reload Weekly Jump / Ramp-up Baseline lookup table, keyed by reps
- * achieved on the 80%1RM AMRAP set. Verified exact against StrongFirst's own
- * _Reload: Your Barbell Strength Blueprint_ Appendix B — see
- * .scratch/strength-reload-calculator/issues/01-weekly-jump-week5-formula.md.
+ * achieved on the 80%1RM AMRAP set. Checked against the table printed on p.11 of
+ * Tsatsouline & Zonin's _Reload: Your Barbell Strength Blueprint_.
+ *
+ * The bands below are the book's. What used to be built on top of them was not: a
+ * derivation of Week 5 from `rampUpBaseline + 4 × weeklyJump` carried the same
+ * "verified exact" claim as this table while appearing nowhere in the book. See
+ * ADR-0010. Checking the table is not checking what reads it.
  *
  *   Reps @ 80%1RM | Weekly Jump | Ramp-up Baseline
  *   ≤5             | 5%          | 60%

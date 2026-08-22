@@ -1,11 +1,10 @@
 /**
- * One week's row in a generated Reload Cycle (Weeks 1–7 — Week 8 is a retest, no
- * prescription). `load` is null only under the pre-Test placeholder anchor, where
- * just Week 5 is knowable — see anchor-resolution.ts.
+ * One week's row in a generated Reload Cycle. Weeks 1-7 only, since Week 8 is a 1RM
+ * retest and carries no prescription.
  */
 export interface WeekPrescription {
   week: number;
-  load: number | null;
+  load: number;
   sets: number;
   reps: number;
 }

@@ -1,7 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { LoadingConstraint } from '../entities/models/loading-constraint';
-import { AnchorSource } from '../entities/models/anchor-source';
 import { MainLiftBlock } from '../entities/models/main-lift-block';
 import { Program, ProgramStatus } from '../entities/models/program';
 import { RepMaxTest } from '../entities/models/rep-max-test';
@@ -184,9 +183,8 @@ export const ProgramStore = signalStore(
         exerciseId,
         test: null,
         loadingConstraint: { increment: 2.5, roundingMode: 'nearest' },
-        anchorSource: null,
         cycle: null,
-        manualWeek5: null,
+        fiveRepMaxGoal: null,
         week8Retest: null,
       };
       patchState(store, { draftProgram: { ...draft, mainLiftBlocks: [...draft.mainLiftBlocks, newBlock] } });
@@ -222,20 +220,15 @@ export const ProgramStore = signalStore(
 
     /**
      * Generate is a pure, non-persisting preview — this only lands its result in the
-     * draft slot for Save to later commit. `manualWeek5` is whatever was fed into the
-     * generation call, so a regenerate without the override naturally nulls it out.
+     * draft slot for Save to later commit. `fiveRepMaxGoal` is whatever was fed into the
+     * generation call, so it always matches the cycle sitting beside it.
      */
-    stageGeneratedCycle(
-      blockId: string,
-      cycle: WeekPrescription[],
-      anchorSource: AnchorSource,
-      manualWeek5: number | null,
-    ): void {
+    stageGeneratedCycle(blockId: string, cycle: WeekPrescription[], fiveRepMaxGoal: number): void {
       const draft = store.draftProgram();
       if (!draft) {
         return;
       }
-      const updated = replaceDraftBlock(draft, blockId, (block) => ({ ...block, anchorSource, cycle, manualWeek5 }));
+      const updated = replaceDraftBlock(draft, blockId, (block) => ({ ...block, cycle, fiveRepMaxGoal }));
       patchState(store, { draftProgram: updated });
     },
 

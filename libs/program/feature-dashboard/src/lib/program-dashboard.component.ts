@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthFacadeService } from '@fitness-tracker/auth/domain';
 import { EXERCISE_PICKER_QUERY, LOAD_EXERCISE_PICKER_LIST_COMMAND } from '@fitness-tracker/exercise/public-api';
 import {
+  calculateRampUpGuidance,
   computeDefaultProgramName,
   ensureUniqueProgramName,
   generateReloadCycle,
@@ -23,7 +24,7 @@ import {
   ProgramNameHeaderComponent,
   ProgramStatus,
   ProgramStatusTabsComponent,
-  SuggestWeek5Fn,
+  RampUpGuidanceFn,
 } from '@fitness-tracker/program/ui';
 import { firstValueFrom } from 'rxjs';
 
@@ -102,7 +103,7 @@ import { firstValueFrom } from 'rxjs';
             <ft-main-lift-block-card
               [block]="block"
               [exerciseName]="exerciseName(block.exerciseId)"
-              [suggestWeek5]="suggestWeek5"
+              [rampUpGuidance]="rampUpGuidance"
               [readOnly]="readOnly()"
               [sessionEpoch]="store.sessionEpoch()"
               (save)="onSaveBlock(block.id, $event)"
@@ -214,10 +215,7 @@ export class ProgramDashboardComponent {
     return this.exerciseNameById().get(exerciseId) ?? 'Unknown exercise';
   }
 
-  protected readonly suggestWeek5: SuggestWeek5Fn = ({ test, loadingConstraint }) => {
-    const { cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
-    return cycle.find((week) => week.week === 5)?.load ?? null;
-  };
+  protected readonly rampUpGuidance: RampUpGuidanceFn = calculateRampUpGuidance;
 
   protected async onCreateProgram(): Promise<void> {
     if (!(await this.guardLeavingSession())) {
@@ -305,18 +303,18 @@ export class ProgramDashboardComponent {
     this.store.stageMainLiftBlockInputs(blockId, inputs);
   }
 
-  protected onGenerate(blockId: string, manualWeek5: number | null): void {
+  protected onGenerate(blockId: string, fiveRepMaxGoal: number): void {
     const draft = this.store.draftProgram();
     const block = draft?.mainLiftBlocks.find((b) => b.id === blockId);
     if (!block?.test) {
       return;
     }
-    const { anchorSource, cycle } = generateReloadCycle({
+    const cycle = generateReloadCycle({
       test: block.test,
       loadingConstraint: block.loadingConstraint,
-      manualWeek5,
+      fiveRepMaxGoal,
     });
-    this.store.stageGeneratedCycle(blockId, cycle, anchorSource, manualWeek5);
+    this.store.stageGeneratedCycle(blockId, cycle, fiveRepMaxGoal);
     this.notify('Reload Cycle generated');
   }
 

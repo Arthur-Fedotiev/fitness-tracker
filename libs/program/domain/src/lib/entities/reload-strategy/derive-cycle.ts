@@ -1,6 +1,4 @@
 import { WeekPrescription } from '../models/week-prescription';
-import { AnchorResolution } from './anchor-resolution';
-import { RoundFn } from './round-to-increment';
 
 /**
  * The weeks that carry a prescription. Week 8 is a 1RM retest, so it has none and is
@@ -30,24 +28,19 @@ export const SETS_AND_REPS: Record<PrescribedWeek, { sets: number; reps: number 
 };
 
 /**
- * Weeks 1–7 from a resolved anchor: Weeks 1–4 derive backward from Week 5 by
- * subtracting one Weekly Jump per week, Weeks 6–7 derive upward by adding one — the
- * same rule in both directions, applied identically regardless of anchor source.
+ * Weeks 1-7 from the lifter's 5RM Goal. Reload's Step-by-Step Plan Design (printed
+ * p.16): "Assign your 5/5@#5 goal as the training load of week 5", then "count backward
+ * from week 5 to week 1 and subtract, week by week, your weekly jump" and "count forward
+ * from week 5 to week 7 and add, week by week, your weekly jump".
+ *
+ * Both arguments are already rounded to the gym's grid, so nothing is rounded here. That
+ * placement is the whole point. Rounding each week's total instead lets two neighbouring
+ * weeks land on the same load, and makes the gaps uneven.
  */
-export function deriveCycle(anchor: AnchorResolution, oneRepMax: number | null, round: RoundFn): WeekPrescription[] {
-  const weeklyJump =
-    anchor.weeklyJumpPercent != null && oneRepMax != null ? oneRepMax * anchor.weeklyJumpPercent : null;
-
-  const loadForWeek = (week: number): number | null => {
-    if (week === 5) return anchor.week5;
-    if (weeklyJump == null) return null;
-    const jumpsFromWeek5 = week - 5;
-    return round(anchor.week5 + jumpsFromWeek5 * weeklyJump);
-  };
-
+export function deriveCycle(fiveRepMaxGoal: number, weeklyJump: number): WeekPrescription[] {
   return PRESCRIBED_WEEKS.map((week) => ({
     week,
-    load: loadForWeek(week),
+    load: fiveRepMaxGoal + (week - 5) * weeklyJump,
     ...SETS_AND_REPS[week],
   }));
 }

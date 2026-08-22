@@ -10,9 +10,40 @@
   margin-top: 4px;
 }
 
-.manual-override-hint,
 .field-hint {
   margin: -4px 0 0;
   font-size: 12px;
+  opacity: 0.7;
+}
+
+.goal-warning {
+  color: var(--mat-sys-error, #b3261e);
+  font-size: 12px;
+  font-weight: 500;
+  margin: -4px 0 0;
+}
+
+.ramp-up {
+  font-size: 12px;
+
+  summary {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  p {
+    margin: 8px 0 0;
+    opacity: 0.85;
+  }
+}
+
+.ladder {
+  font-family: monospace;
+  letter-spacing: 0.02em;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.ladder-note {
   opacity: 0.7;
 }
