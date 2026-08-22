@@ -122,7 +122,7 @@ function blockRow(block: MainLiftBlock, exerciseName: string): SheetRow {
   ];
 }
 
-/** Null under the placeholder anchor, where only Week 5 is knowable — see anchor-resolution.ts. */
+/** Null only when a block's cycle is missing that week's row, which a generated cycle never is. */
 function loadForWeek(block: MainLiftBlock, week: number): number | null {
   return block.cycle?.find((prescription) => prescription.week === week)?.load ?? null;
 }

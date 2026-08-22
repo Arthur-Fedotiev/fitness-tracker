@@ -10,4 +10,12 @@ Default five-role vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `
 
 ### Domain docs
 
-Single-context — one root `CONTEXT.md` + `docs/adr/`. See `docs/agents/domain.md`.
+Single-context. One root `CONTEXT.md` + `docs/adr/`. See `docs/agents/domain.md`.
+
+## Prose style
+
+Every piece of prose written for a human reader goes through the `unslop` skill
+first: chat replies, markdown docs, ADRs, issue files under `.scratch/`, commit
+messages, PR titles and bodies, and code comments. Read
+`.claude/skills/unslop/SKILL.md`, apply its 31 checks, then send or save the
+text. Code identifiers, test fixtures, and tool output are exempt.

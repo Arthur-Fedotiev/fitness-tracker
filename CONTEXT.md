@@ -22,18 +22,22 @@ _Avoid_: Training Plan, Workout Plan
 **Main Lift Block**: One exercise's entry within a Program. Links to an existing `exercise` and carries its own 80%RM Test result and Loading Constraint.
 _Avoid_: Exercise Block, Exercise slot, Lift entry
 
-**80%RM Test**: The lifter-supplied inputs for one Main Lift Block — 1RM, and the reps achieved on a rep-max set at 80% of that 1RM. The reps result looks up both the Weekly Jump and Ramp-up Baseline percentages from a fixed table (source: Tsatsouline & Zonin, _Reload: Your Barbell Strength Blueprint_).
+**80%RM Test**: The lifter-supplied inputs for one Main Lift Block: 1RM, and the reps achieved on a rep-max set at 80% of that 1RM. The reps result looks up both the Weekly Jump and Ramp-up Baseline percentages from a fixed table (source: Tsatsouline & Zonin, _Reload: Your Barbell Strength Blueprint_, printed p.11). Both inputs are required. The Weekly Jump is `1RM × jumpPercent`, so without either one no week of a Reload Cycle can be derived.
 _Avoid_: Test Data, reps at 80%
 
-**Weekly Jump**: The per-week load increase (as %1RM, then converted to weight) applied across Weeks 1–5 of a Reload Cycle, looked up from the 80%RM Test.
+**Weekly Jump**: The per-week load increase of a Reload Cycle. Looked up from the 80%RM Test as a %1RM, converted to weight, then rounded to the Loading Constraint *before* any week is derived. Every week of a cycle sits exactly one Weekly Jump from its neighbour, so no two weeks share a load. Rounding here rather than on each week's total is the whole point, and it always rounds to nearest regardless of the Loading Constraint's mode, because a mode applied to the jump compounds across all seven weeks instead of shifting one load. When the rounded jump lands below the gym's smallest increment it is raised to one increment, which is our addition rather than the book's. Reload heads off coarse plates by telling the lifter to buy smaller ones.
 _Avoid_: J, weekly increment
 
-**Ramp-up Baseline**: The Week 1 starting load (%1RM) of a Reload Cycle, looked up from the 80%RM Test alongside the Weekly Jump.
+**Ramp-up Baseline**: The starting weight of the ramp-up test that finds a lifter's 5RM Goal, looked up from the 80%RM Test as a %1RM alongside the Weekly Jump. The lifter loads it, does 5 reps, adds one Weekly Jump, and repeats until 5 perfect reps fail. It is the first rung of that ladder and never appears in the generated cycle. Week 1 sits one Weekly Jump above it at minimum and usually much further, so the two are not the same number.
+_Avoid_: Week 1 load, starting load
 
-**Loading Constraint**: A Main Lift Block's gym-specific rounding rule for any calculated load — the available weight jump (smallest increment, e.g. 2.5kg) and a rounding mode (nearest / down / up).
+**5RM Goal**: The heaviest weight a lifter can complete a single set of 5 perfect reps with, which becomes Week 5's load and anchors the whole Reload Cycle. The book writes it `5/5@#5` and calls it a series maximum, since Week 5 asks for 5 sets of it rather than the one set that established it. Always lifter-entered, found either by the ramp-up test or from experience. Reload puts a realistic goal between 82% and 88% of 1RM (printed p.10), which the form pre-fills at 85% and warns outside of.
+_Avoid_: Manual Week 5, Week 5 anchor, series maximum
+
+**Loading Constraint**: A Main Lift Block's gym-specific rounding rule: the available weight jump (smallest increment, e.g. 2.5kg) and a rounding mode (nearest / down / up). The mode governs the 5RM Goal and the Ramp-up Baseline. It does not govern the Weekly Jump, which always rounds to nearest, and it never applies to a week's load, which is derived from two already-rounded numbers and so needs no rounding of its own.
 _Avoid_: plate constraint
 
-**Reload Cycle**: The generated Week 1–8 table of prescribed loads/reps for one Main Lift Block, produced by the Strength Reload Strategy. Week 5 is the cycle's anchor load — sourced from the table-driven 80%RM Test lookup (Ramp-up Baseline + 4×Weekly Jump) once the Test is entered, a naive `1RM × 0.85` placeholder before it, or a lifter's Manual entry. Weeks 1–4 derive backward from the Week 5 anchor by subtracting one Weekly Jump per week (5×5 each), Weeks 6–7 derive upward by adding one Weekly Jump per week (Week 6: 3×3, Week 7: 2×2), Week 8 is a 1RM re-test (no fixed load). Overriding the anchor (Manual on Week 5) recomputes every other week relative to it.
+**Reload Cycle**: The generated Week 1–8 table of prescribed loads/reps for one Main Lift Block, produced by the Strength Reload Strategy. Week 5 carries the lifter's 5RM Goal. Weeks 1–4 derive backward from it by subtracting one Weekly Jump per week (5×5 each), Weeks 6–7 derive upward by adding one Weekly Jump per week (Week 6: 3×3, Week 7: 2×2), and Week 8 is a 1RM re-test with no fixed load. Changing the 5RM Goal moves every week, not just Week 5. There is no formula for Week 5 and never was one in the book, which obtains it by physical test. See [ADR-0010](docs/adr/0010-five-rep-max-goal-is-tested-not-derived.md).
 _Avoid_: cycle, program table
 
 **Strategy**: The generation approach that turns a Main Lift Block's 80%RM Test into a Reload Cycle. Strength Reload — based on Pavel Tsatsouline & Fabio Zonin's _Reload: Your Barbell Strength Blueprint_ — is the only Strategy today; named to leave room for others later without a plugin architecture.

@@ -8,11 +8,10 @@
 
 export type ProgramStatus = 'draft' | 'active' | 'completed';
 export type RoundingMode = 'nearest' | 'down' | 'up';
-export type AnchorSource = 'placeholder' | 'table' | 'manual';
 
 export interface RepMaxTestView {
-  oneRepMax: number | null;
-  repsAt80Percent: number | null;
+  oneRepMax: number;
+  repsAt80Percent: number;
 }
 
 export interface LoadingConstraintView {
@@ -22,7 +21,7 @@ export interface LoadingConstraintView {
 
 export interface WeekPrescriptionView {
   week: number;
-  load: number | null;
+  load: number;
   sets: number;
   reps: number;
 }
@@ -32,9 +31,8 @@ export interface MainLiftBlockView {
   exerciseId: string;
   test: RepMaxTestView | null;
   loadingConstraint: LoadingConstraintView;
-  anchorSource: AnchorSource | null;
   cycle: WeekPrescriptionView[] | null;
-  manualWeek5: number | null;
+  fiveRepMaxGoal: number | null;
   week8Retest: number | null;
 }
 
@@ -51,12 +49,22 @@ export interface ExercisePickerItem {
 }
 
 /**
- * A pure preview of the table-driven Week 5 suggestion, supplied by `program/feature-dashboard`
- * (which may depend on `program/domain`'s reload-strategy math) and called from within
- * `program/ui`'s form. The domain function structurally satisfies this shape as-is — no
- * import of `program/domain` needed here, keeping the `type:ui` module boundary intact.
+ * What the form needs to help a lifter pick a 5RM Goal: the pre-fill, the band to warn
+ * outside of, and the ramp-up ladder shown under the field. Structurally satisfied by
+ * `program/domain`'s `RampUpGuidance`, so `program/feature-dashboard` passes it straight
+ * through and the `type:ui` module boundary stays intact.
  */
-export type SuggestWeek5Fn = (input: {
-  test: { oneRepMax: number; repsAt80Percent: number | null };
+export interface RampUpGuidanceView {
+  weeklyJump: number;
+  jumpClampedToIncrement: boolean;
+  rampUpBaseline: number;
+  suggestedGoal: number;
+  goalRange: { min: number; max: number };
+  ladder: number[];
+}
+
+/** Supplied by `program/feature-dashboard`, which may depend on the reload-strategy math. */
+export type RampUpGuidanceFn = (input: {
+  test: RepMaxTestView;
   loadingConstraint: LoadingConstraintView;
-}) => number | null;
+}) => RampUpGuidanceView;

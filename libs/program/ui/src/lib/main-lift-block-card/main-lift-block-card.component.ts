@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, input, output, signal } fro
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MainLiftBlockFormComponent } from '../main-lift-block-form/main-lift-block-form.component';
-import { LoadingConstraintView, MainLiftBlockView, RepMaxTestView, SuggestWeek5Fn } from '../models';
+import { LoadingConstraintView, MainLiftBlockView, RampUpGuidanceFn, RepMaxTestView } from '../models';
 import { ReloadCycleTableComponent } from '../reload-cycle-table/reload-cycle-table.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { ReloadCycleTableComponent } from '../reload-cycle-table/reload-cycle-ta
       <mat-card-content>
         <ft-main-lift-block-form
           [block]="block()"
-          [suggestWeek5]="suggestWeek5()"
+          [rampUpGuidance]="rampUpGuidance()"
           [readOnly]="readOnly()"
           (save)="save.emit($event)"
           (generate)="onGenerate($event)"
@@ -44,14 +44,14 @@ import { ReloadCycleTableComponent } from '../reload-cycle-table/reload-cycle-ta
 export class MainLiftBlockCardComponent {
   readonly block = input.required<MainLiftBlockView>();
   readonly exerciseName = input<string>('');
-  readonly suggestWeek5 = input<SuggestWeek5Fn | null>(null);
+  readonly rampUpGuidance = input<RampUpGuidanceFn | null>(null);
   /** Active/Completed Programs are read-only by default; hides Remove and disables the nested form/table. */
   readonly readOnly = input<boolean>(false);
   /** Bumped on session begin/cancel/save — resets the stale flag on those boundaries without reacting to ordinary blur-staging. */
   readonly sessionEpoch = input<number>(0);
 
   readonly save = output<{ test: RepMaxTestView; loadingConstraint: LoadingConstraintView }>();
-  readonly generate = output<number | null>();
+  readonly generate = output<number>();
   readonly remove = output<void>();
   readonly retestChange = output<number>();
   readonly validityChange = output<boolean>();
@@ -70,8 +70,8 @@ export class MainLiftBlockCardComponent {
     this.stale.set(true);
   }
 
-  protected onGenerate(manualWeek5: number | null): void {
+  protected onGenerate(fiveRepMaxGoal: number): void {
     this.stale.set(false);
-    this.generate.emit(manualWeek5);
+    this.generate.emit(fiveRepMaxGoal);
   }
 }
