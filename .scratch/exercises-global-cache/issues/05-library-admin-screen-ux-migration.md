@@ -15,3 +15,9 @@ Specifically resolve, via a rough prototype to react to:
 ## Notes for this ticket
 
 Blocked by Ticket 01 — needs the actual store API shape to prototype against. Use the `/prototype` skill: a cheap, rough, concrete artifact (stub or working code) is more useful here than describing the UX in prose.
+
+## Revised by ticket 02
+
+The store API is now settled enough to prototype against. It holds an entity collection of `ExerciseResponseModel` plus a `withRequestStatus` signal, fed by a live listener, covering the user's whole role-shaped visible set.
+
+One fact removes a constraint. `sortOrder` travels from the effects through `normalizeSearchOptions` into the request DTO and then goes unused, and `orderBy` appears nowhere in the exercise domain, so documents arrive in Firestore's default ID order. There is no current sort order to preserve, which makes client-side sorting a free choice rather than a migration.

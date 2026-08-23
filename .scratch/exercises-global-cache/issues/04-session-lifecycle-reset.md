@@ -15,3 +15,9 @@ Specifically resolve:
 ## Notes for this ticket
 
 Blocked by Ticket 01 — reset mechanics depend on the store's shape (NgRx action-based reset vs. signalStore state replacement).
+
+## Revised by ticket 02
+
+Two of the three questions are answered. The store subscribes off the `(uid, isAdmin)` pair, so identity changing or going null is itself the reset. It tears down the listener and clears state, and the next login re-arms the load by the same mechanism, with nothing to re-arm explicitly.
+
+What survives is the question ticket 02 could not answer from the store's side. Does Firestore's persistent IndexedDB cache, shared across tabs via `persistentMultipleTabManager`, let a second user on the same device read documents the first user's queries pulled down? If so, clearing in-memory state is not enough, and the persistence layer needs scoping or clearing at logout too.

@@ -15,3 +15,12 @@ Specifically resolve:
 ## Notes for this ticket
 
 Blocked by Ticket 01 — the patch mechanics depend on the chosen store's shape (NgRx action/reducer vs. signalStore `patchState`).
+
+## Revised by ticket 02
+
+Ticket 02 chose a realtime `onSnapshot` listener as the store's data source, which answers most of this ticket for free. Firestore's latency compensation patches the local snapshot before a write confirms and reverts it if the write fails, so the listener re-emits and the cache follows. No hand-written optimistic patch, no hand-written rollback, and no reconciliation against concurrent server-side changes.
+
+What still needs deciding:
+
+- Do the existing create, edit, and delete NgRx effects (`libs/exercise/domain/src/lib/application/+state/exercise.effects.ts`) move into the new signalStore, or stay where they are and let the listener carry their writes into the cache?
+- What does the user see when a write fails? The cache heals itself, but the failure still needs surfacing. Today `exerciseSavedFailure` only reaches `console.error`.

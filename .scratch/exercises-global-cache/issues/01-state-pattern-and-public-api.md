@@ -26,3 +26,7 @@ This is the architectural root of the map — Tickets 02 (eager-load trigger rel
 **Q4 — Store composition:** `withEntities<ExerciseResponseModel>()` + a hand-written `withRequestStatus`-style feature (idle/pending/fulfilled/error), composed via `signalStoreFeature` — NgRx's own documented composition style (`research-ngrx-signalstore-patterns.md`, §1 and §2; `withFeature`'s own JSDoc example is named `withEntityLoader`). `withEntities`'s `updateEntity`/`removeEntity`/`upsertEntity` updaters are the exact "patch entries on write" primitives Ticket 03 needs, tested and free instead of hand-written. `program.store.ts` stays as-is — no retrofit; two independent stores are free to make independent composition choices at this scale.
 
 **Asset:** [research-ngrx-signalstore-patterns.md](../research-ngrx-signalstore-patterns.md) — full primary-source research backing Q3/Q4, including the still-open items (no NgRx rule for `withEntities`-vs-hand-rolled at small scale; no primary source addresses stale-while-revalidate/background-refresh in signalStore terms — left for Ticket 02).
+
+### Correction (from ticket 02)
+
+Q3's re-pointing of `LOAD_EXERCISE_PICKER_LIST_COMMAND` no longer holds. Ticket 02 made the store subscribe off the authenticated identity instead of exposing a load method, and a realtime listener has no refetch to trigger, so the command goes away entirely: token, interface, provider entry, and call site. `EXERCISE_PICKER_QUERY` and the new `EXERCISE_CATALOG_QUERY` are unaffected. See [ticket 02](02-eager-load-trigger-and-loading-ux.md).

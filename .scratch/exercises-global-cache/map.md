@@ -18,6 +18,7 @@ Lock an architecture decision + implementation plan for a global, per-session, e
 ## Decisions so far
 
 - [State pattern and public-api surface](issues/01-state-pattern-and-public-api.md) — `signalStore` (following `program`'s pilot); coexists narrowly with `ExerciseFacade` (new store owns the cached list, facade keeps everything else); `EXERCISE_PICKER_QUERY`/`LOAD_EXERCISE_PICKER_LIST_COMMAND` re-point at the new store, plus a new `EXERCISE_CATALOG_QUERY` token for full-record access; store composed via `withEntities` + a hand-written `withRequestStatus` feature
+- [Eager-load trigger and loading UX](issues/02-eager-load-trigger-and-loading-ux.md) — root store woken by injection in `LayoutComponent`, reacting to the `(uid, isAdmin)` pair instead of exposing a load method; a single `onSnapshot` listener via `collectionData`, consumed through `rxMethod`/`switchMap`/`tapResponse`, gives cache-then-server for free (plain `getDocs` does not read cache-first); new unpaginated `findAllExercises`; `withRequestStatus` exposed per-consumer with no background-refresh indicator; listener errors terminal; `LOAD_EXERCISE_PICKER_LIST_COMMAND` deleted
 
 ## Not yet specified
 
