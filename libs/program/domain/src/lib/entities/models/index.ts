@@ -1,4 +1,3 @@
-export * from './anchor-source';
 export * from './loading-constraint';
 export * from './main-lift-block';
 export * from './program';

@@ -4,7 +4,7 @@ import { WeekPrescription } from '../models/week-prescription';
 import { buildProgramWorkbook, programExportFileName } from './program-workbook';
 import { SheetRow } from './workbook';
 
-const cycle = (loads: Array<number | null>): WeekPrescription[] =>
+const cycle = (loads: number[]): WeekPrescription[] =>
   loads.map((load, index) => ({ week: index + 1, load, sets: 5, reps: 5 }));
 
 const block = (overrides: Partial<MainLiftBlock> = {}): MainLiftBlock => ({
@@ -12,9 +12,8 @@ const block = (overrides: Partial<MainLiftBlock> = {}): MainLiftBlock => ({
   exerciseId: 'squat',
   test: { oneRepMax: 140, repsAt80Percent: 7 },
   loadingConstraint: { increment: 2.5, roundingMode: 'nearest' },
-  anchorSource: 'table',
   cycle: cycle([90, 95, 102.5, 107.5, 112.5, 117.5, 122.5]),
-  manualWeek5: null,
+  fiveRepMaxGoal: 112.5,
   week8Retest: 150,
   ...overrides,
 });
@@ -149,12 +148,15 @@ describe('buildProgramWorkbook — block rows', () => {
     expect(rows[5][10]?.numberFormat).toBeUndefined();
   });
 
-  it('renders an em dash for a null load inside Weeks 1–7 (placeholder anchor)', () => {
+  it('renders an em dash for a week the saved cycle carries no row for', () => {
     const { rows } = build([
-      block({ test: { oneRepMax: 100, repsAt80Percent: null }, cycle: cycle([null, null, null, null, 85, null, null]) }),
+      block({
+        test: { oneRepMax: 100, repsAt80Percent: 7 },
+        cycle: [{ week: 5, load: 85, sets: 5, reps: 5 }],
+      }),
     ]);
 
-    expect(valuesOf(rows[5])).toEqual(['Back Squat', 100, '—', '—', '—', '—', '—', 85, '—', '—', 150]);
+    expect(valuesOf(rows[5])).toEqual(['Back Squat', 100, 7, '—', '—', '—', '—', 85, '—', '—', 150]);
   });
 
   it('falls back to a placeholder name for an exercise id it was given no name for', () => {

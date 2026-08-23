@@ -1,4 +1,3 @@
-import { AnchorSource } from './anchor-source';
 import { LoadingConstraint } from './loading-constraint';
 import { RepMaxTest } from './rep-max-test';
 import { WeekPrescription } from './week-prescription';
@@ -13,9 +12,8 @@ export interface MainLiftBlock {
   exerciseId: string;
   test: RepMaxTest | null;
   loadingConstraint: LoadingConstraint;
-  anchorSource: AnchorSource | null;
   cycle: WeekPrescription[] | null;
-  /** The lifter-entered Week 5 override that produced `cycle`, if `anchorSource === 'manual'`. */
-  manualWeek5: number | null;
+  /** The 5RM Goal that produced `cycle`. Null until the lifter generates one. */
+  fiveRepMaxGoal: number | null;
   week8Retest: number | null;
 }

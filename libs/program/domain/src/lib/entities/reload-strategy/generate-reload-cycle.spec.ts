@@ -2,14 +2,20 @@ import { LoadingConstraint } from '../models/loading-constraint';
 import { RepMaxTest } from '../models/rep-max-test';
 import { WeekPrescription } from '../models/week-prescription';
 import { generateReloadCycle } from './generate-reload-cycle';
+import { calculateRampUpGuidance, calculateWeeklyJump } from './ramp-up-guidance';
 import { lookupWeeklyJumpAndBaseline } from './weekly-jump-table';
 
-// Minimum test checklist mandated by
-// .scratch/strength-reload-calculator/issues/05-testing-approach-calculation-engine.md
-// (14 cases across 5 requirements). Each `it` names the requirement row it satisfies.
+function loadsOf(cycle: WeekPrescription[]): number[] {
+  return cycle.map((week) => week.load);
+}
 
-function loadOf(cycle: WeekPrescription[], week: number): number | null {
-  return cycle.find((w) => w.week === week)?.load ?? null;
+function gapsOf(cycle: WeekPrescription[]): number[] {
+  const loads = loadsOf(cycle);
+  return loads.slice(1).map((load, index) => Math.round((load - loads[index]) * 100) / 100);
+}
+
+function loadOfWeek(cycle: WeekPrescription[], week: number): number | undefined {
+  return cycle.find((prescription) => prescription.week === week)?.load;
 }
 
 const constraint = (increment: number, roundingMode: LoadingConstraint['roundingMode']): LoadingConstraint => ({
@@ -17,7 +23,7 @@ const constraint = (increment: number, roundingMode: LoadingConstraint['rounding
   roundingMode,
 });
 
-describe('Requirement 1: table boundary cutoffs (reps 5, 6, 8, 9, 10, 11)', () => {
+describe('the Weekly Jump / Ramp-up Baseline table', () => {
   it('reps=5 falls in the ≤5 band (5% / 60%)', () => {
     expect(lookupWeeklyJumpAndBaseline(5)).toEqual({ weeklyJumpPercent: 0.05, rampUpBaselinePercent: 0.6 });
   });
@@ -43,107 +49,154 @@ describe('Requirement 1: table boundary cutoffs (reps 5, 6, 8, 9, 10, 11)', () =
   });
 });
 
-describe('Requirement 2: anchor-source convergence (placeholder, table-driven, manual)', () => {
-  const loadingConstraint = constraint(1, 'nearest');
+/**
+ * The one group here that can catch our arithmetic drifting away from the source. Every
+ * other case checks the code against itself, which is how the previous derivation shipped
+ * with a docblock claiming it was verified.
+ *
+ * Reload, Step-by-Step Pre-testing (printed p.13) and Plan Design (printed p.16). Smaller
+ * plates available: 2.5lb, so the smallest available weight jump is 5lb.
+ */
+describe("Reload's own printed worked example (1RM 450lb, 8 reps, 5lb jumps)", () => {
+  const test: RepMaxTest = { oneRepMax: 450, repsAt80Percent: 8 };
+  const loadingConstraint = constraint(5, 'nearest');
 
-  it('placeholder anchor (no reps result yet) — only Week 5 is knowable', () => {
-    const test: RepMaxTest = { oneRepMax: 100, repsAt80Percent: null };
-
-    const { anchorSource, cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
-
-    expect(anchorSource).toBe('placeholder');
-    expect(loadOf(cycle, 5)).toBe(85); // round(100 × 0.85)
-    expect(loadOf(cycle, 1)).toBeNull();
-    expect(loadOf(cycle, 4)).toBeNull();
-    expect(loadOf(cycle, 6)).toBeNull();
-    expect(loadOf(cycle, 7)).toBeNull();
+  it('rounds the weekly jump to 20lb, as the book does (450 × .04 = 18lb)', () => {
+    expect(calculateWeeklyJump(test, 5)).toEqual({ weeklyJump: 20, jumpClampedToIncrement: false });
   });
 
-  it('table-driven anchor derives Weeks 1–4 backward and 6–7 upward by one Weekly Jump', () => {
-    const test: RepMaxTest = { oneRepMax: 100, repsAt80Percent: 7 }; // 6–8 band: 4% jump, 65% baseline
-
-    const { anchorSource, cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
-
-    expect(anchorSource).toBe('table');
-    expect(loadOf(cycle, 5)).toBe(81); // round(100 × (0.65 + 4×0.04))
-    expect(loadOf(cycle, 4)).toBe(77);
-    expect(loadOf(cycle, 3)).toBe(73);
-    expect(loadOf(cycle, 2)).toBe(69);
-    expect(loadOf(cycle, 1)).toBe(65);
-    expect(loadOf(cycle, 6)).toBe(85);
-    expect(loadOf(cycle, 7)).toBe(89);
+  it('rounds the ramp-up baseline to 295lb, as the book does (450 × .65 = 292.5lb)', () => {
+    expect(calculateRampUpGuidance({ test, loadingConstraint }).rampUpBaseline).toBe(295);
   });
 
-  it('manual anchor derives the same backward/upward pattern around the overridden Week 5', () => {
-    const test: RepMaxTest = { oneRepMax: 100, repsAt80Percent: 7 };
+  it('reproduces the printed cycle from the tested 5/5@#5 goal of 395lb', () => {
+    const cycle = generateReloadCycle({ test, loadingConstraint, fiveRepMaxGoal: 395 });
 
-    const { anchorSource, cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: 90 });
+    expect(loadsOf(cycle)).toEqual([315, 335, 355, 375, 395, 415, 435]);
+  });
 
-    expect(anchorSource).toBe('manual');
-    expect(loadOf(cycle, 5)).toBe(90);
-    expect(loadOf(cycle, 4)).toBe(86);
-    expect(loadOf(cycle, 3)).toBe(82);
-    expect(loadOf(cycle, 2)).toBe(78);
-    expect(loadOf(cycle, 1)).toBe(74);
-    expect(loadOf(cycle, 6)).toBe(94);
-    expect(loadOf(cycle, 7)).toBe(98);
+  it('ramps up to the tested goal in one-jump steps from the baseline', () => {
+    const { ladder } = calculateRampUpGuidance({ test, loadingConstraint });
+
+    expect(ladder.slice(0, 6)).toEqual([295, 315, 335, 355, 375, 395]);
   });
 });
 
-describe('Requirement 3: Manual override on Week 5 cascades to Weeks 1–4 and 6–7', () => {
-  it('recomputes every other week relative to the override, not just the Week 5 cell', () => {
-    const test: RepMaxTest = { oneRepMax: 100, repsAt80Percent: 7 };
-    const loadingConstraint = constraint(1, 'nearest');
+describe('deriving the cycle from the 5RM Goal', () => {
+  const test: RepMaxTest = { oneRepMax: 200, repsAt80Percent: 8 };
+  const loadingConstraint = constraint(2.5, 'nearest');
 
-    const tableDriven = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
-    const manuallyOverridden = generateReloadCycle({ test, loadingConstraint, manualWeek5: 100 });
+  it('derives Weeks 1–4 backward and 6–7 upward by one weekly jump each', () => {
+    const cycle = generateReloadCycle({ test, loadingConstraint, fiveRepMaxGoal: 170 });
 
-    expect(loadOf(manuallyOverridden.cycle, 5)).toBe(100);
-    // Weeks away from the anchor moved too — proof this isn't a single-cell-only override.
-    expect(loadOf(manuallyOverridden.cycle, 1)).toBe(84);
-    expect(loadOf(manuallyOverridden.cycle, 1)).not.toBe(loadOf(tableDriven.cycle, 1));
-    expect(loadOf(manuallyOverridden.cycle, 7)).toBe(108);
-    expect(loadOf(manuallyOverridden.cycle, 7)).not.toBe(loadOf(tableDriven.cycle, 7));
+    expect(loadsOf(cycle)).toEqual([140, 147.5, 155, 162.5, 170, 177.5, 185]);
+  });
+
+  it('carries the prescribed sets and reps, with 3×3 in Week 6 and 2×2 in Week 7', () => {
+    const cycle = generateReloadCycle({ test, loadingConstraint, fiveRepMaxGoal: 170 });
+
+    expect(cycle.map(({ week, sets, reps }) => ({ week, sets, reps }))).toEqual([
+      { week: 1, sets: 5, reps: 5 },
+      { week: 2, sets: 5, reps: 5 },
+      { week: 3, sets: 5, reps: 5 },
+      { week: 4, sets: 5, reps: 5 },
+      { week: 5, sets: 5, reps: 5 },
+      { week: 6, sets: 3, reps: 3 },
+      { week: 7, sets: 2, reps: 2 },
+    ]);
+  });
+
+  it('shifts the whole cycle when the goal changes, not just the Week 5 cell', () => {
+    const lighter = generateReloadCycle({ test, loadingConstraint, fiveRepMaxGoal: 170 });
+    const heavier = generateReloadCycle({ test, loadingConstraint, fiveRepMaxGoal: 180 });
+
+    expect(loadsOf(heavier)).toEqual(loadsOf(lighter).map((load) => load + 10));
   });
 });
 
-describe('Requirement 4: rounding modes interacting with the derivation', () => {
-  it('nearest rounds nearest fixture (101, reps 7, ×2.5 increment) up to 82.5', () => {
-    const test: RepMaxTest = { oneRepMax: 101, repsAt80Percent: 7 };
-    const loadingConstraint = constraint(2.5, 'nearest');
+describe('rounding happens to the inputs, never to a week total', () => {
+  const test: RepMaxTest = { oneRepMax: 200, repsAt80Percent: 8 };
 
-    const { cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
+  it('rounds a goal that sits off the gym grid before deriving from it', () => {
+    const cycle = generateReloadCycle({ test, loadingConstraint: constraint(2.5, 'nearest'), fiveRepMaxGoal: 171 });
 
-    expect(loadOf(cycle, 5)).toBe(82.5); // raw 81.81 → 32.724 increments → nearest 33 → 82.5
+    expect(loadOfWeek(cycle, 5)).toBe(170);
   });
 
-  it('down truncates the same fixture to 80 instead of rounding up', () => {
-    const test: RepMaxTest = { oneRepMax: 101, repsAt80Percent: 7 };
-    const loadingConstraint = constraint(2.5, 'down');
+  it('honours a down rounding mode on the goal', () => {
+    const cycle = generateReloadCycle({ test, loadingConstraint: constraint(5, 'down'), fiveRepMaxGoal: 174 });
 
-    const { cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
-
-    expect(loadOf(cycle, 5)).toBe(80); // 32.724 increments → floor 32 → 80
+    expect(loadOfWeek(cycle, 5)).toBe(170);
   });
 
-  it('up rounds a fixture (99, reps 7, ×2.5 increment) to 82.5 where nearest would round down', () => {
-    const test: RepMaxTest = { oneRepMax: 99, repsAt80Percent: 7 };
-    const loadingConstraint = constraint(2.5, 'up');
+  /**
+   * The mode governs the goal and the baseline, never the jump. Reload says "closest"
+   * every time it rounds, and a mode applied to the jump compounds across all seven weeks.
+   * A 'down' mode here would round 18lb to 15lb and pull Week 1 down to 335lb.
+   */
+  it('rounds the weekly jump to nearest even when the mode says down', () => {
+    const bookExample: RepMaxTest = { oneRepMax: 450, repsAt80Percent: 8 };
+    const cycle = generateReloadCycle({
+      test: bookExample,
+      loadingConstraint: constraint(5, 'down'),
+      fiveRepMaxGoal: 395,
+    });
 
-    const { cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
-
-    expect(loadOf(cycle, 5)).toBe(82.5); // raw 80.19 → 32.076 increments → ceil 33 → 82.5
+    expect(gapsOf(cycle)).toEqual([20, 20, 20, 20, 20, 20]);
+    expect(loadsOf(cycle)).toEqual([315, 335, 355, 375, 395, 415, 435]);
   });
 });
 
-describe('Requirement 5: rounding-collision is tolerated, not a bug', () => {
-  it('lets two adjacent weeks collapse to the same displayed load under a coarse increment', () => {
-    const test: RepMaxTest = { oneRepMax: 100, repsAt80Percent: 11 }; // >10 band: 2% jump
-    const loadingConstraint = constraint(5, 'nearest');
+describe('every week is one whole jump apart, with no repeats', () => {
+  it('keeps the gaps even under a coarse increment that used to collapse two weeks', () => {
+    // The fixture that previously produced 75, 80, 80, 85, 85, 85, 90.
+    const test: RepMaxTest = { oneRepMax: 100, repsAt80Percent: 11 };
+    const cycle = generateReloadCycle({ test, loadingConstraint: constraint(5, 'nearest'), fiveRepMaxGoal: 85 });
 
-    const { cycle } = generateReloadCycle({ test, loadingConstraint, manualWeek5: null });
+    expect(gapsOf(cycle)).toEqual([5, 5, 5, 5, 5, 5]);
+    expect(new Set(loadsOf(cycle)).size).toBe(7);
+  });
 
-    expect(loadOf(cycle, 5)).toBe(85); // raw 83 → 16.6 increments → nearest 17 → 85
-    expect(loadOf(cycle, 6)).toBe(85); // raw 85 → 17 increments exactly → 85, same as Week 5
+  it('clamps a jump smaller than the increment up to one increment, rather than flattening the cycle', () => {
+    // 100 × 2% = 2, which rounds to 0 against a 5 increment and would repeat 85 seven times.
+    expect(calculateWeeklyJump({ oneRepMax: 100, repsAt80Percent: 11 }, 5)).toEqual({
+      weeklyJump: 5,
+      jumpClampedToIncrement: true,
+    });
+  });
+
+  it('leaves a fractional jump alone when the increment can express it', () => {
+    expect(calculateWeeklyJump({ oneRepMax: 200, repsAt80Percent: 8 }, 2.5)).toEqual({
+      weeklyJump: 7.5,
+      jumpClampedToIncrement: false,
+    });
+  });
+});
+
+describe('guidance for picking a 5RM Goal', () => {
+  const test: RepMaxTest = { oneRepMax: 200, repsAt80Percent: 8 };
+  const loadingConstraint = constraint(2.5, 'nearest');
+
+  it('suggests 85% of 1RM, per Reload printed p.10', () => {
+    expect(calculateRampUpGuidance({ test, loadingConstraint }).suggestedGoal).toBe(170);
+  });
+
+  it('brackets a plausible goal between 82% and 88% of 1RM', () => {
+    // Rounded outward, so 164 and 176 both stay inside the band rather than being warned about.
+    expect(calculateRampUpGuidance({ test, loadingConstraint }).goalRange).toEqual({ min: 162.5, max: 177.5 });
+  });
+
+  it('widens the band rather than shifting it when the lifter rounds up', () => {
+    const roundingUp = calculateRampUpGuidance({ test, loadingConstraint: constraint(2.5, 'up') });
+
+    expect(roundingUp.goalRange).toEqual({ min: 162.5, max: 177.5 });
+  });
+
+  it("keeps the ramp-up baseline clear of Week 1's load, which sits a whole jump above it", () => {
+    const guidance = calculateRampUpGuidance({ test, loadingConstraint });
+    const cycle = generateReloadCycle({ test, loadingConstraint, fiveRepMaxGoal: guidance.suggestedGoal });
+
+    expect(guidance.rampUpBaseline).toBe(130);
+    expect(loadOfWeek(cycle, 1)).toBe(140);
   });
 });
